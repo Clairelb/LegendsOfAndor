@@ -2,33 +2,32 @@ package com.example.androidchat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.content.Intent;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
+import com.google.gson.Gson;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
-import tech.gusavila92.websocketclient.WebSocketClient;
-
+enum LoginResponses {
+    LOGIN_SUCCESS, NEW_LOGIN_CREATED, LOGIN_ERROR_INCORRECT_PASSWORD, LOGIN_ERROR_NO_RESPONSE_FROM_SERVER
+}
 
 public class Login extends AppCompatActivity {
+    private String username;
+    private String password;
 
+    private EditText usernameInput;
+    private EditText passwordInput;
 
-    String username, password;
-
-    EditText usernameInput;
-    EditText passwordInput;
-
-    Button loginButton;
-
+    private Button loginButton;
+    private Player p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +35,71 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        //get username and password input from user
-        usernameInput = (EditText) findViewById(R.id.usernameInput);
-        passwordInput = (EditText) findViewById(R.id.passwordInput);
+        // set EditText objects
+        usernameInput = findViewById(R.id.usernameInput);
+        passwordInput = findViewById(R.id.passwordInput);
 
         //when login button is pressed get username and password
-        loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AsyncTask<String, Void, LoginResponses> asyncTask;
+                LoginResponses loginResponse;
+
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
 
-                //put username in a bundle and sent to chat screen class
-                Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("user",username);
-                myIntent.putExtras(bundle);
-                startActivity(myIntent);
+                p = new Player(username, password);
+                usernameInput.setText("");
+                passwordInput.setText("");
+
+                try {
+                    NetworkSender networkSender = new NetworkSender();
+                    asyncTask = networkSender.execute(new Gson().toJson(p));
+                    loginResponse = asyncTask.get();
+                    if (loginResponse == LoginResponses.LOGIN_ERROR_INCORRECT_PASSWORD) {
+                        Toast.makeText(Login.this, "Login error. Incorrect password", Toast.LENGTH_LONG).show();
+                    } else if (loginResponse == LoginResponses.LOGIN_ERROR_NO_RESPONSE_FROM_SERVER) {
+                        Toast.makeText(Login.this, "Login error. No response from server.", Toast.LENGTH_LONG).show();
+                    } else {
+                        if (loginResponse == LoginResponses.LOGIN_SUCCESS) {
+                            Toast.makeText(Login.this, "Login success. Welcome back.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(Login.this, "Login success. New account created.", Toast.LENGTH_LONG).show();
+                        }
+                        //put username in a bundle and sent to chat screen class
+                        Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putString("user",username);
+                        myIntent.putExtras(bundle);
+                        startActivity(myIntent);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
+    }
+
+    private static class NetworkSender extends AsyncTask<String, Void, LoginResponses> {
+        @Override
+        protected LoginResponses doInBackground(String... strings) {
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://192.168.0.151:8080/login")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, LoginResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return LoginResponses.LOGIN_ERROR_NO_RESPONSE_FROM_SERVER;
+        }
     }
 }
