@@ -18,7 +18,7 @@ import java.util.Random;
 public class ChatScreen extends AppCompatActivity implements RoomListener {
 
 
-    //channel ID and room to connect to
+    //channel ID and room to connect to.
     private String channelID = "Vs10DZ4cK13y3m6K";
     private String roomName = "observable-room";
 
