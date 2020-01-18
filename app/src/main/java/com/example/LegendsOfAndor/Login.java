@@ -1,4 +1,4 @@
-package com.example.androidchat;
+package com.example.LegendsOfAndor;
 
 import androidx.appcompat.app.AppCompatActivity;
 

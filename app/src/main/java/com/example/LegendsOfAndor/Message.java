@@ -1,4 +1,4 @@
-package com.example.androidchat;
+package com.example.LegendsOfAndor;
 
 public class Message {
     private  String text;
