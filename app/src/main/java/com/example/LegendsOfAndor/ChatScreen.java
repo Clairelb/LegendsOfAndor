@@ -27,6 +27,7 @@ public class ChatScreen extends AppCompatActivity implements RoomListener {
     private MessageAdapter messageAdapter;
     private ListView messagesView;
     String username;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ public class ChatScreen extends AppCompatActivity implements RoomListener {
 
         //get username info sent in bundle from login page
         Bundle bundle = getIntent().getExtras();
-        username = bundle.getString("user");
+        username = bundle.getString("username");
+        password = bundle.getString("password");
 
         //the text you are editing before sending
         editText = (EditText) findViewById(R.id.editText);
@@ -46,10 +48,10 @@ public class ChatScreen extends AppCompatActivity implements RoomListener {
         messagesView.setAdapter(messageAdapter);
 
         //create a new user with the username and generate a random color
-        MemberData data = new MemberData(username, getRandomColor());
+        Player player = new Player(username,password,GlobalStaticMethods.getRandomColor());
 
         //connect to scaledrone server
-        scaledrone = new Scaledrone(channelID, data);
+        scaledrone = new Scaledrone(channelID, player);
         scaledrone.connect(new Listener() {
             @Override
             public void onOpen() {
@@ -98,9 +100,9 @@ public class ChatScreen extends AppCompatActivity implements RoomListener {
     public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
         final ObjectMapper mapper = new ObjectMapper();
         try {
-            final MemberData data = mapper.treeToValue(receivedMessage.getMember().getClientData(), MemberData.class);
+            final Player player = mapper.treeToValue(receivedMessage.getMember().getClientData(), Player.class);
             boolean belongsToCurrentUser = receivedMessage.getClientID().equals(scaledrone.getClientID());
-            final Message message = new Message(receivedMessage.getData().asText(), data, belongsToCurrentUser);
+            final Message message = new Message(receivedMessage.getData().asText(), player, belongsToCurrentUser);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -113,43 +115,5 @@ public class ChatScreen extends AppCompatActivity implements RoomListener {
         }
     }
 
-    //get random color for user
-    private String getRandomColor() {
-        Random r = new Random();
-        StringBuffer sb = new StringBuffer("#");
-        while(sb.length() < 7){
-            sb.append(Integer.toHexString(r.nextInt()));
-        }
-        return sb.toString().substring(0, 7);
-    }
 }
 
-//the date associated with a user. Just a name and a color
-class MemberData {
-    private String name;
-    private String color;
-
-    public MemberData(String name, String color) {
-        this.name = name;
-        this.color = color;
-    }
-
-    public MemberData() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    @Override
-    public String toString() {
-        return "MemberData{" +
-                "name='" + name + '\'' +
-                ", color='" + color + '\'' +
-                '}';
-    }
-}

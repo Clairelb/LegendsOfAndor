@@ -24,7 +24,7 @@ public class MessageAdapter extends BaseAdapter {
 
     public void add(Message message){
         this.messages.add(message);
-        notifyDataSetChanged();;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -61,12 +61,11 @@ public class MessageAdapter extends BaseAdapter {
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
 
-            holder.name.setText(message.getMemberData().getName());
+            holder.name.setText(message.getPlayer().getUsername());
             holder.messageBody.setText(message.getText());
             GradientDrawable drawable = (GradientDrawable) holder.avatar.getBackground();
-            drawable.setColor(Color.parseColor(message.getMemberData().getColor()));
+            drawable.setColor(Color.parseColor(message.getPlayer().getColor()));
         }
-
         return convertView;
     }
 

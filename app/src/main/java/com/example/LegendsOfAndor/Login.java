@@ -50,7 +50,7 @@ public class Login extends AppCompatActivity {
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
 
-                p = new Player(username, password);
+                p = new Player(username, password, GlobalStaticMethods.getRandomColor() );
                 usernameInput.setText("");
                 passwordInput.setText("");
 
@@ -71,7 +71,8 @@ public class Login extends AppCompatActivity {
                         //put username in a bundle and sent to chat screen class
                         Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
                         Bundle bundle = new Bundle();
-                        bundle.putString("user",username);
+                        bundle.putString("username",username);
+                        bundle.putString("password", password);
                         myIntent.putExtras(bundle);
                         startActivity(myIntent);
                     }
