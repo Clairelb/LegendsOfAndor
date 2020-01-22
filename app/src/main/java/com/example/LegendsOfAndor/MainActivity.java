@@ -8,7 +8,7 @@ import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button startButton;
+    private Button startButton; // hi
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
