@@ -5,6 +5,7 @@ import java.util.Random;
 public class GlobalStaticMethods {
 
     //get random color for user
+    //update
     public static String getRandomColor() {
         Random r = new Random();
         StringBuffer sb = new StringBuffer("#");
