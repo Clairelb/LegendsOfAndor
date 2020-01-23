@@ -26,6 +26,12 @@
             android:name="com.example.LegendsOfAndor.Login"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".joinLobby"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".hostLobby"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".createGame"
+            android:screenOrientation="sensorLandscape"/>
 
     </application>
 
