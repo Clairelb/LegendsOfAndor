@@ -16,7 +16,7 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 enum LoginResponses {
-    LOGIN_SUCCESS, NEW_LOGIN_CREATED, LOGIN_ERROR_INCORRECT_PASSWORD, LOGIN_ERROR_NO_RESPONSE_FROM_SERVER
+    LOGIN_SUCCESS, NEW_LOGIN_CREATED, LOGIN_ERROR_INCORRECT_PASSWORD, LOGIN_ERROR_ALREADY_LOGGED_IN
 }
 
 public class Login extends AppCompatActivity {
@@ -50,18 +50,20 @@ public class Login extends AppCompatActivity {
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
 
-                p = new Player(username, password, GlobalStaticMethods.getRandomColor() );
+                p = new Player(username, password, GlobalStaticMethods.getRandomColor(), false);
                 usernameInput.setText("");
                 passwordInput.setText("");
 
                 try {
-                    NetworkSender networkSender = new NetworkSender();
-                    asyncTask = networkSender.execute(new Gson().toJson(p));
+                    LoginSender loginSender = new LoginSender();
+                    asyncTask = loginSender.execute(new Gson().toJson(p));
                     loginResponse = asyncTask.get();
-                    if (loginResponse == LoginResponses.LOGIN_ERROR_INCORRECT_PASSWORD) {
-                        Toast.makeText(Login.this, "Login error. Incorrect password", Toast.LENGTH_LONG).show();
-                    } else if (loginResponse == LoginResponses.LOGIN_ERROR_NO_RESPONSE_FROM_SERVER) {
+                    if (loginResponse == null) {
                         Toast.makeText(Login.this, "Login error. No response from server.", Toast.LENGTH_LONG).show();
+                    } else if (loginResponse == LoginResponses.LOGIN_ERROR_INCORRECT_PASSWORD) {
+                        Toast.makeText(Login.this, "Login error. Incorrect password", Toast.LENGTH_LONG).show();
+                    } else if (loginResponse == LoginResponses.LOGIN_ERROR_ALREADY_LOGGED_IN) {
+                        Toast.makeText(Login.this, "Login error. Player is already logged in", Toast.LENGTH_LONG).show();
                     } else {
                         if (loginResponse == LoginResponses.LOGIN_SUCCESS) {
                             Toast.makeText(Login.this, "Login success. Welcome back.", Toast.LENGTH_LONG).show();
@@ -82,21 +84,22 @@ public class Login extends AppCompatActivity {
                 }
                 //when start button is pressed go to login page
 
-                Intent myIntent = new Intent(v.getContext(), createGame.class);
-                startActivity(myIntent);
+                // I COMMENTED THIS FOR TESTING CAN UNCOMMENT AFTER************************* - Bowen
+                //Intent myIntent = new Intent(v.getContext(), createGame.class);
+                //startActivity(myIntent);
 
 
             }
         });
     }
 
-    private static class NetworkSender extends AsyncTask<String, Void, LoginResponses> {
+    private static class LoginSender extends AsyncTask<String, Void, LoginResponses> {
         @Override
         protected LoginResponses doInBackground(String... strings) {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://10.122.156.63:8080/login")
+                response = Unirest.post("http://192.168.0.151:8080/login")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
@@ -106,7 +109,7 @@ public class Login extends AppCompatActivity {
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
-            return LoginResponses.LOGIN_ERROR_NO_RESPONSE_FROM_SERVER;
+            return null;
         }
     }
 }

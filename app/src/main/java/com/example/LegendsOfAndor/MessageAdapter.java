@@ -14,9 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageAdapter extends BaseAdapter {
-
-    List<Message> messages = new ArrayList<>();
-    Context context;
+    private List<Message> messages = new ArrayList<>();
+    private Context context;
 
     public MessageAdapter(Context context){
         this.context = context;
@@ -53,7 +52,7 @@ public class MessageAdapter extends BaseAdapter {
             convertView = messageInflater.inflate(R.layout.my_message, null);
             holder.messageBody = (TextView) convertView.findViewById(R.id.message_body);
             convertView.setTag(holder);
-            holder.messageBody.setText(message.getText());
+            holder.messageBody.setText(message.getMsg());
         } else {
             convertView = messageInflater.inflate(R.layout.their_message, null);
             holder.avatar = (View) convertView.findViewById(R.id.avatar);
@@ -62,7 +61,7 @@ public class MessageAdapter extends BaseAdapter {
             convertView.setTag(holder);
 
             holder.name.setText(message.getPlayer().getUsername());
-            holder.messageBody.setText(message.getText());
+            holder.messageBody.setText(message.getMsg());
             GradientDrawable drawable = (GradientDrawable) holder.avatar.getBackground();
             drawable.setColor(Color.parseColor(message.getPlayer().getColor()));
         }

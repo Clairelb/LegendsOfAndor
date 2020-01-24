@@ -1,33 +1,34 @@
 package com.example.LegendsOfAndor;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.scaledrone.lib.Listener;
-import com.scaledrone.lib.Room;
-import com.scaledrone.lib.RoomListener;
-import com.scaledrone.lib.Scaledrone;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 
-import java.util.Random;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-public class ChatScreen extends AppCompatActivity implements RoomListener {
-
-
+public class ChatScreen extends AppCompatActivity {
     //channel ID and room to connect to.
     private String channelID = "Vs10DZ4cK13y3m6K";
     private String roomName = "observable-room";
 
     private EditText editText;
-    private Scaledrone scaledrone;
+    private ImageButton sendButton;
     private MessageAdapter messageAdapter;
     private ListView messagesView;
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,79 +42,127 @@ public class ChatScreen extends AppCompatActivity implements RoomListener {
         password = bundle.getString("password");
 
         //the text you are editing before sending
-        editText = (EditText) findViewById(R.id.editText);
+        editText = findViewById(R.id.editText);
 
         messageAdapter = new MessageAdapter(this);
-        messagesView = (ListView) findViewById(R.id.messages_view);
+        messagesView = findViewById(R.id.messages_view);
         messagesView.setAdapter(messageAdapter);
 
+        sendButton = findViewById(R.id.sendButton);
+
+        try {
+           AsyncTask<String, Void, ArrayList<Message>> asyncTask;
+           OldMessagesRetriever oldMessagesRetriever = new OldMessagesRetriever();
+           asyncTask = oldMessagesRetriever.execute();
+
+           if (asyncTask.get() != null) {
+               for (Message m : asyncTask.get()) {
+                   if (m.getPlayer().getUsername().equals(username)) {
+                       m.setBelongsToCurrentUser(true);
+                   } else {
+                       m.setBelongsToCurrentUser(false);
+                   }
+
+                   messageAdapter.add(m);
+                   messagesView.setSelection(messagesView.getCount() - 1);
+               }
+           }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+
         //create a new user with the username and generate a random color
-        Player player = new Player(username,password,GlobalStaticMethods.getRandomColor());
+        final Player player = new Player(username, password, GlobalStaticMethods.getRandomColor(),true);
 
-        //connect to scaledrone server
-        scaledrone = new Scaledrone(channelID, player);
-        scaledrone.connect(new Listener() {
+        sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onOpen() {
-                System.out.println("Scaledrone connection open");
-                scaledrone.subscribe(roomName, ChatScreen.this);
-            }
+            public void onClick(View v) {
+                String message = editText.getText().toString();
 
-            @Override
-            public void onOpenFailure(Exception ex) {
-                System.err.println(ex);
-            }
+                if (message.length() > 0) {
+                    Message newMessage = new Message(player, message, true);
 
-            @Override
-            public void onFailure(Exception ex) {
-                System.err.println(ex);
-            }
+                    editText.getText().clear(); // clear editText
 
-            @Override
-            public void onClosed(String reason) {
-                System.err.println(reason);
+                    messageAdapter.add(newMessage);
+                    messagesView.setSelection(messagesView.getCount() - 1);
+
+                    try {
+                        MessageSender messageSender = new MessageSender();
+                        messageSender.execute(new Gson().toJson(newMessage), username);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         });
-    }
 
-    //send a message to scaledrone server
-    public void sendMessage(View view) {
-        String message = editText.getText().toString();
-        if (message.length() > 0) {
-            scaledrone.publish(roomName, message);
-            editText.getText().clear(); //clear the text bar after sending message
-        }
-    }
+        Thread t = new Thread(new Runnable() { // this runs forever checking for new messages
+            @Override
+            public void run() {
+                while(true) {
+                    try {
+                        HttpResponse<String> response = Unirest.get("http://192.168.0.151:8080/game1/"+username+"/getMsg") // here game1 is a test, the gameName goes here
+                                .asString();
 
-    @Override
-    public void onOpen(Room room) {
-        System.out.println("Conneted to room");
-    }
+                        if (response.getCode() == 200) {
+                            MessageDatabase messageDatabase = new Gson().fromJson(response.getBody(), MessageDatabase.class);
+                            final Message incomingMsg = messageDatabase.getMessages().get(messageDatabase.getMessages().size() - 1);
 
-    @Override
-    public void onOpenFailure(Room room, Exception ex) {
-        System.err.println(ex);
-    }
+                            if (!incomingMsg.getPlayer().getUsername().equals(username)) {
+                                incomingMsg.setBelongsToCurrentUser(false);
+                                runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
+                                    @Override
+                                    public void run() {
+                                        messageAdapter.add(incomingMsg);
+                                        messagesView.setSelection(messagesView.getCount() - 1);
+                                    }
+                                });
+                            }
+                        }
 
-    //what do do when a message is sent
-    @Override
-    public void onMessage(Room room, com.scaledrone.lib.Message receivedMessage) {
-        final ObjectMapper mapper = new ObjectMapper();
-        try {
-            final Player player = mapper.treeToValue(receivedMessage.getMember().getClientData(), Player.class);
-            boolean belongsToCurrentUser = receivedMessage.getClientID().equals(scaledrone.getClientID());
-            final Message message = new Message(receivedMessage.getData().asText(), player, belongsToCurrentUser);
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    messageAdapter.add(message);
-                    messagesView.setSelection(messagesView.getCount() - 1);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
-            });
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+            }
+        });
+        t.start();
     }
 
+    private static class OldMessagesRetriever extends AsyncTask<String, Void, ArrayList<Message>> {
+        @Override
+        protected ArrayList<Message> doInBackground(String... strings) {
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://192.168.0.151:8080/game1/getAllMsgs") // here game1 is a test, the gameName goes here
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Message>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+    private static class MessageSender extends AsyncTask<String, Void, String> {
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://192.168.0.151:8080/game1/" + strings[1] + "/sendMsg") // here game1 is a test, the gameName goes here
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return "";
+        }
+    }
 }
 

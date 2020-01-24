@@ -1,25 +1,39 @@
 package com.example.LegendsOfAndor;
 
 public class Message {
-    private  String text;
     private Player player;
+    private String msg;
     private boolean belongsToCurrentUser;
 
-    public Message(String text, Player player, boolean belongsToCurrentUser){
-        this.text = text;
+    public Message() {}
+
+    public Message (Player player, String msg, boolean belongsToCurrentUser) {
         this.player = player;
+        this.msg = msg;
         this.belongsToCurrentUser = belongsToCurrentUser;
     }
 
-    public String getText(){
-        return this.text;
+    public Player getPlayer() {
+        return player;
     }
 
-    public Player getPlayer(){
-        return this.player;
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
-    public boolean isBelongsToCurrentUser(){
-        return this.belongsToCurrentUser;
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public boolean isBelongsToCurrentUser() {
+        return belongsToCurrentUser;
+    }
+
+    public void setBelongsToCurrentUser(boolean belongsToCurrentUser) {
+        this.belongsToCurrentUser = belongsToCurrentUser;
     }
 }
