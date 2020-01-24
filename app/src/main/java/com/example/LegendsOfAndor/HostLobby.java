@@ -40,7 +40,7 @@ public class HostLobby extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String gameName = lobby_name.getText().toString();
-                Game game = new Game(MyPlayer.getMyPlayer(), maxNumPlayers, gameName);
+                //Game game = new Game(MyPlayer.getMyPlayer(), maxNumPlayers, gameName);
                 System.out.println("CREATED NEW GAME WITH " + maxNumPlayers + " PLAYERS AND GAME NAME " + gameName);
             }
         });
