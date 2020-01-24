@@ -50,6 +50,7 @@ public class Login extends AppCompatActivity {
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
 
+
                 p = new Player(username, password, GlobalStaticMethods.getRandomColor() );
                 usernameInput.setText("");
                 passwordInput.setText("");
@@ -68,22 +69,16 @@ public class Login extends AppCompatActivity {
                         } else {
                             Toast.makeText(Login.this, "Login success. New account created.", Toast.LENGTH_LONG).show();
                         }
-                        //put username in a bundle and sent to chat screen class
-                        Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("username",username);
-                        bundle.putString("password", password);
-                        myIntent.putExtras(bundle);
+                        MyPlayer.setMyPlayer(p);
+                        Intent myIntent = new Intent(v.getContext(), CreateGame.class);
                         startActivity(myIntent);
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //when start button is pressed go to login page
 
-                Intent myIntent = new Intent(v.getContext(), createGame.class);
-                startActivity(myIntent);
+
 
 
             }

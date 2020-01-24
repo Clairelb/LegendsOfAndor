@@ -26,11 +26,11 @@
             android:name="com.example.LegendsOfAndor.Login"
             android:screenOrientation="landscape">
         </activity>
-        <activity android:name=".joinLobby"
+        <activity android:name=".JoinLobby"
             android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".hostLobby"
+        <activity android:name=".HostLobby"
             android:screenOrientation="sensorLandscape"/>
-        <activity android:name=".createGame"
+        <activity android:name=".CreateGame"
             android:screenOrientation="sensorLandscape"/>
 
     </application>

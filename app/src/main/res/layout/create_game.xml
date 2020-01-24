@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/andorwallpaper"
     android:screenOrientation="landscape"
-    tools:context=".createGame">
+    tools:context=".CreateGame">
 
     <Button
         android:id="@+id/join_game"
