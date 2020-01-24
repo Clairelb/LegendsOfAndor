@@ -3,12 +3,15 @@ package com.example.LegendsOfAndor;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class hostLobby extends AppCompatActivity {
+public class HostLobby extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +21,33 @@ public class hostLobby extends AppCompatActivity {
 
         //SET BUTTON TEXT FONT
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
-        TextView lobby_name = findViewById(R.id.lobby_name);
+        final EditText lobby_name = findViewById(R.id.lobby_name);
+
         Button start_game_btn = findViewById(R.id.host_start_game);
         Button create_lobby_btn = findViewById(R.id.create_lobby);
         start_game_btn.setTypeface(gothicFont);
         create_lobby_btn.setTypeface(gothicFont);
         lobby_name.setTypeface(gothicFont);
+
+        Spinner s = findViewById(R.id.spinner);
+        String text = s.getSelectedItem().toString();
+        final int maxNumPlayers = Integer.parseInt(text);
+
+        Spinner s2 = (Spinner) findViewById(R.id.spinner2);
+        String hero_type = s2.getSelectedItem().toString();
+
+        create_lobby_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String gameName = lobby_name.getText().toString();
+                Game game = new Game(MyPlayer.getMyPlayer(), maxNumPlayers, gameName);
+                System.out.println("CREATED NEW GAME WITH " + maxNumPlayers + " PLAYERS AND GAME NAME " + gameName);
+            }
+        });
+
+
+
+
 
 
 

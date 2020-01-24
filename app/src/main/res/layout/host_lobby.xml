@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/pixel_swords"
     android:hapticFeedbackEnabled="true"
-    tools:context=".hostLobby">
+    tools:context=".HostLobby">
 
     <Button
         android:id="@+id/host_start_game"

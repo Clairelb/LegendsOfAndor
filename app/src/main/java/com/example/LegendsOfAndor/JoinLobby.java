@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class joinLobby extends AppCompatActivity {
+public class JoinLobby extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

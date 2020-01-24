@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class createGame extends AppCompatActivity {
+public class CreateGame extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class createGame extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(createGame.this, hostLobby.class));
+                startActivity(new Intent(CreateGame.this, HostLobby.class));
             }
         });
 
@@ -30,7 +30,7 @@ public class createGame extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(createGame.this, joinLobby.class));
+                startActivity(new Intent(CreateGame.this, JoinLobby.class));
             }
         });
     }

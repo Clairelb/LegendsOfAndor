@@ -82,11 +82,8 @@ public class Login extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //when start button is pressed go to login page
 
-                // I COMMENTED THIS FOR TESTING CAN UNCOMMENT AFTER************************* - Bowen
-                //Intent myIntent = new Intent(v.getContext(), createGame.class);
-                //startActivity(myIntent);
+
 
 
             }
