@@ -18,4 +18,14 @@
     </string-array>
     <string name="ready">READY</string>
     <string name="join_lobby">JOIN LOBBY</string>
+    <string name="options">OPTIONS</string>
+    <string name="chat">CHAT</string>
+    <string name="Back">BACK</string>
+    <string name="Character">CHARACTER</string>
+    <string name="Actions">ACTIONS</string>
+    <string name="Tasks">TASKS</string>
+    <string name="Settings">SETTINGS</string>
+    <string name="LeaveGame">LEAVE GAME</string>
+    <string name="SaveGame">SAVE GAME</string>
+    <string name="Help">HELP</string>
 </resources>
