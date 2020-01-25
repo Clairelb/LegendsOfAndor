@@ -20,9 +20,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.LegendsOfAndor.ChatScreen">
+            android:name="com.example.LegendsOfAndor.ChatScreen"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait">
-            android:launchMode = "singleInstance"
         </activity>
         <activity
             android:name="com.example.LegendsOfAndor.Login"
