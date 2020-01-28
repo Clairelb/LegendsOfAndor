@@ -1,17 +1,29 @@
 package com.example.LegendsOfAndor;
 
 public class MyPlayer {
-    private static Player myPlayer;
+   private static MyPlayer myPlayer = null;
+   private Player player;
 
-    private MyPlayer(Player p){
-        myPlayer = p;
-    }
+   public void setPlayer(Player p){
+       player = p;
+   }
 
-    public static Player getMyPlayer(){
+   public Player getPlayer(){
+       return this.player;
+   }
+   private MyPlayer(){}
+
+   public static MyPlayer getInstance(){
+        if(myPlayer == null){
+            myPlayer = new MyPlayer();
+
+        }
         return myPlayer;
-    }
+   }
 
-    public static void setMyPlayer(Player p){
-        myPlayer = p;
-    }
+
+
+
+
+
 }

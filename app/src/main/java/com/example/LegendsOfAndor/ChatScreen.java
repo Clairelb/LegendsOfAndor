@@ -36,10 +36,8 @@ public class ChatScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_screen);
 
-        //get username info sent in bundle from login page
-        Bundle bundle = getIntent().getExtras();
-        username = bundle.getString("username");
-        password = bundle.getString("password");
+        username = MyPlayer.getInstance().getPlayer().getUsername();
+        password = MyPlayer.getInstance().getPlayer().getPassword();
 
         //the text you are editing before sending
         editText = findViewById(R.id.editText);
@@ -72,7 +70,7 @@ public class ChatScreen extends AppCompatActivity {
         }
 
         //create a new user with the username and generate a random color
-        final Player player = new Player(username, password, GlobalStaticMethods.getRandomColor(),true);
+        final Player player = MyPlayer.getInstance().getPlayer();
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.github.chrisbanes.photoview.PhotoView;
 
 public class Board extends AppCompatActivity {

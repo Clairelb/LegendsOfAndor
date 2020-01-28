@@ -49,7 +49,7 @@ public class Login extends AppCompatActivity {
 
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
-
+                System.out.println(username + password);
                 p = new Player(username, password, GlobalStaticMethods.getRandomColor(), false);
                 usernameInput.setText("");
                 passwordInput.setText("");
@@ -70,13 +70,14 @@ public class Login extends AppCompatActivity {
                         } else {
                             Toast.makeText(Login.this, "Login success. New account created.", Toast.LENGTH_LONG).show();
                         }
-                        //put username in a bundle and sent to chat screen class
-                        Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("username",username);
-                        bundle.putString("password", password);
-                        myIntent.putExtras(bundle);
+                        //LOGIN INFO IS CORRECT
+                        //PUT INFO INTO MYPLAYER
+                        MyPlayer myPlayer = MyPlayer.getInstance();
+                        myPlayer.setPlayer(p);
+                        //START LOBBY PAGE
+                        Intent myIntent = new Intent(v.getContext(), CreateGame.class);
                         startActivity(myIntent);
+
                     }
 
                 } catch (Exception e) {
