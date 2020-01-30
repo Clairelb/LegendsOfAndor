@@ -97,7 +97,7 @@ public class Login extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://192.168.0.151:8080/login")
+                response = Unirest.post("http://10.122.169.144:8080/login") // 192.168.0.151
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();

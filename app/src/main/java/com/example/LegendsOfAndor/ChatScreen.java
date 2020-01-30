@@ -19,10 +19,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatScreen extends AppCompatActivity {
-    //channel ID and room to connect to.
-    private String channelID = "Vs10DZ4cK13y3m6K";
-    private String roomName = "observable-room";
-
     private EditText editText;
     private ImageButton sendButton;
     private MessageAdapter messageAdapter;
@@ -100,7 +96,7 @@ public class ChatScreen extends AppCompatActivity {
             public void run() {
                 while(true) {
                     try {
-                        HttpResponse<String> response = Unirest.get("http://192.168.0.151:8080/game1/"+username+"/getMsg") // here game1 is a test, the gameName goes here
+                        HttpResponse<String> response = Unirest.get("http://10.122.169.144:8080/game1/"+username+"/getMsg") // here game1 is a test, the gameName goes here
                                 .asString();
 
                         if (response.getCode() == 200) {
@@ -134,7 +130,7 @@ public class ChatScreen extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://192.168.0.151:8080/game1/getAllMsgs") // here game1 is a test, the gameName goes here
+                response = Unirest.get("http://10.122.169.144:8080/game1/getAllMsgs") // here game1 is a test, the gameName goes here
                         .asString();
 
                 String resultAsJsonString = response.getBody();
@@ -151,7 +147,7 @@ public class ChatScreen extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://192.168.0.151:8080/game1/" + strings[1] + "/sendMsg") // here game1 is a test, the gameName goes here
+                response = Unirest.post("http://10.122.169.144:8080/game1/" + strings[1] + "/sendMsg") // here game1 is a test, the gameName goes here
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
