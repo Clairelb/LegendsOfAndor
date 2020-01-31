@@ -22,12 +22,15 @@ enum LoginResponses {
 public class Login extends AppCompatActivity {
     private String username;
     private String password;
+    private String serverIP;
 
     private EditText usernameInput;
     private EditText passwordInput;
+    private EditText ipInput;
 
     private Button loginButton;
     private Player p;
+    private MyPlayer myPlayer = MyPlayer.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class Login extends AppCompatActivity {
         // set EditText objects
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
+        ipInput = findViewById(R.id.ipInput);
 
         //when login button is pressed get username and password
         loginButton = findViewById(R.id.loginButton);
@@ -49,10 +53,15 @@ public class Login extends AppCompatActivity {
 
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
-                System.out.println(username + password);
+                serverIP = ipInput.getText().toString();
+
                 p = new Player(username, password, GlobalStaticMethods.getRandomColor(), false);
                 usernameInput.setText("");
                 passwordInput.setText("");
+                ipInput.setText("");
+
+                myPlayer.setPlayer(p);
+                myPlayer.setServerIP(serverIP);
 
                 try {
                     LoginSender loginSender = new LoginSender();
@@ -94,10 +103,11 @@ public class Login extends AppCompatActivity {
     private static class LoginSender extends AsyncTask<String, Void, LoginResponses> {
         @Override
         protected LoginResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://10.122.169.144:8080/login") // 192.168.0.151
+                response = Unirest.post("http://" + myPlayer.getServerIP() +":8080/login") // 192.168.0.151
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
