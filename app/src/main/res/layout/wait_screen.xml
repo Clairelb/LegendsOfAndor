@@ -8,37 +8,7 @@
     tools:context="com.example.LegendsOfAndor.WaitScreen">
 
     <TextView
-        android:id="@+id/ready2"
-        android:layout_width="140dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:background="@color/red"
-        android:gravity="center"
-        android:text="@string/not_ready"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:fontFamily="@font/gothic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14" />
-
-    <TextView
-        android:id="@+id/ready3"
-        android:layout_width="140dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:background="@color/red"
-        android:gravity="center"
-        android:text="@string/not_ready"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:fontFamily="@font/gothic"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
-
-    <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/hero3"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -53,7 +23,7 @@
         app:layout_constraintTop_toBottomOf="@+id/player3" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/hero2"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="190dp"
@@ -68,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/player2" />
 
     <TextView
-        android:id="@+id/textView15"
+        android:id="@+id/hero4"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="190dp"
@@ -83,7 +53,7 @@
         app:layout_constraintTop_toBottomOf="@+id/player4" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/hero1"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -219,19 +189,19 @@
         android:id="@+id/ready1"
         android:layout_width="140dp"
         android:layout_height="33dp"
-        android:layout_marginEnd="190dp"
-        android:layout_marginRight="190dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:background="@color/red"
         android:gravity="center"
         android:text="@string/not_ready"
         android:textColor="@color/black"
         android:textSize="24sp"
         app:fontFamily="@font/gothic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hero1" />
 
     <TextView
-        android:id="@+id/ready"
+        android:id="@+id/ready2"
         android:layout_width="140dp"
         android:layout_height="33dp"
         android:layout_marginEnd="190dp"
@@ -243,7 +213,37 @@
         android:textSize="24sp"
         app:fontFamily="@font/gothic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/hero2" />
+
+    <TextView
+        android:id="@+id/ready3"
+        android:layout_width="140dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="@string/not_ready"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hero3" />
+
+    <TextView
+        android:id="@+id/ready4"
+        android:layout_width="140dp"
+        android:layout_height="33dp"
+        android:layout_marginEnd="190dp"
+        android:layout_marginRight="190dp"
+        android:background="@color/red"
+        android:gravity="center"
+        android:text="@string/not_ready"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hero4" />
 
     <Button
         android:id="@+id/confirm"
