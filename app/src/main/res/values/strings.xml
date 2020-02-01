@@ -28,4 +28,11 @@
     <string name="LeaveGame">LEAVE GAME</string>
     <string name="SaveGame">SAVE GAME</string>
     <string name="Help">HELP</string>
+    <string name="Player1">Player 1: </string>
+    <string name="Player2">Player 2: </string>
+    <string name="Player3">Player 3: </string>
+    <string name="Player4">Player 4: </string>
+    <string name="wait_screen_hero">Hero: </string>
+    <string name="not_ready">NOT READY</string>
+    <string name="confirm_hero">CONFIRM HERO</string>
 </resources>
