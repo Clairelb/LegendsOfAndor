@@ -35,4 +35,5 @@
     <string name="wait_screen_hero">Hero: </string>
     <string name="not_ready">NOT READY</string>
     <string name="confirm_hero">CONFIRM HERO</string>
+    <string name="leave_lobby">LEAVE LOBBY</string>
 </resources>

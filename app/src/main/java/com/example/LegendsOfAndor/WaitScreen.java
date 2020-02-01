@@ -3,8 +3,11 @@ package com.example.LegendsOfAndor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class WaitScreen extends AppCompatActivity {
 
@@ -14,13 +17,15 @@ public class WaitScreen extends AppCompatActivity {
         setContentView(R.layout.wait_screen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        //Wait animation
-        ProgressDialog nDialog;
-        nDialog = new ProgressDialog(WaitScreen.this);
-        nDialog.setTitle("Please wait...");
-        nDialog.setCancelable(true);
-        nDialog.setIndeterminate(true); //Progress bar doesn't do anything, infinite loop
+        Button leave_lobby = findViewById(R.id.leave_lobby);
 
+        leave_lobby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //EXIT LOBBY AND HEAD TO CREATE GAME
+                startActivity(new Intent(WaitScreen.this, CreateGame.class));
+            }
+        });
     }
 
 }
