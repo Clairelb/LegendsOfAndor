@@ -18,6 +18,7 @@ public class WaitScreen extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         Button leave_lobby = findViewById(R.id.leave_lobby);
+        Button start_game = findViewById(R.id.start_game);
 
         leave_lobby.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +27,16 @@ public class WaitScreen extends AppCompatActivity {
                 startActivity(new Intent(WaitScreen.this, CreateGame.class));
             }
         });
+
+        start_game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //CONTINUE TO BOARD
+                startActivity(new Intent(WaitScreen.this, Board.class));
+            }
+        });
+
+
     }
 
 }
