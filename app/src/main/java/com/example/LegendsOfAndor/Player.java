@@ -1,10 +1,20 @@
 package com.example.LegendsOfAndor;
 
+enum Hero {
+    WARRIOR,ARCHER,DWARF,WIZARD
+}
+
 public class Player {
     private String username;
     private String password;
     private String color;
     private boolean isLoggedIn;
+    private Hero hero;
+    private boolean isReady;
+    private int willPower;
+    private int strength;
+    private int currentSpace;
+    private boolean hasEndedDay;
 
     public Player() {
     }
@@ -31,12 +41,26 @@ public class Player {
     public String getColor() {
         return color;
     }
-    public void setColor(String color) { this.color = color; }
+    public void setColor(String color) {
+        this.color = color;
+    }
     public boolean isLoggedIn() {
         return isLoggedIn;
     }
     public void setLoggedIn(boolean loggedIn) {
         isLoggedIn = loggedIn;
+    }
+    public Hero getHero() {
+        return hero;
+    }
+    public void setHero(Hero hero) {
+        this.hero = hero;
+    }
+    public boolean isReady() {
+        return isReady;
+    }
+    public void setReady(boolean ready) {
+        isReady = ready;
     }
 }
 

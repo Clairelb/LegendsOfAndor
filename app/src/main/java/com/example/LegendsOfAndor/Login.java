@@ -86,16 +86,10 @@ public class Login extends AppCompatActivity {
                         //START LOBBY PAGE
                         Intent myIntent = new Intent(v.getContext(), CreateGame.class);
                         startActivity(myIntent);
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
-
-
             }
         });
     }
@@ -107,7 +101,7 @@ public class Login extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://" + myPlayer.getServerIP() +":8080/login") // 192.168.0.151
+                response = Unirest.post("http://" + myPlayer.getServerIP() +":8080/login")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
