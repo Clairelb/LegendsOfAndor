@@ -18,7 +18,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ChatScreen extends AppCompatActivity {
+public class ChatScreen extends AppCompatActivity { // stop thread after back button clicked, test again later
     private EditText editText;
     private ImageButton sendButton;
     private MessageAdapter messageAdapter;
@@ -97,7 +97,7 @@ public class ChatScreen extends AppCompatActivity {
             public void run() {
                 while(true) {
                     try {
-                        HttpResponse<String> response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/game1/"+username+"/getMsg") // here game1 is a test, the gameName goes here
+                        HttpResponse<String> response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+username+"/getMsg")
                                 .asString();
 
                         if (response.getCode() == 200) {
@@ -132,7 +132,7 @@ public class ChatScreen extends AppCompatActivity {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/game1/getAllMsgs") // here game1 is a test, the gameName goes here
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/getAllMsgs")
                         .asString();
 
                 String resultAsJsonString = response.getBody();
@@ -150,7 +150,7 @@ public class ChatScreen extends AppCompatActivity {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/game1/" + strings[1] + "/sendMsg") // here game1 is a test, the gameName goes here
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/sendMsg")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
