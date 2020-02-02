@@ -214,6 +214,7 @@ public class WaitScreen extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 t.interrupt();
+                myPlayer.setGame(null);
                 startActivity(new Intent(WaitScreen.this, CreateGame.class)); //EXIT LOBBY AND HEAD TO CREATE GAME
             }
         });

@@ -43,7 +43,7 @@ public class HostLobby extends AppCompatActivity {
         //get number of players in a variable
         Spinner s = findViewById(R.id.spinner);
         String text = s.getSelectedItem().toString();
-        final int maxNumPlayers = Integer.parseInt(text); // ERROR HERE!!! RETURNING 2 INSTEAD OF 3 FOR SOME REASON
+        final int maxNumPlayers = Integer.parseInt(text); // ERROR HERE!!! RETURNING 2 ALL THE TIME FOR SOME REASON
 
         final Spinner s2 = (Spinner) findViewById(R.id.spinner2);
         String hero_type = s2.getSelectedItem().toString();
