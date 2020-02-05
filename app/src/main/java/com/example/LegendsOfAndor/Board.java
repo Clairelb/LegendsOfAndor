@@ -23,6 +23,8 @@ public class Board extends AppCompatActivity {
         PhotoView photoView = (PhotoView) findViewById(R.id.photo_view);
         photoView.setImageResource(R.drawable.board);
 
+//        PhotoView overlay = (PhotoView) findViewById(R.id.overlay);
+//        overlay.setImageResource(R.drawable.board);
 
         Button chatb = (Button)findViewById(R.id.chatb);
         chatb.setOnClickListener(new View.OnClickListener() {

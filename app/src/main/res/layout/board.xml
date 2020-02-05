@@ -26,6 +26,15 @@
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="0dp" />
 
+    <com.github.chrisbanes.photoview.PhotoView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/overlay"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="0dp" />
+
     <Button
         android:id="@+id/chatb"
         android:layout_width="wrap_content"
