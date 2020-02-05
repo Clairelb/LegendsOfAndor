@@ -22,7 +22,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 enum SelectHeroResponses {
-    SELECT_HERO_SUCCESS, ERROR_HERO_ALREADY_SELECTED
+    SELECT_HERO_SUCCESS, ERROR_HERO_ALREADY_SELECTED, ERROR_DUPLICATE_HERO
 }
 
 enum IsReadyResponses {
@@ -214,7 +214,7 @@ public class WaitScreen extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 t.interrupt();
-                myPlayer.setGame(null);
+                //myPlayer.setGame(null);
                 startActivity(new Intent(WaitScreen.this, CreateGame.class)); //EXIT LOBBY AND HEAD TO CREATE GAME
             }
         });
@@ -229,9 +229,10 @@ public class WaitScreen extends AppCompatActivity {
 
                     if (asyncTask.get() == null) {
                         Toast.makeText(WaitScreen.this, "Select hero error. No response from server.", Toast.LENGTH_LONG).show();
-                    }
-                    else if (asyncTask.get() == SelectHeroResponses.ERROR_HERO_ALREADY_SELECTED) {
-                        Toast.makeText(WaitScreen.this, "Select hero error. Hero already selected", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == SelectHeroResponses.ERROR_HERO_ALREADY_SELECTED) {
+                        Toast.makeText(WaitScreen.this, "Select hero error. Hero already selected.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == SelectHeroResponses.ERROR_DUPLICATE_HERO){
+                        Toast.makeText(WaitScreen.this, "Select hero error. Hero already exists in the game.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(WaitScreen.this, "Select hero success.", Toast.LENGTH_LONG).show();
                     }

@@ -98,7 +98,7 @@ public class Login extends AppCompatActivity {
         @Override
         protected LoginResponses doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
-            HttpResponse<String> response;
+            HttpResponse <String> response;
 
             try {
                 response = Unirest.post("http://" + myPlayer.getServerIP() +":8080/login")
