@@ -18,7 +18,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class ChatScreen extends AppCompatActivity { // stop thread after back button clicked, test again later
+public class ChatScreen extends AppCompatActivity { // stop thread after back button clicked, test again later TEST AFTER JOIN GAME IS DONE
     private EditText editText;
     private ImageButton sendButton;
     private MessageAdapter messageAdapter;
@@ -26,6 +26,8 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
     private String username;
     private String password;
     private MyPlayer myPlayer = MyPlayer.getInstance();
+
+    private Thread t;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +94,12 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
             }
         });
 
-        Thread t = new Thread(new Runnable() { // this runs forever checking for new messages
+        t = new Thread(new Runnable() { // this runs forever checking for new messages
             @Override
             public void run() {
-                while(true) {
+                while(!Thread.currentThread().isInterrupted()) {
                     try {
+                        System.out.println("running!!!!!!!!");
                         HttpResponse<String> response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+username+"/getMsg")
                                 .asString();
 
@@ -117,12 +120,20 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
                         }
 
                     } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                        if (e instanceof InterruptedException) {
+                            Thread.currentThread().interrupt();
+                        }
+                        e.printStackTrace();                    }
                 }
             }
         });
         t.start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        t.interrupt();
     }
 
     private static class OldMessagesRetriever extends AsyncTask<String, Void, ArrayList<Message>> {
