@@ -6,7 +6,11 @@ import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +27,11 @@ import java.util.List;
 
 public class JoinLobby extends AppCompatActivity {
 
+    ArrayList<String> gameNames = new ArrayList<>();
+    AsyncTask<String, Void, ArrayList<String>> asyncTask;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,27 +40,45 @@ public class JoinLobby extends AppCompatActivity {
 
         //SET BUTTON TEXT FONT
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
+
         Button join_lobby_btn = findViewById(R.id.join_lobby_button);
-        Button ready_btn = findViewById(R.id.ready_button);
+        final EditText lobbyName = findViewById(R.id.lobby_name);
+        ListView listView = findViewById(R.id.available_games);
+        Button refreshBtn = findViewById(R.id.refresh_button);
+
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), JoinLobby.class);
+                startActivity(myIntent);
+            }
+        });
 
         join_lobby_btn.setTypeface(gothicFont);
-        ready_btn.setTypeface(gothicFont);
 
-        AsyncTask<String, Void, ArrayList<String>> asyncTask;
-        ArrayList<String> gameNames = new ArrayList<>();
+
 
         try {
             JoinLobby.GameGetter gameGetter = new JoinLobby.GameGetter();
             asyncTask = gameGetter.execute();
             gameNames = asyncTask.get();
 
-            System.out.println("THESE ARE THE GAMES" + gameNames.get(0));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        TextView textView = findViewById(R.id.gameList);
-        textView.setText(gameNames.get(0));
+
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, gameNames);
+        listView.setAdapter(arrayAdapter);
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //position is position of item in list view ie index in gameNames
+                lobbyName.setText(gameNames.get(position));
+            }
+        });
     }
 
 
@@ -60,15 +87,17 @@ public class JoinLobby extends AppCompatActivity {
         protected ArrayList<String> doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             HttpResponse<String> response;
-
+            ArrayList<String> gameNames = new ArrayList<String>();
             try {
                 response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/getAllGames")
                         .asString();
                 String resultAsJsonString = response.getBody();
-
-                ArrayList<String> demoResult = new ArrayList<String>();
-                demoResult.add(resultAsJsonString);
-                return demoResult;
+                resultAsJsonString = resultAsJsonString.substring(1,resultAsJsonString.length()-1);
+                String[] gameNamesArray = resultAsJsonString.split(",");
+                for(int i = 0; i < gameNamesArray.length; i++){
+                    gameNames.add(gameNamesArray[i].substring(1,gameNamesArray[i].length()-1));
+                }
+                return gameNames;
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
