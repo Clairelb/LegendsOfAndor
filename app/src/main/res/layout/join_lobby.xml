@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/lobby_name"
+        android:id="@+id/join_game_name"
         android:layout_width="241dp"
         android:layout_height="65dp"
         android:layout_marginStart="48dp"
@@ -46,11 +46,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/game_names"
         android:layout_width="265dp"
         android:layout_height="28dp"
         android:background="#7A009688"
-        android:text="Game Names: "
+        android:text="GAME NAMES: "
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,6 @@
         android:layout_width="68dp"
         android:layout_height="28dp"
         android:background="#7A009688"
-        android:capitalize="none"
         android:text="Refresh"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

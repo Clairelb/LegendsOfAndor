@@ -41,11 +41,11 @@ public class HostLobby extends AppCompatActivity {
         lobby_name.setTypeface(gothicFont);
 
         //get number of players in a variable
-        Spinner s = findViewById(R.id.spinner);
+        Spinner s = findViewById(R.id.num_players);
         String text = s.getSelectedItem().toString();
         final int maxNumPlayers = Integer.parseInt(text); // ERROR HERE!!! RETURNING 2 ALL THE TIME FOR SOME REASON
 
-        final Spinner s2 = (Spinner) findViewById(R.id.spinner2);
+        final Spinner s2 = (Spinner) findViewById(R.id.warrior_type);
         String hero_type = s2.getSelectedItem().toString();
         final MyPlayer myPlayer = MyPlayer.getInstance();
 
@@ -71,7 +71,7 @@ public class HostLobby extends AppCompatActivity {
                     } else if (hostGameResponses == HostGameResponses.ERROR_GAME_ALREADY_EXISTS) {
                         Toast.makeText(HostLobby.this, "Host game error. Game already exists in server", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(HostLobby.this, "Host game succes. Game created.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(HostLobby.this, "Host game success. Game created.", Toast.LENGTH_LONG).show();
                         //GO STRAIGHT TO GAME BOARD
                         startActivity(new Intent(HostLobby.this, WaitScreen.class));
                     }

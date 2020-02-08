@@ -25,6 +25,12 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
+
+enum JoinGameResponses {
+    JOIN_GAME_SUCCESS, ERROR_GAME_FULL, ERROR_GAME_DNE
+}
+
+
 public class JoinLobby extends AppCompatActivity {
 
     ArrayList<String> gameNames = new ArrayList<>();
@@ -42,19 +48,16 @@ public class JoinLobby extends AppCompatActivity {
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
 
         Button join_lobby_btn = findViewById(R.id.join_lobby_button);
-        final EditText lobbyName = findViewById(R.id.lobby_name);
+        final EditText join_game_name = findViewById(R.id.join_game_name);
         ListView listView = findViewById(R.id.available_games);
         Button refreshBtn = findViewById(R.id.refresh_button);
-
-        refreshBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), JoinLobby.class);
-                startActivity(myIntent);
-            }
-        });
+        TextView game_names = findViewById(R.id.game_names);
 
         join_lobby_btn.setTypeface(gothicFont);
+        join_game_name.setTypeface(gothicFont);
+        game_names.setTypeface(gothicFont);
+        refreshBtn.setTypeface(gothicFont);
+
 
 
 
@@ -76,9 +79,56 @@ public class JoinLobby extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //position is position of item in list view ie index in gameNames
-                lobbyName.setText(gameNames.get(position));
+               join_game_name.setText(gameNames.get(position));
             }
         });
+
+        refreshBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(getIntent());
+            }
+        });
+
+        join_lobby_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask<String, Void, JoinGameResponses> asyncTask;
+                JoinGameResponses joinGameResponses;
+
+                if (join_game_name.getText() == null) {
+                    Toast.makeText(JoinLobby.this, "No game selected error.", Toast.LENGTH_LONG).show();
+                } else {
+                    try {
+                        String gameName = join_game_name.getText().toString();
+                        JoinGameSender joinGameSender = new JoinGameSender();
+                        asyncTask = joinGameSender.execute(gameName);
+                        joinGameResponses = asyncTask.get();
+
+                        if (joinGameResponses == null) {
+                            Toast.makeText(JoinLobby.this, "Join game error. No response from server.", Toast.LENGTH_LONG).show();
+                        } else if (joinGameResponses == JoinGameResponses.ERROR_GAME_DNE) {
+                            Toast.makeText(JoinLobby.this, "Join game error. Game does not exist.", Toast.LENGTH_LONG).show();
+                        } else if (joinGameResponses == JoinGameResponses.ERROR_GAME_FULL) {
+                            Toast.makeText(JoinLobby.this, "Join game error. Game already full.", Toast.LENGTH_LONG).show();
+                        } else if (joinGameResponses == JoinGameResponses.JOIN_GAME_SUCCESS) {
+                            Toast.makeText(JoinLobby.this, "Join game success. Added to game " + gameName + ".", Toast.LENGTH_LONG).show();
+                            MyPlayer.getInstance().setGame(new Game(MyPlayer.getInstance().getPlayer(), 1, gameName));
+                            startActivity(new Intent(JoinLobby.this, WaitScreen.class));
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            }
+        });
+
+
+
     }
 
 
@@ -98,6 +148,25 @@ public class JoinLobby extends AppCompatActivity {
                     gameNames.add(gameNamesArray[i].substring(1,gameNamesArray[i].length()-1));
                 }
                 return gameNames;
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class JoinGameSender extends AsyncTask<String, Void, JoinGameResponses> {
+        @Override
+        protected JoinGameResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() +":8080/"+strings[0]+"/"+MyPlayer.getInstance().getPlayer().getUsername()+"/joinGame")
+                        .header("Content-Type", "application/json")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, JoinGameResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
