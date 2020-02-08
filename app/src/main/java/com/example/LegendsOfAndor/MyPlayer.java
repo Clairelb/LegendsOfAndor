@@ -25,7 +25,6 @@ public class MyPlayer {
    public static MyPlayer getInstance(){
        if(myPlayer == null){
            myPlayer = new MyPlayer();
-
        }
        return myPlayer;
    }

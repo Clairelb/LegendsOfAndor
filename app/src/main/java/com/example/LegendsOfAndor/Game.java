@@ -7,6 +7,9 @@ public class Game {
     private String gameName;
     private boolean isActive;
 
+    public Game() {
+    }
+
     public Game(Player p, int maxNumPlayers, String gameName) {
         this.gameName = gameName;
         this.maxNumPlayers = maxNumPlayers;
@@ -49,5 +52,24 @@ public class Game {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Player getSinglePlayer(String username) {
+        for (Player p : players) {
+            if (p.getUsername().equals(username)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    public void addPlayer(Player p) {
+        for (int i = 0; i < maxNumPlayers; i++) {
+            if (players[i] == null) {
+                players[i] = p;
+                currentNumPlayers++;
+                break;
+            }
+        }
     }
 }

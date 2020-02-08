@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -33,8 +34,9 @@ enum JoinGameResponses {
 
 public class JoinLobby extends AppCompatActivity {
 
+    ArrayList<Game> games;
     ArrayList<String> gameNames = new ArrayList<>();
-    AsyncTask<String, Void, ArrayList<String>> asyncTask;
+    AsyncTask<String, Void, ArrayList<Game>> asyncTask;
 
 
 
@@ -58,18 +60,17 @@ public class JoinLobby extends AppCompatActivity {
         game_names.setTypeface(gothicFont);
         refreshBtn.setTypeface(gothicFont);
 
-
-
-
         try {
             JoinLobby.GameGetter gameGetter = new JoinLobby.GameGetter();
             asyncTask = gameGetter.execute();
-            gameNames = asyncTask.get();
-
+            games = asyncTask.get();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        for (Game g: games) {
+            gameNames.add(g.getGameName());
+        }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, gameNames);
         listView.setAdapter(arrayAdapter);
@@ -114,7 +115,15 @@ public class JoinLobby extends AppCompatActivity {
                             Toast.makeText(JoinLobby.this, "Join game error. Game already full.", Toast.LENGTH_LONG).show();
                         } else if (joinGameResponses == JoinGameResponses.JOIN_GAME_SUCCESS) {
                             Toast.makeText(JoinLobby.this, "Join game success. Added to game " + gameName + ".", Toast.LENGTH_LONG).show();
-                            MyPlayer.getInstance().setGame(new Game(MyPlayer.getInstance().getPlayer(), 1, gameName));
+
+                            MyPlayer myPlayer = MyPlayer.getInstance();
+                            for (Game g : games) {
+                                if (g.getGameName().equals(gameName)) {
+                                    g.addPlayer(myPlayer.getPlayer());
+                                    myPlayer.setGame(g);
+                                    break;
+                                }
+                            }
                             startActivity(new Intent(JoinLobby.this, WaitScreen.class));
                         }
 
@@ -132,22 +141,19 @@ public class JoinLobby extends AppCompatActivity {
     }
 
 
-    private static class GameGetter extends AsyncTask<String, Void, ArrayList<String>> {
+    private static class GameGetter extends AsyncTask<String, Void, ArrayList<Game>> {
         @Override
-        protected ArrayList<String> doInBackground(String... strings) {
+        protected ArrayList<Game> doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             HttpResponse<String> response;
-            ArrayList<String> gameNames = new ArrayList<String>();
+
             try {
                 response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/getAllGames")
                         .asString();
+
                 String resultAsJsonString = response.getBody();
-                resultAsJsonString = resultAsJsonString.substring(1,resultAsJsonString.length()-1);
-                String[] gameNamesArray = resultAsJsonString.split(",");
-                for(int i = 0; i < gameNamesArray.length; i++){
-                    gameNames.add(gameNamesArray[i].substring(1,gameNamesArray[i].length()-1));
-                }
-                return gameNames;
+
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Game>>() {}.getType());
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
