@@ -56,6 +56,8 @@ public class WaitScreen extends AppCompatActivity {
         setContentView(R.layout.wait_screen);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        System.out.print("!!!!!!! ran ");
+
         player1NameTV = findViewById(R.id.player1);
         player2NameTV = findViewById(R.id.player2);
         player3NameTV = findViewById(R.id.player3);
@@ -215,7 +217,11 @@ public class WaitScreen extends AppCompatActivity {
                 }
                 t.interrupt();
                 //myPlayer.setGame(null);
-                startActivity(new Intent(WaitScreen.this, CreateGame.class)); //EXIT LOBBY AND HEAD TO CREATE GAME
+
+                Intent intent = new Intent(WaitScreen.this, CreateGame.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent); //EXIT LOBBY AND HEAD TO CREATE GAME
+                finish();
             }
         });
 
