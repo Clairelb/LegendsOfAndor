@@ -37,12 +37,12 @@
 
     <Spinner
         android:id="@+id/num_players"
+        android:entries="@array/number_players_values"
         android:layout_width="241dp"
         android:layout_height="66dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="132dp"
-        android:entries="@array/number_players"
         android:prompt="@string/number_players"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

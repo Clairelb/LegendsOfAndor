@@ -243,6 +243,7 @@ public class WaitScreen extends AppCompatActivity {
         leaveLobbyBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MyPlayer.getInstance().getPlayer().setHero(null);
                 try {
                     LeavePregameSender leavePregameSender = new LeavePregameSender();
                     leavePregameSender.execute();

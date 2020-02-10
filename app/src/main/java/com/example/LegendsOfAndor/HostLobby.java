@@ -31,6 +31,7 @@ public class HostLobby extends AppCompatActivity {
         setContentView(R.layout.host_lobby);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+
         //SET BUTTON TEXT FONT
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
         final EditText lobby_name = findViewById(R.id.lobby_name);
@@ -40,11 +41,8 @@ public class HostLobby extends AppCompatActivity {
         create_lobby_btn.setTypeface(gothicFont);
         lobby_name.setTypeface(gothicFont);
 
-        //get number of players in a variable
-        Spinner s = findViewById(R.id.num_players);
-        String text = s.getSelectedItem().toString();
-        final int maxNumPlayers = Integer.parseInt(text); // ERROR HERE!!! RETURNING 2 ALL THE TIME FOR SOME REASON
 
+        //get hero type in a variable S
         final Spinner s2 = (Spinner) findViewById(R.id.warrior_type);
         String hero_type = s2.getSelectedItem().toString();
         final MyPlayer myPlayer = MyPlayer.getInstance();
@@ -52,6 +50,20 @@ public class HostLobby extends AppCompatActivity {
         create_lobby_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                //get number of players in a variable
+                Spinner s = findViewById(R.id.num_players);
+                String text = s.getSelectedItem().toString();
+                int spinner_position = s.getSelectedItemPosition();
+                String[] spinner_values = getResources().getStringArray(R.array.number_players_values);
+                final int maxNumPlayers = Integer.valueOf(spinner_values[spinner_position]);
+                System.out.println("THIS IS THE NUMBER OF PLAYERS" + maxNumPlayers);
+
+                //get hero type in a variable S
+                final Spinner s2 = (Spinner) findViewById(R.id.warrior_type);
+                String hero_type = s2.getSelectedItem().toString();
+                final MyPlayer myPlayer = MyPlayer.getInstance();
+
                 AsyncTask<String, Void, HostGameResponses> asyncTask;
                 HostGameResponses hostGameResponses;
 
