@@ -33,6 +33,11 @@ public class Login extends AppCompatActivity {
     private MyPlayer myPlayer = MyPlayer.getInstance();
 
     @Override
+    public void onBackPressed() {
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         //display login page
         super.onCreate(savedInstanceState);
