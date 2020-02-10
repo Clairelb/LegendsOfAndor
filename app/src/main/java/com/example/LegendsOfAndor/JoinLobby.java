@@ -34,17 +34,29 @@ enum JoinGameResponses {
 
 public class JoinLobby extends AppCompatActivity {
 
+
+
     ArrayList<Game> games;
     ArrayList<String> gameNames = new ArrayList<>();
     AsyncTask<String, Void, ArrayList<Game>> asyncTask;
 
-
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join_lobby);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        Button back_btn = findViewById(R.id.back);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(JoinLobby.this, CreateGame.class));
+            }
+        });
 
         //SET BUTTON TEXT FONT
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");

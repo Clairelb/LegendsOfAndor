@@ -26,6 +26,11 @@ enum HostGameResponses {
 public class HostLobby extends AppCompatActivity {
 
     @Override
+    public void onBackPressed() {
+    }
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.host_lobby);
@@ -35,12 +40,19 @@ public class HostLobby extends AppCompatActivity {
         //SET BUTTON TEXT FONT
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
         final EditText lobby_name = findViewById(R.id.lobby_name);
-        Button start_game_btn = findViewById(R.id.host_start_game);
+        Button back_btn = findViewById(R.id.back_btn);
         Button create_lobby_btn = findViewById(R.id.create_lobby);
-        start_game_btn.setTypeface(gothicFont);
+        back_btn.setTypeface(gothicFont);
         create_lobby_btn.setTypeface(gothicFont);
         lobby_name.setTypeface(gothicFont);
 
+        //go back to create game screen
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HostLobby.this, CreateGame.class));
+            }
+        });
 
         //get hero type in a variable S
         final Spinner s2 = (Spinner) findViewById(R.id.warrior_type);

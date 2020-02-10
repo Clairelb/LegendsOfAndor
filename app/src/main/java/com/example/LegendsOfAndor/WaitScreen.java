@@ -55,6 +55,10 @@ public class WaitScreen extends AppCompatActivity {
     private Spinner heroSP;
 
     @Override
+    public void onBackPressed() {
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.wait_screen);
