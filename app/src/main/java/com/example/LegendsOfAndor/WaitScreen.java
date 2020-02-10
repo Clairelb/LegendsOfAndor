@@ -29,6 +29,10 @@ enum IsReadyResponses {
     IS_READY_SUCCESS, ERROR_NO_SELECTED_HERO
 }
 
+enum StartGameResponses {
+    START_GAME_SUCCESS, ERROR_PLAYER_NOT_READY, ERROR_NOT_HOST, ERROR_NOT_ENOUGH_PLAYERS
+}
+
 public class WaitScreen extends AppCompatActivity {
     private TextView player1NameTV;
     private TextView player2NameTV;
@@ -80,8 +84,43 @@ public class WaitScreen extends AppCompatActivity {
 
         final MyPlayer myPlayer = MyPlayer.getInstance();
 
-        player1NameTV.setText("Player 1: " + myPlayer.getGame().getPlayers()[0].getUsername());
-        hero1TV.setText("Hero: " + myPlayer.getGame().getPlayers()[0].getHero());
+        for (int i = 0; i < myPlayer.getGame().getMaxNumPlayers(); i++) {
+            if (i == 0) {
+                player1NameTV.setText("Player 1: " + myPlayer.getGame().getPlayers()[0].getUsername());
+                hero1TV.setText("Hero: " + myPlayer.getGame().getPlayers()[0].getHero());
+                if (myPlayer.getGame().getPlayers()[0].isReady()) {
+                    ready1TV.setText("READY");
+                    ready1TV.setBackgroundColor(Color.GREEN);
+                }
+            } else if (i == 1) {
+                if (myPlayer.getGame().getPlayers()[1] != null) {
+                    player2NameTV.setText("Player 2: " + myPlayer.getGame().getPlayers()[1].getUsername());
+                    hero2TV.setText("Hero: " + myPlayer.getGame().getPlayers()[1].getHero());
+                    if (myPlayer.getGame().getPlayers()[1].isReady()) {
+                        ready2TV.setText("READY");
+                        ready2TV.setBackgroundColor(Color.GREEN);
+                    }
+                }
+            } else if (i == 2) {
+                if (myPlayer.getGame().getPlayers()[2] != null) {
+                    player3NameTV.setText("Player 3: " + myPlayer.getGame().getPlayers()[2].getUsername());
+                    hero3TV.setText("Hero: " + myPlayer.getGame().getPlayers()[2].getHero());
+                    if (myPlayer.getGame().getPlayers()[2].isReady()) {
+                        ready3TV.setText("READY");
+                        ready3TV.setBackgroundColor(Color.GREEN);
+                    }
+                }
+            } else if (i == 3) {
+                if (myPlayer.getGame().getPlayers()[3] != null) {
+                    player4NameTV.setText("Player 4: " + myPlayer.getGame().getPlayers()[3].getUsername());
+                    hero4TV.setText("Hero: " + myPlayer.getGame().getPlayers()[3].getHero());
+                    if (myPlayer.getGame().getPlayers()[3].isReady()) {
+                        ready4TV.setText("READY");
+                        ready4TV.setBackgroundColor(Color.GREEN);
+                    }
+                }
+            }
+        }
 
         if (myPlayer.getGame().getMaxNumPlayers() == 2) {
             player3NameTV.setVisibility(View.INVISIBLE);
@@ -99,7 +138,7 @@ public class WaitScreen extends AppCompatActivity {
         final Thread t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
-                while(!Thread.currentThread().isInterrupted()) {
+                while (!Thread.currentThread().isInterrupted()) {
                     try {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getPregameUpdate")
                                 .asString();
@@ -158,7 +197,8 @@ public class WaitScreen extends AppCompatActivity {
                                                         ready3TV.setBackgroundColor(Color.RED);
                                                     }
                                                 } else {
-                                                    player3NameTV.setText("Player 3: ");                                                    hero1TV.setText("Hero: ");
+                                                    player3NameTV.setText("Player 3: ");
+                                                    hero1TV.setText("Hero: ");
                                                     hero3TV.setText("Hero: ");
                                                     ready3TV.setText("NOT READY");
                                                     ready3TV.setBackgroundColor(Color.RED);
@@ -182,6 +222,9 @@ public class WaitScreen extends AppCompatActivity {
                                                 }
                                             }
                                         }
+                                    } else {
+                                        startActivity(new Intent(WaitScreen.this, Board.class));
+                                        Thread.currentThread().interrupt();
                                     }
                                 }
                             });
@@ -197,13 +240,6 @@ public class WaitScreen extends AppCompatActivity {
         });
         t.start();
 
-        startGameBTN.setOnClickListener(new View.OnClickListener() { // only players[0] can click, send start game to server, server updates isActive
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(WaitScreen.this, Board.class));                 //CONTINUE TO BOARD
-            }
-        });
-
         leaveLobbyBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,7 +251,11 @@ public class WaitScreen extends AppCompatActivity {
                 }
                 t.interrupt();
                 //myPlayer.setGame(null);
-                startActivity(new Intent(WaitScreen.this, CreateGame.class)); //EXIT LOBBY AND HEAD TO CREATE GAME
+
+                Intent intent = new Intent(WaitScreen.this, CreateGame.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent); //EXIT LOBBY AND HEAD TO CREATE GAME
+                finish();
             }
         });
 
@@ -231,7 +271,7 @@ public class WaitScreen extends AppCompatActivity {
                         Toast.makeText(WaitScreen.this, "Select hero error. No response from server.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == SelectHeroResponses.ERROR_HERO_ALREADY_SELECTED) {
                         Toast.makeText(WaitScreen.this, "Select hero error. Hero already selected.", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == SelectHeroResponses.ERROR_DUPLICATE_HERO){
+                    } else if (asyncTask.get() == SelectHeroResponses.ERROR_DUPLICATE_HERO) {
                         Toast.makeText(WaitScreen.this, "Select hero error. Hero already exists in the game.", Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(WaitScreen.this, "Select hero success.", Toast.LENGTH_LONG).show();
@@ -252,9 +292,34 @@ public class WaitScreen extends AppCompatActivity {
 
                     if (asyncTask.get() == null) {
                         Toast.makeText(WaitScreen.this, "Ready error. No response from server.", Toast.LENGTH_LONG).show();
-                    }
-                    else if (asyncTask.get() == IsReadyResponses.ERROR_NO_SELECTED_HERO) {
+                    } else if (asyncTask.get() == IsReadyResponses.ERROR_NO_SELECTED_HERO) {
                         Toast.makeText(WaitScreen.this, "Ready error. No hero selected.", Toast.LENGTH_LONG).show();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        startGameBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask<String, Void, StartGameResponses> asyncTask;
+                try {
+                    StartGameSender startGameSender = new StartGameSender();
+                    asyncTask = startGameSender.execute();
+
+                    if (asyncTask.get() == null) {
+                        Toast.makeText(WaitScreen.this, "Start game error. No response from server.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == StartGameResponses.ERROR_NOT_HOST) {
+                        Toast.makeText(WaitScreen.this, "Start game error. Only the host can start the game.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == StartGameResponses.ERROR_NOT_ENOUGH_PLAYERS) {
+                        Toast.makeText(WaitScreen.this, "Start game error. Must have at least 2 players in lobby.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == StartGameResponses.ERROR_PLAYER_NOT_READY) {
+                        Toast.makeText(WaitScreen.this, "Start game error. Not every player in lobby is ready.", Toast.LENGTH_LONG).show();
+                    } else {
+                        t.interrupt();
+                        startActivity(new Intent(WaitScreen.this, Board.class));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -269,7 +334,7 @@ public class WaitScreen extends AppCompatActivity {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                Unirest.delete("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+myPlayer.getPlayer().getUsername()+"/leavePregame") // here game1 is a test, the gameName goes here
+                Unirest.delete("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/leavePregame") // here game1 is a test, the gameName goes here
                         .asString();
             } catch (UnirestException e) {
                 e.printStackTrace();
@@ -277,6 +342,7 @@ public class WaitScreen extends AppCompatActivity {
             return "";
         }
     }
+
     private static class SelectHeroSender extends AsyncTask<String, Void, SelectHeroResponses> {
         @Override
         protected SelectHeroResponses doInBackground(String... strings) {
@@ -284,7 +350,7 @@ public class WaitScreen extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+myPlayer.getPlayer().getUsername()+"/selectHero")
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/selectHero")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
@@ -297,6 +363,7 @@ public class WaitScreen extends AppCompatActivity {
             return null;
         }
     }
+
     private static class IsReadySender extends AsyncTask<String, Void, IsReadyResponses> {
         @Override
         protected IsReadyResponses doInBackground(String... strings) {
@@ -304,11 +371,30 @@ public class WaitScreen extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+myPlayer.getPlayer().getUsername()+"/isReady")
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/isReady")
                         .asString();
                 String resultAsJsonString = response.getBody();
 
                 return new Gson().fromJson(resultAsJsonString, IsReadyResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class StartGameSender extends AsyncTask<String, Void, StartGameResponses> {
+        @Override
+        protected StartGameResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/startGame")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, StartGameResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }

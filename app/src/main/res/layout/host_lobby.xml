@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/num_players"
         android:layout_width="241dp"
         android:layout_height="66dp"
         android:layout_marginStart="32dp"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/warrior_type"
         android:layout_width="241dp"
         android:layout_height="66dp"
         android:layout_marginStart="32dp"
