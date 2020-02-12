@@ -54,7 +54,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginBottom="128dp"
-            android:entries="@array/character_class"
+        android:entries="@array/character_class"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

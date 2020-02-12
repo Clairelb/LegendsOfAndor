@@ -228,7 +228,7 @@ public class WaitScreen extends AppCompatActivity {
                                         }
                                     } else {
                                         myPlayer.setGame(game);
-                                        startActivity(new Intent(WaitScreen.this, Board.class));
+                                        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
                                         Thread.currentThread().interrupt();
                                     }
                                 }
@@ -325,7 +325,7 @@ public class WaitScreen extends AppCompatActivity {
                         Toast.makeText(WaitScreen.this, "Start game error. Not every player in lobby is ready.", Toast.LENGTH_LONG).show();
                     } else {
                         t.interrupt();
-                        startActivity(new Intent(WaitScreen.this, Board.class));
+                        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
