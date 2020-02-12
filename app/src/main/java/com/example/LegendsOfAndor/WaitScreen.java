@@ -227,6 +227,7 @@ public class WaitScreen extends AppCompatActivity {
                                             }
                                         }
                                     } else {
+                                        myPlayer.setGame(game);
                                         startActivity(new Intent(WaitScreen.this, Board.class));
                                         Thread.currentThread().interrupt();
                                     }
