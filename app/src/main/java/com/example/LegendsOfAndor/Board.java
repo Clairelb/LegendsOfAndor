@@ -2,6 +2,9 @@ package com.example.LegendsOfAndor;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -58,7 +61,12 @@ public class Board extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent event) {
         if(flag){
             this.flag = false;
-
+            Bitmap layout = BitmapFactory.decodeResource(getResources(),R.drawable.overlay);
+            int color = layout.getPixel((int)(event.getX()),(int)(event.getY()));
+            int regionNumber = Color.blue(color);
+            //check if the region is a neighbor to the current region;
+            //set the player's current region to new region;
+            //add the player to the new region and remove the player from the previous region;
             this.warrior.setX(event.getX());
             this.warrior.setY(event.getY());
             return true;
