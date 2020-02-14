@@ -1,8 +1,7 @@
 package com.example.LegendsOfAndor;
 
-enum Hero {
-    WARRIOR,ARCHER,DWARF,WIZARD
-}
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player {
     private String username;
@@ -11,19 +10,14 @@ public class Player {
     private boolean isLoggedIn;
     private Hero hero;
     private boolean isReady;
-    private int willPower;
-    private int strength;
-    private int currentSpace;
-    private boolean hasEndedDay;
 
     public Player() {
     }
 
-    public Player(String username, String password, String color, boolean isLoggedIn) {
+    public Player(String username, String password, String color) {
         this.username = username;
         this.password = password;
         this.color = color;
-        this.isLoggedIn = isLoggedIn;
     }
 
     public String getUsername() {
@@ -53,6 +47,7 @@ public class Player {
     public Hero getHero() {
         return hero;
     }
+
     public void setHero(Hero hero) {
         this.hero = hero;
     }
@@ -63,7 +58,3 @@ public class Player {
         isReady = ready;
     }
 }
-
-
-
-

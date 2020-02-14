@@ -81,7 +81,7 @@ public class HostLobby extends AppCompatActivity {
 
                 String gameName = lobby_name.getText().toString();
 
-                myPlayer.getPlayer().setHero(new Gson().fromJson(s2.getSelectedItem().toString(), Hero.class));
+                myPlayer.getPlayer().setHero(new Hero(new Gson().fromJson(s2.getSelectedItem().toString(), HeroClass.class)));
                 Game game = new Game(myPlayer.getPlayer(), maxNumPlayers, gameName);
                 myPlayer.setGame(game);
 

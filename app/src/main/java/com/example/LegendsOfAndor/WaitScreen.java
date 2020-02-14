@@ -91,7 +91,11 @@ public class WaitScreen extends AppCompatActivity {
         for (int i = 0; i < myPlayer.getGame().getMaxNumPlayers(); i++) {
             if (i == 0) {
                 player1NameTV.setText("Player 1: " + myPlayer.getGame().getPlayers()[0].getUsername());
-                hero1TV.setText("Hero: " + myPlayer.getGame().getPlayers()[0].getHero());
+                if (myPlayer.getGame().getPlayers()[0].getHero() != null) {
+                    hero1TV.setText("Hero: " + myPlayer.getGame().getPlayers()[0].getHero().getHeroClass());
+                } else {
+                    hero1TV.setText("Hero: ");
+                }
                 if (myPlayer.getGame().getPlayers()[0].isReady()) {
                     ready1TV.setText("READY");
                     ready1TV.setBackgroundColor(Color.GREEN);
@@ -99,7 +103,11 @@ public class WaitScreen extends AppCompatActivity {
             } else if (i == 1) {
                 if (myPlayer.getGame().getPlayers()[1] != null) {
                     player2NameTV.setText("Player 2: " + myPlayer.getGame().getPlayers()[1].getUsername());
-                    hero2TV.setText("Hero: " + myPlayer.getGame().getPlayers()[1].getHero());
+                    if (myPlayer.getGame().getPlayers()[1].getHero() != null) {
+                        hero2TV.setText("Hero: " + myPlayer.getGame().getPlayers()[1].getHero().getHeroClass());
+                    } else {
+                        hero2TV.setText("Hero: ");
+                    }
                     if (myPlayer.getGame().getPlayers()[1].isReady()) {
                         ready2TV.setText("READY");
                         ready2TV.setBackgroundColor(Color.GREEN);
@@ -108,7 +116,11 @@ public class WaitScreen extends AppCompatActivity {
             } else if (i == 2) {
                 if (myPlayer.getGame().getPlayers()[2] != null) {
                     player3NameTV.setText("Player 3: " + myPlayer.getGame().getPlayers()[2].getUsername());
-                    hero3TV.setText("Hero: " + myPlayer.getGame().getPlayers()[2].getHero());
+                    if (myPlayer.getGame().getPlayers()[2].getHero() != null) {
+                        hero3TV.setText("Hero: " + myPlayer.getGame().getPlayers()[2].getHero().getHeroClass());
+                    } else {
+                        hero3TV.setText("Hero: ");
+                    }
                     if (myPlayer.getGame().getPlayers()[2].isReady()) {
                         ready3TV.setText("READY");
                         ready3TV.setBackgroundColor(Color.GREEN);
@@ -117,7 +129,11 @@ public class WaitScreen extends AppCompatActivity {
             } else if (i == 3) {
                 if (myPlayer.getGame().getPlayers()[3] != null) {
                     player4NameTV.setText("Player 4: " + myPlayer.getGame().getPlayers()[3].getUsername());
-                    hero4TV.setText("Hero: " + myPlayer.getGame().getPlayers()[3].getHero());
+                    if (myPlayer.getGame().getPlayers()[3].getHero() != null) {
+                        hero4TV.setText("Hero: " + myPlayer.getGame().getPlayers()[3].getHero().getHeroClass());
+                    } else {
+                        hero4TV.setText("Hero: ");
+                    }
                     if (myPlayer.getGame().getPlayers()[3].isReady()) {
                         ready4TV.setText("READY");
                         ready4TV.setBackgroundColor(Color.GREEN);
@@ -158,7 +174,11 @@ public class WaitScreen extends AppCompatActivity {
                                             if (i == 0) {
                                                 if (game.getPlayers()[i] != null) {
                                                     player1NameTV.setText("Player 1: " + game.getPlayers()[i].getUsername());
-                                                    hero1TV.setText("Hero: " + game.getPlayers()[i].getHero());
+                                                    if (game.getPlayers()[i].getHero() != null) {
+                                                        hero1TV.setText("Hero: " + game.getPlayers()[i].getHero().getHeroClass());
+                                                    } else {
+                                                        hero1TV.setText("Hero: ");
+                                                    }
                                                     if (game.getPlayers()[i].isReady()) {
                                                         ready1TV.setText("READY");
                                                         ready1TV.setBackgroundColor(Color.GREEN);
@@ -175,7 +195,11 @@ public class WaitScreen extends AppCompatActivity {
                                             } else if (i == 1) {
                                                 if (game.getPlayers()[i] != null) {
                                                     player2NameTV.setText("Player 2: " + game.getPlayers()[i].getUsername());
-                                                    hero2TV.setText("Hero: " + game.getPlayers()[i].getHero());
+                                                    if (game.getPlayers()[i].getHero() != null) {
+                                                        hero2TV.setText("Hero: " + game.getPlayers()[i].getHero().getHeroClass());
+                                                    } else {
+                                                        hero2TV.setText("Hero: ");
+                                                    }
                                                     if (game.getPlayers()[i].isReady()) {
                                                         ready2TV.setText("READY");
                                                         ready2TV.setBackgroundColor(Color.GREEN);
@@ -192,7 +216,11 @@ public class WaitScreen extends AppCompatActivity {
                                             } else if (i == 2) {
                                                 if (game.getPlayers()[i] != null) {
                                                     player3NameTV.setText("Player 3: " + game.getPlayers()[i].getUsername());
-                                                    hero3TV.setText("Hero: " + game.getPlayers()[i].getHero());
+                                                    if (game.getPlayers()[i].getHero() != null) {
+                                                        hero3TV.setText("Hero: " + game.getPlayers()[i].getHero().getHeroClass());
+                                                    } else {
+                                                        hero3TV.setText("Hero: ");
+                                                    }
                                                     if (game.getPlayers()[i].isReady()) {
                                                         ready3TV.setText("READY");
                                                         ready3TV.setBackgroundColor(Color.GREEN);
@@ -202,7 +230,6 @@ public class WaitScreen extends AppCompatActivity {
                                                     }
                                                 } else {
                                                     player3NameTV.setText("Player 3: ");
-                                                    hero1TV.setText("Hero: ");
                                                     hero3TV.setText("Hero: ");
                                                     ready3TV.setText("NOT READY");
                                                     ready3TV.setBackgroundColor(Color.RED);
@@ -210,7 +237,11 @@ public class WaitScreen extends AppCompatActivity {
                                             } else if (i == 3) {
                                                 if (game.getPlayers()[i] != null) {
                                                     player4NameTV.setText("Player 4: " + game.getPlayers()[i].getUsername());
-                                                    hero4TV.setText("Hero: " + game.getPlayers()[i].getHero());
+                                                    if (game.getPlayers()[i].getHero() != null) {
+                                                        hero4TV.setText("Hero: " + game.getPlayers()[i].getHero().getHeroClass());
+                                                    } else {
+                                                        hero4TV.setText("Hero: ");
+                                                    }
                                                     if (game.getPlayers()[i].isReady()) {
                                                         ready4TV.setText("READY");
                                                         ready4TV.setBackgroundColor(Color.GREEN);
@@ -271,7 +302,7 @@ public class WaitScreen extends AppCompatActivity {
                 AsyncTask<String, Void, SelectHeroResponses> asyncTask;
                 try {
                     SelectHeroSender selectHeroSender = new SelectHeroSender();
-                    asyncTask = selectHeroSender.execute(new Gson().toJson(new Gson().fromJson(heroSP.getSelectedItem().toString(), Hero.class)));
+                    asyncTask = selectHeroSender.execute(new Gson().toJson(new Gson().fromJson(heroSP.getSelectedItem().toString(), HeroClass.class)));
 
                     if (asyncTask.get() == null) {
                         Toast.makeText(WaitScreen.this, "Select hero error. No response from server.", Toast.LENGTH_LONG).show();

@@ -60,7 +60,7 @@ public class Login extends AppCompatActivity {
                 password = passwordInput.getText().toString();
                 serverIP = ipInput.getText().toString();
 
-                p = new Player(username, password, GlobalStaticMethods.getRandomColor(), false);
+                p = new Player(username, password, GlobalStaticMethods.getRandomColor());
                 usernameInput.setText("");
                 passwordInput.setText("");
                 ipInput.setText("");
