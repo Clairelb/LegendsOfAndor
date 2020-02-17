@@ -9,6 +9,7 @@ public class Game {
     private String gameName;
     private boolean isActive;
     private boolean itemsDistributed;
+    private String itemsDistributedMessage;
 
     public Game() {}
 
@@ -18,6 +19,7 @@ public class Game {
         this.currentNumPlayers = 1;
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
+        itemsDistributedMessage = "";
     }
 
     public int getMaxNumPlayers() {
@@ -81,5 +83,12 @@ public class Game {
                 break;
             }
         }
+    }
+
+    public void appendToDistributedItemsMessage(String message){
+        this.itemsDistributedMessage += message + "/n";
+    }
+    public String getItemsDistributedMessage(){
+        return itemsDistributedMessage;
     }
 }

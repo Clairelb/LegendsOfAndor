@@ -173,6 +173,7 @@ public class WaitScreen extends AppCompatActivity {
                                         for (int i = 0; i < game.getMaxNumPlayers(); i++) {
                                             if (i == 0) {
                                                 if (game.getPlayers()[i] != null) {
+
                                                     player1NameTV.setText("Player 1: " + game.getPlayers()[i].getUsername());
                                                     if (game.getPlayers()[i].getHero() != null) {
                                                         hero1TV.setText("Hero: " + game.getPlayers()[i].getHero().getHeroClass());
@@ -259,7 +260,11 @@ public class WaitScreen extends AppCompatActivity {
                                         }
                                     } else {
                                         myPlayer.setGame(game);
-                                        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+                                        if(myPlayer.getPlayer().getUsername().equals(game.getPlayers()[0].getUsername())){
+                                            startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+                                        }else{
+                                            startActivity(new Intent(WaitScreen.this, DistributeItemsWaitPage.class));
+                                        }
                                         Thread.currentThread().interrupt();
                                     }
                                 }

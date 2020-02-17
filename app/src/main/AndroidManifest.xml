@@ -33,6 +33,7 @@
             android:name=".Login"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".DistributeItems" android:screenOrientation="landscape"/>
+        <activity android:name=".DistributeItemsWaitPage" android:screenOrientation="landscape"/>
         <activity
             android:name=".JoinLobby"
             android:screenOrientation="sensorLandscape" />

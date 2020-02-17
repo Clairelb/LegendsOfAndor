@@ -132,8 +132,9 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
         t.interrupt();
+        finish();
     }
 
     private static class OldMessagesRetriever extends AsyncTask<String, Void, ArrayList<Message>> {
