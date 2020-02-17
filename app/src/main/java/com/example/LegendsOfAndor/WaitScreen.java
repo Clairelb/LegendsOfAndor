@@ -54,6 +54,8 @@ public class WaitScreen extends AppCompatActivity {
 
     private Spinner heroSP;
 
+    private Thread t;
+
     @Override
     public void onBackPressed() {
     }
@@ -155,7 +157,7 @@ public class WaitScreen extends AppCompatActivity {
             ready4TV.setVisibility(View.INVISIBLE);
         }
 
-        final Thread t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
+        t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -259,8 +261,7 @@ public class WaitScreen extends AppCompatActivity {
                                         }
                                     } else {
                                         myPlayer.setGame(game);
-                                        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
-                                        Thread.currentThread().interrupt();
+                                        interruptThreadAndStartActivity();
                                     }
                                 }
                             });
@@ -364,6 +365,12 @@ public class WaitScreen extends AppCompatActivity {
             }
         });
     }
+
+    public void interruptThreadAndStartActivity() {
+        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+        t.interrupt();
+    }
+
 
     private static class LeavePregameSender extends AsyncTask<String, Void, String> {
         @Override
