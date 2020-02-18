@@ -1,14 +1,17 @@
 package com.example.LegendsOfAndor;
 
+import java.util.ArrayList;
+
 public class Game {
     private int maxNumPlayers;
     private int currentNumPlayers;
     private Player[] players;
     private String gameName;
     private boolean isActive;
+    private boolean itemsDistributed;
+    private String itemsDistributedMessage;
 
-    public Game() {
-    }
+    public Game() {}
 
     public Game(Player p, int maxNumPlayers, String gameName) {
         this.gameName = gameName;
@@ -16,6 +19,7 @@ public class Game {
         this.currentNumPlayers = 1;
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
+        itemsDistributedMessage = "";
     }
 
     public int getMaxNumPlayers() {
@@ -54,6 +58,14 @@ public class Game {
         isActive = active;
     }
 
+    public boolean isItemsDistributed() {
+        return itemsDistributed;
+    }
+
+    public void setItemsDistributed(boolean itemsDistributed) {
+        this.itemsDistributed = itemsDistributed;
+    }
+
     public Player getSinglePlayer(String username) {
         for (Player p : players) {
             if (p.getUsername().equals(username)) {
@@ -71,5 +83,12 @@ public class Game {
                 break;
             }
         }
+    }
+
+    public void appendToDistributedItemsMessage(String message){
+        this.itemsDistributedMessage += message + "/n";
+    }
+    public String getItemsDistributedMessage(){
+        return itemsDistributedMessage;
     }
 }
