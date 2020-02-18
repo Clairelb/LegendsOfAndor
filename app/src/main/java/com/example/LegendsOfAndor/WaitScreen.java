@@ -54,6 +54,8 @@ public class WaitScreen extends AppCompatActivity {
 
     private Spinner heroSP;
 
+    private Thread t;
+
     @Override
     public void onBackPressed() {
     }
@@ -155,7 +157,7 @@ public class WaitScreen extends AppCompatActivity {
             ready4TV.setVisibility(View.INVISIBLE);
         }
 
-        final Thread t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
+        t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
                 while (!Thread.currentThread().isInterrupted()) {
@@ -173,7 +175,6 @@ public class WaitScreen extends AppCompatActivity {
                                         for (int i = 0; i < game.getMaxNumPlayers(); i++) {
                                             if (i == 0) {
                                                 if (game.getPlayers()[i] != null) {
-
                                                     player1NameTV.setText("Player 1: " + game.getPlayers()[i].getUsername());
                                                     if (game.getPlayers()[i].getHero() != null) {
                                                         hero1TV.setText("Hero: " + game.getPlayers()[i].getHero().getHeroClass());
@@ -260,12 +261,7 @@ public class WaitScreen extends AppCompatActivity {
                                         }
                                     } else {
                                         myPlayer.setGame(game);
-                                        if(myPlayer.getPlayer().getUsername().equals(game.getPlayers()[0].getUsername())){
-                                            startActivity(new Intent(WaitScreen.this, DistributeItems.class));
-                                        }else{
-                                            startActivity(new Intent(WaitScreen.this, DistributeItemsWaitPage.class));
-                                        }
-                                        Thread.currentThread().interrupt();
+                                        interruptThreadAndStartActivity();
                                     }
                                 }
                             });
@@ -369,6 +365,12 @@ public class WaitScreen extends AppCompatActivity {
             }
         });
     }
+
+    public void interruptThreadAndStartActivity() {
+        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+        t.interrupt();
+    }
+
 
     private static class LeavePregameSender extends AsyncTask<String, Void, String> {
         @Override
