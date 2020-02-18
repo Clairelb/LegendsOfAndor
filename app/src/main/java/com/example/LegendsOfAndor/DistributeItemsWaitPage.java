@@ -3,6 +3,7 @@ package com.example.LegendsOfAndor;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,6 +16,13 @@ import com.mashape.unirest.http.Unirest;
 
 public class DistributeItemsWaitPage extends AppCompatActivity {
 
+    private Thread t;
+    Game updatedGame = null;
+
+    @Override
+    public void onBackPressed(){
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +32,7 @@ public class DistributeItemsWaitPage extends AppCompatActivity {
 
         final MyPlayer myPlayer = MyPlayer.getInstance();
 
-        final Thread t = new Thread(new Runnable() {
+        t = new Thread(new Runnable() {
             @Override
             public void run() {
                 while(!Thread.currentThread().isInterrupted()){
@@ -40,10 +48,8 @@ public class DistributeItemsWaitPage extends AppCompatActivity {
                                     if(!game.isItemsDistributed()){
                                         Toast.makeText(DistributeItemsWaitPage.this,"Please wait. Host is still deciding item distribution", Toast.LENGTH_LONG).show();
                                     }else{
-                                        Toast.makeText(DistributeItemsWaitPage.this,"Item distribution is as follows: \n " + game.getItemsDistributedMessage() + "Welcome to the Game. Good Luck" , Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(DistributeItemsWaitPage.this, Board.class));
-                                        Thread.currentThread().interrupt();
-                                        finish();
+                                        updatedGame = game;
+                                        interruptThreadAndStartActivity();
                                     }
                                 }
                             });
@@ -70,8 +76,29 @@ public class DistributeItemsWaitPage extends AppCompatActivity {
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
                 startActivity(myIntent);
-                finish();
             }
         });
+    }
+
+    public void interruptThreadAndStartActivity() {
+        int toastDurationInMilliSeconds = 1000000;
+        final Toast toastToShow = Toast.makeText(DistributeItemsWaitPage.this,"Item distribution is as follows: \n " + updatedGame.getItemsDistributedMessage() + " Welcome to the Game. Good Luck" , Toast.LENGTH_LONG);
+
+        // Set the countdown to display the toast
+        CountDownTimer toastCountDown;
+        toastCountDown = new CountDownTimer(toastDurationInMilliSeconds, 1000 /*Tick duration*/) {
+            public void onTick(long millisUntilFinished) {
+                toastToShow.show();
+            }
+            public void onFinish() {
+                toastToShow.cancel();
+            }
+        };
+
+        // Show the toast and starts the countdown
+        toastToShow.show();
+        toastCountDown.start();
+        startActivity(new Intent(DistributeItemsWaitPage.this, Board.class));
+        t.interrupt();
     }
 }

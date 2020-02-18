@@ -30,6 +30,10 @@ enum DistributeItemsResponses{
 public class DistributeItems extends AppCompatActivity {
 
     @Override
+    public void onBackPressed(){}
+
+
+    @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distributeitemspage);
@@ -63,6 +67,8 @@ public class DistributeItems extends AppCompatActivity {
         wizard_text.setVisibility(View.INVISIBLE);
 
         final Game currentGame = MyPlayer.getInstance().getGame();
+
+
 
         for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
             if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
@@ -104,6 +110,7 @@ public class DistributeItems extends AppCompatActivity {
                 int dwarf_wineskin = Integer.parseInt(dwarfWineskin.getSelectedItem().toString());
 
                 if((war_gold + arch_gold + wiz_gold + dwarf_gold == 5) && (wiz_wineskin + war_wineskin + arch_wineskin + dwarf_wineskin == 2)){
+                    startActivity(new Intent(DistributeItems.this, Board.class));
                     ItemDistribution itemDistribution = new ItemDistribution();
                     for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
                         if(i == 1){
@@ -254,7 +261,6 @@ public class DistributeItems extends AppCompatActivity {
 
                         if(distributeItemsResponses == DistributeItemsResponses.DISTRIBUTE_ITEMS_SUCCESS){
                             Toast.makeText(DistributeItems.this,"Valid Item Distribution. Welcome to the Game. Good luck",Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(DistributeItems.this, Board.class));
                         }
                     }catch (Exception e){
                         e.printStackTrace();
@@ -265,6 +271,14 @@ public class DistributeItems extends AppCompatActivity {
             }
         });
 
+        Button chatb = findViewById(R.id.distribute_items_chatb2);
+        chatb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
+                startActivity(myIntent);
+            }
+        });
 
     }
     private static class SendItemDistribution extends AsyncTask<String, Void, DistributeItemsResponses> {

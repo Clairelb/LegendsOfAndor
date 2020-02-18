@@ -7,6 +7,19 @@
     android:background="@drawable/board"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/distribute_items_chatb2"
+        android:layout_width="40dp"
+        android:layout_height="35dp"
+        android:background="@drawable/chaticon"
+        android:backgroundTint="#FFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="567dp"

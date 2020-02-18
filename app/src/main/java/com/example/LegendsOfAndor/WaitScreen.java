@@ -55,6 +55,8 @@ public class WaitScreen extends AppCompatActivity {
     private Spinner heroSP;
 
     private Thread t;
+    MyPlayer myPlayer = MyPlayer.getInstance();
+    Game updatedGame = null;
 
     @Override
     public void onBackPressed() {
@@ -88,7 +90,7 @@ public class WaitScreen extends AppCompatActivity {
 
         heroSP = findViewById(R.id.spinner3);
 
-        final MyPlayer myPlayer = MyPlayer.getInstance();
+
 
         for (int i = 0; i < myPlayer.getGame().getMaxNumPlayers(); i++) {
             if (i == 0) {
@@ -261,6 +263,7 @@ public class WaitScreen extends AppCompatActivity {
                                         }
                                     } else {
                                         myPlayer.setGame(game);
+                                        updatedGame = game;
                                         interruptThreadAndStartActivity();
                                     }
                                 }
@@ -367,7 +370,11 @@ public class WaitScreen extends AppCompatActivity {
     }
 
     public void interruptThreadAndStartActivity() {
-        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+        if(myPlayer.getPlayer().getUsername().equals(updatedGame.getPlayers()[0].getUsername())){
+            startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+        }else{
+            startActivity(new Intent(WaitScreen.this, DistributeItemsWaitPage.class));
+        }
         t.interrupt();
     }
 
