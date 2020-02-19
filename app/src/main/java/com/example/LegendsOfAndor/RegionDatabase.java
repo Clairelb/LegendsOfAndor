@@ -5,8 +5,21 @@ import java.util.Random;
 
 public class RegionDatabase {
     private ArrayList<Region> regionDatabase;
+    private static RegionDatabase instance = null;
 
-    public RegionDatabase() {
+    public static RegionDatabase getInstance(){
+        if(instance == null)
+        {
+            instance = new RegionDatabase();
+            return instance;
+        }
+        else
+            {
+                return instance;
+            }
+    }
+
+    private RegionDatabase() {
         regionDatabase = new ArrayList<>();
 
         for (int i = 0; i < 85; i++) {
