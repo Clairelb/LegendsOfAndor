@@ -19,7 +19,7 @@ import com.github.chrisbanes.photoview.PhotoView;
 
 public class Board extends AppCompatActivity {
     public ImageView warrior;
-    boolean flag = true;
+    boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
