@@ -17,6 +17,7 @@ public class Hero {
     private boolean hasEndedDay;
     private int gold;
     private ArrayList<Item> items;
+    private ArrayList<Farmer> farmers;
 
     public Hero() {}
 
@@ -38,6 +39,7 @@ public class Hero {
         hasEndedDay = false;
         gold = 0;
         items = new ArrayList<>();
+        farmers = new ArrayList<>();
     }
     public HeroClass getHeroClass() {
         return heroClass;
@@ -101,5 +103,13 @@ public class Hero {
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
+    }
+
+    public ArrayList<Farmer> getFarmers() {
+        return farmers;
+    }
+
+    public void setFarmers(ArrayList<Farmer> farmers) {
+        this.farmers = farmers;
     }
 }

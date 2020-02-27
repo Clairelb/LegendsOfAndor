@@ -19,6 +19,7 @@ public class Game {
     private Hero currentHero;
     private Hero firstHeroInNextDay;
     private TurnOptions currentHeroSelectedOption;
+    private ArrayList<Farmer> farmers;
 
     public Game() {}
 
@@ -29,6 +30,7 @@ public class Game {
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
         regionDatabase = new RegionDatabase(Difficulty.Hard); // hardcoded change when add Difficulty attribute
+        farmers = new ArrayList<Farmer>();
     }
 
     public int getMaxNumPlayers() {
@@ -173,5 +175,13 @@ public class Game {
 
     public String getItemsDistributedMessage(){
         return itemsDistributedMessage;
+    }
+
+    public ArrayList<Farmer> getFarmers() {
+        return farmers;
+    }
+
+    public void setFarmers(ArrayList<Farmer> farmers) {
+        this.farmers = farmers;
     }
 }

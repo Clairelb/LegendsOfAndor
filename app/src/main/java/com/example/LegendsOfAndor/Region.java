@@ -24,6 +24,7 @@ public class Region {
     private Integer bridgeNextRegion;
     private ArrayList<Item> items;
     private Creature currentCreature;
+    private ArrayList<Farmer> farmers;
 
     public Region() {}
 
@@ -37,6 +38,7 @@ public class Region {
         this.bridge = bridge;
         adjacentRegions = new ArrayList<>();
         items = new ArrayList<>();
+        farmers = new ArrayList<>();
     }
     public int getNumber() {
         return number;
@@ -140,5 +142,13 @@ public class Region {
 
     public void setCurrentCreature(Creature currentCreature) {
         this.currentCreature = currentCreature;
+    }
+
+    public ArrayList<Farmer> getFarmers() {
+        return farmers;
+    }
+
+    public void setFarmers(ArrayList<Farmer> farmers) {
+        this.farmers = farmers;
     }
 }
