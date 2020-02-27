@@ -9,6 +9,7 @@ enum TurnOptions{
 public class Game {
     private int maxNumPlayers;
     private int currentNumPlayers;
+    private int goldenShields;
     private Player[] players;
     private String gameName;
     private boolean isActive;
@@ -16,6 +17,7 @@ public class Game {
     private String itemsDistributedMessage;
     private RegionDatabase regionDatabase;
     private Hero currentHero;
+    private Hero firstHeroInNextDay;
     private TurnOptions currentHeroSelectedOption;
 
     public Game() {}
@@ -43,6 +45,14 @@ public class Game {
 
     public void setCurrentNumPlayers(int currentNumPlayers) {
         this.currentNumPlayers = currentNumPlayers;
+    }
+
+    public int getGoldenShields() {
+        return goldenShields;
+    }
+
+    public void setGoldenShields(int goldenShields) {
+        this.goldenShields = goldenShields;
     }
 
     public Player[] getPlayers() {
@@ -139,6 +149,14 @@ public class Game {
 
     public void setCurrentHero(Hero currentHero) {
         this.currentHero = currentHero;
+    }
+
+    public Hero getFirstHeroInNextDay() {
+        return firstHeroInNextDay;
+    }
+
+    public void setFirstHeroInNextDay(Hero firstHeroInNextDay) {
+        this.firstHeroInNextDay = firstHeroInNextDay;
     }
 
     public TurnOptions getCurrentHeroSelectedOption() {

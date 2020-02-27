@@ -1,5 +1,8 @@
 package com.example.LegendsOfAndor;
 
+import com.example.LegendsOfAndor.Creature.Creature;
+import com.example.LegendsOfAndor.Item.Item;
+
 import java.util.ArrayList;
 
 enum FogKind {
@@ -19,6 +22,8 @@ public class Region {
     private Integer bridgeAdjacentRegion;
     private Integer nextRegion;
     private Integer bridgeNextRegion;
+    private ArrayList<Item> items;
+    private Creature currentCreature;
 
     public Region() {}
 
@@ -31,6 +36,7 @@ public class Region {
         this.merchant = merchant;
         this.bridge = bridge;
         adjacentRegions = new ArrayList<>();
+        items = new ArrayList<>();
     }
     public int getNumber() {
         return number;
@@ -118,5 +124,21 @@ public class Region {
 
     public void setBridgeNextRegion(Integer bridgeNextRegion) {
         this.bridgeNextRegion = bridgeNextRegion;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    public Creature getCurrentCreature() {
+        return currentCreature;
+    }
+
+    public void setCurrentCreature(Creature currentCreature) {
+        this.currentCreature = currentCreature;
     }
 }
