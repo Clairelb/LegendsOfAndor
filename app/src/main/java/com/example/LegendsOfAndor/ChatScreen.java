@@ -81,8 +81,8 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
 
                     editText.getText().clear(); // clear editText
 
-                    messageAdapter.add(newMessage);
-                    messagesView.setSelection(messagesView.getCount() - 1);
+                    //messageAdapter.add(newMessage);
+                    //messagesView.setSelection(messagesView.getCount() - 1);
 
                     try {
                         MessageSender messageSender = new MessageSender();
@@ -99,24 +99,29 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
             public void run() {
                 while(!Thread.currentThread().isInterrupted()) {
                     try {
-                        System.out.println("running!!!!!!!!");
-                        HttpResponse<String> response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+username+"/getMsg")
+                        final HttpResponse<String> response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+username+"/getMsg")
                                 .asString();
 
                         if (response.getCode() == 200) {
-                            MessageDatabase messageDatabase = new Gson().fromJson(response.getBody(), MessageDatabase.class);
-                            final Message incomingMsg = messageDatabase.getMessages().get(messageDatabase.getMessages().size() - 1);
+                            runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
+                                @Override
+                                public void run() {
+                                    MessageDatabase messageDatabase = new Gson().fromJson(response.getBody(), MessageDatabase.class);
 
-                            if (!incomingMsg.getPlayer().getUsername().equals(username)) {
-                                incomingMsg.setBelongsToCurrentUser(false);
-                                runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
-                                    @Override
-                                    public void run() {
-                                        messageAdapter.add(incomingMsg);
+                                    messageAdapter.clear();
+
+                                    for (Message m : messageDatabase.getMessages()) {
+                                        if (!m.getPlayer().getUsername().equals(username)) {
+                                            m.setBelongsToCurrentUser(false);
+                                        } else {
+                                            m.setBelongsToCurrentUser(true);
+                                        }
+                                        messageAdapter.add(m);
                                         messagesView.setSelection(messagesView.getCount() - 1);
+
                                     }
-                                });
-                            }
+                                }
+                            });
                         }
 
                     } catch (Exception e) {
@@ -132,7 +137,6 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
 
     @Override
     public void onBackPressed() {
-
         t.interrupt();
         finish();
     }
