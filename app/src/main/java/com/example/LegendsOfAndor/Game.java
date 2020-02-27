@@ -2,6 +2,10 @@ package com.example.LegendsOfAndor;
 
 import java.util.ArrayList;
 
+enum TurnOptions{
+    Move, Fight, None
+}
+
 public class Game {
     private int maxNumPlayers;
     private int currentNumPlayers;
@@ -10,6 +14,9 @@ public class Game {
     private boolean isActive;
     private boolean itemsDistributed;
     private String itemsDistributedMessage;
+    private RegionDatabase regionDatabase;
+    private Hero currentHero;
+    private TurnOptions currentHeroSelectedOption;
 
     public Game() {}
 
@@ -19,7 +26,7 @@ public class Game {
         this.currentNumPlayers = 1;
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
-        itemsDistributedMessage = "";
+        regionDatabase = new RegionDatabase(Difficulty.Hard); // hardcoded change when add Difficulty attribute
     }
 
     public int getMaxNumPlayers() {
@@ -85,9 +92,67 @@ public class Game {
         }
     }
 
-    public void appendToDistributedItemsMessage(String message){
-        this.itemsDistributedMessage += message + "/n";
+    public void removePlayer(String username) {
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (players[i].getUsername().equals(username)) {
+                players[i].setHero(null);
+                players[i].setReady(false);
+                for (int j = i; j < maxNumPlayers; j++) {
+                    if (j == maxNumPlayers-1) {
+                        players[j] = null;
+                    } else {
+                        players[j] = players[j + 1]; // shift every element down by one unit
+                    }
+                }
+                currentNumPlayers--;
+                return;
+            }
+        }
     }
+
+    public ArrayList<HeroClass> getAllHeroes() {
+        ArrayList<HeroClass> heroes = new ArrayList<>();
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (players[i].getHero() != null) {
+                heroes.add(players[i].getHero().getHeroClass());
+            }
+        }
+        return heroes;
+    }
+
+    public boolean allReady() {
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (!players[i].isReady()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public RegionDatabase getRegionDatabase() {
+        return regionDatabase;
+    }
+
+    public Hero getCurrentHero() {
+        return currentHero;
+    }
+
+    public void setCurrentHero(Hero currentHero) {
+        this.currentHero = currentHero;
+    }
+
+    public TurnOptions getCurrentHeroSelectedOption() {
+        return currentHeroSelectedOption;
+    }
+
+    public void setCurrentHeroSelectedOption(TurnOptions currentHeroSelectedOption) {
+        this.currentHeroSelectedOption = currentHeroSelectedOption;
+    }
+
+    public void appendToDistributedItemsMessage(String message){
+        this.itemsDistributedMessage += message + "\n";
+    }
+
     public String getItemsDistributedMessage(){
         return itemsDistributedMessage;
     }
