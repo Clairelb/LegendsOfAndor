@@ -32,7 +32,7 @@ public class Hero {
         }
         willPower = 7;
         strength = 1;
-        currentHour = 0;
+        currentHour = 1;
         hasEndedDay = false;
         gold = 0;
         items = new ArrayList<>();
