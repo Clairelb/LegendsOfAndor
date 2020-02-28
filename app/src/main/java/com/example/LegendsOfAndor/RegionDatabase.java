@@ -6,7 +6,7 @@ import java.util.Random;
 import com.example.LegendsOfAndor.Creature.*;
 
 enum Difficulty {
-    Easy, Hard
+    EASY, HARD
 }
 
 public class RegionDatabase {
@@ -30,9 +30,13 @@ public class RegionDatabase {
 
         // set fountains
         regionDatabase.get(5).setFountain(true);
+        regionDatabase.get(5).setFountainStatus(true);
         regionDatabase.get(35).setFountain(true);
+        regionDatabase.get(35).setFountainStatus(true);
         regionDatabase.get(55).setFountain(true);
+        regionDatabase.get(55).setFountainStatus(true);
         regionDatabase.get(45).setFountain(true);
+        regionDatabase.get(45).setFountainStatus(true);
 
         // set merchants
         regionDatabase.get(18).setMerchant(true);
@@ -218,7 +222,7 @@ public class RegionDatabase {
         regionDatabase.get(19).setCurrentCreature(new Skral());
 
         regionDatabase.get(24).getFarmers().add(new Farmer());
-        if (difficulty == Difficulty.Easy) {
+        if (difficulty == Difficulty.EASY) {
             regionDatabase.get(36).getFarmers().add(new Farmer());
         }
     }
