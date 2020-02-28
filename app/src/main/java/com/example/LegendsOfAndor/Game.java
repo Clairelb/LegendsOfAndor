@@ -6,6 +6,10 @@ enum TurnOptions{
     MOVE, FIGHT, NONE
 }
 
+enum Farmer {
+    FARMER
+}
+
 public class Game {
     private int maxNumPlayers;
     private int currentNumPlayers;
