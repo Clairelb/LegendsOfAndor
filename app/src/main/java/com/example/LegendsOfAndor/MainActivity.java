@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //when start button is pressed go to login page
+
         startButton = findViewById(R.id.startButton);
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +27,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
     }
 }
