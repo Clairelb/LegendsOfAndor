@@ -24,17 +24,24 @@ public class Game {
     private Hero firstHeroInNextDay;
     private TurnOptions currentHeroSelectedOption;
     private ArrayList<Farmer> farmers;
+    private Boolean difficultMode;
 
     public Game() {}
 
-    public Game(Player p, int maxNumPlayers, String gameName) {
+    public Game(Player p, int maxNumPlayers, String gameName, Boolean difficult) {
         this.gameName = gameName;
         this.maxNumPlayers = maxNumPlayers;
         this.currentNumPlayers = 1;
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
-        regionDatabase = new RegionDatabase(Difficulty.HARD); // hardcoded change when add Difficulty attribute
+        if(difficult){
+            regionDatabase = new RegionDatabase(Difficulty.HARD);
+        }else{
+            regionDatabase = new RegionDatabase(Difficulty.EASY);
+        }
         farmers = new ArrayList<Farmer>();
+        this.difficultMode = difficult;
+        System.out.println("GAME DIFFICULTY: " + this.difficultMode);
     }
 
     public int getMaxNumPlayers() {
@@ -187,5 +194,13 @@ public class Game {
 
     public void setFarmers(ArrayList<Farmer> farmers) {
         this.farmers = farmers;
+    }
+
+    public Boolean getDifficultMode() {
+        return difficultMode;
+    }
+
+    public void setDifficultMode(Boolean difficultMode) {
+        this.difficultMode = difficultMode;
     }
 }

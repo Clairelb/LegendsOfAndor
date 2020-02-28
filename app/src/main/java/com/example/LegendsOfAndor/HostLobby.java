@@ -7,8 +7,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,8 @@ public class HostLobby extends AppCompatActivity {
         back_btn.setTypeface(gothicFont);
         create_lobby_btn.setTypeface(gothicFont);
         lobby_name.setTypeface(gothicFont);
+        final CheckBox difficulty = findViewById(R.id.difficulty);
+        difficulty.setTypeface(gothicFont);
 
         //go back to create game screen
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +58,8 @@ public class HostLobby extends AppCompatActivity {
             }
         });
 
+
+
         //get hero type in a variable S
         final Spinner s2 = (Spinner) findViewById(R.id.warrior_type);
         String hero_type = s2.getSelectedItem().toString();
@@ -62,6 +68,7 @@ public class HostLobby extends AppCompatActivity {
         create_lobby_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 //get number of players in a variable
                 Spinner s = findViewById(R.id.num_players);
@@ -80,28 +87,33 @@ public class HostLobby extends AppCompatActivity {
                 HostGameResponses hostGameResponses;
 
                 String gameName = lobby_name.getText().toString();
+                System.out.println("GAME NAME" + gameName);
+                if(gameName == null || gameName.length()== 0){
+                    Toast.makeText(HostLobby.this, "Please specify game name.", Toast.LENGTH_LONG).show();
+                }else{
+                    myPlayer.getPlayer().setHero(new Hero(new Gson().fromJson(s2.getSelectedItem().toString(), HeroClass.class)));
+                    Game game = new Game(myPlayer.getPlayer(), maxNumPlayers, gameName, difficulty.isChecked());
+                    myPlayer.setGame(game);
 
-                myPlayer.getPlayer().setHero(new Hero(new Gson().fromJson(s2.getSelectedItem().toString(), HeroClass.class)));
-                Game game = new Game(myPlayer.getPlayer(), maxNumPlayers, gameName);
-                myPlayer.setGame(game);
+                    try {
+                        HostGameSender hostGameSenderSender = new HostGameSender();
+                        asyncTask = hostGameSenderSender.execute(new Gson().toJson(game));
+                        hostGameResponses = asyncTask.get();
 
-                try {
-                    HostGameSender hostGameSenderSender = new HostGameSender();
-                    asyncTask = hostGameSenderSender.execute(new Gson().toJson(game));
-                    hostGameResponses = asyncTask.get();
-
-                    if (hostGameResponses == null) {
-                        Toast.makeText(HostLobby.this, "Host game error. No response from server.", Toast.LENGTH_LONG).show();
-                    } else if (hostGameResponses == HostGameResponses.ERROR_GAME_ALREADY_EXISTS) {
-                        Toast.makeText(HostLobby.this, "Host game error. Game already exists in server", Toast.LENGTH_LONG).show();
-                    } else {
-                        Toast.makeText(HostLobby.this, "Host game success. Game created.", Toast.LENGTH_LONG).show();
-                        //GO STRAIGHT TO GAME BOARD
-                        startActivity(new Intent(HostLobby.this, WaitScreen.class));
+                        if (hostGameResponses == null) {
+                            Toast.makeText(HostLobby.this, "Host game error. No response from server.", Toast.LENGTH_LONG).show();
+                        } else if (hostGameResponses == HostGameResponses.ERROR_GAME_ALREADY_EXISTS) {
+                            Toast.makeText(HostLobby.this, "Host game error. Game already exists in server", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(HostLobby.this, "Host game success. Game created.", Toast.LENGTH_LONG).show();
+                            //GO STRAIGHT TO GAME BOARD
+                            startActivity(new Intent(HostLobby.this, WaitScreen.class));
+                        }
+                    } catch(Exception e) {
+                        e.printStackTrace();
                     }
-                } catch(Exception e) {
-                    e.printStackTrace();
                 }
+
             }
         });
     }
