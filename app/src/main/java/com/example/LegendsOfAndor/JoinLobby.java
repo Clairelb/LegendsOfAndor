@@ -81,7 +81,10 @@ public class JoinLobby extends AppCompatActivity {
         }
 
         for (Game g: games) {
-            gameNames.add(g.getGameName());
+            if(g.getGameName()!= null){
+                gameNames.add(g.getGameName());
+            }
+
         }
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, gameNames);
@@ -164,7 +167,7 @@ public class JoinLobby extends AppCompatActivity {
                         .asString();
 
                 String resultAsJsonString = response.getBody();
-
+                System.out.println("RESPONSE BODY " + response.getBody());
                 return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Game>>() {}.getType());
             } catch (UnirestException e) {
                 e.printStackTrace();
