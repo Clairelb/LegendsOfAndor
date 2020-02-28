@@ -18,7 +18,7 @@ public class RegionDatabase {
         regionDatabase = new ArrayList<>();
 
         for (int i = 0; i < 85; i++) {
-            regionDatabase.add(new Region(i, FogKind.None, false, false, false, false, false));
+            regionDatabase.add(new Region(i, FogKind.NONE, false, false, false, false));
         }
         // set bridges
         regionDatabase.get(48).setBridge(true);
@@ -229,21 +229,21 @@ public class RegionDatabase {
 
     public void setRandomizedFogs() {
         ArrayList<FogKind> fogs = new ArrayList<>();
-        fogs.add(FogKind.Event);
-        fogs.add(FogKind.Event);
-        fogs.add(FogKind.Event);
-        fogs.add(FogKind.Event);
-        fogs.add(FogKind.Event);
+        fogs.add(FogKind.EVENT);
+        fogs.add(FogKind.EVENT);
+        fogs.add(FogKind.EVENT);
+        fogs.add(FogKind.EVENT);
+        fogs.add(FogKind.EVENT);
         fogs.add(FogKind.SP);
-        fogs.add(FogKind.TwoWP);
-        fogs.add(FogKind.ThreeWP);
-        fogs.add(FogKind.Gold);
-        fogs.add(FogKind.Gold);
-        fogs.add(FogKind.Gold);
-        fogs.add(FogKind.Monster);
-        fogs.add(FogKind.Monster);
-        fogs.add(FogKind.Wineskin);
-        fogs.add(FogKind.WitchBrew);
+        fogs.add(FogKind.TWO_WP);
+        fogs.add(FogKind.THREE_WP);
+        fogs.add(FogKind.GOLD);
+        fogs.add(FogKind.GOLD);
+        fogs.add(FogKind.GOLD);
+        fogs.add(FogKind.MONSTER);
+        fogs.add(FogKind.MONSTER);
+        fogs.add(FogKind.WINESKIN);
+        fogs.add(FogKind.WITCHBREW);
 
         Random random = new Random();
         for (int i = 0; i < 15; i++) {
