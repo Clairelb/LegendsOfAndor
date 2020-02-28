@@ -1,4 +1,4 @@
-package com.example.LegendsOfAndor;
+package com.example.LegendsOfAndor.Item;
 
 public class Wineskin extends Item {
     int uses;

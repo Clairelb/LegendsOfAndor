@@ -10,17 +10,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.LegendsOfAndor.Item.Item;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+import com.example.LegendsOfAndor.Item.*;
 
 
 enum DistributeItemsResponses{

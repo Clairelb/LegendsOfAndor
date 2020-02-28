@@ -2,14 +2,28 @@ package com.example.LegendsOfAndor;
 
 import java.util.ArrayList;
 
+enum TurnOptions{
+    MOVE, FIGHT, NONE
+}
+
+enum Farmer {
+    FARMER
+}
+
 public class Game {
     private int maxNumPlayers;
     private int currentNumPlayers;
+    private int goldenShields;
     private Player[] players;
     private String gameName;
     private boolean isActive;
     private boolean itemsDistributed;
     private String itemsDistributedMessage;
+    private RegionDatabase regionDatabase;
+    private Hero currentHero;
+    private Hero firstHeroInNextDay;
+    private TurnOptions currentHeroSelectedOption;
+    private ArrayList<Farmer> farmers;
 
     public Game() {}
 
@@ -19,7 +33,8 @@ public class Game {
         this.currentNumPlayers = 1;
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
-        itemsDistributedMessage = "";
+        regionDatabase = new RegionDatabase(Difficulty.HARD); // hardcoded change when add Difficulty attribute
+        farmers = new ArrayList<Farmer>();
     }
 
     public int getMaxNumPlayers() {
@@ -36,6 +51,14 @@ public class Game {
 
     public void setCurrentNumPlayers(int currentNumPlayers) {
         this.currentNumPlayers = currentNumPlayers;
+    }
+
+    public int getGoldenShields() {
+        return goldenShields;
+    }
+
+    public void setGoldenShields(int goldenShields) {
+        this.goldenShields = goldenShields;
     }
 
     public Player[] getPlayers() {
@@ -85,10 +108,84 @@ public class Game {
         }
     }
 
-    public void appendToDistributedItemsMessage(String message){
-        this.itemsDistributedMessage += message + "/n";
+    public void removePlayer(String username) {
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (players[i].getUsername().equals(username)) {
+                players[i].setHero(null);
+                players[i].setReady(false);
+                for (int j = i; j < maxNumPlayers; j++) {
+                    if (j == maxNumPlayers-1) {
+                        players[j] = null;
+                    } else {
+                        players[j] = players[j + 1]; // shift every element down by one unit
+                    }
+                }
+                currentNumPlayers--;
+                return;
+            }
+        }
     }
+
+    public ArrayList<HeroClass> getAllHeroes() {
+        ArrayList<HeroClass> heroes = new ArrayList<>();
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (players[i].getHero() != null) {
+                heroes.add(players[i].getHero().getHeroClass());
+            }
+        }
+        return heroes;
+    }
+
+    public boolean allReady() {
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (!players[i].isReady()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public RegionDatabase getRegionDatabase() {
+        return regionDatabase;
+    }
+
+    public Hero getCurrentHero() {
+        return currentHero;
+    }
+
+    public void setCurrentHero(Hero currentHero) {
+        this.currentHero = currentHero;
+    }
+
+    public Hero getFirstHeroInNextDay() {
+        return firstHeroInNextDay;
+    }
+
+    public void setFirstHeroInNextDay(Hero firstHeroInNextDay) {
+        this.firstHeroInNextDay = firstHeroInNextDay;
+    }
+
+    public TurnOptions getCurrentHeroSelectedOption() {
+        return currentHeroSelectedOption;
+    }
+
+    public void setCurrentHeroSelectedOption(TurnOptions currentHeroSelectedOption) {
+        this.currentHeroSelectedOption = currentHeroSelectedOption;
+    }
+
+    public void appendToDistributedItemsMessage(String message){
+        this.itemsDistributedMessage += message + "\n";
+    }
+
     public String getItemsDistributedMessage(){
         return itemsDistributedMessage;
+    }
+
+    public ArrayList<Farmer> getFarmers() {
+        return farmers;
+    }
+
+    public void setFarmers(ArrayList<Farmer> farmers) {
+        this.farmers = farmers;
     }
 }

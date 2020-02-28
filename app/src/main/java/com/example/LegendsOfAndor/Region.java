@@ -1,10 +1,12 @@
 package com.example.LegendsOfAndor;
 
-import java.lang.reflect.Array;
+import com.example.LegendsOfAndor.Creature.Creature;
+import com.example.LegendsOfAndor.Item.Item;
+
 import java.util.ArrayList;
 
 enum FogKind {
-    None, Monster, Wineskin, TwoWP, ThreeWP, SP, Gold, WitchBrew, Event
+    NONE, MONSTER, WINESKIN, TWO_WP, THREE_WP, SP, GOLD, WITCHBREW, EVENT
 }
 
 public class Region {
@@ -16,10 +18,15 @@ public class Region {
     private boolean merchant;
     private boolean bridge;
     private int gold;
-    private ArrayList<Region> adjacentRegions;
-    private Region bridgeAdjacentRegion;
-    private Region nextRegion;
-    private Region bridgeNextRegion;
+    private ArrayList<Integer> adjacentRegions;
+    private Integer bridgeAdjacentRegion;
+    private Integer nextRegion;
+    private Integer bridgeNextRegion;
+    private ArrayList<Item> items;
+    private Creature currentCreature;
+    private ArrayList<Farmer> farmers;
+
+    public Region() {}
 
     public Region(int number, FogKind fog, boolean fogRevealed, boolean fountain, boolean fountainStatus, boolean merchant, boolean bridge) {
         this.number = number;
@@ -30,6 +37,8 @@ public class Region {
         this.merchant = merchant;
         this.bridge = bridge;
         adjacentRegions = new ArrayList<>();
+        items = new ArrayList<>();
+        farmers = new ArrayList<>();
     }
     public int getNumber() {
         return number;
@@ -95,27 +104,59 @@ public class Region {
         this.gold = gold;
     }
 
-    public ArrayList<Region> getAdjacentRegions() {
+    public ArrayList<Integer> getAdjacentRegions() {
         return adjacentRegions;
     }
 
-    public void setAdjacentRegions(ArrayList<Region> adjacentRegions) {
+    public Integer getBridgeAdjacentRegion() {
+        return bridgeAdjacentRegion;
+    }
+
+    public Integer getBridgeNextRegion() {
+        return bridgeNextRegion;
+    }
+
+    public void setAdjacentRegions(ArrayList<Integer> adjacentRegions) {
         this.adjacentRegions = adjacentRegions;
     }
 
-    public void setBridgeAdjacentRegion(Region bridgeAdjacentRegion) {
+    public void setBridgeAdjacentRegion(Integer bridgeAdjacentRegion) {
         this.bridgeAdjacentRegion = bridgeAdjacentRegion;
     }
 
-    public Region getNextRegion() {
+    public Integer getNextRegion() {
         return nextRegion;
     }
 
-    public void setNextRegion(Region nextRegion) {
+    public void setNextRegion(Integer nextRegion) {
         this.nextRegion = nextRegion;
     }
 
-    public void setBridgeNextRegion(Region bridgeNextRegion) {
+    public void setBridgeNextRegion(Integer bridgeNextRegion) {
         this.bridgeNextRegion = bridgeNextRegion;
+    }
+
+    public ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(ArrayList<Item> items) {
+        this.items = items;
+    }
+
+    public Creature getCurrentCreature() {
+        return currentCreature;
+    }
+
+    public void setCurrentCreature(Creature currentCreature) {
+        this.currentCreature = currentCreature;
+    }
+
+    public ArrayList<Farmer> getFarmers() {
+        return farmers;
+    }
+
+    public void setFarmers(ArrayList<Farmer> farmers) {
+        this.farmers = farmers;
     }
 }
