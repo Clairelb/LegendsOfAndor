@@ -34,30 +34,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.869" />
+
     <com.example.LegendsOfAndor.ZoomableViewGroup
         android:id="@+id/zoomableViewGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-142dp">
 
         <ImageView
             android:id="@+id/board"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/board"/>
+            android:src="@drawable/board" />
+
         <ImageView
+            android:id="@+id/map"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/overlay"
-            android:id="@+id/map"/>
+            android:visibility="invisible"/>
+
         <ImageView
+            android:id="@+id/warrior"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:id="@+id/warrior"
-            android:src="@drawable/warrior_male"/>
-        
+            android:src="@drawable/warrior_male" />
+
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>
 
