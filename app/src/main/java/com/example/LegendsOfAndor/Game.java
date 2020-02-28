@@ -29,7 +29,7 @@ public class Game {
         this.currentNumPlayers = 1;
         this.players = new Player[maxNumPlayers];
         this.players[0] = p;
-        regionDatabase = new RegionDatabase(Difficulty.Hard); // hardcoded change when add Difficulty attribute
+        regionDatabase = new RegionDatabase(Difficulty.HARD); // hardcoded change when add Difficulty attribute
         farmers = new ArrayList<Farmer>();
     }
 
