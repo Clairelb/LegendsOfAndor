@@ -6,7 +6,7 @@ enum TurnOptions{
     MOVE, FIGHT, NONE
 }
 
-public class Game {
+public class Game  {
     private int maxNumPlayers;
     private int currentNumPlayers;
     private int goldenShields;
@@ -21,6 +21,7 @@ public class Game {
     private TurnOptions currentHeroSelectedOption;
     private ArrayList<Farmer> farmers;
     private Boolean difficultMode;
+
 
     public Game() {}
 
@@ -37,7 +38,7 @@ public class Game {
         }
         farmers = new ArrayList<Farmer>();
         this.difficultMode = difficult;
-        System.out.println("GAME DIFFICULTY: " + this.difficultMode);
+        itemsDistributedMessage = "";
     }
 
     public int getMaxNumPlayers() {
@@ -148,6 +149,27 @@ public class Game {
         return true;
     }
 
+    public Hero getNextHero(String username) {
+        int currentHeroIndex=0;
+        for (int i = 0; i < currentNumPlayers; i++) {
+            if (players[i].getUsername().equals(username)) {
+                currentHeroIndex = i;
+            }
+        }
+
+        for (int i = 1; i < currentNumPlayers; i++) {
+            if (currentHeroIndex+i == currentNumPlayers) {
+                currentHeroIndex = i * -1;
+            }
+            System.out.println(currentHeroIndex+i);
+            if (!players[currentHeroIndex+i].getHero().isHasEndedDay()) {
+                return players[currentHeroIndex+i].getHero();
+            }
+
+        }
+        return null;
+    }
+
     public RegionDatabase getRegionDatabase() {
         return regionDatabase;
     }
@@ -199,4 +221,5 @@ public class Game {
     public void setDifficultMode(Boolean difficultMode) {
         this.difficultMode = difficultMode;
     }
+
 }

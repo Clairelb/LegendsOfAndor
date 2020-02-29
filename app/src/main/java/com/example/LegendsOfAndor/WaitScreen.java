@@ -359,8 +359,8 @@ public class WaitScreen extends AppCompatActivity {
                     } else if (asyncTask.get() == StartGameResponses.ERROR_PLAYER_NOT_READY) {
                         Toast.makeText(WaitScreen.this, "Start game error. Not every player in lobby is ready.", Toast.LENGTH_LONG).show();
                     } else {
-                        t.interrupt();
-                        startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+                        myPlayer.setGame(updatedGame);
+                        interruptThreadAndStartActivity();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -370,7 +370,7 @@ public class WaitScreen extends AppCompatActivity {
     }
 
     public void interruptThreadAndStartActivity() {
-        if(myPlayer.getPlayer().getUsername().equals(updatedGame.getPlayers()[0].getUsername())){
+        if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())){
             startActivity(new Intent(WaitScreen.this, DistributeItems.class));
         }else{
             startActivity(new Intent(WaitScreen.this, DistributeItemsWaitPage.class));

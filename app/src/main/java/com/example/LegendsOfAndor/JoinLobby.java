@@ -49,7 +49,6 @@ public class JoinLobby extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join_lobby);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
         Button back_btn = findViewById(R.id.back);
         back_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +61,7 @@ public class JoinLobby extends AppCompatActivity {
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
 
         Button join_lobby_btn = findViewById(R.id.join_lobby_button);
-        final EditText join_game_name = findViewById(R.id.join_game_name);
+        final TextView join_game_name = findViewById(R.id.join_game_name);
         ListView listView = findViewById(R.id.available_games);
         Button refreshBtn = findViewById(R.id.refresh_button);
         TextView game_names = findViewById(R.id.game_names);
@@ -80,12 +79,16 @@ public class JoinLobby extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        for (Game g: games) {
-            if(g.getGameName()!= null){
-                gameNames.add(g.getGameName());
+        if(games != null){
+            for (Game g: games) {
+                if(g.getGameName()!= null){
+                    gameNames.add(g.getGameName());
+                }
             }
-
+        }else{
+            gameNames.add("THIS IS WEIRD");
         }
+
 
         ArrayAdapter arrayAdapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, gameNames);
         listView.setAdapter(arrayAdapter);
@@ -113,7 +116,7 @@ public class JoinLobby extends AppCompatActivity {
                 AsyncTask<String, Void, JoinGameResponses> asyncTask;
                 JoinGameResponses joinGameResponses;
 
-                if (join_game_name.getText() == null) {
+                if (join_game_name.getText() == null || join_game_name.getText().length() == 0) {
                     Toast.makeText(JoinLobby.this, "No game selected error.", Toast.LENGTH_LONG).show();
                 } else {
                     try {

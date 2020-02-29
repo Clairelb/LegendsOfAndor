@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,45 +61,47 @@ public class Login extends AppCompatActivity {
                 username = usernameInput.getText().toString();
                 password = passwordInput.getText().toString();
                 serverIP = ipInput.getText().toString();
+                if (username == null || password == null || serverIP == null || username.length() == 0 || password.length() == 0 || serverIP.length() == 0) {
+                    Toast.makeText(Login.this, "Please fill out all required fields", Toast.LENGTH_LONG).show();
+                } else {
+                    p = new Player(username, password, GlobalStaticMethods.getRandomColor());
+                    usernameInput.setText("");
+                    passwordInput.setText("");
+                    ipInput.setText("");
 
-                p = new Player(username, password, GlobalStaticMethods.getRandomColor());
-                usernameInput.setText("");
-                passwordInput.setText("");
-                ipInput.setText("");
+                    myPlayer.setPlayer(p);
+                    myPlayer.setServerIP(serverIP);
 
-                myPlayer.setPlayer(p);
-                myPlayer.setServerIP(serverIP);
-
-                try {
-                    LoginSender loginSender = new LoginSender();
-                    asyncTask = loginSender.execute(new Gson().toJson(p));
-                    loginResponse = asyncTask.get();
-                    if (loginResponse == null) {
-                        Toast.makeText(Login.this, "Login error. No response from server.", Toast.LENGTH_LONG).show();
-                    } else if (loginResponse == LoginResponses.LOGIN_ERROR_INCORRECT_PASSWORD) {
-                        Toast.makeText(Login.this, "Login error. Incorrect password", Toast.LENGTH_LONG).show();
-                    } else if (loginResponse == LoginResponses.LOGIN_ERROR_ALREADY_LOGGED_IN) {
-                        Toast.makeText(Login.this, "Login error. Player is already logged in", Toast.LENGTH_LONG).show();
-                    } else {
-                        if (loginResponse == LoginResponses.LOGIN_SUCCESS) {
-                            Toast.makeText(Login.this, "Login success. Welcome back.", Toast.LENGTH_LONG).show();
+                    try {
+                        LoginSender loginSender = new LoginSender();
+                        asyncTask = loginSender.execute(new Gson().toJson(p));
+                        loginResponse = asyncTask.get();
+                        if (loginResponse == null) {
+                            Toast.makeText(Login.this, "Login error. No response from server.", Toast.LENGTH_LONG).show();
+                        } else if (loginResponse == LoginResponses.LOGIN_ERROR_INCORRECT_PASSWORD) {
+                            Toast.makeText(Login.this, "Login error. Incorrect password", Toast.LENGTH_LONG).show();
+                        } else if (loginResponse == LoginResponses.LOGIN_ERROR_ALREADY_LOGGED_IN) {
+                            Toast.makeText(Login.this, "Login error. Player is already logged in", Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(Login.this, "Login success. New account created.", Toast.LENGTH_LONG).show();
+                            if (loginResponse == LoginResponses.LOGIN_SUCCESS) {
+                                Toast.makeText(Login.this, "Login success. Welcome back.", Toast.LENGTH_LONG).show();
+                            } else {
+                                Toast.makeText(Login.this, "Login success. New account created.", Toast.LENGTH_LONG).show();
+                            }
+                            //LOGIN INFO IS CORRECT
+                            //PUT INFO INTO MYPLAYER
+                            MyPlayer myPlayer = MyPlayer.getInstance();
+                            myPlayer.setPlayer(p);
+                            //START LOBBY PAGE
+                            Intent myIntent = new Intent(v.getContext(), CreateGame.class);
+                            startActivity(myIntent);
                         }
-                        //LOGIN INFO IS CORRECT
-                        //PUT INFO INTO MYPLAYER
-                        MyPlayer myPlayer = MyPlayer.getInstance();
-                        myPlayer.setPlayer(p);
-                        //START LOBBY PAGE
-                        Intent myIntent = new Intent(v.getContext(), CreateGame.class);
-                        startActivity(myIntent);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
         });
-
     }
 
     private static class LoginSender extends AsyncTask<String, Void, LoginResponses> {

@@ -1,7 +1,6 @@
 package com.example.LegendsOfAndor.Item;
 
 public class Wineskin extends Item {
-    int uses;
 
     public Wineskin(){
         this.uses = 2;
