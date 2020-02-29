@@ -21,6 +21,7 @@ public class Game  {
     private TurnOptions currentHeroSelectedOption;
     private ArrayList<Farmer> farmers;
     private Boolean difficultMode;
+    private Fight currentFight;
 
 
     public Game() {}
@@ -222,4 +223,11 @@ public class Game  {
         this.difficultMode = difficultMode;
     }
 
+    public Fight getCurrentFight() {
+        return currentFight;
+    }
+
+    public void setCurrentFight(Fight currentFight) {
+        this.currentFight = currentFight;
+    }
 }

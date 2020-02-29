@@ -214,12 +214,12 @@ public class RegionDatabase {
         // 83 no adjacents
         regionDatabase.get(84).setAdjacentRegions(new ArrayList<>(Arrays.asList(82)));
 
-        regionDatabase.get(8).setCurrentCreature(new Gor());
-        regionDatabase.get(20).setCurrentCreature(new Gor());
-        regionDatabase.get(21).setCurrentCreature(new Gor());
-        regionDatabase.get(26).setCurrentCreature(new Gor());
-        regionDatabase.get(48).setCurrentCreature(new Gor());
-        regionDatabase.get(19).setCurrentCreature(new Skral());
+        regionDatabase.get(8).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
+        regionDatabase.get(20).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
+        regionDatabase.get(21).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
+        regionDatabase.get(26).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
+        regionDatabase.get(48).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
+        regionDatabase.get(19).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
 
         regionDatabase.get(24).getFarmers().add(new Farmer(false));
         if (difficulty == Difficulty.EASY) {
@@ -289,6 +289,55 @@ public class RegionDatabase {
 
     public Region getRegion(int i) {
         return regionDatabase.get(i);
+    }
+
+    public ArrayList<Region> getAllRegionsWithCreatures() { // add in the order of Gor, Skral, Wardrak, Troll
+        ArrayList<Region> regionsWithCreatures = new ArrayList<>();
+
+        for (Region region : regionDatabase) {
+            if (region.getCurrentCreatures().get(0) instanceof Gor) {
+                regionsWithCreatures.add(region);
+            }
+        }
+        for (Region region : regionDatabase) {
+            if (region.getCurrentCreatures().get(0) instanceof Skral) {
+                regionsWithCreatures.add(region);
+            }
+        }
+        for (Region region : regionDatabase) {
+            if (region.getCurrentCreatures().get(0) instanceof Wardraks) {
+                regionsWithCreatures.add(region);
+            }
+        }
+        for (Region region : regionDatabase) {
+            if (region.getCurrentCreatures().get(0) instanceof Troll) {
+                regionsWithCreatures.add(region);
+            }
+        }
+
+        return regionsWithCreatures;
+    }
+
+    public ArrayList<Region> getAllRegionsWithWardraks() {
+        ArrayList<Region> regionsWithWardraks = new ArrayList<>();
+        for (Region region : regionDatabase) {
+            if (region.getCurrentCreatures().get(0) instanceof Wardraks) {
+                regionsWithWardraks.add(region);
+            }
+        }
+
+        return regionsWithWardraks;
+    }
+
+    public ArrayList<Region> getAllRegionsWithFountain() {
+        ArrayList<Region> regionsWithFountains = new ArrayList<>();
+
+        regionsWithFountains.add(regionDatabase.get(5));
+        regionsWithFountains.add(regionDatabase.get(35));
+        regionsWithFountains.add(regionDatabase.get(45));
+        regionsWithFountains.add(regionDatabase.get(55));
+
+        return regionsWithFountains;
     }
 
     public ArrayList<Region> getRegionDatabase() {
