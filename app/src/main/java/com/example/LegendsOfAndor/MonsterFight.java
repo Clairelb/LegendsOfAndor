@@ -14,20 +14,88 @@ import java.util.Random;
 public class MonsterFight extends AppCompatActivity {
 
     public static final Random RANDOM = new Random();
-    private Button rollDices;
+
+    private Button getDice;
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
    // private Button attack = findViewById(R.id.attack_btn); //CRASHES APP ON ACTIVITY STARTUP
     private TextView playerBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
+    private ImageView archerDice1;
+    private ImageView archerDice2;
+    private ImageView archerDice3;
+    private ImageView archerDice4;
+    private ImageView archerDice5;
+    private ImageView warriorDice1;
+    private ImageView warriorDice2;
+    private ImageView warriorDice3;
+    private ImageView warriorDice4;
+    private ImageView wizardDice1;
+    private ImageView dwarfDice1;
+    private ImageView dwarfDice2;
+    private ImageView dwarfDice3;
+
+
+    MyPlayer myPlayer = MyPlayer.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monster_fight);
+        final HeroClass playerClass = myPlayer.getPlayer().getHero().getHeroClass();
+        final Hero playerHero = myPlayer.getPlayer().getHero();
+        final int playerPosition = myPlayer.getGame().getCurrentFight().getHeroes().indexOf(playerHero);
 
-        imageDice1 = (ImageView) findViewById(R.id.playerDice1);
-        imageDice2 = (ImageView) findViewById(R.id.playerDice2);
+//        imageDice1 = (ImageView) findViewById(R.id.playerDice1);
+//        imageDice2 = (ImageView) findViewById(R.id.playerDice2);
+        warriorDice1.setVisibility(View.INVISIBLE);
+        warriorDice2.setVisibility(View.INVISIBLE);
+        warriorDice3.setVisibility(View.INVISIBLE);
+        warriorDice4.setVisibility(View.INVISIBLE);
+        archerDice1.setVisibility(View.INVISIBLE);
+        archerDice2.setVisibility(View.INVISIBLE);
+        archerDice3.setVisibility(View.INVISIBLE);
+        archerDice4.setVisibility(View.INVISIBLE);
+        archerDice5.setVisibility(View.INVISIBLE);
 
+
+        getDice = findViewById(R.id.get_dice);
+
+        //Retrieves the amount of dice for the current player class
+        getDice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int wp = myPlayer.getPlayer().getHero().getWillPower();
+                if (playerClass == HeroClass.WARRIOR) {
+                    if (wp <= 6) {
+
+                    } else if (wp <= 13) {
+
+                    } else if (wp >= 14) {
+
+                    }
+                } else if (playerClass == HeroClass.ARCHER) {
+                    if (wp <= 6) {
+
+                    } else if (wp <= 13) {
+
+                    } else if (wp >= 14) {
+
+                    }
+                } else if (playerClass == HeroClass.DWARF) {
+                    if (wp <= 6) {
+
+                    } else if (wp <= 13) {
+
+                    } else if (wp >= 14) {
+
+                    }
+                } else { //if WIZARD
+
+                }
+            }
+        });
 
         Button attack = findViewById(R.id.attack_btn);
         attack.setOnClickListener(new View.OnClickListener() {
