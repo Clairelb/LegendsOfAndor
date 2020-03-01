@@ -5,8 +5,10 @@ import com.example.LegendsOfAndor.Creature.Creature;
 
 public class Fight {
     private ArrayList<Hero> heroes;
+    private ArrayList<Integer> heroesBattleScores;
     private ArrayList<Hero> pendingInvitedHeroes;
     private Creature creature;
+    private boolean battleRoundEnded;
 
     public Fight() {}
 
@@ -16,7 +18,6 @@ public class Fight {
         pendingInvitedHeroes = new ArrayList<>();
         this.creature = creature;
     }
-
 
     public boolean canStartFight() {
         if (pendingInvitedHeroes.size() == 0) {
@@ -34,6 +35,14 @@ public class Fight {
         this.heroes = heroes;
     }
 
+    public ArrayList<Integer> getHeroesBattleScores() {
+        return heroesBattleScores;
+    }
+
+    public void setHeroesBattleScores(ArrayList<Integer> heroesBattleScores) {
+        this.heroesBattleScores = heroesBattleScores;
+    }
+
     public ArrayList<Hero> getPendingInvitedHeroes() {
         return pendingInvitedHeroes;
     }
@@ -48,5 +57,13 @@ public class Fight {
 
     public void setCreature(Creature creature) {
         this.creature = creature;
+    }
+
+    public boolean isBattleRoundEnded() {
+        return battleRoundEnded;
+    }
+
+    public void setBattleRoundEnded(boolean battleRoundEnded) {
+        this.battleRoundEnded = battleRoundEnded;
     }
 }
