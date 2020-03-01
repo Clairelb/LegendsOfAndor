@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                Intent myIntent = new Intent(v.getContext(), Login.class);
-                Intent myIntent = new Intent(v.getContext(), MonsterFight.class);
+                Intent myIntent = new Intent(v.getContext(), Login.class);
                 startActivity(myIntent);
             }
         });
