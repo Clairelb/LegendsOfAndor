@@ -10,17 +10,20 @@ public class Fight {
     private Creature creature;
     private boolean battleRoundEnded;
     private boolean wizardAbilityUsed;
+    private int creatureBattleScore;
 
     public Fight() {}
 
     public Fight(Hero hero, Creature creature) {
         heroes = new ArrayList<>();
         heroes.add(hero);
+        heroesBattleScores = new ArrayList<>();
+        heroesBattleScores.add(0);
         pendingInvitedHeroes = new ArrayList<>();
         this.creature = creature;
     }
 
-    public boolean canStartFight() {
+    public boolean noPendingInvitations() {
         if (pendingInvitedHeroes.size() == 0) {
             return true;
         } else {
@@ -74,5 +77,13 @@ public class Fight {
 
     public void setWizardAbilityUsed(boolean wizardAbilityUsed) {
         this.wizardAbilityUsed = wizardAbilityUsed;
+    }
+
+    public int getCreatureBattleScore() {
+        return creatureBattleScore;
+    }
+
+    public void setCreatureBattleScore(int creatureBattleScore) {
+        this.creatureBattleScore = creatureBattleScore;
     }
 }
