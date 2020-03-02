@@ -65,4 +65,5 @@
     <string name="dwarf"><b><u>DWARF</u></b></string>
     <string name="wp">WP: 0</string>
     <string name="sp">SP: 0</string>
+    <string name="get_dice">GET DICE</string>
 </resources>

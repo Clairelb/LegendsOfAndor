@@ -7,32 +7,6 @@
     android:background="@drawable/fight_background"
     tools:context="com.example.LegendsOfAndor.MonsterFight">
 
-    <Button
-        android:id="@+id/use_item_btn"
-        android:layout_width="96dp"
-        android:layout_height="56dp"
-        android:layout_marginBottom="60dp"
-        android:fontFamily="@font/gothic"
-        android:text="@string/use_item"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/surrender_btn" />
-
-    <Button
-        android:id="@+id/attack_btn"
-        android:layout_width="96dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="92dp"
-        android:layout_marginLeft="92dp"
-        android:layout_marginBottom="115dp"
-        android:fontFamily="@font/gothic"
-        android:text="@string/attack"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.994" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="132dp"
@@ -45,6 +19,7 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.585"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,11 +27,7 @@
         android:id="@+id/playerBattleValue"
         android:layout_width="66dp"
         android:layout_height="44dp"
-        android:layout_marginStart="336dp"
-        android:layout_marginLeft="336dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="410dp"
-        android:layout_marginRight="410dp"
         android:background="#09A5E2"
         android:fontFamily="@font/gothic"
         android:gravity="center"
@@ -65,19 +36,16 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <TextView
         android:id="@+id/monsterBattleValue"
         android:layout_width="66dp"
         android:layout_height="44dp"
-        android:layout_marginStart="410dp"
-        android:layout_marginLeft="410dp"
         android:layout_marginTop="28dp"
-        android:layout_marginEnd="336dp"
-        android:layout_marginRight="336dp"
         android:background="@color/red"
         android:fontFamily="@font/gothic"
         android:gravity="center"
@@ -86,76 +54,54 @@
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.637"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.04" />
+
+    <Button
+        android:id="@+id/use_item_btn"
+        android:layout_width="96dp"
+        android:layout_height="56dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/use_item"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.692" />
 
     <Button
         android:id="@+id/surrender_btn"
         android:layout_width="96dp"
         android:layout_height="56dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginBottom="60dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/surrender"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-    <androidx.gridlayout.widget.GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.727">
+        app:layout_constraintVertical_bias="0.89" />
 
-        <ImageView
-            android:id="@+id/playerDice1"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            app:layout_gravity="center"
-            app:srcCompat="@drawable/dice_1"
-            tools:layout_editor_absoluteX="357dp"
-            tools:layout_editor_absoluteY="205dp" />
+    <Button
+        android:id="@+id/attack_btn"
+        android:layout_width="96dp"
+        android:layout_height="56dp"
+        android:fontFamily="@font/gothic"
+        android:text="@string/attack"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.581"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.501" />
 
-        <ImageView
-            android:id="@+id/playerDice2"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            app:layout_gravity="center"
-            app:srcCompat="@drawable/dice_1"
-            tools:layout_editor_absoluteX="427dp"
-            tools:layout_editor_absoluteY="205dp" />
-
-        <ImageView
-            android:id="@+id/playerDice4"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            app:layout_column="1"
-            app:layout_gravity="center"
-            app:layout_row="1"
-            app:srcCompat="@drawable/dice_1"
-            tools:layout_editor_absoluteX="419dp"
-            tools:layout_editor_absoluteY="275dp" />
-
-        <ImageView
-            android:id="@+id/playerDice3"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            app:layout_column="0"
-            app:layout_gravity="center"
-            app:layout_row="1"
-            app:srcCompat="@drawable/dice_1"
-            tools:layout_editor_absoluteX="357dp"
-            tools:layout_editor_absoluteY="285dp" />
-
-
-    </androidx.gridlayout.widget.GridLayout>
 
     <TextView
         android:id="@+id/textView2"
@@ -193,9 +139,9 @@
         android:id="@+id/textView8"
         android:layout_width="76dp"
         android:layout_height="50dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginLeft="152dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="264dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
@@ -206,12 +152,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView10"
+        android:layout_width="27dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="288dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="27dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="264dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/wp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/textView11"
         android:layout_width="76dp"
         android:layout_height="50dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginLeft="152dp"
-        android:layout_marginTop="108dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="184dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
@@ -219,6 +191,32 @@
         android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="27dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="208dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="27dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="184dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/wp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -248,32 +246,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="27dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="57dp"
-        android:background="@color/gray"
-        android:fontFamily="@font/gothic"
-        android:gravity="center"
-        android:text="@string/sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView13"
-        android:layout_width="27dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="133dp"
-        android:background="@color/gray"
-        android:fontFamily="@font/gothic"
-        android:gravity="center"
-        android:text="@string/sp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="27dp"
         android:layout_height="25dp"
@@ -299,31 +271,242 @@
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="27dp"
+    <ImageView
+        android:id="@+id/player1_d1"
+        android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="32dp"
-        android:background="@color/gray"
-        android:fontFamily="@font/gothic"
-        android:gravity="center"
-        android:text="@string/wp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/warrior_dice" />
 
-    <TextView
-        android:id="@+id/textView12"
-        android:layout_width="27dp"
+    <ImageView
+        android:id="@+id/player1_d4"
+        android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="108dp"
-        android:background="@color/gray"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toEndOf="@+id/player1_d3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/warrior_dice" />
+
+    <ImageView
+        android:id="@+id/player1_d5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.001"
+        app:layout_constraintStart_toEndOf="@+id/player1_d4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/warrior_dice" />
+
+    <ImageView
+        android:id="@+id/player1_d3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toEndOf="@+id/player1_d2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/warrior_dice" />
+
+    <ImageView
+        android:id="@+id/player1_d2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="44dp"
+        app:layout_constraintStart_toEndOf="@+id/player1_d1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/warrior_dice" />
+
+    <ImageView
+        android:id="@+id/player2_d1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wizard_dice" />
+
+    <ImageView
+        android:id="@+id/player2_d5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.001"
+        app:layout_constraintStart_toEndOf="@+id/player2_d4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wizard_dice" />
+
+    <ImageView
+        android:id="@+id/player2_d4"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toEndOf="@+id/player2_d3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wizard_dice" />
+
+    <ImageView
+        android:id="@+id/player2_d3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toEndOf="@+id/player2_d2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wizard_dice" />
+
+    <ImageView
+        android:id="@+id/player2_d2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintStart_toEndOf="@+id/player2_d1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/wizard_dice" />
+
+    <ImageView
+        android:id="@+id/player3_d1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
+
+    <ImageView
+        android:id="@+id/player3_d5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintStart_toEndOf="@+id/player3_d4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
+
+    <ImageView
+        android:id="@+id/player3_d4"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintStart_toEndOf="@+id/player3_d3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
+
+    <ImageView
+        android:id="@+id/player3_d3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintStart_toEndOf="@+id/player3_d2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
+
+    <ImageView
+        android:id="@+id/player3_d2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="192dp"
+        app:layout_constraintStart_toEndOf="@+id/player3_d1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
+
+    <ImageView
+        android:id="@+id/player4_d1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginTop="276dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dwarf_dice" />
+
+    <ImageView
+        android:id="@+id/player4_d5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="276dp"
+        app:layout_constraintStart_toEndOf="@+id/player4_d4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dwarf_dice" />
+
+    <ImageView
+        android:id="@+id/player4_d4"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="276dp"
+        app:layout_constraintStart_toEndOf="@+id/player4_d3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dwarf_dice" />
+
+    <ImageView
+        android:id="@+id/player4_d3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="276dp"
+        app:layout_constraintStart_toEndOf="@+id/player4_d2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dwarf_dice" />
+
+    <ImageView
+        android:id="@+id/player4_d2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="276dp"
+        app:layout_constraintStart_toEndOf="@+id/player4_d1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/dwarf_dice" />
+
+    <Button
+        android:id="@+id/get_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginLeft="132dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/gothic"
-        android:gravity="center"
-        android:text="@string/wp"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/get_dice"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     x
