@@ -10,8 +10,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +18,7 @@ import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
 
 enum HostGameResponses {
     HOST_GAME_SUCCESS, ERROR_GAME_ALREADY_EXISTS

@@ -3,7 +3,6 @@ package com.example.LegendsOfAndor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import com.example.LegendsOfAndor.Creature.*;
 
 enum Difficulty {
     EASY, HARD
@@ -214,12 +213,12 @@ public class RegionDatabase {
         // 83 no adjacents
         regionDatabase.get(84).setAdjacentRegions(new ArrayList<>(Arrays.asList(82)));
 
-        regionDatabase.get(8).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
-        regionDatabase.get(20).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
-        regionDatabase.get(21).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
-        regionDatabase.get(26).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
-        regionDatabase.get(48).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
-        regionDatabase.get(19).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Gor())));
+        regionDatabase.get(8).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        regionDatabase.get(20).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        regionDatabase.get(21).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        regionDatabase.get(26).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        regionDatabase.get(48).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        regionDatabase.get(19).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.SKRAL))));
 
         regionDatabase.get(24).getFarmers().add(new Farmer(false));
         if (difficulty == Difficulty.EASY) {
@@ -295,23 +294,31 @@ public class RegionDatabase {
         ArrayList<Region> regionsWithCreatures = new ArrayList<>();
 
         for (Region region : regionDatabase) {
-            if (region.getCurrentCreatures().get(0) instanceof Gor) {
-                regionsWithCreatures.add(region);
+            if (region.getCurrentCreatures().size() > 0) {
+                if (region.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR) {
+                    regionsWithCreatures.add(region);
+                }
             }
         }
         for (Region region : regionDatabase) {
-            if (region.getCurrentCreatures().get(0) instanceof Skral) {
-                regionsWithCreatures.add(region);
+            if (region.getCurrentCreatures().size() > 0) {
+                if (region.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL) {
+                    regionsWithCreatures.add(region);
+                }
             }
         }
         for (Region region : regionDatabase) {
-            if (region.getCurrentCreatures().get(0) instanceof Wardraks) {
-                regionsWithCreatures.add(region);
+            if (region.getCurrentCreatures().size() > 0) {
+                if (region.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS) {
+                    regionsWithCreatures.add(region);
+                }
             }
         }
         for (Region region : regionDatabase) {
-            if (region.getCurrentCreatures().get(0) instanceof Troll) {
-                regionsWithCreatures.add(region);
+            if (region.getCurrentCreatures().size() > 0) {
+                if (region.getCurrentCreatures().get(0).getCreatureType() == CreatureType.TROLL) {
+                    regionsWithCreatures.add(region);
+                }
             }
         }
 
@@ -321,8 +328,10 @@ public class RegionDatabase {
     public ArrayList<Region> getAllRegionsWithWardraks() {
         ArrayList<Region> regionsWithWardraks = new ArrayList<>();
         for (Region region : regionDatabase) {
-            if (region.getCurrentCreatures().get(0) instanceof Wardraks) {
-                regionsWithWardraks.add(region);
+            if (region.getCurrentCreatures().size() > 0) {
+                if (region.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL) {
+                    regionsWithWardraks.add(region);
+                }
             }
         }
 

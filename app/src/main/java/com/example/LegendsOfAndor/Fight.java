@@ -1,7 +1,6 @@
 package com.example.LegendsOfAndor;
 
 import java.util.ArrayList;
-import com.example.LegendsOfAndor.Creature.Creature;
 
 public class Fight {
     private ArrayList<Hero> heroes;

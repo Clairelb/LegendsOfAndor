@@ -1,7 +1,5 @@
 package com.example.LegendsOfAndor;
 
-import com.example.LegendsOfAndor.Item.Item;
-
 import java.util.ArrayList;
 
 enum HeroClass {

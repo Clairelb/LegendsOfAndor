@@ -12,14 +12,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.LegendsOfAndor.Item.Item;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
-import com.example.LegendsOfAndor.Item.*;
 
 
 enum DistributeItemsResponses{
@@ -135,7 +133,7 @@ public class DistributeItems extends AppCompatActivity {
                                 itemDistribution.setArcherGold(arch_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
                                 for (int j = 0; j < arch_wineskin; j++) {
-                                    startingItems.add(new Wineskin());
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
                                 if (startingItems.size() > 0)
                                     itemDistribution.setArcherItems(startingItems);
@@ -146,7 +144,7 @@ public class DistributeItems extends AppCompatActivity {
                                 itemDistribution.setWarriorGold(war_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
                                 for (int j = 0; j < war_wineskin; j++) {
-                                    startingItems.add(new Wineskin());
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
                                 if (startingItems.size() > 0)
                                     itemDistribution.setWarriorItems(startingItems);
@@ -157,7 +155,7 @@ public class DistributeItems extends AppCompatActivity {
                                 itemDistribution.setWizardGold(wiz_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
                                 for (int j = 0; j < arch_wineskin; j++) {
-                                    startingItems.add(new Wineskin());
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
                                 if (startingItems.size() > 0)
                                     itemDistribution.setWizardItems(startingItems);
@@ -168,7 +166,7 @@ public class DistributeItems extends AppCompatActivity {
                                 itemDistribution.setDwarfGold(dwarf_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
                                 for (int j = 0; j < dwarf_wineskin; j++) {
-                                    startingItems.add(new Wineskin());
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
                                 if (startingItems.size() > 0)
                                     itemDistribution.setDwarfItems(startingItems);
