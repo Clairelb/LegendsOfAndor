@@ -114,7 +114,7 @@ public class Board extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-        final Game currentGame = myPlayer.getGame();
+        Game currentGame = myPlayer.getGame();
         if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
             Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
             move.setVisibility(View.VISIBLE);
