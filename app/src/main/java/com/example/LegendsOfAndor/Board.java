@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.LegendsOfAndor.PublicEnums.FightResponses;
+import com.example.LegendsOfAndor.ReturnClasses.FightRC;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,10 +28,6 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
 import java.util.List;
-
-enum FightResponses {
-    NO_CREATURE_FOUND, NOT_CURRENT_TURN, DAY_ENDED, JOINED_FIGHT
-}
 
 enum PassResponses {
     PASS_SUCCESSFUL, MUST_END_DAY, ONLY_PLAYER_LEFT, NOT_CURRENT_TURN, DAY_ENDED, PASS_SUCCESSFUL_WP_DEDUCTED
@@ -57,7 +55,7 @@ public class Board extends AppCompatActivity {
         regionDatabase = new RegionDatabase();
         setContentView(R.layout.board);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        MyPlayer myPlayer = MyPlayer.getInstance();
+        final MyPlayer myPlayer = MyPlayer.getInstance();
         move = findViewById(R.id.move);
         move.setVisibility(View.INVISIBLE);
         fight = findViewById(R.id.fight);
@@ -117,6 +115,7 @@ public class Board extends AppCompatActivity {
 
                         if(response.getCode() == 200){
                             final Game game = new Gson().fromJson(response.getBody(), Game.class);
+                            MyPlayer.getInstance().setGame(game);
                             runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
@@ -165,18 +164,19 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 try {
-                    AsyncTask<String, Void, FightResponses> asyncTask;
+                    AsyncTask<String, Void, FightRC> asyncTask;
 
                     FightSender messageSender = new FightSender();
                     asyncTask = messageSender.execute("");
 
-                    if (asyncTask.get() == FightResponses.JOINED_FIGHT) {
+                    if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
                         Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
+                        myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
                         Intent myIntent = new Intent(v.getContext(), MonsterFight.class);
                         startActivity(myIntent);
-                    } else if (asyncTask.get() == FightResponses.NO_CREATURE_FOUND) {
+                    } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == FightResponses.DAY_ENDED) {
+                    } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
                         Toast.makeText(Board.this, "Fight error. Cannot fight after day ended.", Toast.LENGTH_LONG).show();
                     } else { // not current turn
                         Toast.makeText(Board.this, "Fight error. It is not your turn yet.", Toast.LENGTH_LONG).show();
@@ -314,9 +314,9 @@ public class Board extends AppCompatActivity {
         }
     }
 
-    private static class FightSender extends AsyncTask<String, Void, FightResponses> {
+    private static class FightSender extends AsyncTask<String, Void, FightRC> {
         @Override
-        protected FightResponses doInBackground(String... strings) {
+        protected FightRC doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             HttpResponse<String> response;
 
@@ -325,7 +325,7 @@ public class Board extends AppCompatActivity {
                         .asString();
                 String resultAsJsonString = response.getBody();
 
-                return new Gson().fromJson(resultAsJsonString, FightResponses.class);
+                return new Gson().fromJson(resultAsJsonString, FightRC.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
