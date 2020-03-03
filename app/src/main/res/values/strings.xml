@@ -66,4 +66,5 @@
     <string name="wp">WP: 0</string>
     <string name="sp">SP: 0</string>
     <string name="get_dice">GET DICE</string>
+    <string name="willpower">WP</string>
 </resources>
