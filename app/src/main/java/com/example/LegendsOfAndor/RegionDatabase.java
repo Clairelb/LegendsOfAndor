@@ -220,10 +220,99 @@ public class RegionDatabase {
         regionDatabase.get(48).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
         regionDatabase.get(19).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.SKRAL))));
 
+        // TEST!!!!!!!!!!!!!!!!!!!
+        regionDatabase.get(25).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        // TEST!!!!!!!!!!!!!!!!!!!!!!!
+
+
         regionDatabase.get(24).getFarmers().add(new Farmer(false));
         if (difficulty == Difficulty.EASY) {
             regionDatabase.get(36).getFarmers().add(new Farmer(false));
         }
+
+        //setCoordinates
+        regionDatabase.get(0).setCoordinatesa(new float[]{318,254});
+        regionDatabase.get(1).setCoordinatesa(new float[]{240,357});
+        regionDatabase.get(2).setCoordinatesa(new float[]{330,345});
+        regionDatabase.get(3).setCoordinatesa(new float[]{273,421});
+        regionDatabase.get(4).setCoordinatesa(new float[]{124,386});
+        regionDatabase.get(5).setCoordinatesa(new float[]{69,345});
+        regionDatabase.get(6).setCoordinatesa(new float[]{416,306});
+        regionDatabase.get(7).setCoordinatesa(new float[]{166,305});
+        regionDatabase.get(8).setCoordinatesa(new float[]{325,137});
+        regionDatabase.get(9).setCoordinatesa(new float[]{244,41});
+        regionDatabase.get(10).setCoordinatesa(new float[]{338,475});
+        regionDatabase.get(11).setCoordinatesa(new float[]{384,213});
+        regionDatabase.get(12).setCoordinatesa(new float[]{497,244});
+        regionDatabase.get(13).setCoordinatesa(new float[]{600,301});
+        regionDatabase.get(14).setCoordinatesa(new float[]{423,430});
+        regionDatabase.get(15).setCoordinatesa(new float[]{103,31});
+        regionDatabase.get(16).setCoordinatesa(new float[]{727,386});
+        regionDatabase.get(17).setCoordinatesa(new float[]{550,445});
+        regionDatabase.get(18).setCoordinatesa(new float[]{451,545});
+        regionDatabase.get(19).setCoordinatesa(new float[]{240,512});
+        regionDatabase.get(20).setCoordinatesa(new float[]{121,475});
+        regionDatabase.get(21).setCoordinatesa(new float[]{12,439});
+        regionDatabase.get(22).setCoordinatesa(new float[]{131,575});
+        regionDatabase.get(23).setCoordinatesa(new float[]{181,659});
+        regionDatabase.get(24).setCoordinatesa(new float[]{9,602});
+        regionDatabase.get(25).setCoordinatesa(new float[]{21,739});
+        regionDatabase.get(26).setCoordinatesa(new float[]{11,886});
+        regionDatabase.get(27).setCoordinatesa(new float[]{90,887});
+        regionDatabase.get(28).setCoordinatesa(new float[]{607,639});
+        regionDatabase.get(29).setCoordinatesa(new float[]{437,703});
+        regionDatabase.get(30).setCoordinatesa(new float[]{347,806});
+        regionDatabase.get(31).setCoordinatesa(new float[]{161,868});
+        regionDatabase.get(32).setCoordinatesa(new float[]{882,454});
+        regionDatabase.get(33).setCoordinatesa(new float[]{252,871});
+        regionDatabase.get(34).setCoordinatesa(new float[]{317,704});
+        regionDatabase.get(35).setCoordinatesa(new float[]{212,793});
+        regionDatabase.get(36).setCoordinatesa(new float[]{624,545});
+        regionDatabase.get(37).setCoordinatesa(new float[]{442,938});
+        regionDatabase.get(38).setCoordinatesa(new float[]{791,542});
+        regionDatabase.get(39).setCoordinatesa(new float[]{950,689});
+        regionDatabase.get(40).setCoordinatesa(new float[]{737,733});
+        regionDatabase.get(41).setCoordinatesa(new float[] {621,768});
+        regionDatabase.get(42).setCoordinatesa(new float[] {1152,640});
+        regionDatabase.get(43).setCoordinatesa(new float[] {325,137});
+        regionDatabase.get(44).setCoordinatesa(new float[] {1121,518});
+        regionDatabase.get(45).setCoordinatesa(new float[] {1251,556});
+        regionDatabase.get(46).setCoordinatesa(new float[] {1147,445});
+        regionDatabase.get(47).setCoordinatesa(new float[] {1123,301});
+        regionDatabase.get(48).setCoordinatesa(new float[] {867,262});
+        regionDatabase.get(49).setCoordinatesa(new float[] {765,222});
+        regionDatabase.get(50).setCoordinatesa(new float[] {824,150});
+        regionDatabase.get(51).setCoordinatesa(new float[] {977,193});
+        regionDatabase.get(52).setCoordinatesa(new float[] {902,96});
+        regionDatabase.get(53).setCoordinatesa(new float[] {1056,247});
+        regionDatabase.get(54).setCoordinatesa(new float[] {1171,204});
+        regionDatabase.get(55).setCoordinatesa(new float[] {1136,83});
+        regionDatabase.get(56).setCoordinatesa(new float[] {1266,278});
+        regionDatabase.get(57).setCoordinatesa(new float[] {1268,146});
+        regionDatabase.get(58).setCoordinatesa(new float[] {1525,219});
+        regionDatabase.get(59).setCoordinatesa(new float[] {1460,110});
+        regionDatabase.get(60).setCoordinatesa(new float[] {1590,141});
+        regionDatabase.get(61).setCoordinatesa(new float[] {1605,381});
+        regionDatabase.get(62).setCoordinatesa(new float[] {1647,198});
+        regionDatabase.get(63).setCoordinatesa(new float[] {1480,295});
+        regionDatabase.get(64).setCoordinatesa(new float[] {1367,427});
+        regionDatabase.get(65).setCoordinatesa(new float[] {1393,521});
+        regionDatabase.get(66).setCoordinatesa(new float[] {1504,645});
+        regionDatabase.get(67).setCoordinatesa(new float[] {1505,715});
+        regionDatabase.get(68).setCoordinatesa(new float[] {1459,759});
+        regionDatabase.get(69).setCoordinatesa(new float[] {1372,813});
+        regionDatabase.get(70).setCoordinatesa(new float[] {1364,878});
+        regionDatabase.get(71).setCoordinatesa(new float[] {1266,686});
+        //missing 72!!!!
+        // 73 - 79 no regions on map
+        regionDatabase.get(80).setCoordinatesa(new float[] {1529,936});
+        regionDatabase.get(81).setCoordinatesa(new float[] {1352,926});
+        regionDatabase.get(82).setCoordinatesa(new float[] {1249,965});
+        regionDatabase.get(83).setCoordinatesa(new float[] {1621,502});
+        regionDatabase.get(84).setCoordinatesa(new float[] {1180,862});
+
+
+
     }
 
     public void setRandomizedFogs() {

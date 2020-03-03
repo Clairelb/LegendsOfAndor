@@ -6,7 +6,7 @@ enum HeroClass {
     WARRIOR,ARCHER,DWARF,WIZARD
 }
 
-public class Hero {
+public class Hero extends Movable{
     private HeroClass heroClass;
     private int willPower;
     private int strength;

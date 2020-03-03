@@ -104,9 +104,9 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/player1"
         android:layout_width="76dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
@@ -120,9 +120,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/player2"
         android:layout_width="76dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="108dp"
@@ -136,9 +136,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/player4"
         android:layout_width="76dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="264dp"
@@ -152,35 +152,37 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/player4_sp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="288dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="279dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/player4_wp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
+        android:layout_height="15dp"
         android:layout_marginTop="264dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/wp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player4"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/player3"
         android:layout_width="76dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="184dp"
@@ -194,81 +196,87 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/player3_sp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="208dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="199dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/player3_wp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
+        android:layout_height="15dp"
         android:layout_marginTop="184dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/wp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/player1_sp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="57dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="47dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/player2_sp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
-        android:layout_marginTop="133dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="123dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/sp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/player1_wp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
+        android:layout_height="15dp"
         android:layout_marginTop="32dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/wp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/player2_wp"
         android:layout_width="27dp"
-        android:layout_height="25dp"
+        android:layout_height="15dp"
         android:layout_marginTop="108dp"
         android:background="@color/gray"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/wp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/player2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -278,6 +286,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginLeft="132dp"
         android:layout_marginTop="44dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/warrior_dice" />
@@ -289,6 +298,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="44dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player1_d3"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/warrior_dice" />
@@ -300,6 +310,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="44dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.001"
         app:layout_constraintStart_toEndOf="@+id/player1_d4"
@@ -313,6 +324,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="44dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player1_d2"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/warrior_dice" />
@@ -324,6 +336,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="44dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player1_d1"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/warrior_dice" />
@@ -335,6 +348,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginLeft="132dp"
         android:layout_marginTop="116dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wizard_dice" />
@@ -346,6 +360,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="116dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.001"
         app:layout_constraintStart_toEndOf="@+id/player2_d4"
@@ -359,6 +374,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="116dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player2_d3"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wizard_dice" />
@@ -370,6 +386,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="116dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player2_d2"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wizard_dice" />
@@ -381,6 +398,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="116dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player2_d1"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wizard_dice" />
@@ -392,6 +410,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginLeft="132dp"
         android:layout_marginTop="192dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/archer_dice" />
@@ -403,6 +422,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="192dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player3_d4"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/archer_dice" />
@@ -414,6 +434,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="192dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player3_d3"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/archer_dice" />
@@ -425,6 +446,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="192dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player3_d2"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/archer_dice" />
@@ -436,6 +458,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="192dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player3_d1"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/archer_dice" />
@@ -447,6 +470,7 @@
         android:layout_marginStart="132dp"
         android:layout_marginLeft="132dp"
         android:layout_marginTop="276dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dwarf_dice" />
@@ -458,6 +482,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="276dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player4_d4"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dwarf_dice" />
@@ -469,6 +494,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="276dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player4_d3"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dwarf_dice" />
@@ -480,6 +506,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="276dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player4_d2"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dwarf_dice" />
@@ -491,20 +518,78 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="276dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/player4_d1"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/dwarf_dice" />
 
     <Button
         android:id="@+id/get_dice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="132dp"
-        android:layout_marginLeft="132dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="82dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="28dp"
         android:fontFamily="@font/gothic"
+        android:gravity="center"
         android:text="@string/get_dice"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/get_enemy_dice"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginBottom="120dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/get_enemy_dice"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/calculate_enemy_battle_value"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/calculate_enemy_battle_value"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="116dp"
+        android:layout_marginLeft="116dp"
+        android:layout_marginBottom="28dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/end_battle_round"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
+        android:layout_marginBottom="28dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/calculate_battle_value"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
