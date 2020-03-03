@@ -105,7 +105,7 @@ public class HostLobby extends AppCompatActivity {
                             Toast.makeText(HostLobby.this, "Host game error. Game already exists in server", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(HostLobby.this, "Host game success. Game created.", Toast.LENGTH_LONG).show();
-                            //GO STRAIGHT TO GAME BOARD
+
                             startActivity(new Intent(HostLobby.this, WaitScreen.class));
                         }
                     } catch(Exception e) {

@@ -17,7 +17,6 @@ public class Game  {
     private String itemsDistributedMessage;
     private RegionDatabase regionDatabase;
     private Hero currentHero;
-    private Hero firstHeroInNextDay;
     private TurnOptions currentHeroSelectedOption;
     private ArrayList<Farmer> farmers;
     private Boolean difficultMode;
@@ -40,6 +39,7 @@ public class Game  {
         farmers = new ArrayList<Farmer>();
         this.difficultMode = difficult;
         itemsDistributedMessage = "";
+        currentHero = null;
     }
 
     public int getMaxNumPlayers() {
@@ -181,14 +181,6 @@ public class Game  {
 
     public void setCurrentHero(Hero currentHero) {
         this.currentHero = currentHero;
-    }
-
-    public Hero getFirstHeroInNextDay() {
-        return firstHeroInNextDay;
-    }
-
-    public void setFirstHeroInNextDay(Hero firstHeroInNextDay) {
-        this.firstHeroInNextDay = firstHeroInNextDay;
     }
 
     public TurnOptions getCurrentHeroSelectedOption() {

@@ -23,6 +23,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ enum EndDayResponses {
     DAY_ALREADY_ENDED, NOT_CURRENT_TURN, NEW_DAY, GAME_OVER, SUCCESS
 }
 
+
 public class Board extends AppCompatActivity {
     public ImageView warrior;
     private Button move;
@@ -46,24 +48,101 @@ public class Board extends AppCompatActivity {
     private Button endDay;
     private Button chatb;
     private Button optionsb;
-
+    private Thread t;
     boolean flag = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.board);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        MyPlayer myPlayer = MyPlayer.getInstance();
         move = findViewById(R.id.move);
+        move.setVisibility(View.INVISIBLE);
         fight = findViewById(R.id.fight);
+        fight.setVisibility(View.INVISIBLE);
         pass = findViewById(R.id.pass);
+        pass.setVisibility(View.INVISIBLE);
         endDay = findViewById(R.id.endDay);
+        endDay.setVisibility(View.INVISIBLE);
+
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
+
 
         warrior = findViewById(R.id.warrior);
         warrior.setX(100);  //get the color, then determine the location
         warrior.setY(100);
+
+
+        try{
+            AsyncTask<String, Void, Game> asyncTask;
+            Game gameToSet;
+            GetGame getGame = new GetGame();
+            asyncTask = getGame.execute();
+            gameToSet = asyncTask.get();
+            System.out.println(gameToSet);
+            myPlayer.setGame(gameToSet);
+            for(int i = 0; i < gameToSet.getCurrentNumPlayers(); i++){
+                if(gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())){
+                    myPlayer.setPlayer(gameToSet.getPlayers()[i]);
+                    System.out.println("SET PLAYER");
+                    break;
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Game currentGame = myPlayer.getGame();
+        if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
+            Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
+            move.setVisibility(View.VISIBLE);
+            fight.setVisibility(View.VISIBLE);
+            pass.setVisibility(View.VISIBLE);
+            endDay.setVisibility(View.VISIBLE);
+
+        }
+
+
+
+        t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
+            @Override
+            public void run() {
+                final MyPlayer myPlayer = MyPlayer.getInstance();
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getPregameUpdate")
+                                .asString();
+
+                        if(response.getCode() == 200){
+                            final Game game = new Gson().fromJson(response.getBody(), Game.class);
+                            runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
+                                @Override
+                                public void run() {
+                                    if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+                                        Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
+                                        move.setVisibility(View.VISIBLE);
+                                        fight.setVisibility(View.VISIBLE);
+                                        pass.setVisibility(View.VISIBLE);
+                                        endDay.setVisibility(View.VISIBLE);
+                                    }else{
+                                        move.setVisibility(View.INVISIBLE);
+                                        fight.setVisibility(View.INVISIBLE);
+                                        pass.setVisibility(View.INVISIBLE);
+                                        endDay.setVisibility(View.INVISIBLE);
+                                    }
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        if (e instanceof InterruptedException) {
+                            Thread.currentThread().interrupt();
+                        }
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.start();
 
         move.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -205,6 +284,26 @@ public class Board extends AppCompatActivity {
     }
     public void setFlag(){
         this.flag = true;
+    }
+
+    private static class GetGame extends AsyncTask<String, Void, Game > {
+        @Override
+        protected Game doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameByUsername")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                System.out.println("RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, Game.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 
     private static class FightSender extends AsyncTask<String, Void, FightResponses> {
