@@ -3,14 +3,22 @@ package com.example.LegendsOfAndor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -188,6 +196,16 @@ public class MonsterFight extends AppCompatActivity {
         getDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AsyncTask<String, Void, ArrayList<Die>> asyncTask;
+                ArrayList<Die> myDice = new ArrayList<>();
+
+                try {
+                    GetDiceSender getDiceSender = new GetDiceSender();
+                    asyncTask = getDiceSender.execute();
+                    myDice = asyncTask.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 ImageView currentD1;
                 ImageView currentD2;
@@ -629,9 +647,6 @@ public class MonsterFight extends AppCompatActivity {
 //            }
 //        });
     }
-    public static int randomDiceValue() {
-        return RANDOM.nextInt(6) + 1;
-    }
 
     protected final static int getResourceID(final String resName, final String resType, final Context ctx) {
         final int ResourceID =
@@ -642,6 +657,25 @@ public class MonsterFight extends AppCompatActivity {
         }
         else {
             return ResourceID;
+        }
+    }
+
+    private static class GetDiceSender extends AsyncTask<String, Void, ArrayList<Die>> {
+        @Override
+        protected ArrayList<Die> doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getDice")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Die>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }

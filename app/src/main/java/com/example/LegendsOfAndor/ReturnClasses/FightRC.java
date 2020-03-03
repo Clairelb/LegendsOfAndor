@@ -29,4 +29,6 @@ public class FightRC {
     public void setFightResponses(FightResponses fightResponses) {
         this.fightResponses = fightResponses;
     }
+
+
 }
