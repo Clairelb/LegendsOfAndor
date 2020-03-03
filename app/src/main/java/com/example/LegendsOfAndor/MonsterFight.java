@@ -145,24 +145,24 @@ public class MonsterFight extends AppCompatActivity {
 
 
         //Hides text for user, WP, SP, until player joins the fight
-        for (int i = 0; i < playerIndex.size(); i++) {
-            int playerNumber = i + 1;
-            String playerPosition = "player" + playerNumber;
-            String playerWPText = "player" + playerNumber + "_wp";
-            String playerSPText = "player" + playerNumber + "_sp";
-            int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
-            int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
-            int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
-//            TextView userProfile = profileList.get(i);
-//            TextView userWP = playerWPList.get(i);
-//            TextView userSP = playerSPList.get(i);
-            TextView userProfile = findViewById(playerProfileID);
-            TextView userWP = findViewById(playerWPID);
-            TextView userSP = findViewById(playerSPID);
-            userProfile.setVisibility(View.INVISIBLE);
-            userWP.setVisibility(View.INVISIBLE);
-            userSP.setVisibility(View.INVISIBLE);
-        }
+//        for (int i = 0; i < playerIndex.size(); i++) {
+//            int playerNumber = i + 1;
+//            String playerPosition = "player" + playerNumber;
+//            String playerWPText = "player" + playerNumber + "_wp";
+//            String playerSPText = "player" + playerNumber + "_sp";
+//            int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
+//            int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
+//            int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
+////            TextView userProfile = profileList.get(i);
+////            TextView userWP = playerWPList.get(i);
+////            TextView userSP = playerSPList.get(i);
+//            TextView userProfile = findViewById(playerProfileID);
+//            TextView userWP = findViewById(playerWPID);
+//            TextView userSP = findViewById(playerSPID);
+//            userProfile.setVisibility(View.INVISIBLE);
+//            userWP.setVisibility(View.INVISIBLE);
+//            userSP.setVisibility(View.INVISIBLE);
+//        }
 
         //Adds information for participating players, making their profiles visible
         for (int i = 0; i < playerIndex.size(); i++) {
@@ -216,12 +216,12 @@ public class MonsterFight extends AppCompatActivity {
 
 //                ImageView testD1 = findViewById(R.id.player1_d1);
 //                testD1.setVisibility(View.VISIBLE);
-                System.out.println(myPlayer.getGame().getCurrentHero());
-                System.out.println(playerIndex.get(0).toString());
-                System.out.println(myPlayer.getGame().getCurrentHero().equals(playerIndex.get(0)));
-                System.out.println(playerIndex.size());
-                System.out.println("myDice.size(): " + myDice.size());
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//                System.out.println(myPlayer.getGame().getCurrentHero());
+//                System.out.println(playerIndex.get(0).toString());
+//                System.out.println(myPlayer.getGame().getCurrentHero().equals(playerIndex.get(0)));
+//                System.out.println(playerIndex.size());
+//                System.out.println("myDice.size(): " + myDice.size());
+//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
 
                 for (int i = 0; i < playerIndex.size(); i++) {

@@ -68,6 +68,6 @@
     <string name="get_dice">GET DICE</string>
     <string name="get_enemy_dice">GET ENEMY DICE</string>
     <string name="end_battle_round">END ROUND</string>
-    <string name="calculate_battle_value">CALCULATE BATTLE VALUE</string>
-    <string name="calculate_enemy_battle_value">CALCULATE ENEMY BATTLE VALUE</string>
+    <string name="calculate_battle_value">ROLL DICE</string>
+    <string name="calculate_enemy_battle_value">ROLL ENEMY DICE</string>
 </resources>
