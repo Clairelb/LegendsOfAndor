@@ -3,6 +3,7 @@ package com.example.LegendsOfAndor;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class MonsterFight extends AppCompatActivity {
     public static final Random RANDOM = new Random();
 
     private Button getDice;
+    private Button rollDice;
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
     private TextView playerBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
@@ -90,6 +92,8 @@ public class MonsterFight extends AppCompatActivity {
 
     private Thread t;
     MyPlayer myPlayer = MyPlayer.getInstance();
+
+    ArrayList<Die> myDice = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,7 +206,6 @@ public class MonsterFight extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AsyncTask<String, Void, ArrayList<Die>> asyncTask;
-                ArrayList<Die> myDice = new ArrayList<>();
 
                 try {
                     GetDiceSender getDiceSender = new GetDiceSender();
@@ -661,6 +664,32 @@ public class MonsterFight extends AppCompatActivity {
             }
         });
 
+        rollDice = findViewById(R.id.roll_dice);
+
+        rollDice.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                ArrayList<Integer> myDiceRolls = new ArrayList<>();
+                Integer battleValue;
+
+                for (Die die : myDice) {
+                    myDiceRolls.add(die.rollDie());
+                }
+
+                try {
+                    AsyncTask<String, Void, Integer> asyncTask;
+
+                    CalculateBattleValue calculateBattleValue = new CalculateBattleValue();
+                    asyncTask = calculateBattleValue.execute(new Gson().toJson(myDiceRolls));
+
+                    battleValue = asyncTask.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
 
 
 
@@ -735,6 +764,27 @@ public class MonsterFight extends AppCompatActivity {
                 String resultAsJsonString = response.getBody();
 
                 return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Die>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class CalculateBattleValue extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/calculateBattleValue")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, Integer.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
