@@ -231,11 +231,47 @@ public class RegionDatabase {
         }
 
         //setCoordinates
-        regionDatabase.get(9).setCoordinatesa(new float[] {244,41});
-        regionDatabase.get(7).setCoordinatesa(new float[] {166,105});
-        regionDatabase.get(8).setCoordinatesa(new float[] {325,137});
-        regionDatabase.get(15).setCoordinatesa(new float[] {103,31});
-
+        regionDatabase.get(0).setCoordinatesa(new float[]{318,254});
+        regionDatabase.get(1).setCoordinatesa(new float[]{240,357});
+        regionDatabase.get(2).setCoordinatesa(new float[]{330,345});
+        regionDatabase.get(3).setCoordinatesa(new float[]{273,421});
+        regionDatabase.get(4).setCoordinatesa(new float[]{124,386});
+        regionDatabase.get(5).setCoordinatesa(new float[]{69,345});
+        regionDatabase.get(6).setCoordinatesa(new float[]{416,306});
+        regionDatabase.get(7).setCoordinatesa(new float[]{166,305});
+        regionDatabase.get(8).setCoordinatesa(new float[]{325,137});
+        regionDatabase.get(9).setCoordinatesa(new float[]{244,41});
+        regionDatabase.get(10).setCoordinatesa(new float[]{338,475});
+        regionDatabase.get(11).setCoordinatesa(new float[]{384,213});
+        regionDatabase.get(12).setCoordinatesa(new float[]{497,244});
+        regionDatabase.get(13).setCoordinatesa(new float[]{600,301});
+        regionDatabase.get(14).setCoordinatesa(new float[]{423,430});
+        regionDatabase.get(15).setCoordinatesa(new float[]{103,31});
+        regionDatabase.get(16).setCoordinatesa(new float[]{727,386});
+        regionDatabase.get(17).setCoordinatesa(new float[]{550,445});
+        regionDatabase.get(18).setCoordinatesa(new float[]{451,545});
+        regionDatabase.get(19).setCoordinatesa(new float[]{240,512});
+        regionDatabase.get(20).setCoordinatesa(new float[]{121,475});
+        regionDatabase.get(21).setCoordinatesa(new float[]{12,439});
+        regionDatabase.get(22).setCoordinatesa(new float[]{131,575});
+        regionDatabase.get(23).setCoordinatesa(new float[]{181,659});
+        regionDatabase.get(24).setCoordinatesa(new float[]{9,602});
+        regionDatabase.get(25).setCoordinatesa(new float[]{21,739});
+        regionDatabase.get(26).setCoordinatesa(new float[]{11,886});
+        regionDatabase.get(27).setCoordinatesa(new float[]{90,887});
+        regionDatabase.get(28).setCoordinatesa(new float[]{607,639});
+        regionDatabase.get(29).setCoordinatesa(new float[]{437,703});
+        regionDatabase.get(30).setCoordinatesa(new float[]{347,806});
+        regionDatabase.get(31).setCoordinatesa(new float[]{161,868});
+        regionDatabase.get(32).setCoordinatesa(new float[]{882,454});
+        regionDatabase.get(33).setCoordinatesa(new float[]{252,871});
+        regionDatabase.get(34).setCoordinatesa(new float[]{317,704});
+        regionDatabase.get(35).setCoordinatesa(new float[]{212,793});
+        regionDatabase.get(36).setCoordinatesa(new float[]{624,545});
+        regionDatabase.get(37).setCoordinatesa(new float[]{442,938});
+        regionDatabase.get(38).setCoordinatesa(new float[]{791,542});
+        regionDatabase.get(39).setCoordinatesa(new float[]{950,689});
+        regionDatabase.get(40).setCoordinatesa(new float[]{737,733});
         regionDatabase.get(41).setCoordinatesa(new float[] {621,768});
         regionDatabase.get(42).setCoordinatesa(new float[] {1152,640});
         regionDatabase.get(43).setCoordinatesa(new float[] {325,137});
