@@ -370,7 +370,6 @@ public class WaitScreen extends AppCompatActivity {
     }
 
     public void interruptThreadAndStartActivity() {
-//        startActivity(new Intent(WaitScreen.this, MonsterFight.class));
         if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())){
             startActivity(new Intent(WaitScreen.this, DistributeItems.class));
         }else{
