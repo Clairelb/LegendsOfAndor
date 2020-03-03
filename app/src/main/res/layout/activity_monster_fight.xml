@@ -232,7 +232,75 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/player1_sp"
+        android:id="@+id/player1_bv"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="62dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/bv"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/player2_bv"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="138dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/bv"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/player3_bv"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="214dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/bv"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/player4_bv"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
+        android:layout_marginTop="294dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/bv"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/player1_sp2"
         android:layout_width="27dp"
         android:layout_height="15dp"
         android:layout_marginTop="47dp"
@@ -606,7 +674,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
-    x
+    
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -171,15 +171,18 @@ public class MonsterFight extends AppCompatActivity {
             String playerPosition = "player" + playerNumber;
             String playerWPText = "player" + playerNumber + "_wp";
             String playerSPText = "player" + playerNumber + "_sp";
+            String playerBVText = "player" + playerNumber + "_bv";
             int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
             int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
             int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
+            int playerBVID = getResources().getIdentifier(playerBVText, "id", getPackageName());
 //            TextView userProfile = profileList.get(i);
 //            TextView userWP = playerWPList.get(i);
 //            TextView userSP = playerSPList.get(i);
             TextView userProfile = findViewById(playerProfileID);
             TextView userWP = findViewById(playerWPID);
             TextView userSP = findViewById(playerSPID);
+            TextView userBV = findViewById(playerBVID);
             String currentWP = "WP: " + currentPlayer.getWillPower();
             String currentSP = "SP: " + currentPlayer.getStrength();
             userProfile.setText(currentPlayer.getHeroClass().toString());
@@ -188,6 +191,7 @@ public class MonsterFight extends AppCompatActivity {
             userProfile.setVisibility(View.VISIBLE);
             userWP.setVisibility(View.VISIBLE);
             userSP.setVisibility(View.VISIBLE);
+            userBV.setVisibility(View.VISIBLE);
         }
 
 

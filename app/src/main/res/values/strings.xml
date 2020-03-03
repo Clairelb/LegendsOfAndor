@@ -65,6 +65,7 @@
     <string name="dwarf">DWARF</string>
     <string name="wp">WP: 0</string>
     <string name="sp">SP: 0</string>
+    <string name="bv">BV: 0</string>
     <string name="get_dice">GET DICE</string>
     <string name="get_enemy_dice">GET ENEMY DICE</string>
     <string name="end_battle_round">END ROUND</string>
