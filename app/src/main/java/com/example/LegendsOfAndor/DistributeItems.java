@@ -12,14 +12,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.LegendsOfAndor.Item.Item;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
-import com.example.LegendsOfAndor.Item.*;
 
 
 enum DistributeItemsResponses{
@@ -64,9 +62,19 @@ public class DistributeItems extends AppCompatActivity {
         dwarf_text.setVisibility(View.INVISIBLE);
         final TextView wizard_text = findViewById(R.id.wizard);
         wizard_text.setVisibility(View.INVISIBLE);
+        try{
+            AsyncTask<String, Void, Game> asyncTask1;
+            Game gameToSet;
+            GetGame getGame = new GetGame();
+            asyncTask1 = getGame.execute();
+            gameToSet = asyncTask1.get();
+            System.out.println(gameToSet);
+            MyPlayer.getInstance().setGame(gameToSet);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         final Game currentGame = MyPlayer.getInstance().getGame();
-
 
 
         for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
@@ -108,166 +116,80 @@ public class DistributeItems extends AppCompatActivity {
                 int arch_wineskin = Integer.parseInt(archerWineskin.getSelectedItem().toString());
                 int dwarf_wineskin = Integer.parseInt(dwarfWineskin.getSelectedItem().toString());
 
-                if((war_gold + arch_gold + wiz_gold + dwarf_gold == 5) && (wiz_wineskin + war_wineskin + arch_wineskin + dwarf_wineskin == 2)){
+                if ((war_gold + arch_gold + wiz_gold + dwarf_gold == 5) && (wiz_wineskin + war_wineskin + arch_wineskin + dwarf_wineskin == 2)) {
+                    System.out.println("WARRIOR GOLD" + war_gold);
+                    System.out.println("ARCHER GOLD" + arch_gold);
+                    System.out.println("DWARF GOLD" + dwarf_gold);
+                    System.out.println("WIZARD" + wiz_gold);
+                    System.out.println("WARRIOR WINESKIN" + war_wineskin);
+                    System.out.println("ARCHER WINESKIN" + arch_wineskin);
+                    System.out.println("DWARD WINESKIN" + dwarf_wineskin);
+                    System.out.println("WIZARD WINESKIN" + wiz_wineskin);
+                    System.out.println("CURRENT NUM PLAYERS" + currentGame.getCurrentNumPlayers());
                     startActivity(new Intent(DistributeItems.this, Board.class));
                     ItemDistribution itemDistribution = new ItemDistribution();
-                    for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
-                        if(i == 1){
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
-                                itemDistribution.setPlayer1Gold(arch_gold);
+                    for (int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
+                            if (currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER) {
+                                itemDistribution.setArcherGold(arch_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
+                                for (int j = 0; j < arch_wineskin; j++) {
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer1Items(startingItems);
+                                if (startingItems.size() > 0)
+                                    itemDistribution.setArcherItems(startingItems);
+                                System.out.println("GIVING THIS MUCH GOLD and THIS MANY WINESKINS TO ARCHER: " + itemDistribution.getArcherGold() + " " + itemDistribution.getArcherItems().size());
+                                continue;
                             }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
-                                itemDistribution.setPlayer1Gold(war_gold);
+                            if (currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR) {
+                                itemDistribution.setWarriorGold(war_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < war_wineskin; j++){
-                                    startingItems.add(new Wineskin());
+                                for (int j = 0; j < war_wineskin; j++) {
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer1Items(startingItems);
+                                if (startingItems.size() > 0)
+                                    itemDistribution.setWarriorItems(startingItems);
+                                System.out.println("GIVING THIS MUCH GOLD and THIS MANY WINESKINS TO WARRIOR: " + itemDistribution.getWarriorGold() + " " + itemDistribution.getWarriorItems().size());
+                                continue;
                             }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
-                                itemDistribution.setPlayer1Gold(wiz_gold);
+                            if (currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD) {
+                                itemDistribution.setWizardGold(wiz_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
+                                for (int j = 0; j < arch_wineskin; j++) {
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer1Items(startingItems);
+                                if (startingItems.size() > 0)
+                                    itemDistribution.setWizardItems(startingItems);
+                                System.out.println("GIVING THIS MUCH GOLD and THIS MANY WINESKINS TO WIZARD: " + itemDistribution.getWizardGold() + " " + itemDistribution.getWizardItems().size());
+                                continue;
                             }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.DWARF){
-                                itemDistribution.setPlayer1Gold(dwarf_gold);
+                            if (currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.DWARF) {
+                                itemDistribution.setDwarfGold(dwarf_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < dwarf_wineskin; j++){
-                                    startingItems.add(new Wineskin());
+                                for (int j = 0; j < dwarf_wineskin; j++) {
+                                    startingItems.add(new Item(ItemType.WINESKIN));
                                 }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer1Items(startingItems);
-                            }
-                        }
-                        if(i == 2){
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
-                                itemDistribution.setPlayer2Gold(arch_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
-                                itemDistribution.setPlayer2Gold(war_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < war_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
-                                itemDistribution.setPlayer2Gold(wiz_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.DWARF){
-                                itemDistribution.setPlayer2Gold(dwarf_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < dwarf_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-
-                        }
-                        if(i == 3){
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
-                                itemDistribution.setPlayer3Gold(arch_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer3Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
-                                itemDistribution.setPlayer3Gold(war_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < war_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer3Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
-                                itemDistribution.setPlayer3Gold(wiz_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer3Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.DWARF){
-                                itemDistribution.setPlayer3Gold(dwarf_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < dwarf_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer3Items(startingItems);
+                                if (startingItems.size() > 0)
+                                    itemDistribution.setDwarfItems(startingItems);
+                                System.out.println("GIVING THIS MUCH GOLD and THIS MANY WINESKINS TO DWARF: " + itemDistribution.getDwarfGold() + " " + itemDistribution.getDwarfItems().size());
                             }
                         }
-                        if(i == 4){
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
-                                itemDistribution.setPlayer4Gold(arch_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
+                        AsyncTask<String, Void, DistributeItemsResponses> asyncTask;
+                        DistributeItemsResponses distributeItemsResponses;
+                        try {
+                            SendItemDistribution sendItemDistribution = new SendItemDistribution();
+                            asyncTask = sendItemDistribution.execute(new Gson().toJson(itemDistribution));
+                            distributeItemsResponses = asyncTask.get();
+                            System.out.println("THIS IS THE ITEM DISTRIBUTION BEING SENT ============> " + itemDistribution);
+                            if (distributeItemsResponses == DistributeItemsResponses.DISTRIBUTE_ITEMS_SUCCESS) {
+                                Toast.makeText(DistributeItems.this, "Valid Item Distribution. Welcome to the Game. Good luck", Toast.LENGTH_LONG).show();
                             }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
-                                itemDistribution.setPlayer4Gold(war_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < war_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
-                                itemDistribution.setPlayer4Gold(wiz_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < arch_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-                            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.DWARF){
-                                itemDistribution.setPlayer4Gold(dwarf_gold);
-                                ArrayList<Item> startingItems = new ArrayList<>();
-                                for(int j = 0; j < dwarf_wineskin; j++){
-                                    startingItems.add(new Wineskin());
-                                }
-                                if(startingItems.size()> 0) itemDistribution.setPlayer2Items(startingItems);
-                            }
-
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
+                    }else{
+                        Toast.makeText(DistributeItems.this, "Error. Invalid item distribution", Toast.LENGTH_LONG).show();
                     }
-                    AsyncTask<String, Void, DistributeItemsResponses> asyncTask;
-                    DistributeItemsResponses distributeItemsResponses;
-                    try{
-                        SendItemDistribution sendItemDistribution = new SendItemDistribution();
-                        asyncTask = sendItemDistribution.execute(new Gson().toJson(itemDistribution));
-                        distributeItemsResponses = asyncTask.get();
-
-                        if(distributeItemsResponses == DistributeItemsResponses.DISTRIBUTE_ITEMS_SUCCESS){
-                            Toast.makeText(DistributeItems.this,"Valid Item Distribution. Welcome to the Game. Good luck",Toast.LENGTH_LONG).show();
-                        }
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                }else{
-                    Toast.makeText(DistributeItems.this, "Error. Invalid item distribution", Toast.LENGTH_LONG).show();
                 }
-            }
         });
 
         Button chatb = findViewById(R.id.distribute_items_chatb2);
@@ -300,5 +222,23 @@ public class DistributeItems extends AppCompatActivity {
             return DistributeItemsResponses.DISTRIBUTE_ITEMS_FAILURE;
         }
     }
+    private static class GetGame extends AsyncTask<String, Void, Game > {
+        @Override
+        protected Game doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
 
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameByUsername")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                System.out.println("RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, Game.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }

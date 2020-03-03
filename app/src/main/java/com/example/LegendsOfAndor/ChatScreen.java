@@ -138,6 +138,7 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
     @Override
     public void onBackPressed() {
         t.interrupt();
+        setResult(RESULT_OK);
         finish();
     }
 

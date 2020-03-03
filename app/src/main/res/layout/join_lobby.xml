@@ -19,19 +19,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/join_game_name"
-        android:layout_width="241dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="136dp"
+        android:layout_width="185dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginBottom="146dp"
+        android:autoText="false"
+        android:duplicateParentState="false"
+        android:editable="false"
         android:ems="10"
         android:hint="ROOM NAME"
-        android:inputType="textPersonName"
         android:textSize="24sp"
+        app:autoSizeTextType="none"
+        app:layout_constraintBottom_toTopOf="@+id/join_lobby_button"
+        app:layout_constraintEnd_toStartOf="@+id/available_games"
+        app:layout_constraintHorizontal_bias="0.721"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.992" />
 
     <ListView
         android:id="@+id/available_games"

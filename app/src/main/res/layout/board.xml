@@ -12,6 +12,31 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <Button
+        android:id="@+id/fight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fight"
+        app:layout_constraintTop_toBottomOf="@id/move"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <Button
+        android:id="@+id/pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="pass"
+        app:layout_constraintTop_toBottomOf="@id/fight"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <Button
+        android:id="@+id/endDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="end day"
+        app:layout_constraintTop_toBottomOf="@id/pass"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
     <Button
         android:id="@+id/optionsb"
         android:layout_width="wrap_content"

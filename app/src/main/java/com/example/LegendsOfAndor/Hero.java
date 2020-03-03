@@ -1,7 +1,5 @@
 package com.example.LegendsOfAndor;
 
-import com.example.LegendsOfAndor.Item.Item;
-
 import java.util.ArrayList;
 
 enum HeroClass {
@@ -19,6 +17,8 @@ public class Hero {
     private ArrayList<Item> items;
     private ArrayList<Farmer> farmers;
     private boolean moved;
+    private boolean fought;
+    private int rank;
 
     public Hero() {}
 
@@ -27,12 +27,16 @@ public class Hero {
 
         if (heroClass == HeroClass.ARCHER) {
             currentSpace = 53;
+            rank = 25;
         } else if (heroClass == HeroClass.DWARF) {
             currentSpace = 43;
+            rank = 7;
         } else if (heroClass == HeroClass.WARRIOR) {
             currentSpace = 25;
+            rank = 14;
         } else { // wizard
             currentSpace = 9;
+            rank = 34;
         }
         willPower = 7;
         strength = 1;
@@ -121,4 +125,17 @@ public class Hero {
     public void setMoved(boolean moved) {
         this.moved = moved;
     }
+
+
+    public boolean isFought() {
+        return fought;
+    }
+
+    public void setFought(boolean fought) {
+        this.fought = fought;
+    }
+
+    public int getRank() { return rank; }
+
+    public void setRank(int rank) { this.rank = rank; }
 }
