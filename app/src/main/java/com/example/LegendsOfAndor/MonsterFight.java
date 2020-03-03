@@ -48,6 +48,8 @@ public class MonsterFight extends AppCompatActivity {
     private TextView player3SP;
     private TextView player4SP;
 
+    private TextView player1BV;
+
 //    private ImageView player1d1 = findViewById(R.id.player1_d1);
 //    private ImageView player1d2 = findViewById(R.id.player1_d2);
 //    private ImageView player1d3 = findViewById(R.id.player1_d3);
@@ -104,6 +106,9 @@ public class MonsterFight extends AppCompatActivity {
 
 //        final int currentIndex = myPlayer.getGame().getCurrentFight().getHeroes().indexOf(playerHero);
         final ArrayList<Hero> playerIndex = myPlayer.getGame().getCurrentFight().getHeroes();
+
+        player1BV = findViewById(R.id.player1_bv);
+
 //        int playersInFight = playerIndex.size();
         List<TextView> profileList = new ArrayList<TextView>();
         List<TextView> playerWPList = new ArrayList<TextView>();
@@ -670,7 +675,7 @@ public class MonsterFight extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 ArrayList<Integer> myDiceRolls = new ArrayList<>();
-                Integer battleValue;
+                Integer battleValue = 0;
 
                 for (Die die : myDice) {
                     myDiceRolls.add(die.rollDie());
@@ -686,7 +691,7 @@ public class MonsterFight extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                player1BV.setText("BV: " + battleValue);
             }
         });
 

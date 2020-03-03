@@ -172,6 +172,7 @@ public class Board extends AppCompatActivity {
                     if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
                         Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
                         myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
+                        t.interrupt();
                         Intent myIntent = new Intent(v.getContext(), MonsterFight.class);
                         startActivity(myIntent);
                     } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
