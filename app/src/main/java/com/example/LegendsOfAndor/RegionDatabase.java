@@ -224,6 +224,12 @@ public class RegionDatabase {
         if (difficulty == Difficulty.EASY) {
             regionDatabase.get(36).getFarmers().add(new Farmer(false));
         }
+
+        //setCoordinates
+        regionDatabase.get(9).setCoordinatesa(new float[] {244,41});
+        regionDatabase.get(7).setCoordinatesa(new float[] {166,105});
+        regionDatabase.get(8).setCoordinatesa(new float[] {325,137});
+        regionDatabase.get(15).setCoordinatesa(new float[] {103,31});
     }
 
     public void setRandomizedFogs() {

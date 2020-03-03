@@ -50,9 +50,11 @@ public class Board extends AppCompatActivity {
     private Button optionsb;
     private Thread t;
     boolean flag = false;
+    private RegionDatabase regionDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        regionDatabase = new RegionDatabase();
         setContentView(R.layout.board);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         MyPlayer myPlayer = MyPlayer.getInstance();
@@ -285,6 +287,12 @@ public class Board extends AppCompatActivity {
     public void setFlag(){
         this.flag = true;
     }
+    public void move(Movable m, int a){
+        ImageView temp = m.getMyView();
+        float[] coor = regionDatabase.getRegion(a).getCoordinates();
+        //try if there is already a movable
+        temp.setX(coor[0]);
+        temp.setX(coor[1]);}
 
     private static class GetGame extends AsyncTask<String, Void, Game > {
         @Override
