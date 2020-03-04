@@ -248,7 +248,6 @@ public class MonsterFight extends AppCompatActivity {
                                         currentD4 = findViewById(d4IV);
                                         currentD5 = findViewById(d5IV);
 
-
                                         if (h.getHeroClass() == HeroClass.WARRIOR) {
                                             int res;
                                             for (int j = 0; j < myDice.size(); j++) {
@@ -271,6 +270,11 @@ public class MonsterFight extends AppCompatActivity {
                                                     currentD5.setImageResource(res);
                                                 }
                                             }
+                                            currentD1.setVisibility(View.VISIBLE);
+                                            currentD2.setVisibility(View.VISIBLE);
+                                            currentD3.setVisibility(View.VISIBLE);
+                                            currentD4.setVisibility(View.VISIBLE);
+                                            currentD5.setVisibility(View.VISIBLE);
                                         } else if (h.getHeroClass() == HeroClass.ARCHER) {
                                             int res;
                                             for (int j = 0; j < myDice.size(); j++) {
