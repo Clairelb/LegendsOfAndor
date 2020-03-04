@@ -26,6 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+enum LeaveFightResponses {
+    CANNOT_LEAVE_AFTER_ROLLING, CANNOT_LEAVE_WITHOUT_FIGHTING, SUCCESS
+}
+
+enum EndBattleRoundResponses {
+    WON_ROUND, LOST_ROUND, CREATURE_DEFEATED, BATTLE_LOST, PLAYERS_NO_BATTLE_VALUE, CREATURE_NO_BATTLE_VALUE, WAITING_FOR_PLAYERS_TO_JOIN
+}
+
 public class MonsterFight extends AppCompatActivity {
 
     public static final Random RANDOM = new Random();
@@ -454,8 +462,8 @@ public class MonsterFight extends AppCompatActivity {
                 try {
                     AsyncTask<String, Void, Integer> asyncTask;
 
-                    CalculateBattleValue calculateBattleValue = new CalculateBattleValue();
-                    asyncTask = calculateBattleValue.execute(new Gson().toJson(myDiceRolls));
+                    CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+                    asyncTask = calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
 
                     battleValue = asyncTask.get();
                 } catch (Exception e) {
@@ -533,6 +541,25 @@ public class MonsterFight extends AppCompatActivity {
         }
     }
 
+    private static class LeaveFightSender extends AsyncTask<String, Void, LeaveFightResponses> {
+        @Override
+        protected LeaveFightResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/leaveFight")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, LeaveFightResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     private static class GetDiceSender extends AsyncTask<String, Void, ArrayList<Die>> {
         @Override
         protected ArrayList<Die> doInBackground(String... strings) {
@@ -552,7 +579,7 @@ public class MonsterFight extends AppCompatActivity {
         }
     }
 
-    private static class CalculateBattleValue extends AsyncTask<String, Void, Integer> {
+    private static class CalculateBattleValueSender extends AsyncTask<String, Void, Integer> {
         @Override
         protected Integer doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
@@ -572,4 +599,64 @@ public class MonsterFight extends AppCompatActivity {
             return null;
         }
     }
+
+    private static class GetCreatureDiceSender extends AsyncTask<String, Void, ArrayList<Die>> {
+        @Override
+        protected ArrayList<Die> doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/getCreatureDice")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Die>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class CalculateCreatureBattleValueSender extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/calculateCreatureBattleValue")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, Integer.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class EndBattleRoundSender extends AsyncTask<String, Void, EndBattleRoundResponses> {
+        @Override
+        protected EndBattleRoundResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/endBattleRound")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, EndBattleRoundResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }
