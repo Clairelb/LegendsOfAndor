@@ -41,6 +41,7 @@ public class MonsterFight extends AppCompatActivity {
     private Button getDice;
     private Button rollDice;
     private Button getEnemyDice;
+    private Button rollEnemyDice;
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
     private TextView playerBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
@@ -59,6 +60,10 @@ public class MonsterFight extends AppCompatActivity {
     private TextView player4SP;
 
     private TextView player1BV;
+    private TextView player2BV;
+    private TextView player3BV;
+    private TextView player4BV;
+    private TextView monsterBV;
 
 //    private ImageView player1d1 = findViewById(R.id.player1_d1);
 //    private ImageView player1d2 = findViewById(R.id.player1_d2);
@@ -102,10 +107,17 @@ public class MonsterFight extends AppCompatActivity {
     private ImageView player4d4;
     private ImageView player4d5;
 
+    private ImageView enemyd1;
+    private ImageView enemyd2;
+    private ImageView enemyd3;
+    private ImageView enemyd4;
+    private ImageView enemyd5;
+
     private Thread t;
     MyPlayer myPlayer = MyPlayer.getInstance();
 
     ArrayList<Die> myDice = new ArrayList<>();
+    ArrayList<Die> creatureDice = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,6 +130,16 @@ public class MonsterFight extends AppCompatActivity {
         final ArrayList<Hero> playerIndex = myPlayer.getGame().getCurrentFight().getHeroes();
 
         player1BV = findViewById(R.id.player1_bv);
+        player2BV = findViewById(R.id.player2_bv);
+        player3BV = findViewById(R.id.player3_bv);
+        player4BV = findViewById(R.id.player4_bv);
+        monsterBattleValue = findViewById(R.id.monsterBattleValue);
+
+        enemyd1 = findViewById(R.id.enemy_d1);
+        enemyd2 = findViewById(R.id.enemy_d2);
+        enemyd3 = findViewById(R.id.enemy_d3);
+        enemyd4 = findViewById(R.id.enemy_d4);
+        enemyd5 = findViewById(R.id.enemy_d5);
 
 //        int playersInFight = playerIndex.size();
         List<TextView> profileList = new ArrayList<TextView>();
@@ -252,6 +274,18 @@ public class MonsterFight extends AppCompatActivity {
                                     ImageView currentD5;
 
                                     for (Hero h : fight.getHeroes()) {
+                                        if (fight.getHeroesBattleScores().get(i) > 0) {
+                                            if (i == 0) {
+                                                player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                            } else if (i == 1) {
+                                                player2BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                            } else if (i == 2) {
+                                                player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                            } else { // i = 3
+                                                player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                            }
+                                        }
+
                                         int playerNum = i + 1;
                                         String diceNum1 = "player" + playerNum + "_d" + 1;
                                         String diceNum2 = "player" + playerNum + "_d" + 2;
@@ -273,7 +307,7 @@ public class MonsterFight extends AppCompatActivity {
 //                                        imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
                                         if (h.getHeroClass() == HeroClass.WARRIOR) {
                                             String class_id;
-                                                for (int j = 0; j < myDice.size(); j++) {
+                                                for (int j = 0; j < fight.getWarriorDice().size(); j++) {
                                                     Integer dieValue = fight.getWarriorDice().get(j);
 
                                                     if (dieValue == 0) {
@@ -300,7 +334,7 @@ public class MonsterFight extends AppCompatActivity {
                                             }
                                         } else if (h.getHeroClass() == HeroClass.ARCHER) {
                                             String class_id;
-                                            for (int j = 0; j < myDice.size(); j++) {
+                                            for (int j = 0; j < fight.getArcherDice().size(); j++) {
                                                 Integer dieValue = fight.getArcherDice().get(j);
                                                 if (dieValue == 0) {
                                                     class_id = "archer_dice";
@@ -326,7 +360,7 @@ public class MonsterFight extends AppCompatActivity {
                                             }
                                         } else if (h.getHeroClass() == HeroClass.DWARF) {
                                             String class_id;
-                                            for (int j = 0; j < myDice.size(); j++) {
+                                            for (int j = 0; j < fight.getDwarfDice().size(); j++) {
                                                 Integer dieValue = fight.getDwarfDice().get(j);
 
                                                 if (dieValue == 0) {
@@ -353,7 +387,7 @@ public class MonsterFight extends AppCompatActivity {
                                             }
                                         } else { // wizard
                                             String class_id;
-                                            for (int j = 0; j < myDice.size(); j++) {
+                                            for (int j = 0; j < fight.getWizardDice().size(); j++) {
                                                 Integer dieValue = fight.getWizardDice().get(j);
 
                                                 if (dieValue == 0) {
@@ -379,7 +413,46 @@ public class MonsterFight extends AppCompatActivity {
                                                 }
                                             }
                                         }
+                                        i++;
                                     }
+
+                                    String class_id;
+                                    for (int k = 0; k < fight.getCreatureDice().size(); k++) {
+                                        Integer dieValue = fight.getCreatureDice().get(k);
+
+                                        if (dieValue == -1) { // empty black die
+                                            class_id = "black_dice";
+                                        } else if (dieValue >= 8) { // black die
+                                            class_id = "black_dice_" + dieValue;
+                                        } else if (dieValue == 0) {
+                                            class_id = "enemy_dice";
+                                        } else { // dieValue 1 to 6
+                                            class_id = "enemy_dice_" + dieValue;
+                                        }
+
+                                        if (k == 0) {
+                                            enemyd1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                            enemyd1.setVisibility(View.VISIBLE);
+                                        } else if (k == 1) {
+                                            enemyd2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                            enemyd2.setVisibility(View.VISIBLE);
+                                        } else if (k == 2) {
+                                            enemyd3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                            enemyd3.setVisibility(View.VISIBLE);
+                                        } else if (k == 3) {
+                                            enemyd4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                            enemyd4.setVisibility(View.VISIBLE);
+                                        } else {
+                                            enemyd5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                            enemyd5.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+
+                                    if (fight.getCreatureBattleScore() > 0) {
+                                        monsterBattleValue.setText("BV: " + fight.getCreatureBattleScore());
+                                    }
+
+
                                 }
                             });
                         }
@@ -410,57 +483,6 @@ public class MonsterFight extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//
-//                ImageView currentD1;
-//                ImageView currentD2;
-//                ImageView currentD3;
-//                ImageView currentD4;
-//                ImageView currentD5;
-//
-//                for (int i = 0; i < playerIndex.size(); i++) {
-//
-//                    if (myPlayer.getGame().getCurrentHero().getHeroClass().equals(playerIndex.get(i).getHeroClass())) {
-//                        int playerNum = i + 1;
-//                        String diceNum1 = "player" + playerNum + "_d" + 1;
-//                        String diceNum2 = "player" + playerNum + "_d" + 2;
-//                        String diceNum3 = "player" + playerNum + "_d" + 3;
-//                        String diceNum4 = "player" + playerNum + "_d" + 4;
-//                        String diceNum5 = "player" + playerNum + "_d" + 5;
-//                        int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
-//                        int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
-//                        int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
-//                        int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
-//                        int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
-//
-//                        currentD1 = findViewById(d1IV);
-//                        currentD2 = findViewById(d2IV);
-//                        currentD3 = findViewById(d3IV);
-//                        currentD4 = findViewById(d4IV);
-//                        currentD5 = findViewById(d5IV);
-//
-//                        if (myDice.size() == 1) {
-//                            currentD1.setVisibility(View.VISIBLE);
-//                        } else if (myDice.size() == 2) {
-//                            currentD1.setVisibility(View.VISIBLE);
-//                            currentD2.setVisibility(View.VISIBLE);
-//                        } else if (myDice.size() == 3) {
-//                            currentD1.setVisibility(View.VISIBLE);
-//                            currentD2.setVisibility(View.VISIBLE);
-//                            currentD3.setVisibility(View.VISIBLE);
-//                        } else if (myDice.size() == 4) {
-//                            currentD1.setVisibility(View.VISIBLE);
-//                            currentD2.setVisibility(View.VISIBLE);
-//                            currentD3.setVisibility(View.VISIBLE);
-//                            currentD4.setVisibility(View.VISIBLE);
-//                        } else {
-//                            currentD1.setVisibility(View.VISIBLE);
-//                            currentD2.setVisibility(View.VISIBLE);
-//                            currentD3.setVisibility(View.VISIBLE);
-//                            currentD4.setVisibility(View.VISIBLE);
-//                            currentD5.setVisibility(View.VISIBLE);
-//                        }
-//                    }
-//                }
             }
         });
 
@@ -485,17 +507,48 @@ public class MonsterFight extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                player1BV.setText("BV: " + battleValue);
+                //player1BV.setText("BV: " + battleValue);
             }
         });
 
-//        getEnemyDice = findViewById(R.id.get_enemy_dice);
-//        getEnemyDice.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        getEnemyDice = findViewById(R.id.get_enemy_dice);
+        getEnemyDice.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AsyncTask<String, Void, ArrayList<Die>> asyncTask;
+
+                try {
+                    GetCreatureDiceSender getCreatureDiceSender = new GetCreatureDiceSender();
+                    asyncTask = getCreatureDiceSender.execute();
+                    creatureDice = asyncTask.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        rollEnemyDice = findViewById(R.id.roll_enemy_dice);
+        rollEnemyDice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ArrayList<Integer> creatureRolls = new ArrayList<>();
+                Integer battleValue = 0;
+
+                for (Die die : creatureDice) {
+                    creatureRolls.add(die.rollDie());
+                }
+
+                AsyncTask<String, Void, Integer> asyncTask;
+
+                try {
+                    CalculateCreatureBattleValueSender calculateCreatureBattleValueSender = new CalculateCreatureBattleValueSender();
+                    asyncTask = calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
+                    battleValue = asyncTask.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
 
 
