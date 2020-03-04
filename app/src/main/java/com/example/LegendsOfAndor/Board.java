@@ -1,5 +1,6 @@
 package com.example.LegendsOfAndor;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -80,6 +81,7 @@ public class Board extends AppCompatActivity {
 
         sp=(Spinner)findViewById(R.id.sp);
         String[]ls=getResources().getStringArray(R.array.action);
+
         for(int i=0;i<ls.length;i++){
             list.add(ls[i]);
         }
@@ -141,17 +143,23 @@ public class Board extends AppCompatActivity {
                             runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
-                                    if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
-                                        Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
-                                        move.setVisibility(View.VISIBLE);
-                                        fight.setVisibility(View.VISIBLE);
-                                        pass.setVisibility(View.VISIBLE);
-                                        endDay.setVisibility(View.VISIBLE);
+                                    if(game.getGoldenShields() <= 0){
+                                        myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
+                                        Intent gameOverIntent = new Intent(Board.this, GameOver.class );
+                                        interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
-                                        move.setVisibility(View.INVISIBLE);
-                                        fight.setVisibility(View.INVISIBLE);
-                                        pass.setVisibility(View.INVISIBLE);
-                                        endDay.setVisibility(View.INVISIBLE);
+                                        if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+                                            Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
+                                            move.setVisibility(View.VISIBLE);
+                                            fight.setVisibility(View.VISIBLE);
+                                            pass.setVisibility(View.VISIBLE);
+                                            endDay.setVisibility(View.VISIBLE);
+                                        }else{
+                                            move.setVisibility(View.INVISIBLE);
+                                            fight.setVisibility(View.INVISIBLE);
+                                            pass.setVisibility(View.INVISIBLE);
+                                            endDay.setVisibility(View.INVISIBLE);
+                                        }
                                     }
                                 }
                             });
@@ -285,6 +293,12 @@ public class Board extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+
+    public void interruptThreadAndStartActivity(Intent myIntent){
+        startActivity(myIntent);
+        t.interrupt();
     }
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent event) {
