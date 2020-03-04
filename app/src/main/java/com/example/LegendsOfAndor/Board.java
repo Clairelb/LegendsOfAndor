@@ -7,10 +7,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +41,8 @@ enum EndDayResponses {
 }
 
 
+//import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+
 public class Board extends AppCompatActivity {
     public ImageView warrior;
     private Button move;
@@ -49,6 +54,11 @@ public class Board extends AppCompatActivity {
     private Thread t;
     boolean flag = false;
     private RegionDatabase regionDatabase;
+    private ArrayList<String> list=new ArrayList<String>();
+    private ArrayAdapter<String> adapter;
+
+    private Spinner sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,10 +78,22 @@ public class Board extends AppCompatActivity {
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
 
+        sp=(Spinner)findViewById(R.id.sp);
+        String[]ls=getResources().getStringArray(R.array.action);
+        for(int i=0;i<ls.length;i++){
+            list.add(ls[i]);
+        }
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+        sp.setAdapter(adapter);
+        sp.setPrompt("标题栏");
 
-        warrior = findViewById(R.id.warrior);
-        warrior.setX(100);  //get the color, then determine the location
-        warrior.setY(100);
+
+
+
+        int a = R.id.warrior;
+        warrior = findViewById(a);
+        warrior.setX(235);  //get the color, then determine the location
+        warrior.setY(152);
 
 
         try{
@@ -148,7 +170,17 @@ public class Board extends AppCompatActivity {
         move.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                setFlag();
+                adapter.clear();
+                int region = myPlayer.getPlayer().getHero().getCurrentSpace();
+                String s = " "+region;
+                Log.d("TEST123", s);
+                ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
+                for(Integer e : adjacentRegions){
+                    String test = " " + e;
+                }
+                for(Integer e: adjacentRegions){
+                    adapter.add(e.toString());
+                }
             }
         });
 
@@ -254,42 +286,60 @@ public class Board extends AppCompatActivity {
             }
         });
     }
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent event) {
-        if(flag){
-            this.flag = false;
-            Bitmap layout = BitmapFactory.decodeResource(getResources(),R.drawable.overlay);
-
-            int newColor = layout.getPixel((int)(event.getX()),(int)(event.getY()));
-            int newRegionNumber = Color.blue(newColor);
-            //Region newRegion = RegionDatabase.getInstance().getRegionDatabase().get(newRegionNumber);
-
-            int oldColor = layout.getPixel((int)(this.warrior.getX()),(int)(this.warrior.getY()));
-            int oldRegionNumber = Color.blue(oldColor);
-            //Region currentRegion = RegionDatabase.getInstance().getRegionDatabase().get(oldRegionNumber);
-
-            //if(currentRegion.getAdjacentRegions().contains(newRegion))
-            //{
-                //this.warrior.setX(event.getX());
-                //this.warrior.setY(event.getY());
-                //return true;
-            //}
-            //else
-                //{
-                    //Toast.makeText(Board.this, "The clicked region is not a neighbor to your current region. Please choose your destination again.", Toast.LENGTH_LONG).show();
-                    //return super.dispatchTouchEvent(event);
-                //}
-            //check if the region is a neighbor to the current region;
-            //set the player's current region to new region;
-            //add the player to the new region and remove the player from the previous region
-        }
-        return super.dispatchTouchEvent(event);
-    }
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent event) {
+////        if(flag){
+////            this.flag = false;
+////            Bitmap layout = BitmapFactory.decodeResource(getResources(),R.drawable.overlay);
+////
+////            int newColor = layout.getPixel((int)(event.getX()),(int)(event.getY()));
+////            int newRegionNumber = Color.blue(newColor);
+////            //Region newRegion = RegionDatabase.getInstance().getRegionDatabase().get(newRegionNumber);
+////
+////            int oldColor = layout.getPixel((int)(this.warrior.getX()),(int)(this.warrior.getY()));
+////            int oldRegionNumber = Color.blue(oldColor);
+////            //Region currentRegion = RegionDatabase.getInstance().getRegionDatabase().get(oldRegionNumber);
+////
+////            //if(currentRegion.getAdjacentRegions().contains(newRegion))
+////            //{
+////                //this.warrior.setX(event.getX());
+////                //this.warrior.setY(event.getY());
+////                //return true;
+////            //}
+////            //else
+////                //{
+////                    //Toast.makeText(Board.this, "The clicked region is not a neighbor to your current region. Please choose your destination again.", Toast.LENGTH_LONG).show();
+////                    //return super.dispatchTouchEvent(event);
+////                //}
+////            //check if the region is a neighbor to the current region;
+////            //set the player's current region to new region;
+////            //add the player to the new region and remove the player from the previous region
+////        }
+//
+//        if(flag){
+//            this.flag = false;
+//            float X = event.getX();
+//            float Y = event.getY();
+//            Bitmap layout = BitmapFactory.decodeResource(getResources(),R.drawable.overlay);
+//
+//
+//            int newColor = layout.getPixel((int)(event.getX()),(int)(event.getY()));
+//            int newRegionNumber = Color.blue(newColor);
+//            String log = " "+"x:"+X+", y:"+ Y;
+//            warrior.setY((float)Y-65);
+//            warrior.setX((float)X);
+//            String color = " "+newRegionNumber;
+//            Log.d("TEST",log);
+//            Log.d("Test2",color);
+//        }
+//        return super.dispatchTouchEvent(event);
+//    }
     public void setFlag(){
         this.flag = true;
     }
-    public void move(Movable m, int a){
-        ImageView temp = m.getMyView();
+    public void movePic(Movable m, int a){
+
+        ImageView temp = findViewById(m.getMyView());
         float[] coor = regionDatabase.getRegion(a).getCoordinates();
         //try if there is already a movable
         temp.setX(coor[0]);

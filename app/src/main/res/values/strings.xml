@@ -71,4 +71,10 @@
     <string name="end_battle_round">END ROUND</string>
     <string name="calculate_battle_value">ROLL DICE</string>
     <string name="calculate_enemy_battle_value">ROLL ENEMY DICE</string>
+
+    <string-array name="action">
+        <item>吃饭</item>
+        <item>睡觉</item>
+        <item>上网</item>
+    </string-array>
 </resources>

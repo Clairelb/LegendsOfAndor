@@ -17,5 +17,11 @@
         android:layout_marginRight="70dp"
         android:layout_marginLeft="550dp"/>
 
+    <Button
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="test" />
+
 
 </RelativeLayout>
