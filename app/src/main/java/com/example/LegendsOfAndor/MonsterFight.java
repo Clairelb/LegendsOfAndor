@@ -283,14 +283,19 @@ public class MonsterFight extends AppCompatActivity {
                                                     }
                                                     if (j == 0) {
                                                         currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                        currentD1.setVisibility(View.VISIBLE);
                                                     } else if (j == 1) {
                                                         currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                        currentD2.setVisibility(View.VISIBLE);
                                                     } else if (j == 2) {
                                                         currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                        currentD3.setVisibility(View.VISIBLE);
                                                     } else if (j == 3) {
                                                         currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                        currentD4.setVisibility(View.VISIBLE);
                                                     } else {
                                                         currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                        currentD5.setVisibility(View.VISIBLE);
                                                     }
                                             }
                                         } else if (h.getHeroClass() == HeroClass.ARCHER) {
@@ -304,14 +309,19 @@ public class MonsterFight extends AppCompatActivity {
                                                 }
                                                 if (j == 0) {
                                                     currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD1.setVisibility(View.VISIBLE);
                                                 } else if (j == 1) {
                                                     currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD2.setVisibility(View.VISIBLE);
                                                 } else if (j == 2) {
                                                     currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD3.setVisibility(View.VISIBLE);
                                                 } else if (j == 3) {
                                                     currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD4.setVisibility(View.VISIBLE);
                                                 } else {
                                                     currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD5.setVisibility(View.VISIBLE);
                                                 }
                                             }
                                         } else if (h.getHeroClass() == HeroClass.DWARF) {
@@ -326,14 +336,19 @@ public class MonsterFight extends AppCompatActivity {
                                                 }
                                                 if (j == 0) {
                                                     currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD1.setVisibility(View.VISIBLE);
                                                 } else if (j == 1) {
                                                     currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD2.setVisibility(View.VISIBLE);
                                                 } else if (j == 2) {
                                                     currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD3.setVisibility(View.VISIBLE);
                                                 } else if (j == 3) {
                                                     currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD4.setVisibility(View.VISIBLE);
                                                 } else {
                                                     currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD5.setVisibility(View.VISIBLE);
                                                 }
                                             }
                                         } else { // wizard
@@ -348,14 +363,19 @@ public class MonsterFight extends AppCompatActivity {
                                                 }
                                                 if (j == 0) {
                                                     currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD1.setVisibility(View.VISIBLE);
                                                 } else if (j == 1) {
                                                     currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD2.setVisibility(View.VISIBLE);
                                                 } else if (j == 2) {
                                                     currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD3.setVisibility(View.VISIBLE);
                                                 } else if (j == 3) {
                                                     currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD4.setVisibility(View.VISIBLE);
                                                 } else {
                                                     currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    currentD5.setVisibility(View.VISIBLE);
                                                 }
                                             }
                                         }
@@ -390,57 +410,57 @@ public class MonsterFight extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                ImageView currentD1;
-                ImageView currentD2;
-                ImageView currentD3;
-                ImageView currentD4;
-                ImageView currentD5;
-
-                for (int i = 0; i < playerIndex.size(); i++) {
-
-                    if (myPlayer.getGame().getCurrentHero().getHeroClass().equals(playerIndex.get(i).getHeroClass())) {
-                        int playerNum = i + 1;
-                        String diceNum1 = "player" + playerNum + "_d" + 1;
-                        String diceNum2 = "player" + playerNum + "_d" + 2;
-                        String diceNum3 = "player" + playerNum + "_d" + 3;
-                        String diceNum4 = "player" + playerNum + "_d" + 4;
-                        String diceNum5 = "player" + playerNum + "_d" + 5;
-                        int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
-                        int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
-                        int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
-                        int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
-                        int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
-
-                        currentD1 = findViewById(d1IV);
-                        currentD2 = findViewById(d2IV);
-                        currentD3 = findViewById(d3IV);
-                        currentD4 = findViewById(d4IV);
-                        currentD5 = findViewById(d5IV);
-
-                        if (myDice.size() == 1) {
-                            currentD1.setVisibility(View.VISIBLE);
-                        } else if (myDice.size() == 2) {
-                            currentD1.setVisibility(View.VISIBLE);
-                            currentD2.setVisibility(View.VISIBLE);
-                        } else if (myDice.size() == 3) {
-                            currentD1.setVisibility(View.VISIBLE);
-                            currentD2.setVisibility(View.VISIBLE);
-                            currentD3.setVisibility(View.VISIBLE);
-                        } else if (myDice.size() == 4) {
-                            currentD1.setVisibility(View.VISIBLE);
-                            currentD2.setVisibility(View.VISIBLE);
-                            currentD3.setVisibility(View.VISIBLE);
-                            currentD4.setVisibility(View.VISIBLE);
-                        } else {
-                            currentD1.setVisibility(View.VISIBLE);
-                            currentD2.setVisibility(View.VISIBLE);
-                            currentD3.setVisibility(View.VISIBLE);
-                            currentD4.setVisibility(View.VISIBLE);
-                            currentD5.setVisibility(View.VISIBLE);
-                        }
-                    }
-                }
+//
+//                ImageView currentD1;
+//                ImageView currentD2;
+//                ImageView currentD3;
+//                ImageView currentD4;
+//                ImageView currentD5;
+//
+//                for (int i = 0; i < playerIndex.size(); i++) {
+//
+//                    if (myPlayer.getGame().getCurrentHero().getHeroClass().equals(playerIndex.get(i).getHeroClass())) {
+//                        int playerNum = i + 1;
+//                        String diceNum1 = "player" + playerNum + "_d" + 1;
+//                        String diceNum2 = "player" + playerNum + "_d" + 2;
+//                        String diceNum3 = "player" + playerNum + "_d" + 3;
+//                        String diceNum4 = "player" + playerNum + "_d" + 4;
+//                        String diceNum5 = "player" + playerNum + "_d" + 5;
+//                        int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
+//                        int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
+//                        int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
+//                        int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
+//                        int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
+//
+//                        currentD1 = findViewById(d1IV);
+//                        currentD2 = findViewById(d2IV);
+//                        currentD3 = findViewById(d3IV);
+//                        currentD4 = findViewById(d4IV);
+//                        currentD5 = findViewById(d5IV);
+//
+//                        if (myDice.size() == 1) {
+//                            currentD1.setVisibility(View.VISIBLE);
+//                        } else if (myDice.size() == 2) {
+//                            currentD1.setVisibility(View.VISIBLE);
+//                            currentD2.setVisibility(View.VISIBLE);
+//                        } else if (myDice.size() == 3) {
+//                            currentD1.setVisibility(View.VISIBLE);
+//                            currentD2.setVisibility(View.VISIBLE);
+//                            currentD3.setVisibility(View.VISIBLE);
+//                        } else if (myDice.size() == 4) {
+//                            currentD1.setVisibility(View.VISIBLE);
+//                            currentD2.setVisibility(View.VISIBLE);
+//                            currentD3.setVisibility(View.VISIBLE);
+//                            currentD4.setVisibility(View.VISIBLE);
+//                        } else {
+//                            currentD1.setVisibility(View.VISIBLE);
+//                            currentD2.setVisibility(View.VISIBLE);
+//                            currentD3.setVisibility(View.VISIBLE);
+//                            currentD4.setVisibility(View.VISIBLE);
+//                            currentD5.setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//                }
             }
         });
 

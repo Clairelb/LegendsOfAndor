@@ -2,7 +2,7 @@
 package com.example.LegendsOfAndor;
 
 enum ItemType {
-    WINESKIN
+    WINESKIN,FALCON,BOW,HELM,SHIELD,TELESCOPE
 }
 
 public class Item {
@@ -14,6 +14,13 @@ public class Item {
 
     public Item(ItemType itemType) {
         if (itemType == ItemType.WINESKIN) {
+            uses = 2;
+        }
+        //falcon can only be used once per day
+        if (itemType == ItemType.FALCON){
+            uses = 1;
+        }
+        if (itemType == ItemType.SHIELD){
             uses = 2;
         }
     }
