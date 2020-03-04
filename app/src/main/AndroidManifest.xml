@@ -53,8 +53,15 @@
         <activity
             android:name=".MonsterFight"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".GameOver"
+        <activity
+            android:name=".GameOver"
             android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".Character_Tab"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Merchant"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

@@ -40,17 +40,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pass"></Button>
 
+
     <Button
         android:id="@+id/optionsb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/options"
+        android:layout_width="45dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/options_icon"
+        android:rotation="180"
+        android:backgroundTint="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.975"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
     <Button
         android:id="@+id/chatb"
@@ -70,7 +72,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="16dp">
+        tools:layout_editor_absoluteX="197dp">
 
         <ImageView
             android:id="@+id/board"
