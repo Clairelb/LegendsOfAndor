@@ -26,6 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+enum LeaveFightResponses {
+    CANNOT_LEAVE_AFTER_ROLLING, CANNOT_LEAVE_WITHOUT_FIGHTING, SUCCESS
+}
+
+enum EndBattleRoundResponses {
+    WON_ROUND, LOST_ROUND, CREATURE_DEFEATED, BATTLE_LOST, PLAYERS_NO_BATTLE_VALUE, CREATURE_NO_BATTLE_VALUE, WAITING_FOR_PLAYERS_TO_JOIN
+}
+
 public class MonsterFight extends AppCompatActivity {
 
     public static final Random RANDOM = new Random();
@@ -203,14 +211,16 @@ public class MonsterFight extends AppCompatActivity {
         }
 
         //Add information for current creature, makes attributes visible
-        Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
+                Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
         TextView enemyProfile = findViewById(R.id.enemy);
         TextView enemyWP = findViewById(R.id.enemy_wp);
         TextView enemySP = findViewById(R.id.enemy_sp);
         TextView enemyBV = findViewById(R.id.enemy_bv);
         enemyProfile.setText(currentMonster.getCreatureType().toString());
-        enemyWP.setText(currentMonster.getWillpower());
-        enemySP.setText(currentMonster.getStrength());
+        String enemyCurrentWp = "WP:" + currentMonster.getWillpower();
+        String enemyCurrentSp = "SP:" + currentMonster.getStrength();
+        enemyWP.setText(enemyCurrentWp);
+        enemySP.setText(enemyCurrentSp);
         enemyProfile.setVisibility(View.VISIBLE);
         enemyWP.setVisibility(View.VISIBLE);
         enemySP.setVisibility(View.VISIBLE);
@@ -260,97 +270,92 @@ public class MonsterFight extends AppCompatActivity {
                                         currentD4 = findViewById(d4IV);
                                         currentD5 = findViewById(d5IV);
 
+//                                        imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
                                         if (h.getHeroClass() == HeroClass.WARRIOR) {
-                                            int res;
-                                            for (int j = 0; j < myDice.size(); j++) {
-                                                Integer dieValue = fight.getWarriorDice().get(j);
+                                            String class_id;
+                                                for (int j = 0; j < myDice.size(); j++) {
+                                                    Integer dieValue = fight.getWarriorDice().get(j);
 
-                                                if (dieValue == 0) {
-                                                    res = getResources().getIdentifier("warrior_dice", "drawable", "com.example.legendsOfAndor");
-                                                } else {
-                                                    res = getResources().getIdentifier("warrior_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
-                                                }
-                                                if (j == 0) {
-                                                    currentD1.setImageResource(res);
-                                                } else if (j == 1) {
-                                                    currentD2.setImageResource(res);
-                                                } else if (j == 2) {
-                                                    currentD3.setImageResource(res);
-                                                } else if (j == 3) {
-                                                    currentD4.setImageResource(res);
-                                                } else {
-                                                    currentD5.setImageResource(res);
-                                                }
+                                                    if (dieValue == 0) {
+                                                        class_id = "warrior_dice";
+                                                    } else {
+                                                        class_id = "warrior_dice_" + dieValue;
+                                                    }
+                                                    if (j == 0) {
+                                                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    } else if (j == 1) {
+                                                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    } else if (j == 2) {
+                                                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    } else if (j == 3) {
+                                                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    } else {
+                                                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    }
                                             }
-                                            currentD1.setVisibility(View.VISIBLE);
-                                            currentD2.setVisibility(View.VISIBLE);
-                                            currentD3.setVisibility(View.VISIBLE);
-                                            currentD4.setVisibility(View.VISIBLE);
-                                            currentD5.setVisibility(View.VISIBLE);
                                         } else if (h.getHeroClass() == HeroClass.ARCHER) {
-                                            int res;
+                                            String class_id;
                                             for (int j = 0; j < myDice.size(); j++) {
                                                 Integer dieValue = fight.getArcherDice().get(j);
-
                                                 if (dieValue == 0) {
-                                                    res = getResources().getIdentifier("archer_dice", "drawable", "com.example.legendsOfAndor");
+                                                    class_id = "archer_dice";
                                                 } else {
-                                                    res = getResources().getIdentifier("archer_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                    class_id = "archer_dice" + dieValue;
                                                 }
                                                 if (j == 0) {
-                                                    currentD1.setImageResource(res);
+                                                    currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 1) {
-                                                    currentD2.setImageResource(res);
+                                                    currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 2) {
-                                                    currentD3.setImageResource(res);
+                                                    currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 3) {
-                                                    currentD4.setImageResource(res);
+                                                    currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else {
-                                                    currentD5.setImageResource(res);
+                                                    currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 }
                                             }
                                         } else if (h.getHeroClass() == HeroClass.DWARF) {
-                                            int res;
+                                            String class_id;
                                             for (int j = 0; j < myDice.size(); j++) {
                                                 Integer dieValue = fight.getDwarfDice().get(j);
 
                                                 if (dieValue == 0) {
-                                                    res = getResources().getIdentifier("dwarf_dice", "drawable", "com.example.legendsOfAndor");
+                                                    class_id = "dwarf_dice";
                                                 } else {
-                                                    res = getResources().getIdentifier("dwarf_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                    class_id = "dwarf_dice_" + dieValue;
                                                 }
                                                 if (j == 0) {
-                                                    currentD1.setImageResource(res);
+                                                    currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 1) {
-                                                    currentD2.setImageResource(res);
+                                                    currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 2) {
-                                                    currentD3.setImageResource(res);
+                                                    currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 3) {
-                                                    currentD4.setImageResource(res);
+                                                    currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else {
-                                                    currentD5.setImageResource(res);
+                                                    currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 }
                                             }
                                         } else { // wizard
-                                            int res;
+                                            String class_id;
                                             for (int j = 0; j < myDice.size(); j++) {
                                                 Integer dieValue = fight.getWizardDice().get(j);
 
                                                 if (dieValue == 0) {
-                                                    res = getResources().getIdentifier("wizard_dice", "drawable", "com.example.legendsOfAndor");
+                                                    class_id = "wizard_dice";
                                                 } else {
-                                                    res = getResources().getIdentifier("wizard_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                    class_id = "wizard_dice_" + dieValue;
                                                 }
                                                 if (j == 0) {
-                                                    currentD1.setImageResource(res);
+                                                    currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 1) {
-                                                    currentD2.setImageResource(res);
+                                                    currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 2) {
-                                                    currentD3.setImageResource(res);
+                                                    currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else if (j == 3) {
-                                                    currentD4.setImageResource(res);
+                                                    currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 } else {
-                                                    currentD5.setImageResource(res);
+                                                    currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
                                                 }
                                             }
                                         }
@@ -454,8 +459,8 @@ public class MonsterFight extends AppCompatActivity {
                 try {
                     AsyncTask<String, Void, Integer> asyncTask;
 
-                    CalculateBattleValue calculateBattleValue = new CalculateBattleValue();
-                    asyncTask = calculateBattleValue.execute(new Gson().toJson(myDiceRolls));
+                    CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+                    asyncTask = calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
 
                     battleValue = asyncTask.get();
                 } catch (Exception e) {
@@ -465,13 +470,13 @@ public class MonsterFight extends AppCompatActivity {
             }
         });
 
-        getEnemyDice = findViewById(R.id.get_enemy_dice);
-        getEnemyDice.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        getEnemyDice = findViewById(R.id.get_enemy_dice);
+//        getEnemyDice.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
 
 
@@ -533,6 +538,25 @@ public class MonsterFight extends AppCompatActivity {
         }
     }
 
+    private static class LeaveFightSender extends AsyncTask<String, Void, LeaveFightResponses> {
+        @Override
+        protected LeaveFightResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/leaveFight")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, LeaveFightResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     private static class GetDiceSender extends AsyncTask<String, Void, ArrayList<Die>> {
         @Override
         protected ArrayList<Die> doInBackground(String... strings) {
@@ -552,7 +576,7 @@ public class MonsterFight extends AppCompatActivity {
         }
     }
 
-    private static class CalculateBattleValue extends AsyncTask<String, Void, Integer> {
+    private static class CalculateBattleValueSender extends AsyncTask<String, Void, Integer> {
         @Override
         protected Integer doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
@@ -572,4 +596,64 @@ public class MonsterFight extends AppCompatActivity {
             return null;
         }
     }
+
+    private static class GetCreatureDiceSender extends AsyncTask<String, Void, ArrayList<Die>> {
+        @Override
+        protected ArrayList<Die> doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/getCreatureDice")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Die>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class CalculateCreatureBattleValueSender extends AsyncTask<String, Void, Integer> {
+        @Override
+        protected Integer doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/calculateCreatureBattleValue")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, Integer.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class EndBattleRoundSender extends AsyncTask<String, Void, EndBattleRoundResponses> {
+        @Override
+        protected EndBattleRoundResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/endBattleRound")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, EndBattleRoundResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }

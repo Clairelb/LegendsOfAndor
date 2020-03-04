@@ -370,11 +370,15 @@ public class WaitScreen extends AppCompatActivity {
     }
 
     public void interruptThreadAndStartActivity() {
+        Intent myIntent;
         if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())){
-            startActivity(new Intent(WaitScreen.this, DistributeItems.class));
+            myIntent = new Intent(WaitScreen.this, DistributeItems.class);
         }else{
-            startActivity(new Intent(WaitScreen.this, DistributeItemsWaitPage.class));
+            myIntent = new Intent(WaitScreen.this, DistributeItemsWaitPage.class);
         }
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myIntent);
+        finish();
         t.interrupt();
     }
 
