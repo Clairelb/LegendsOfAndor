@@ -110,7 +110,7 @@ public class Board extends AppCompatActivity {
                 final MyPlayer myPlayer = MyPlayer.getInstance();
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getPregameUpdate")
+                        final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
                                 .asString();
 
                         if(response.getCode() == 200){

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -203,6 +204,155 @@ public class MonsterFight extends AppCompatActivity {
             userBV.setVisibility(View.VISIBLE);
         }
 
+        t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
+            @Override
+            public void run() {
+                final MyPlayer myPlayer = MyPlayer.getInstance();
+                while (!Thread.currentThread().isInterrupted()) {
+                    try {
+                        final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
+                                .asString();
+
+                        if(response.getCode() == 200){
+                            final Game game = new Gson().fromJson(response.getBody(), Game.class);
+                            final Fight fight = game.getCurrentFight();
+                            MyPlayer.getInstance().setGame(game);
+
+                            runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
+                                @Override
+                                public void run() {
+                                    int i = 0;
+
+                                    ImageView currentD1;
+                                    ImageView currentD2;
+                                    ImageView currentD3;
+                                    ImageView currentD4;
+                                    ImageView currentD5;
+
+                                    for (Hero h : fight.getHeroes()) {
+                                        int playerNum = i + 1;
+                                        String diceNum1 = "player" + playerNum + "_d" + 1;
+                                        String diceNum2 = "player" + playerNum + "_d" + 2;
+                                        String diceNum3 = "player" + playerNum + "_d" + 3;
+                                        String diceNum4 = "player" + playerNum + "_d" + 4;
+                                        String diceNum5 = "player" + playerNum + "_d" + 5;
+                                        int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
+                                        int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
+                                        int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
+                                        int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
+                                        int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
+
+                                        currentD1 = findViewById(d1IV);
+                                        currentD2 = findViewById(d2IV);
+                                        currentD3 = findViewById(d3IV);
+                                        currentD4 = findViewById(d4IV);
+                                        currentD5 = findViewById(d5IV);
+
+
+                                        if (h.getHeroClass() == HeroClass.WARRIOR) {
+                                            int res;
+                                            for (int j = 0; j < myDice.size(); j++) {
+                                                Integer dieValue = fight.getWarriorDice().get(j);
+
+                                                if (dieValue == 0) {
+                                                    res = getResources().getIdentifier("warrior_dice", "drawable", "com.example.legendsOfAndor");
+                                                } else {
+                                                    res = getResources().getIdentifier("warrior_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                }
+                                                if (j == 0) {
+                                                    currentD1.setImageResource(res);
+                                                } else if (j == 1) {
+                                                    currentD2.setImageResource(res);
+                                                } else if (j == 2) {
+                                                    currentD3.setImageResource(res);
+                                                } else if (j == 3) {
+                                                    currentD4.setImageResource(res);
+                                                } else {
+                                                    currentD5.setImageResource(res);
+                                                }
+                                            }
+                                        } else if (h.getHeroClass() == HeroClass.ARCHER) {
+                                            int res;
+                                            for (int j = 0; j < myDice.size(); j++) {
+                                                Integer dieValue = fight.getArcherDice().get(j);
+
+                                                if (dieValue == 0) {
+                                                    res = getResources().getIdentifier("archer_dice", "drawable", "com.example.legendsOfAndor");
+                                                } else {
+                                                    res = getResources().getIdentifier("archer_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                }
+                                                if (j == 0) {
+                                                    currentD1.setImageResource(res);
+                                                } else if (j == 1) {
+                                                    currentD2.setImageResource(res);
+                                                } else if (j == 2) {
+                                                    currentD3.setImageResource(res);
+                                                } else if (j == 3) {
+                                                    currentD4.setImageResource(res);
+                                                } else {
+                                                    currentD5.setImageResource(res);
+                                                }
+                                            }
+                                        } else if (h.getHeroClass() == HeroClass.DWARF) {
+                                            int res;
+                                            for (int j = 0; j < myDice.size(); j++) {
+                                                Integer dieValue = fight.getDwarfDice().get(j);
+
+                                                if (dieValue == 0) {
+                                                    res = getResources().getIdentifier("dwarf_dice", "drawable", "com.example.legendsOfAndor");
+                                                } else {
+                                                    res = getResources().getIdentifier("dwarf_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                }
+                                                if (j == 0) {
+                                                    currentD1.setImageResource(res);
+                                                } else if (j == 1) {
+                                                    currentD2.setImageResource(res);
+                                                } else if (j == 2) {
+                                                    currentD3.setImageResource(res);
+                                                } else if (j == 3) {
+                                                    currentD4.setImageResource(res);
+                                                } else {
+                                                    currentD5.setImageResource(res);
+                                                }
+                                            }
+                                        } else { // wizard
+                                            int res;
+                                            for (int j = 0; j < myDice.size(); j++) {
+                                                Integer dieValue = fight.getWizardDice().get(j);
+
+                                                if (dieValue == 0) {
+                                                    res = getResources().getIdentifier("wizard_dice", "drawable", "com.example.legendsOfAndor");
+                                                } else {
+                                                    res = getResources().getIdentifier("wizard_dice_" + dieValue, "drawable", "com.example.legendsOfAndor");
+                                                }
+                                                if (j == 0) {
+                                                    currentD1.setImageResource(res);
+                                                } else if (j == 1) {
+                                                    currentD2.setImageResource(res);
+                                                } else if (j == 2) {
+                                                    currentD3.setImageResource(res);
+                                                } else if (j == 3) {
+                                                    currentD4.setImageResource(res);
+                                                } else {
+                                                    currentD5.setImageResource(res);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        if (e instanceof InterruptedException) {
+                            Thread.currentThread().interrupt();
+                        }
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+        t.start();
+
 
         getDice = findViewById(R.id.get_dice);
 
@@ -253,36 +403,28 @@ public class MonsterFight extends AppCompatActivity {
                         int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
                         int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
                         int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
+
+                        currentD1 = findViewById(d1IV);
+                        currentD2 = findViewById(d2IV);
+                        currentD3 = findViewById(d3IV);
+                        currentD4 = findViewById(d4IV);
+                        currentD5 = findViewById(d5IV);
+
                         if (myDice.size() == 1) {
-                            currentD1 = findViewById(d1IV);
                             currentD1.setVisibility(View.VISIBLE);
                         } else if (myDice.size() == 2) {
-                            currentD1 = findViewById(d1IV);
-                            currentD2 = findViewById(d2IV);
                             currentD1.setVisibility(View.VISIBLE);
                             currentD2.setVisibility(View.VISIBLE);
                         } else if (myDice.size() == 3) {
-                            currentD1 = findViewById(d1IV);
-                            currentD2 = findViewById(d2IV);
-                            currentD3 = findViewById(d3IV);
                             currentD1.setVisibility(View.VISIBLE);
                             currentD2.setVisibility(View.VISIBLE);
                             currentD3.setVisibility(View.VISIBLE);
                         } else if (myDice.size() == 4) {
-                            currentD1 = findViewById(d1IV);
-                            currentD2 = findViewById(d2IV);
-                            currentD3 = findViewById(d3IV);
-                            currentD4 = findViewById(d4IV);
                             currentD1.setVisibility(View.VISIBLE);
                             currentD2.setVisibility(View.VISIBLE);
                             currentD3.setVisibility(View.VISIBLE);
                             currentD4.setVisibility(View.VISIBLE);
                         } else {
-                            currentD1 = findViewById(d1IV);
-                            currentD2 = findViewById(d2IV);
-                            currentD3 = findViewById(d3IV);
-                            currentD4 = findViewById(d4IV);
-                            currentD5 = findViewById(d5IV);
                             currentD1.setVisibility(View.VISIBLE);
                             currentD2.setVisibility(View.VISIBLE);
                             currentD3.setVisibility(View.VISIBLE);
