@@ -59,10 +59,10 @@
     <string name="attack">ATTACK</string>
     <string name="battle_value">BATTLE VALUE</string>
     <string name="base_battle_value">0</string>
-    <string name="warrior"><b><u>WARRIOR</u></b></string>
-    <string name="wizard"><b><u>WIZARD</u></b></string>
-    <string name="archer"><b><u>ARCHER</u></b></string>
-    <string name="dwarf"><b><u>DWARF</u></b></string>
+    <string name="warrior">WARRIOR</string>
+    <string name="wizard">WIZARD</string>
+    <string name="archer">ARCHER</string>
+    <string name="dwarf">DWARF</string>
     <string name="wp">WP: 0</string>
     <string name="sp">SP: 0</string>
     <string name="get_dice">GET DICE</string>
@@ -71,4 +71,13 @@
     <string name="calculate_battle_value">CALCULATE BATTLE VALUE</string>
     <string name="calculate_enemy_battle_value">CALCULATE ENEMY BATTLE VALUE</string>
     <string name="willpower">WP</string>
+    <string name="calculate_battle_value">ROLL DICE</string>
+    <string name="calculate_enemy_battle_value">ROLL ENEMY DICE</string>
+    <string name="enemy_name">ENEMY</string>
+
+    <string-array name="action">
+        <item>吃饭</item>
+        <item>睡觉</item>
+        <item>上网</item>
+    </string-array>
 </resources>

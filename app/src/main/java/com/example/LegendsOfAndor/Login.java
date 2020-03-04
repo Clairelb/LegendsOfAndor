@@ -74,6 +74,7 @@ public class Login extends AppCompatActivity {
 
                     try {
                         LoginSender loginSender = new LoginSender();
+
                         asyncTask = loginSender.execute(new Gson().toJson(p));
                         loginResponse = asyncTask.get();
                         if (loginResponse == null) {

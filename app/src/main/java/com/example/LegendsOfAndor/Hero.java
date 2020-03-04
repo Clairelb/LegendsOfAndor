@@ -1,5 +1,7 @@
 package com.example.LegendsOfAndor;
 
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 
 enum HeroClass {
@@ -28,12 +30,15 @@ public class Hero extends Movable{
         if (heroClass == HeroClass.ARCHER) {
             currentSpace = 53;
             rank = 25;
+
         } else if (heroClass == HeroClass.DWARF) {
             currentSpace = 43;
             rank = 7;
         } else if (heroClass == HeroClass.WARRIOR) {
             currentSpace = 25;
             rank = 14;
+
+            setMyView(R.id.warrior);
         } else { // wizard
             currentSpace = 9;
             rank = 34;

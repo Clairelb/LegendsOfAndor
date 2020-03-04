@@ -4,38 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
     <Button
         android:id="@+id/move"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="move"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></Button>
 
     <Button
         android:id="@+id/fight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="fight"
-        app:layout_constraintTop_toBottomOf="@id/move"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/move"></Button>
+
 
     <Button
         android:id="@+id/pass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="pass"
-        app:layout_constraintTop_toBottomOf="@id/fight"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fight"></Button>
 
     <Button
         android:id="@+id/endDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="end day"
-        app:layout_constraintTop_toBottomOf="@id/pass"
-        app:layout_constraintStart_toStartOf="parent"></Button>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pass"></Button>
 
     <Button
         android:id="@+id/optionsb"
@@ -46,6 +49,8 @@
         app:layout_constraintHorizontal_bias="0.975"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 
     <Button
         android:id="@+id/chatb"
@@ -65,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-142dp">
+        tools:layout_editor_absoluteX="16dp">
 
         <ImageView
             android:id="@+id/board"
@@ -80,7 +85,7 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:src="@drawable/overlay"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/warrior"
@@ -90,6 +95,17 @@
 
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>
+
+    <Spinner
+        android:id="@+id/sp"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 enum TurnOptions{
     MOVE, FIGHT, NONE
 }
+enum GameStatus{
+    GAME_WON, GAME_LOST, GAME_ERROR, IN_PROGRESS
+}
 
 public class Game  {
     private int maxNumPlayers;
@@ -21,7 +24,7 @@ public class Game  {
     private ArrayList<Farmer> farmers;
     private Boolean difficultMode;
     private Fight currentFight;
-
+    private GameStatus gameStatus;
 
     public Game() {}
 
@@ -40,6 +43,7 @@ public class Game  {
         this.difficultMode = difficult;
         itemsDistributedMessage = "";
         currentHero = null;
+        this.gameStatus = GameStatus.IN_PROGRESS;
     }
 
     public int getMaxNumPlayers() {
@@ -222,4 +226,8 @@ public class Game  {
     public void setCurrentFight(Fight currentFight) {
         this.currentFight = currentFight;
     }
+
+    public GameStatus getGameStatus() { return gameStatus; }
+
+    public void setGameStatus(GameStatus gameStatus) { this.gameStatus = gameStatus; }
 }
