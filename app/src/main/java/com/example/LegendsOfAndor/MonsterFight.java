@@ -211,7 +211,7 @@ public class MonsterFight extends AppCompatActivity {
         }
 
         //Add information for current creature, makes attributes visible
-                Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
+        Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
         TextView enemyProfile = findViewById(R.id.enemy);
         TextView enemyWP = findViewById(R.id.enemy_wp);
         TextView enemySP = findViewById(R.id.enemy_sp);
@@ -300,7 +300,7 @@ public class MonsterFight extends AppCompatActivity {
                                                 if (dieValue == 0) {
                                                     class_id = "archer_dice";
                                                 } else {
-                                                    class_id = "archer_dice" + dieValue;
+                                                    class_id = "archer_dice_" + dieValue;
                                                 }
                                                 if (j == 0) {
                                                     currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
@@ -445,7 +445,6 @@ public class MonsterFight extends AppCompatActivity {
         });
 
         rollDice = findViewById(R.id.roll_dice);
-
         rollDice.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

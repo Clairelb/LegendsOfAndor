@@ -669,8 +669,8 @@
         android:id="@+id/get_dice"
         android:layout_width="82dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginLeft="92dp"
         android:layout_marginBottom="28dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
@@ -694,7 +694,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/calculate_enemy_battle_value"
+        android:id="@+id/roll_enemy_dice"
         android:layout_width="140dp"
         android:layout_height="50dp"
         android:layout_marginEnd="72dp"
@@ -702,24 +702,10 @@
         android:layout_marginBottom="36dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
-        android:text="@string/calculate_enemy_battle_value"
+        android:text="@string/roll_enemy_dice"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginBottom="28dp"
-        android:fontFamily="@font/gothic"
-        android:gravity="center"
-        android:text="@string/end_battle_round"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/roll_dice"
