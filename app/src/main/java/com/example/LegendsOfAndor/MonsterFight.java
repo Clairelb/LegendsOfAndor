@@ -32,6 +32,7 @@ public class MonsterFight extends AppCompatActivity {
 
     private Button getDice;
     private Button rollDice;
+    private Button getEnemyDice;
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
     private TextView playerBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
@@ -186,9 +187,6 @@ public class MonsterFight extends AppCompatActivity {
             int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
             int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
             int playerBVID = getResources().getIdentifier(playerBVText, "id", getPackageName());
-//            TextView userProfile = profileList.get(i);
-//            TextView userWP = playerWPList.get(i);
-//            TextView userSP = playerSPList.get(i);
             TextView userProfile = findViewById(playerProfileID);
             TextView userWP = findViewById(playerWPID);
             TextView userSP = findViewById(playerSPID);
@@ -203,6 +201,20 @@ public class MonsterFight extends AppCompatActivity {
             userSP.setVisibility(View.VISIBLE);
             userBV.setVisibility(View.VISIBLE);
         }
+
+        //Add information for current creature, makes attributes visible
+        Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
+        TextView enemyProfile = findViewById(R.id.enemy);
+        TextView enemyWP = findViewById(R.id.enemy_wp);
+        TextView enemySP = findViewById(R.id.enemy_sp);
+        TextView enemyBV = findViewById(R.id.enemy_bv);
+        enemyProfile.setText(currentMonster.getCreatureType().toString());
+        enemyWP.setText(currentMonster.getWillpower());
+        enemySP.setText(currentMonster.getStrength());
+        enemyProfile.setVisibility(View.VISIBLE);
+        enemyWP.setVisibility(View.VISIBLE);
+        enemySP.setVisibility(View.VISIBLE);
+        enemyBV.setVisibility(View.VISIBLE);
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
@@ -358,9 +370,9 @@ public class MonsterFight extends AppCompatActivity {
         t.start();
 
 
-        getDice = findViewById(R.id.get_dice);
 
         //Retrieves the amount of dice for the current player class
+        getDice = findViewById(R.id.get_dice);
         getDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -380,22 +392,9 @@ public class MonsterFight extends AppCompatActivity {
                 ImageView currentD4;
                 ImageView currentD5;
 
-//                ImageView testD1 = findViewById(R.id.player1_d1);
-//                testD1.setVisibility(View.VISIBLE);
-//                System.out.println(myPlayer.getGame().getCurrentHero());
-//                System.out.println(playerIndex.get(0).toString());
-//                System.out.println(myPlayer.getGame().getCurrentHero().equals(playerIndex.get(0)));
-//                System.out.println(playerIndex.size());
-//                System.out.println("myDice.size(): " + myDice.size());
-//                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-
                 for (int i = 0; i < playerIndex.size(); i++) {
 
                     if (myPlayer.getGame().getCurrentHero().getHeroClass().equals(playerIndex.get(i).getHeroClass())) {
-//                    if (myPlayer.getPlayer().getHero() == playerIndex.get(i)) {
-//                        ImageView testD2 = findViewById(R.id.player1_d2);
-//                        testD2.setVisibility(View.VISIBLE);
                         int playerNum = i + 1;
                         String diceNum1 = "player" + playerNum + "_d" + 1;
                         String diceNum2 = "player" + playerNum + "_d" + 2;
@@ -437,381 +436,6 @@ public class MonsterFight extends AppCompatActivity {
                         }
                     }
                 }
-
-//                for (int i = 0; i < playerIndex.size(); i++) {
-//                    if (myPlayer.getPlayer().getHero() == playerIndex.get(i)) {
-//                        int playerNum = i + 1;
-//                        String diceNum1 = "player" + playerNum + "_d" + 1;
-//                        String diceNum2 = "player" + playerNum + "_d" + 2;
-//                        String diceNum3 = "player" + playerNum + "_d" + 3;
-//                        String diceNum4 = "player" + playerNum + "_d" + 4;
-//                        String diceNum5 = "player" + playerNum + "_d" + 5;
-//                        int d1TV = getResources().getIdentifier(diceNum1, "id", getPackageName());
-//                        int d2TV = getResources().getIdentifier(diceNum2, "id", getPackageName());
-//                        int d3TV = getResources().getIdentifier(diceNum3, "id", getPackageName());
-//                        int d4TV = getResources().getIdentifier(diceNum4, "id", getPackageName());
-//                        int d5TV = getResources().getIdentifier(diceNum5, "id", getPackageName());
-//
-//                        if (playerNum == 1) {
-//                            currentD1 = player1Dice.get(i);
-//                            currentD2 = player1Dice.get(i);
-//                            currentD3 = player1Dice.get(i);
-//                            currentD4 = player1Dice.get(i);
-//                            currentD5 = player1Dice.get(i);
-//                            int wp = myPlayer.getPlayer().getHero().getWillPower();
-//                            if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.WARRIOR) {
-//                            //if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.WARRIOR) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD5.findViewById(d5TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                    currentD5.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.DWARF) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                }
-//                            } else { //if WIZARD
-//                                currentD1.findViewById(d1TV);
-//                                currentD1.setVisibility(View.VISIBLE);
-//                            }
-//
-//                        } else if (playerNum == 2) {
-//                            currentD1 = player2Dice.get(i);
-//                            currentD2 = player2Dice.get(i);
-//                            currentD3 = player2Dice.get(i);
-//                            currentD4 = player2Dice.get(i);
-//                            currentD5 = player2Dice.get(i);
-//                            int wp = myPlayer.getPlayer().getHero().getWillPower();
-//                            if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.WARRIOR) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD5.findViewById(d5TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                    currentD5.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.DWARF) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                }
-//                            } else { //if WIZARD
-//                                currentD1.findViewById(d1TV);
-//                                currentD1.setVisibility(View.VISIBLE);
-//                            }
-//
-//                        } else if (playerNum == 3) {
-//                            currentD1 = player3Dice.get(i);
-//                            currentD2 = player3Dice.get(i);
-//                            currentD3 = player3Dice.get(i);
-//                            currentD4 = player3Dice.get(i);
-//                            currentD5 = player3Dice.get(i);
-//                            int wp = myPlayer.getPlayer().getHero().getWillPower();
-//                            if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.WARRIOR) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD5.findViewById(d5TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                    currentD5.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.DWARF) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                }
-//                            } else { //if WIZARD
-//                                currentD1.findViewById(d1TV);
-//                                currentD1.setVisibility(View.VISIBLE);
-//                            }
-//
-//                        } else {
-//                            currentD1 = player4Dice.get(i);
-//                            currentD2 = player4Dice.get(i);
-//                            currentD3 = player4Dice.get(i);
-//                            currentD4 = player4Dice.get(i);
-//                            currentD5 = player4Dice.get(i);
-//                            int wp = myPlayer.getPlayer().getHero().getWillPower();
-//                            if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.WARRIOR) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD4.findViewById(d4TV);
-//                                    currentD5.findViewById(d5TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                    currentD4.setVisibility(View.VISIBLE);
-//                                    currentD5.setVisibility(View.VISIBLE);
-//                                }
-//                            } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.DWARF) {
-//                                if (wp <= 6) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                } else if (wp > 6 && wp <= 13) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                } else if (wp >= 14) {
-//                                    currentD1.findViewById(d1TV);
-//                                    currentD2.findViewById(d2TV);
-//                                    currentD3.findViewById(d3TV);
-//                                    currentD1.setVisibility(View.VISIBLE);
-//                                    currentD2.setVisibility(View.VISIBLE);
-//                                    currentD3.setVisibility(View.VISIBLE);
-//                                }
-//                            } else { //if WIZARD
-//                                currentD1.findViewById(d1TV);
-//                                currentD1.setVisibility(View.VISIBLE);
-//                            }
-//
-//                        }
-//
-////                        int wp = myPlayer.getPlayer().getHero().getWillPower();
-////                        if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.WARRIOR) {
-////                            if (wp <= 6) {
-////                                currentD1.findViewById(d1TV);
-////                                currentD2.findViewById(d2TV);
-////                            } else if (wp <= 13) {
-////
-////                            } else if (wp >= 14) {
-////
-////                            }
-////                        } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
-////                            if (wp <= 6) {
-////
-////                            } else if (wp <= 13) {
-////
-////                            } else if (wp >= 14) {
-////
-////                            }
-////                        } else if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.DWARF) {
-////                            if (wp <= 6) {
-////
-////                            } else if (wp <= 13) {
-////
-////                            } else if (wp >= 14) {
-////
-////                            }
-////                        } else { //if WIZARD
-////
-////                        }
-//                    }
-//                }
-
-
             }
         });
 
@@ -841,7 +465,13 @@ public class MonsterFight extends AppCompatActivity {
             }
         });
 
+        getEnemyDice = findViewById(R.id.get_enemy_dice);
+        getEnemyDice.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
 
 

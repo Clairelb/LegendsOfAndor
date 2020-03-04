@@ -121,6 +121,68 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/enemy"
+        android:layout_width="76dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginRight="92dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/enemy_name"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enemy_bv"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="74dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/bv"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/enemy"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enemy_wp"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="44dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/wp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/enemy"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/enemy_sp"
+        android:layout_width="27dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="59dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/sp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/enemy"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/player2"
         android:layout_width="76dp"
         android:layout_height="45dp"
@@ -673,8 +735,65 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/enemy_d1"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/enemy_d2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/enemy_dice" />
 
-    
+    <ImageView
+        android:id="@+id/enemy_d2"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/enemy_d3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/enemy_dice" />
+
+    <ImageView
+        android:id="@+id/enemy_d4"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/enemy_d5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/enemy_dice" />
+
+    <ImageView
+        android:id="@+id/enemy_d3"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/enemy_d4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/enemy_dice" />
+
+    <ImageView
+        android:id="@+id/enemy_d5"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/enemy_dice" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
