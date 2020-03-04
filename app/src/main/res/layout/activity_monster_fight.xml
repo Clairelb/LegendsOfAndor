@@ -716,7 +716,7 @@
         android:layout_marginBottom="28dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
-        android:text="@string/calculate_battle_value"
+        android:text="@string/roll_dice"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
