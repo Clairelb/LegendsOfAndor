@@ -203,7 +203,7 @@ public class MonsterFight extends AppCompatActivity {
         } else if (creatureType == CreatureType.WARDRAKS) { //if creatureType == CreatureType.TROLL
             currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("wardrak", "drawable", getApplicationContext())));
         } else { // if creatureType == CreatureType.TROLL
-            currentCreatureIV.setVisibility(View.INVISIBLE);
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("troll", "drawable", getApplicationContext())));
         }
 
 
@@ -267,7 +267,7 @@ public class MonsterFight extends AppCompatActivity {
                             final Fight fight = game.getCurrentFight();
                             MyPlayer.getInstance().setGame(game);
 
-                            runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
+                            runOnUiThread(new Runnable() { // cannot run this part on separate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
                                     if (fight.getHeroes().size() == 0) {
