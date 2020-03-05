@@ -195,14 +195,14 @@ public class MonsterFight extends AppCompatActivity {
         //Changes and makes visible the picture of the monster currently being faced
         //!!!!!!!!!!!![NOT FINISHED: Need to find and add wardrak resources]!!!!!!!!!!!!!!!!!!!!!!!!
         currentCreatureIV = findViewById(R.id.creatureImage);
-        String gor = "gor";
-        String skral = "skral";
         CreatureType creatureType = myPlayer.getGame().getCurrentFight().getCreature().getCreatureType();
         if (creatureType == CreatureType.GOR) {
-            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID(gor, "drawable", getApplicationContext())));
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("gor", "drawable", getApplicationContext())));
         } else if (creatureType == CreatureType.SKRAL) {
-            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID(skral, "drawable", getApplicationContext())));
-        } else { //if creatureType == CreatureType.TROLL
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("skral", "drawable", getApplicationContext())));
+        } else if (creatureType == CreatureType.WARDRAKS) { //if creatureType == CreatureType.TROLL
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("wardrak", "drawable", getApplicationContext())));
+        } else { // if creatureType == CreatureType.TROLL
             currentCreatureIV.setVisibility(View.INVISIBLE);
         }
 
