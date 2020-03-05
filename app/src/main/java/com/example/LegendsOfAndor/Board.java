@@ -218,12 +218,8 @@ public class Board extends AppCompatActivity {
             public void onClick(View v){
                 adapter.clear();
                 int region = myPlayer.getPlayer().getHero().getCurrentSpace();
-                String s = " "+region;
-                Log.d("TEST123", s);
                 ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
-                for(Integer e : adjacentRegions){
-                    String test = " " + e;
-                }
+
                 for(Integer e: adjacentRegions){
                     adapter.add(e.toString());
                 }
@@ -400,6 +396,7 @@ public class Board extends AppCompatActivity {
         if(hero.getHeroClass() == HeroClass.WIZARD){
             movePic((this.wizard),space);
         }
+        hero.setCurrentSpace(space);
 
     }
     public void movePic(ImageView imageView, int space){
