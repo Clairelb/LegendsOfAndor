@@ -31,7 +31,7 @@ enum LeaveFightResponses {
 }
 
 enum EndBattleRoundResponses {
-    WON_ROUND, LOST_ROUND, CREATURE_DEFEATED, BATTLE_LOST, PLAYERS_NO_BATTLE_VALUE, CREATURE_NO_BATTLE_VALUE, WAITING_FOR_PLAYERS_TO_JOIN
+    WON_ROUND, LOST_ROUND, TIE_ROUND, CREATURE_DEFEATED, BATTLE_LOST, PLAYERS_NO_BATTLE_VALUE, CREATURE_NO_BATTLE_VALUE, WAITING_FOR_PLAYERS_TO_JOIN
 }
 
 public class MonsterFight extends AppCompatActivity {
@@ -42,8 +42,9 @@ public class MonsterFight extends AppCompatActivity {
     private Button rollDice;
     private Button getEnemyDice;
     private Button rollEnemyDice;
+    private Button attack;
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
-    private TextView playerBattleValue;// = findViewById(R.id.playerBattleValue);
+    private TextView playersBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
 
     private TextView player1Profile;
@@ -63,7 +64,11 @@ public class MonsterFight extends AppCompatActivity {
     private TextView player2BV;
     private TextView player3BV;
     private TextView player4BV;
-    private TextView monsterBV;
+
+    private TextView enemyProfile;
+    private TextView enemyWP;
+    private TextView enemySP;
+    private TextView enemyBV;
 
 //    private ImageView player1d1 = findViewById(R.id.player1_d1);
 //    private ImageView player1d2 = findViewById(R.id.player1_d2);
@@ -133,6 +138,7 @@ public class MonsterFight extends AppCompatActivity {
         player2BV = findViewById(R.id.player2_bv);
         player3BV = findViewById(R.id.player3_bv);
         player4BV = findViewById(R.id.player4_bv);
+        playersBattleValue = findViewById(R.id.playerBattleValue);
         monsterBattleValue = findViewById(R.id.monsterBattleValue);
 
         enemyd1 = findViewById(R.id.enemy_d1);
@@ -234,10 +240,10 @@ public class MonsterFight extends AppCompatActivity {
 
         //Add information for current creature, makes attributes visible
         Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
-        TextView enemyProfile = findViewById(R.id.enemy);
-        TextView enemyWP = findViewById(R.id.enemy_wp);
-        TextView enemySP = findViewById(R.id.enemy_sp);
-        TextView enemyBV = findViewById(R.id.enemy_bv);
+        enemyProfile = findViewById(R.id.enemy);
+        enemyWP = findViewById(R.id.enemy_wp);
+        enemySP = findViewById(R.id.enemy_sp);
+        enemyBV = findViewById(R.id.enemy_bv);
         enemyProfile.setText(currentMonster.getCreatureType().toString());
         String enemyCurrentWp = "WP:" + currentMonster.getWillpower();
         String enemyCurrentSp = "SP:" + currentMonster.getStrength();
@@ -265,6 +271,32 @@ public class MonsterFight extends AppCompatActivity {
                             runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
+                                    for (int i = 0; i < fight.getHeroes().size(); i++) {
+                                        Hero currentPlayer = fight.getHeroes().get(i);
+                                        int playerNumber = i + 1;
+                                        String playerPosition = "player" + playerNumber;
+                                        String playerWPText = "player" + playerNumber + "_wp";
+                                        String playerSPText = "player" + playerNumber + "_sp";
+                                        String playerBVText = "player" + playerNumber + "_bv";
+                                        int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
+                                        int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
+                                        int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
+                                        int playerBVID = getResources().getIdentifier(playerBVText, "id", getPackageName());
+                                        TextView userProfile = findViewById(playerProfileID);
+                                        TextView userWP = findViewById(playerWPID);
+                                        TextView userSP = findViewById(playerSPID);
+                                        TextView userBV = findViewById(playerBVID);
+                                        String currentWP = "WP: " + currentPlayer.getWillPower();
+                                        String currentSP = "SP: " + currentPlayer.getStrength();
+                                        userProfile.setText(currentPlayer.getHeroClass().toString());
+                                        userWP.setText(currentWP);
+                                        userSP.setText(currentSP);
+                                        userProfile.setVisibility(View.VISIBLE);
+                                        userWP.setVisibility(View.VISIBLE);
+                                        userSP.setVisibility(View.VISIBLE);
+                                        userBV.setVisibility(View.VISIBLE);
+                                    }
+
                                     int i = 0;
 
                                     ImageView currentD1;
@@ -272,6 +304,12 @@ public class MonsterFight extends AppCompatActivity {
                                     ImageView currentD3;
                                     ImageView currentD4;
                                     ImageView currentD5;
+
+                                    int totalBV = 0;
+                                    for (Integer bv : fight.getHeroesBattleScores()) {
+                                        totalBV += bv;
+                                    }
+                                    playersBattleValue.setText(Integer.toString(totalBV));
 
                                     for (Hero h : fight.getHeroes()) {
                                         if (fight.getHeroesBattleScores().get(i) > 0) {
@@ -303,6 +341,12 @@ public class MonsterFight extends AppCompatActivity {
                                         currentD3 = findViewById(d3IV);
                                         currentD4 = findViewById(d4IV);
                                         currentD5 = findViewById(d5IV);
+
+                                        currentD1.setVisibility(View.INVISIBLE);
+                                        currentD2.setVisibility(View.INVISIBLE);
+                                        currentD3.setVisibility(View.INVISIBLE);
+                                        currentD4.setVisibility(View.INVISIBLE);
+                                        currentD5.setVisibility(View.INVISIBLE);
 
 //                                        imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
                                         if (h.getHeroClass() == HeroClass.WARRIOR) {
@@ -417,6 +461,14 @@ public class MonsterFight extends AppCompatActivity {
                                     }
 
                                     String class_id;
+
+                                    enemyd1.setVisibility(View.INVISIBLE);
+                                    enemyd2.setVisibility(View.INVISIBLE);
+                                    enemyd3.setVisibility(View.INVISIBLE);
+                                    enemyd4.setVisibility(View.INVISIBLE);
+                                    enemyd5.setVisibility(View.INVISIBLE);
+
+
                                     for (int k = 0; k < fight.getCreatureDice().size(); k++) {
                                         Integer dieValue = fight.getCreatureDice().get(k);
 
@@ -447,12 +499,10 @@ public class MonsterFight extends AppCompatActivity {
                                             enemyd5.setVisibility(View.VISIBLE);
                                         }
                                     }
+                                    monsterBattleValue.setText(Integer.toString(fight.getCreatureBattleScore()));
 
-                                    if (fight.getCreatureBattleScore() > 0) {
-                                        monsterBattleValue.setText("BV: " + fight.getCreatureBattleScore());
-                                    }
-
-
+                                    enemyWP.setText("WP:"+fight.getCreature().getWillpower());
+                                    enemySP.setText("SP:"+fight.getCreature().getStrength());
                                 }
                             });
                         }
@@ -491,19 +541,15 @@ public class MonsterFight extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 ArrayList<Integer> myDiceRolls = new ArrayList<>();
-                Integer battleValue = 0;
 
                 for (Die die : myDice) {
                     myDiceRolls.add(die.rollDie());
                 }
 
                 try {
-                    AsyncTask<String, Void, Integer> asyncTask;
-
                     CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
-                    asyncTask = calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
+                    calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
 
-                    battleValue = asyncTask.get();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -532,18 +578,47 @@ public class MonsterFight extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ArrayList<Integer> creatureRolls = new ArrayList<>();
-                Integer battleValue = 0;
 
                 for (Die die : creatureDice) {
                     creatureRolls.add(die.rollDie());
                 }
 
-                AsyncTask<String, Void, Integer> asyncTask;
-
                 try {
                     CalculateCreatureBattleValueSender calculateCreatureBattleValueSender = new CalculateCreatureBattleValueSender();
-                    asyncTask = calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
-                    battleValue = asyncTask.get();
+                    calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        attack = findViewById(R.id.attack_btn);
+        attack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    AsyncTask<String, Void, EndBattleRoundResponses> asyncTask;
+
+                    EndBattleRoundSender endBattleRoundSender = new EndBattleRoundSender();
+                    asyncTask = endBattleRoundSender.execute("");
+
+                    if (asyncTask.get() == EndBattleRoundResponses.WON_ROUND) {
+                        Toast.makeText(MonsterFight.this, "Heroes won this round!", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == EndBattleRoundResponses.LOST_ROUND) {
+                        Toast.makeText(MonsterFight.this, "Heroes lost this round!", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == EndBattleRoundResponses.TIE_ROUND) {
+                        Toast.makeText(MonsterFight.this, "This round resulted in a tie!", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_DEFEATED) {
+                        Toast.makeText(MonsterFight.this, "Heroes win! Creature defeated!", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == EndBattleRoundResponses.BATTLE_LOST) {
+                        Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated!", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == EndBattleRoundResponses.PLAYERS_NO_BATTLE_VALUE) {
+                        Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Player(s) do not have battle values!", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_NO_BATTLE_VALUE) {
+                        Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Creature does not have battle value!", Toast.LENGTH_LONG).show();
+                    } else { // WAITING_FOR_PLAYERS_TO_JOIN
+                        Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Still waiting for player(s) to join the fight", Toast.LENGTH_LONG).show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
