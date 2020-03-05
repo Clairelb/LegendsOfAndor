@@ -108,8 +108,6 @@ public class Board extends AppCompatActivity {
 //            }
 //        });
 
-        //get coor
-//        Button coor = findViewById(R.id.coor);
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
