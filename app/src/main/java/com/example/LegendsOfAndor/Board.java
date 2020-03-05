@@ -44,6 +44,10 @@ enum EndDayResponses {
     DAY_ALREADY_ENDED, NOT_CURRENT_TURN, NEW_DAY, GAME_OVER, SUCCESS
 }
 
+enum MoveResponses {
+    NOT_IN_TURN, MOVE_SUCCESSFUL, ERROR
+}
+
 
 //import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
@@ -486,6 +490,25 @@ public class Board extends AppCompatActivity {
                 String resultAsJsonString = response.getBody();
 
                 return new Gson().fromJson(resultAsJsonString, EndDayResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class MoveSender extends AsyncTask<String, Void, MoveResponses> {
+        @Override
+        protected MoveResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/move")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, MoveResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
