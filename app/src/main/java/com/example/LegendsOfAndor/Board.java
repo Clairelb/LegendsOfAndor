@@ -17,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -63,8 +65,8 @@ public class Board extends AppCompatActivity {
     private Button chatb;
     private Button optionsb;
     private Thread t;
-    boolean flag = true;
-    private RegionDatabase regionDatabase;
+    private boolean flag;
+    //private RegionDatabase regionDatabase;
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
     private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
@@ -75,7 +77,8 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        regionDatabase = new RegionDatabase();
+        //regionDatabase = new RegionDatabase();
+        flag = false;
         setContentView(R.layout.board);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final MyPlayer myPlayer = MyPlayer.getInstance();
@@ -91,6 +94,9 @@ public class Board extends AppCompatActivity {
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
 
+        final TextView spText = findViewById(R.id.spText);
+        spText.setVisibility(View.INVISIBLE);
+
         sp=(Spinner)findViewById(R.id.sp);
         String[]ls=getResources().getStringArray(R.array.action);
 
@@ -104,15 +110,30 @@ public class Board extends AppCompatActivity {
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Integer space = Integer.parseInt(adapter.getItem(position));
-                moveHero(myPlayer.getPlayer().getHero(),space);
+                if (flag)
+                {
+                    flag = false;
+                    if(adapter.getItem(position).contains("N"))
+                    {
+                        spText.setVisibility(View.INVISIBLE);
+                    }
+                    else {
+                        Integer space = Integer.parseInt(adapter.getItem(position));
+                        moveHero(myPlayer.getPlayer().getHero(), space);
+                        spText.setVisibility(View.INVISIBLE);
+                    }
+
                 }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+        sp.setVisibility(View.INVISIBLE);
+        //final Toolbar toolbar2 = findViewById(R.id.toolbar2);
+        //toolbar2.setVisibility(View.INVISIBLE);
 
         hourLocation.put(0,new Integer[]{644,15});
         hourLocation.put(1,new Integer[]{892,15});
@@ -219,10 +240,14 @@ public class Board extends AppCompatActivity {
                 adapter.clear();
                 int region = myPlayer.getPlayer().getHero().getCurrentSpace();
                 ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
-
-                for(Integer e: adjacentRegions){
+                adapter.add("Not selected");
+                for(Integer e: adjacentRegions) {
                     adapter.add(e.toString());
                 }
+                sp.setVisibility(View.VISIBLE);
+                spText.setVisibility(View.VISIBLE);
+                //toolbar2.setVisibility(View.VISIBLE);
+                flag = true;
 
             }
         });
