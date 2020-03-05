@@ -394,6 +394,8 @@ public class Board extends AppCompatActivity {
         hero.setCurrentSpace(space);
 
     }
+
+    //Used to move anything on on the board
     public void movePic(ImageView imageView, int space){
 
         final MyPlayer myPlayer = MyPlayer.getInstance();
@@ -406,6 +408,12 @@ public class Board extends AppCompatActivity {
         imageView.setY(coor[1]);
         Log.d("ERR","4th");
 
+    }
+
+    //used to move narrator and hours.
+    public void movePic(ImageView imageView, float x, float y){
+        imageView.setX(x);
+        imageView.setY(y);
     }
 
     private static class GetGame extends AsyncTask<String, Void, Game > {
