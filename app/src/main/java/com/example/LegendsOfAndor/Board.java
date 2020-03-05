@@ -110,6 +110,17 @@ public class Board extends AppCompatActivity {
             }
         });
 
+        hourLocation.put(0,new Integer[]{644,15});
+        hourLocation.put(1,new Integer[]{892,15});
+        hourLocation.put(2,new Integer[]{971,15});
+        hourLocation.put(3,new Integer[]{1042,15});
+        hourLocation.put(4,new Integer[]{1122,15});
+        hourLocation.put(5,new Integer[]{1198,15});
+        hourLocation.put(6,new Integer[]{1269,15});
+        hourLocation.put(7,new Integer[]{1345,15});
+        hourLocation.put(8,new Integer[]{1447,15});
+        hourLocation.put(9,new Integer[]{1527,15});
+        hourLocation.put(100,new Integer[]{1603,15});
 
         this.archer = findViewById(R.id.archer_male);
         this.wizard = findViewById(R.id.mage_male);
