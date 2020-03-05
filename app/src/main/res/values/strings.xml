@@ -77,8 +77,5 @@
     <string name="enemy_name">ENEMY</string>
 
     <string-array name="action">
-        <item>吃饭</item>
-        <item>睡觉</item>
-        <item>上网</item>
     </string-array>
 </resources>

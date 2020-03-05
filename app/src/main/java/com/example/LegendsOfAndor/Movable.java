@@ -1,11 +1,12 @@
 package com.example.LegendsOfAndor;
 
+import android.media.Image;
 import android.widget.ImageView;
 
 public class Movable {
-    private int viewId;
+    ImageView viewId;
 
-    void setMyView(int id){this.viewId= id;}
+    void setMyView(ImageView imageView){this.viewId= imageView;}
 
-    int getMyView(){return viewId;};
+    ImageView getMyView(){return viewId;};
 }

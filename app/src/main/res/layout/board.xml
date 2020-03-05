@@ -91,9 +91,28 @@
 
         <ImageView
             android:id="@+id/warrior"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
             android:src="@drawable/warrior_male" />
+
+        <ImageView
+            android:id="@+id/archer_male"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+
+            app:srcCompat="@drawable/archer" />
+
+        <ImageView
+            android:id="@+id/dwarf_male"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/dwarf_male" />
+
+        <ImageView
+            android:id="@+id/mage_male"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/mage" />
 
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>

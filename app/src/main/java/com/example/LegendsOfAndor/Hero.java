@@ -37,8 +37,6 @@ public class Hero extends Movable{
         } else if (heroClass == HeroClass.WARRIOR) {
             currentSpace = 25;
             rank = 14;
-
-            setMyView(R.id.warrior);
         } else { // wizard
             currentSpace = 9;
             rank = 34;
@@ -143,4 +141,21 @@ public class Hero extends Movable{
     public int getRank() { return rank; }
 
     public void setRank(int rank) { this.rank = rank; }
+
+        @Override
+    public boolean equals(Object o) {
+            if (o == this) {
+                return true;
+            }
+            if (!(o instanceof Hero)) {
+                return false;
+            }
+            Hero h = (Hero)o;
+            if(h.getHeroClass() == ((Hero) o).heroClass){
+                return true;
+            }
+            return false;
+    }
+
+
 }

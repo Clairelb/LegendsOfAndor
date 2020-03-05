@@ -6,11 +6,13 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,6 +33,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 enum PassResponses {
@@ -45,6 +48,9 @@ enum EndDayResponses {
 //import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Board extends AppCompatActivity {
+    ImageView archer;
+    ImageView wizard;
+    ImageView dwarf;
     public ImageView warrior;
     private Button move;
     private Button fight;
@@ -59,13 +65,15 @@ public class Board extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
 
     private Spinner sp;
+    HashMap<Hero, ImageView> map = new HashMap<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         regionDatabase = new RegionDatabase();
         setContentView(R.layout.board);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final MyPlayer myPlayer = MyPlayer.getInstance();
         move = findViewById(R.id.move);
         move.setVisibility(View.INVISIBLE);
@@ -88,12 +96,42 @@ public class Board extends AppCompatActivity {
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
         sp.setAdapter(adapter);
         sp.setPrompt("标题栏");
+        sp.getSelectedItem();
+//        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//               // Log.d("ERR","HERE");
+//                //Integer space = Integer.parseInt(adapter.getItem(position));
+//                //Log.d("ERR", space.toString());
+////                movePic(myPlayer.getPlayer().getHero(),space);
+//            }
+//        });
 
+        sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Integer space = Integer.parseInt(adapter.getItem(position));
+                moveHero(myPlayer.getPlayer().getHero(),space);
+                }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
 
-        int a = R.id.warrior;
-        warrior = findViewById(a);
+        this.archer = findViewById(R.id.archer_male);
+        this.wizard = findViewById(R.id.mage_male);
+        this.dwarf  = findViewById(R.id.dwarf_male);
+        this.warrior = findViewById(R.id.warrior);
+
+        Player[] players = myPlayer.getGame().getPlayers();
+        for(Player p : players){
+            map.put(p.getHero(),warrior);
+
+        }
+
         warrior.setX(235);  //get the color, then determine the location
         warrior.setY(152);
 
@@ -189,6 +227,7 @@ public class Board extends AppCompatActivity {
                 for(Integer e: adjacentRegions){
                     adapter.add(e.toString());
                 }
+
             }
         });
 
@@ -348,16 +387,34 @@ public class Board extends AppCompatActivity {
 //        }
 //        return super.dispatchTouchEvent(event);
 //    }
-    public void setFlag(){
-        this.flag = true;
-    }
-    public void movePic(Movable m, int a){
+    private void moveHero(Hero hero, int space){
+        if(hero.getHeroClass() == HeroClass.WARRIOR){
+            movePic(this.warrior, space);
+        }
+        if(hero.getHeroClass() == HeroClass.ARCHER){
+            movePic(this.archer, space);
+        }
+        if(hero.getHeroClass() == HeroClass.DWARF){
+            movePic(this.dwarf, space);
+        }
+        if(hero.getHeroClass() == HeroClass.WIZARD){
+            movePic((this.wizard),space);
+        }
 
-        ImageView temp = findViewById(m.getMyView());
-        float[] coor = regionDatabase.getRegion(a).getCoordinates();
+    }
+    public void movePic(ImageView imageView, int space){
+
+        final MyPlayer myPlayer = MyPlayer.getInstance();
+
+        float[] coor = myPlayer.getGame().getRegionDatabase().getRegion(space).getCoordinates();
+        Log.d("ERR","trd");
+
         //try if there is already a movable
-        temp.setX(coor[0]);
-        temp.setX(coor[1]);}
+        imageView.setX(coor[0]);
+        imageView.setY(coor[1]);
+        Log.d("ERR","4th");
+
+    }
 
     private static class GetGame extends AsyncTask<String, Void, Game > {
         @Override
