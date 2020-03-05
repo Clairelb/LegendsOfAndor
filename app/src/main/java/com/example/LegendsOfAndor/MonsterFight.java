@@ -1,6 +1,7 @@
 package com.example.LegendsOfAndor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.Intent;
@@ -68,7 +69,8 @@ public class MonsterFight extends AppCompatActivity {
     private TextView enemyProfile;
     private TextView enemyWP;
     private TextView enemySP;
-    private TextView enemyBV;
+
+    private ImageView currentCreatureIV;
 
 //    private ImageView player1d1 = findViewById(R.id.player1_d1);
 //    private ImageView player1d2 = findViewById(R.id.player1_d2);
@@ -190,26 +192,23 @@ public class MonsterFight extends AppCompatActivity {
         player4Dice.add(player4d5);
 
 
+        //Changes and makes visible the picture of the monster currently being faced
+        //!!!!!!!!!!!![NOT FINISHED: Need to find and add wardrak resources]!!!!!!!!!!!!!!!!!!!!!!!!
+        currentCreatureIV = findViewById(R.id.creatureImage);
+        String gor = "gor";
+        String skral = "skral";
+        CreatureType creatureType = myPlayer.getGame().getCurrentFight().getCreature().getCreatureType();
+        if (creatureType == CreatureType.GOR) {
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID(gor, "drawable", getApplicationContext())));
+        } else if (creatureType == CreatureType.SKRAL) {
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID(skral, "drawable", getApplicationContext())));
+        } else { //if creatureType == CreatureType.TROLL
+            currentCreatureIV.setVisibility(View.INVISIBLE);
+        }
 
-        //Hides text for user, WP, SP, until player joins the fight
-//        for (int i = 0; i < playerIndex.size(); i++) {
-//            int playerNumber = i + 1;
-//            String playerPosition = "player" + playerNumber;
-//            String playerWPText = "player" + playerNumber + "_wp";
-//            String playerSPText = "player" + playerNumber + "_sp";
-//            int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
-//            int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
-//            int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
-////            TextView userProfile = profileList.get(i);
-////            TextView userWP = playerWPList.get(i);
-////            TextView userSP = playerSPList.get(i);
-//            TextView userProfile = findViewById(playerProfileID);
-//            TextView userWP = findViewById(playerWPID);
-//            TextView userSP = findViewById(playerSPID);
-//            userProfile.setVisibility(View.INVISIBLE);
-//            userWP.setVisibility(View.INVISIBLE);
-//            userSP.setVisibility(View.INVISIBLE);
-//        }
+
+
+
 
         //Adds information for participating players, making their profiles visible
         for (int i = 0; i < playerIndex.size(); i++) {
@@ -243,7 +242,7 @@ public class MonsterFight extends AppCompatActivity {
         enemyProfile = findViewById(R.id.enemy);
         enemyWP = findViewById(R.id.enemy_wp);
         enemySP = findViewById(R.id.enemy_sp);
-        enemyBV = findViewById(R.id.enemy_bv);
+
         enemyProfile.setText(currentMonster.getCreatureType().toString());
         String enemyCurrentWp = "WP:" + currentMonster.getWillpower();
         String enemyCurrentSp = "SP:" + currentMonster.getStrength();
@@ -252,7 +251,7 @@ public class MonsterFight extends AppCompatActivity {
         enemyProfile.setVisibility(View.VISIBLE);
         enemyWP.setVisibility(View.VISIBLE);
         enemySP.setVisibility(View.VISIBLE);
-        enemyBV.setVisibility(View.VISIBLE);
+
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override

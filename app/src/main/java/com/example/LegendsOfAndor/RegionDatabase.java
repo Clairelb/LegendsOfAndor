@@ -222,6 +222,7 @@ public class RegionDatabase {
 
         // TEST!!!!!!!!!!!!!!!!!!!
         regionDatabase.get(25).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+//        regionDatabase.get(25).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.SKRAL))));
         // TEST!!!!!!!!!!!!!!!!!!!!!!!
 
 
