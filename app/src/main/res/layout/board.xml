@@ -69,12 +69,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.869" />
 
+
     <com.example.LegendsOfAndor.ZoomableViewGroup
         android:id="@+id/zoomableViewGroup"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="197dp">
+        tools:layout_editor_absoluteX="69dp">
 
         <ImageView
             android:id="@+id/board"
@@ -119,16 +120,52 @@
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>
 
-    <Spinner
-        android:id="@+id/sp"
-        android:layout_width="46dp"
-        android:layout_height="wrap_content"
-
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.495" />
+
+    <Spinner
+        android:id="@+id/sp"
+        android:layout_width="45dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="205dp"
+        android:layout_marginLeft="350dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginBottom="37dp"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2"/>
+
+
+    <TextView
+        android:id="@+id/spText"
+        android:layout_width="84dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="427dp"
+        android:layout_marginBottom="31dp"
+        android:text="The region you are moving to: "
+        android:textColor="#FFFFFF"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintEnd_toEndOf="@+id/toolbar2"
+        app:layout_constraintStart_toStartOf="@+id/toolbar2"
+        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
