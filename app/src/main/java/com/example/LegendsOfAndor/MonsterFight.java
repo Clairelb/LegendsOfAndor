@@ -609,8 +609,10 @@ public class MonsterFight extends AppCompatActivity {
                     } else if (asyncTask.get() == EndBattleRoundResponses.TIE_ROUND) {
                         Toast.makeText(MonsterFight.this, "This round resulted in a tie!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_DEFEATED) {
+                        t.interrupt();
                         Toast.makeText(MonsterFight.this, "Heroes win! Creature defeated!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.BATTLE_LOST) {
+                        t.interrupt();
                         Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.PLAYERS_NO_BATTLE_VALUE) {
                         Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Player(s) do not have battle values!", Toast.LENGTH_LONG).show();
