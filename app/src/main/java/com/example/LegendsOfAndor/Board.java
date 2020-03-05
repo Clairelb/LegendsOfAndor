@@ -63,9 +63,9 @@ public class Board extends AppCompatActivity {
     private RegionDatabase regionDatabase;
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
+    private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
 
     private Spinner sp;
-    HashMap<Hero, ImageView> map = new HashMap<>();
 
 
     @Override
@@ -97,18 +97,6 @@ public class Board extends AppCompatActivity {
         sp.setAdapter(adapter);
         sp.setPrompt("标题栏");
         sp.getSelectedItem();
-//        sp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//               // Log.d("ERR","HERE");
-//                //Integer space = Integer.parseInt(adapter.getItem(position));
-//                //Log.d("ERR", space.toString());
-////                movePic(myPlayer.getPlayer().getHero(),space);
-//            }
-//        });
-
-
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -122,16 +110,12 @@ public class Board extends AppCompatActivity {
             }
         });
 
+
         this.archer = findViewById(R.id.archer_male);
         this.wizard = findViewById(R.id.mage_male);
         this.dwarf  = findViewById(R.id.dwarf_male);
         this.warrior = findViewById(R.id.warrior);
 
-        Player[] players = myPlayer.getGame().getPlayers();
-        for(Player p : players){
-            map.put(p.getHero(),warrior);
-
-        }
 
         warrior.setX(235);  //get the color, then determine the location
         warrior.setY(152);
