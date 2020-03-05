@@ -270,6 +270,21 @@ public class MonsterFight extends AppCompatActivity {
                             runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
+                                    if (fight.getHeroes().size() == 0) {
+                                        interruptThreadAndGoToBoard();
+                                    }
+
+                                    boolean heroFound = false;
+                                    for (Hero h : fight.getHeroes()) {
+                                        if (h.getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
+                                            heroFound = true;
+                                        }
+                                    }
+
+                                    if (!heroFound) {
+                                        interruptThreadAndGoToBoard();
+                                    }
+
                                     for (int i = 0; i < fight.getHeroes().size(); i++) {
                                         Hero currentPlayer = fight.getHeroes().get(i);
                                         int playerNumber = i + 1;
@@ -611,8 +626,7 @@ public class MonsterFight extends AppCompatActivity {
                         t.interrupt();
                         Toast.makeText(MonsterFight.this, "Heroes win! Creature defeated!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.BATTLE_LOST) {
-                        t.interrupt();
-                        Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated! Going back to the board...", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.PLAYERS_NO_BATTLE_VALUE) {
                         Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Player(s) do not have battle values!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_NO_BATTLE_VALUE) {
@@ -674,6 +688,23 @@ public class MonsterFight extends AppCompatActivity {
 //        });
     }
 
+    public void interruptThreadAndGoToBoard() {
+        t.interrupt();
+
+        try {
+            LeaveFightSender leaveFightSender = new LeaveFightSender();
+            leaveFightSender.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Intent myIntent = new Intent(MonsterFight.this, Board.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myIntent);
+        finish();
+    }
+
+
     protected final static int getResourceID(final String resName, final String resType, final Context ctx) {
         final int ResourceID =
                 ctx.getResources().getIdentifier(resName, resType,
@@ -693,7 +724,7 @@ public class MonsterFight extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/leaveFight")
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/leaveFight")
                         .asString();
                 String resultAsJsonString = response.getBody();
 
