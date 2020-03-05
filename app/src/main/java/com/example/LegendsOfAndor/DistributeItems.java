@@ -34,7 +34,7 @@ public class DistributeItems extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distributeitemspage);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         final Spinner warriorGold = findViewById(R.id.warriorGold);
         warriorGold.setVisibility(View.INVISIBLE);

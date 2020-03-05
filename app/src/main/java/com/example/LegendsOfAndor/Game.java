@@ -25,10 +25,12 @@ public class Game  {
     private Boolean difficultMode;
     private Fight currentFight;
     private GameStatus gameStatus;
+    private Narrator narrator;
 
     public Game() {}
 
     public Game(Player p, int maxNumPlayers, String gameName, Boolean difficult) {
+        this.narrator = new Narrator();
         this.gameName = gameName;
         this.maxNumPlayers = maxNumPlayers;
         this.currentNumPlayers = 1;

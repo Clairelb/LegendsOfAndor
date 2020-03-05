@@ -59,7 +59,7 @@ public class Board extends AppCompatActivity {
     private Button chatb;
     private Button optionsb;
     private Thread t;
-    boolean flag = false;
+    boolean flag = true;
     private RegionDatabase regionDatabase;
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
@@ -107,6 +107,9 @@ public class Board extends AppCompatActivity {
 ////                movePic(myPlayer.getPlayer().getHero(),space);
 //            }
 //        });
+
+        //get coor
+//        Button coor = findViewById(R.id.coor);
 
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -366,7 +369,6 @@ public class Board extends AppCompatActivity {
 ////        }
 //
 //        if(flag){
-//            this.flag = false;
 //            float X = event.getX();
 //            float Y = event.getY();
 //            Bitmap layout = BitmapFactory.decodeResource(getResources(),R.drawable.overlay);
