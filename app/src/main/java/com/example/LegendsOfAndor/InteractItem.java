@@ -66,7 +66,7 @@ public class InteractItem extends AppCompatActivity {
                 try {
                     PickUpGoldSender pickUpGoldSender = new PickUpGoldSender();
                     pickUpGoldSender.execute(pickUpSpinner.getSelectedItem().toString());
-                    Toast.makeText(InteractItem.this, "Successfully picked up " + pickUpSpinner.getSelectedItem().toString() + "gold.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InteractItem.this, "Successfully picked up " + pickUpSpinner.getSelectedItem().toString() + " gold.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -79,7 +79,7 @@ public class InteractItem extends AppCompatActivity {
                 try {
                     DropGoldSender dropGoldSender = new DropGoldSender();
                     dropGoldSender.execute(dropSpinner.getSelectedItem().toString());
-                    Toast.makeText(InteractItem.this, "Successfully dropped " + dropSpinner.getSelectedItem().toString() + "gold.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InteractItem.this, "Successfully dropped " + dropSpinner.getSelectedItem().toString() + " gold.", Toast.LENGTH_LONG).show();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -97,6 +97,8 @@ public class InteractItem extends AppCompatActivity {
                     asyncTask = getGoldSender.execute("");
 
                     goldOnGround = asyncTask.get();
+                    Toast.makeText(InteractItem.this, "There are " + goldOnGround + " gold on the region.", Toast.LENGTH_LONG).show();
+
 
                     // change the spinner here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 } catch (Exception e) {
