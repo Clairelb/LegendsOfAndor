@@ -26,7 +26,7 @@ public class InteractItem extends AppCompatActivity {
         for (int i = 0; i < playerGold; i++) {
             spinnerGoldDrop.add(i+1);
         }
-        dropSpinner = (Spinner) findViewById(R.id.dropSpinner);
+        dropSpinner = findViewById(R.id.dropSpinner);
         ArrayAdapter<Integer> adapterDrop = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerGoldDrop);
         adapterDrop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropSpinner.setAdapter(adapterDrop);
@@ -36,7 +36,7 @@ public class InteractItem extends AppCompatActivity {
         for (int i = 0; i < goldOnGround; i++) {
             spinnerPickUpGold.add(i+1);
         }
-        pickUpSpinner = (Spinner) findViewById(R.id.pickUpSpinner);
+        pickUpSpinner = findViewById(R.id.pickUpSpinner);
         ArrayAdapter<Integer> adapterPick = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerPickUpGold);
         adapterPick.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropSpinner.setAdapter(adapterPick);
