@@ -34,6 +34,8 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,6 +72,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
     private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
+
 
     private Spinner sp;
 
@@ -207,6 +210,22 @@ public class Board extends AppCompatActivity {
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class );
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
+                                        for(int i = 0; i < game.getCurrentNumPlayers(); i++){
+                                            //DRAW PLAYERS HERE
+                                            //DRAW FARMERS HERE
+                                            //DRAW TIME MARKERS HERE
+                                        }
+                                        if(game.getCurrentFight() != null){
+                                            for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
+                                                if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
+                                                    move.setVisibility(View.INVISIBLE);
+                                                    fight.setVisibility(View.INVISIBLE);
+                                                    pass.setVisibility(View.INVISIBLE);
+                                                    endDay.setVisibility(View.INVISIBLE);
+                                                    interruptThreadAndStartActivity(new Intent(Board.this, JoinFight.class));
+                                                }
+                                            }
+                                        }
                                         if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
                                             move.setVisibility(View.VISIBLE);
@@ -219,6 +238,7 @@ public class Board extends AppCompatActivity {
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
                                         }
+
                                     }
                                 }
                             });
@@ -255,8 +275,7 @@ public class Board extends AppCompatActivity {
         chatb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
-                startActivity(myIntent);
+                interruptThreadAndStartActivity(new Intent(Board.this, ChatScreen.class));
             }
         });
 
@@ -272,9 +291,7 @@ public class Board extends AppCompatActivity {
                     if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
                         Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
                         myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
-                        t.interrupt();
-                        Intent myIntent = new Intent(v.getContext(), MonsterFight.class);
-                        startActivity(myIntent);
+                        interruptThreadAndStartActivity(new Intent(Board.this, MonsterFight.class));
                     } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
@@ -358,7 +375,10 @@ public class Board extends AppCompatActivity {
 
     public void interruptThreadAndStartActivity(Intent myIntent){
         startActivity(myIntent);
-        t.interrupt();
+        if(t!= null || !t.isInterrupted()){
+            t.interrupt();
+        }
+        finish();
     }
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent event) {

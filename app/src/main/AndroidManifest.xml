@@ -60,7 +60,7 @@
             android:name=".Character_Tab"
             android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".Merchant"
+            android:name=".JoinFight"
             android:screenOrientation="sensorLandscape" />
     </application>
 
