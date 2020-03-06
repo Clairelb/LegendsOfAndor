@@ -83,6 +83,7 @@
     <string name="use_article">USE ARTICLE</string>
     <string name="pick_up_item">PICK UP ITEM</string>
     <string name="drop_item">DROP ITEM</string>
+    <string name="get_items">GET ITEMS</string>
 
     <string-array name="action"></string-array>
 </resources>
