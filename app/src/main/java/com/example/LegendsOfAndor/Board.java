@@ -375,10 +375,11 @@ public class Board extends AppCompatActivity {
 
     public void interruptThreadAndStartActivity(Intent myIntent){
         startActivity(myIntent);
-        if(t!= null || !t.isInterrupted()){
-            t.interrupt();
-        }
+        //if(t!= null || !t.isInterrupted()){
+            //t.interrupt();
+        //}
         finish();
+        t.interrupt();
     }
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent event) {

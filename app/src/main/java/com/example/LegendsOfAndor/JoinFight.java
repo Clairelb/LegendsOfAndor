@@ -29,7 +29,7 @@ public class JoinFight extends AppCompatActivity {
             }
         });
 
-        declineFight = findViewById(R.id.joinFight);
+        declineFight = findViewById(R.id.declineFight);
         declineFight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
