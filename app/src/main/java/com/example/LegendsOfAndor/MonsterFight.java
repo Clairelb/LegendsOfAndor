@@ -273,248 +273,250 @@ public class MonsterFight extends AppCompatActivity {
                             runOnUiThread(new Runnable() { // cannot run this part on separate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
-                                    boolean heroFound = false;
-                                    for (Hero h : fight.getHeroes()) {
-                                        if (h.getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
-                                            heroFound = true;
-                                        }
-                                    }
-
-                                    if (heroFound) {
-                                        for (int i = 0; i < fight.getHeroes().size(); i++) {
-                                            Hero currentPlayer = fight.getHeroes().get(i);
-                                            int playerNumber = i + 1;
-                                            String playerPosition = "player" + playerNumber;
-                                            String playerWPText = "player" + playerNumber + "_wp";
-                                            String playerSPText = "player" + playerNumber + "_sp";
-                                            String playerBVText = "player" + playerNumber + "_bv";
-                                            int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
-                                            int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
-                                            int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
-                                            int playerBVID = getResources().getIdentifier(playerBVText, "id", getPackageName());
-                                            TextView userProfile = findViewById(playerProfileID);
-                                            TextView userWP = findViewById(playerWPID);
-                                            TextView userSP = findViewById(playerSPID);
-                                            TextView userBV = findViewById(playerBVID);
-                                            String currentWP = "WP: " + currentPlayer.getWillPower();
-                                            String currentSP = "SP: " + currentPlayer.getStrength();
-                                            userProfile.setText(currentPlayer.getHeroClass().toString());
-                                            userWP.setText(currentWP);
-                                            userSP.setText(currentSP);
-                                            userProfile.setVisibility(View.VISIBLE);
-                                            userWP.setVisibility(View.VISIBLE);
-                                            userSP.setVisibility(View.VISIBLE);
-                                            userBV.setVisibility(View.VISIBLE);
-                                        }
-
-                                        int i = 0;
-
-                                        ImageView currentD1;
-                                        ImageView currentD2;
-                                        ImageView currentD3;
-                                        ImageView currentD4;
-                                        ImageView currentD5;
-
-                                        int totalBV = 0;
-                                        for (Integer bv : fight.getHeroesBattleScores()) {
-                                            totalBV += bv;
-                                        }
-                                        playersBattleValue.setText(Integer.toString(totalBV));
-
+                                    if (fight != null) {
+                                        boolean heroFound = false;
                                         for (Hero h : fight.getHeroes()) {
-                                            if (fight.getHeroesBattleScores().get(i) > 0) {
-                                                if (i == 0) {
-                                                    player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                } else if (i == 1) {
-                                                    player2BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                } else if (i == 2) {
-                                                    player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                } else { // i = 3
-                                                    player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                }
-                                            }
-
-                                            int playerNum = i + 1;
-                                            String diceNum1 = "player" + playerNum + "_d" + 1;
-                                            String diceNum2 = "player" + playerNum + "_d" + 2;
-                                            String diceNum3 = "player" + playerNum + "_d" + 3;
-                                            String diceNum4 = "player" + playerNum + "_d" + 4;
-                                            String diceNum5 = "player" + playerNum + "_d" + 5;
-                                            int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
-                                            int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
-                                            int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
-                                            int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
-                                            int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
-
-                                            currentD1 = findViewById(d1IV);
-                                            currentD2 = findViewById(d2IV);
-                                            currentD3 = findViewById(d3IV);
-                                            currentD4 = findViewById(d4IV);
-                                            currentD5 = findViewById(d5IV);
-
-                                            currentD1.setVisibility(View.INVISIBLE);
-                                            currentD2.setVisibility(View.INVISIBLE);
-                                            currentD3.setVisibility(View.INVISIBLE);
-                                            currentD4.setVisibility(View.INVISIBLE);
-                                            currentD5.setVisibility(View.INVISIBLE);
-
-//                                        imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
-                                            if (h.getHeroClass() == HeroClass.WARRIOR) {
-                                                String class_id;
-                                                for (int j = 0; j < fight.getWarriorDice().size(); j++) {
-                                                    Integer dieValue = fight.getWarriorDice().get(j);
-
-                                                    if (dieValue == 0) {
-                                                        class_id = "warrior_dice";
-                                                    } else {
-                                                        class_id = "warrior_dice_" + dieValue;
-                                                    }
-                                                    if (j == 0) {
-                                                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD1.setVisibility(View.VISIBLE);
-                                                    } else if (j == 1) {
-                                                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD2.setVisibility(View.VISIBLE);
-                                                    } else if (j == 2) {
-                                                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD3.setVisibility(View.VISIBLE);
-                                                    } else if (j == 3) {
-                                                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD4.setVisibility(View.VISIBLE);
-                                                    } else {
-                                                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD5.setVisibility(View.VISIBLE);
-                                                    }
-                                                }
-                                            } else if (h.getHeroClass() == HeroClass.ARCHER) {
-                                                String class_id;
-                                                for (int j = 0; j < fight.getArcherDice().size(); j++) {
-                                                    Integer dieValue = fight.getArcherDice().get(j);
-                                                    if (dieValue == 0) {
-                                                        class_id = "archer_dice";
-                                                    } else {
-                                                        class_id = "archer_dice_" + dieValue;
-                                                    }
-                                                    if (j == 0) {
-                                                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD1.setVisibility(View.VISIBLE);
-                                                    } else if (j == 1) {
-                                                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD2.setVisibility(View.VISIBLE);
-                                                    } else if (j == 2) {
-                                                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD3.setVisibility(View.VISIBLE);
-                                                    } else if (j == 3) {
-                                                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD4.setVisibility(View.VISIBLE);
-                                                    } else {
-                                                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD5.setVisibility(View.VISIBLE);
-                                                    }
-                                                }
-                                            } else if (h.getHeroClass() == HeroClass.DWARF) {
-                                                String class_id;
-                                                for (int j = 0; j < fight.getDwarfDice().size(); j++) {
-                                                    Integer dieValue = fight.getDwarfDice().get(j);
-
-                                                    if (dieValue == 0) {
-                                                        class_id = "dwarf_dice";
-                                                    } else {
-                                                        class_id = "dwarf_dice_" + dieValue;
-                                                    }
-                                                    if (j == 0) {
-                                                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD1.setVisibility(View.VISIBLE);
-                                                    } else if (j == 1) {
-                                                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD2.setVisibility(View.VISIBLE);
-                                                    } else if (j == 2) {
-                                                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD3.setVisibility(View.VISIBLE);
-                                                    } else if (j == 3) {
-                                                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD4.setVisibility(View.VISIBLE);
-                                                    } else {
-                                                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD5.setVisibility(View.VISIBLE);
-                                                    }
-                                                }
-                                            } else { // wizard
-                                                String class_id;
-                                                for (int j = 0; j < fight.getWizardDice().size(); j++) {
-                                                    Integer dieValue = fight.getWizardDice().get(j);
-
-                                                    if (dieValue == 0) {
-                                                        class_id = "wizard_dice";
-                                                    } else {
-                                                        class_id = "wizard_dice_" + dieValue;
-                                                    }
-                                                    if (j == 0) {
-                                                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD1.setVisibility(View.VISIBLE);
-                                                    } else if (j == 1) {
-                                                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD2.setVisibility(View.VISIBLE);
-                                                    } else if (j == 2) {
-                                                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD3.setVisibility(View.VISIBLE);
-                                                    } else if (j == 3) {
-                                                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD4.setVisibility(View.VISIBLE);
-                                                    } else {
-                                                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                        currentD5.setVisibility(View.VISIBLE);
-                                                    }
-                                                }
-                                            }
-                                            i++;
-                                        }
-
-                                        String class_id;
-
-                                        enemyd1.setVisibility(View.INVISIBLE);
-                                        enemyd2.setVisibility(View.INVISIBLE);
-                                        enemyd3.setVisibility(View.INVISIBLE);
-                                        enemyd4.setVisibility(View.INVISIBLE);
-                                        enemyd5.setVisibility(View.INVISIBLE);
-
-
-                                        for (int k = 0; k < fight.getCreatureDice().size(); k++) {
-                                            Integer dieValue = fight.getCreatureDice().get(k);
-
-                                            if (dieValue == -1) { // empty black die
-                                                class_id = "black_dice";
-                                            } else if (dieValue >= 8) { // black die
-                                                class_id = "black_dice_" + dieValue;
-                                            } else if (dieValue == 0) {
-                                                class_id = "enemy_dice";
-                                            } else { // dieValue 1 to 6
-                                                class_id = "enemy_dice_" + dieValue;
-                                            }
-
-                                            if (k == 0) {
-                                                enemyd1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                enemyd1.setVisibility(View.VISIBLE);
-                                            } else if (k == 1) {
-                                                enemyd2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                enemyd2.setVisibility(View.VISIBLE);
-                                            } else if (k == 2) {
-                                                enemyd3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                enemyd3.setVisibility(View.VISIBLE);
-                                            } else if (k == 3) {
-                                                enemyd4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                enemyd4.setVisibility(View.VISIBLE);
-                                            } else {
-                                                enemyd5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
-                                                enemyd5.setVisibility(View.VISIBLE);
+                                            if (h.getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
+                                                heroFound = true;
                                             }
                                         }
-                                        monsterBattleValue.setText(Integer.toString(fight.getCreatureBattleScore()));
 
-                                        enemyWP.setText("WP:" + fight.getCreature().getWillpower());
-                                        enemySP.setText("SP:" + fight.getCreature().getStrength());
-                                    } else {
-                                        interruptThreadAndGoToBoard(); // this is running twice
+                                        if (heroFound) {
+                                            for (int i = 0; i < fight.getHeroes().size(); i++) {
+                                                Hero currentPlayer = fight.getHeroes().get(i);
+                                                int playerNumber = i + 1;
+                                                String playerPosition = "player" + playerNumber;
+                                                String playerWPText = "player" + playerNumber + "_wp";
+                                                String playerSPText = "player" + playerNumber + "_sp";
+                                                String playerBVText = "player" + playerNumber + "_bv";
+                                                int playerProfileID = getResources().getIdentifier(playerPosition, "id", getPackageName());
+                                                int playerWPID = getResources().getIdentifier(playerWPText, "id", getPackageName());
+                                                int playerSPID = getResources().getIdentifier(playerSPText, "id", getPackageName());
+                                                int playerBVID = getResources().getIdentifier(playerBVText, "id", getPackageName());
+                                                TextView userProfile = findViewById(playerProfileID);
+                                                TextView userWP = findViewById(playerWPID);
+                                                TextView userSP = findViewById(playerSPID);
+                                                TextView userBV = findViewById(playerBVID);
+                                                String currentWP = "WP: " + currentPlayer.getWillPower();
+                                                String currentSP = "SP: " + currentPlayer.getStrength();
+                                                userProfile.setText(currentPlayer.getHeroClass().toString());
+                                                userWP.setText(currentWP);
+                                                userSP.setText(currentSP);
+                                                userProfile.setVisibility(View.VISIBLE);
+                                                userWP.setVisibility(View.VISIBLE);
+                                                userSP.setVisibility(View.VISIBLE);
+                                                userBV.setVisibility(View.VISIBLE);
+                                            }
+
+                                            int i = 0;
+
+                                            ImageView currentD1;
+                                            ImageView currentD2;
+                                            ImageView currentD3;
+                                            ImageView currentD4;
+                                            ImageView currentD5;
+
+                                            int totalBV = 0;
+                                            for (Integer bv : fight.getHeroesBattleScores()) {
+                                                totalBV += bv;
+                                            }
+                                            playersBattleValue.setText(Integer.toString(totalBV));
+
+                                            for (Hero h : fight.getHeroes()) {
+                                                if (fight.getHeroesBattleScores().get(i) > 0) {
+                                                    if (i == 0) {
+                                                        player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                    } else if (i == 1) {
+                                                        player2BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                    } else if (i == 2) {
+                                                        player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                    } else { // i = 3
+                                                        player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                    }
+                                                }
+
+                                                int playerNum = i + 1;
+                                                String diceNum1 = "player" + playerNum + "_d" + 1;
+                                                String diceNum2 = "player" + playerNum + "_d" + 2;
+                                                String diceNum3 = "player" + playerNum + "_d" + 3;
+                                                String diceNum4 = "player" + playerNum + "_d" + 4;
+                                                String diceNum5 = "player" + playerNum + "_d" + 5;
+                                                int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
+                                                int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
+                                                int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
+                                                int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
+                                                int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
+
+                                                currentD1 = findViewById(d1IV);
+                                                currentD2 = findViewById(d2IV);
+                                                currentD3 = findViewById(d3IV);
+                                                currentD4 = findViewById(d4IV);
+                                                currentD5 = findViewById(d5IV);
+
+                                                currentD1.setVisibility(View.INVISIBLE);
+                                                currentD2.setVisibility(View.INVISIBLE);
+                                                currentD3.setVisibility(View.INVISIBLE);
+                                                currentD4.setVisibility(View.INVISIBLE);
+                                                currentD5.setVisibility(View.INVISIBLE);
+
+    //                                        imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
+                                                if (h.getHeroClass() == HeroClass.WARRIOR) {
+                                                    String class_id;
+                                                    for (int j = 0; j < fight.getWarriorDice().size(); j++) {
+                                                        Integer dieValue = fight.getWarriorDice().get(j);
+
+                                                        if (dieValue == 0) {
+                                                            class_id = "warrior_dice";
+                                                        } else {
+                                                            class_id = "warrior_dice_" + dieValue;
+                                                        }
+                                                        if (j == 0) {
+                                                            currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD1.setVisibility(View.VISIBLE);
+                                                        } else if (j == 1) {
+                                                            currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD2.setVisibility(View.VISIBLE);
+                                                        } else if (j == 2) {
+                                                            currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD3.setVisibility(View.VISIBLE);
+                                                        } else if (j == 3) {
+                                                            currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD4.setVisibility(View.VISIBLE);
+                                                        } else {
+                                                            currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD5.setVisibility(View.VISIBLE);
+                                                        }
+                                                    }
+                                                } else if (h.getHeroClass() == HeroClass.ARCHER) {
+                                                    String class_id;
+                                                    for (int j = 0; j < fight.getArcherDice().size(); j++) {
+                                                        Integer dieValue = fight.getArcherDice().get(j);
+                                                        if (dieValue == 0) {
+                                                            class_id = "archer_dice";
+                                                        } else {
+                                                            class_id = "archer_dice_" + dieValue;
+                                                        }
+                                                        if (j == 0) {
+                                                            currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD1.setVisibility(View.VISIBLE);
+                                                        } else if (j == 1) {
+                                                            currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD2.setVisibility(View.VISIBLE);
+                                                        } else if (j == 2) {
+                                                            currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD3.setVisibility(View.VISIBLE);
+                                                        } else if (j == 3) {
+                                                            currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD4.setVisibility(View.VISIBLE);
+                                                        } else {
+                                                            currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD5.setVisibility(View.VISIBLE);
+                                                        }
+                                                    }
+                                                } else if (h.getHeroClass() == HeroClass.DWARF) {
+                                                    String class_id;
+                                                    for (int j = 0; j < fight.getDwarfDice().size(); j++) {
+                                                        Integer dieValue = fight.getDwarfDice().get(j);
+
+                                                        if (dieValue == 0) {
+                                                            class_id = "dwarf_dice";
+                                                        } else {
+                                                            class_id = "dwarf_dice_" + dieValue;
+                                                        }
+                                                        if (j == 0) {
+                                                            currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD1.setVisibility(View.VISIBLE);
+                                                        } else if (j == 1) {
+                                                            currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD2.setVisibility(View.VISIBLE);
+                                                        } else if (j == 2) {
+                                                            currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD3.setVisibility(View.VISIBLE);
+                                                        } else if (j == 3) {
+                                                            currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD4.setVisibility(View.VISIBLE);
+                                                        } else {
+                                                            currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD5.setVisibility(View.VISIBLE);
+                                                        }
+                                                    }
+                                                } else { // wizard
+                                                    String class_id;
+                                                    for (int j = 0; j < fight.getWizardDice().size(); j++) {
+                                                        Integer dieValue = fight.getWizardDice().get(j);
+
+                                                        if (dieValue == 0) {
+                                                            class_id = "wizard_dice";
+                                                        } else {
+                                                            class_id = "wizard_dice_" + dieValue;
+                                                        }
+                                                        if (j == 0) {
+                                                            currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD1.setVisibility(View.VISIBLE);
+                                                        } else if (j == 1) {
+                                                            currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD2.setVisibility(View.VISIBLE);
+                                                        } else if (j == 2) {
+                                                            currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD3.setVisibility(View.VISIBLE);
+                                                        } else if (j == 3) {
+                                                            currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD4.setVisibility(View.VISIBLE);
+                                                        } else {
+                                                            currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                            currentD5.setVisibility(View.VISIBLE);
+                                                        }
+                                                    }
+                                                }
+                                                i++;
+                                            }
+
+                                            String class_id;
+
+                                            enemyd1.setVisibility(View.INVISIBLE);
+                                            enemyd2.setVisibility(View.INVISIBLE);
+                                            enemyd3.setVisibility(View.INVISIBLE);
+                                            enemyd4.setVisibility(View.INVISIBLE);
+                                            enemyd5.setVisibility(View.INVISIBLE);
+
+
+                                            for (int k = 0; k < fight.getCreatureDice().size(); k++) {
+                                                Integer dieValue = fight.getCreatureDice().get(k);
+
+                                                if (dieValue == -1) { // empty black die
+                                                    class_id = "black_dice";
+                                                } else if (dieValue >= 8) { // black die
+                                                    class_id = "black_dice_" + dieValue;
+                                                } else if (dieValue == 0) {
+                                                    class_id = "enemy_dice";
+                                                } else { // dieValue 1 to 6
+                                                    class_id = "enemy_dice_" + dieValue;
+                                                }
+
+                                                if (k == 0) {
+                                                    enemyd1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    enemyd1.setVisibility(View.VISIBLE);
+                                                } else if (k == 1) {
+                                                    enemyd2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    enemyd2.setVisibility(View.VISIBLE);
+                                                } else if (k == 2) {
+                                                    enemyd3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    enemyd3.setVisibility(View.VISIBLE);
+                                                } else if (k == 3) {
+                                                    enemyd4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    enemyd4.setVisibility(View.VISIBLE);
+                                                } else {
+                                                    enemyd5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                                                    enemyd5.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                            monsterBattleValue.setText(Integer.toString(fight.getCreatureBattleScore()));
+
+                                            enemyWP.setText("WP:" + fight.getCreature().getWillpower());
+                                            enemySP.setText("SP:" + fight.getCreature().getStrength());
+                                        } else {
+                                            interruptThreadAndGoToBoard(); // this is running twice
+                                        }
                                     }
                                 }
                             });
@@ -689,6 +691,8 @@ public class MonsterFight extends AppCompatActivity {
 
     public void interruptThreadAndGoToBoard() {
         if (!leaveExecuted) {
+            System.out.println("!!!!!!!!!!!");
+
             try {
                 LeaveFightSender leaveFightSender = new LeaveFightSender();
                 leaveFightSender.execute("");
