@@ -691,8 +691,6 @@ public class MonsterFight extends AppCompatActivity {
 
     public void interruptThreadAndGoToBoard() {
         if (!leaveExecuted) {
-            System.out.println("!!!!!!!!!!!");
-
             try {
                 LeaveFightSender leaveFightSender = new LeaveFightSender();
                 leaveFightSender.execute("");
