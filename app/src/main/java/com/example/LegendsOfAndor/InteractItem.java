@@ -26,6 +26,7 @@ public class InteractItem extends AppCompatActivity {
     private Button pickUpItemBTN;
     private Button dropItemBTN;
     private Button getItemBTN;
+    private Button backBTN;
 
     MyPlayer myPlayer = MyPlayer.getInstance();
     int playerGold = myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getGold();
@@ -39,26 +40,25 @@ public class InteractItem extends AppCompatActivity {
         pickUpItemBTN = findViewById(R.id.pickUpItem);
         dropItemBTN = findViewById(R.id.dropItem);
         getItemBTN = findViewById(R.id.getItems);
+        backBTN = findViewById(R.id.backBtn);
 
         //Updates corresponding spinner for drop gold
         ArrayList<Integer> spinnerGoldDrop = new ArrayList<Integer>();
-        for (int i = 0; i < playerGold; i++) {
-            spinnerGoldDrop.add(i+1);
+        for (int i = 0; i <= playerGold; i++) {
+            spinnerGoldDrop.add(i);
         }
         dropSpinner = findViewById(R.id.dropSpinner);
         ArrayAdapter<Integer> adapterDrop = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerGoldDrop);
         adapterDrop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropSpinner.setAdapter(adapterDrop);
 
-        //Updates corresponding spinner for pick up gold
-        ArrayList<Integer> spinnerPickUpGold = new ArrayList<Integer>();
-        for (int i = 0; i < goldOnGround; i++) {
-            spinnerPickUpGold.add(i+1);
-        }
-        pickUpSpinner = findViewById(R.id.pickUpSpinner);
-        ArrayAdapter<Integer> adapterPick = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerPickUpGold);
-        adapterPick.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dropSpinner.setAdapter(adapterPick);
+        backBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(view.getContext(), OptionsTab.class);
+                startActivity(myIntent);
+            }
+        });
 
         pickUpItemBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +99,16 @@ public class InteractItem extends AppCompatActivity {
                     goldOnGround = asyncTask.get();
                     Toast.makeText(InteractItem.this, "There are " + goldOnGround + " gold on the region.", Toast.LENGTH_LONG).show();
 
+                    //Updates corresponding spinner for pick up gold
+                    ArrayList<Integer> spinnerPickUpGold = new ArrayList<Integer>();
+                    for (int i = 0; i <= goldOnGround; i++) {
+                        spinnerPickUpGold.add(i);
+                    }
+                    pickUpSpinner = findViewById(R.id.pickUpSpinner);
+                    ArrayAdapter<Integer> adapterPick = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerPickUpGold);
+                    adapterPick.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    pickUpSpinner.setAdapter(adapterPick);
 
-                    // change the spinner here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

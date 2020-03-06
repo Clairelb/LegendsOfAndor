@@ -41,7 +41,7 @@ public class HostLobby extends AppCompatActivity {
         //SET BUTTON TEXT FONT
         Typeface gothicFont = Typeface.createFromAsset(getApplicationContext().getAssets(), "LeagueGothic-Regular.otf");
         final EditText lobby_name = findViewById(R.id.lobby_name);
-        Button back_btn = findViewById(R.id.back_btn);
+        Button back_btn = findViewById(R.id.backBtn);
         Button create_lobby_btn = findViewById(R.id.create_lobby);
         back_btn.setTypeface(gothicFont);
         create_lobby_btn.setTypeface(gothicFont);
