@@ -10,23 +10,35 @@ import java.util.ArrayList;
 
 public class InteractItem extends AppCompatActivity {
 
-    private Spinner spinner;
+    private Spinner dropSpinner;
+    private Spinner pickUpSpinner;
     MyPlayer myPlayer = MyPlayer.getInstance();
     int playerGold = myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getGold();
+    int goldOnGround = 4; //NEED TO CHANGE FOR SERVER VALUE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.interact_item);
 
+        //Updates corresponding spinner for drop gold
         ArrayList<Integer> spinnerGoldDrop = new ArrayList<Integer>();
         for (int i = 0; i < playerGold; i++) {
             spinnerGoldDrop.add(i+1);
         }
-        spinner = (Spinner) findViewById(R.id.dropSpinner);
+        dropSpinner = (Spinner) findViewById(R.id.dropSpinner);
+        ArrayAdapter<Integer> adapterDrop = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerGoldDrop);
+        adapterDrop.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropSpinner.setAdapter(adapterDrop);
 
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerGoldDrop);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        //Updates corresponding spinner for pick up gold
+        ArrayList<Integer> spinnerPickUpGold = new ArrayList<Integer>();
+        for (int i = 0; i < goldOnGround; i++) {
+            spinnerPickUpGold.add(i+1);
+        }
+        pickUpSpinner = (Spinner) findViewById(R.id.pickUpSpinner);
+        ArrayAdapter<Integer> adapterPick = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerPickUpGold);
+        adapterPick.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dropSpinner.setAdapter(adapterPick);
     }
 }
