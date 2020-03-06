@@ -15,12 +15,11 @@ public class Item {
     public Item(ItemType itemType) {
         if (itemType == ItemType.WINESKIN) {
             uses = 2;
-        }
-        //falcon can only be used once per day
-        if (itemType == ItemType.FALCON){
+
+            //falcon can only be used once per day
+        } else if (itemType == ItemType.FALCON) {
             uses = 1;
-        }
-        if (itemType == ItemType.SHIELD){
+        } else if (itemType == ItemType.SHIELD){
             uses = 2;
         }
     }
