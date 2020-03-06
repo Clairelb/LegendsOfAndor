@@ -13,9 +13,9 @@
         android:id="@+id/tasksb"
         android:layout_width="135dp"
         android:layout_height="65dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginStart="524dp"
+        android:layout_marginLeft="524dp"
+        android:layout_marginTop="224dp"
         android:text="@string/Tasks"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,37 +26,21 @@
         android:id="@+id/characterb"
         android:layout_width="135dp"
         android:layout_height="65dp"
-        android:layout_marginStart="298dp"
-        android:layout_marginLeft="298dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="298dp"
-        android:layout_marginRight="298dp"
+        android:layout_marginTop="224dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:text="@string/Character"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Character" />
-
-    <Button
-        android:id="@+id/actionsb"
-        android:layout_width="135dp"
-        android:layout_height="65dp"
-        android:layout_marginTop="170dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginRight="160dp"
-        android:text="@string/Actions"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="Actions" />
 
     <Button
         android:id="@+id/savegameb"
         android:layout_width="135dp"
         android:layout_height="65dp"
-        android:layout_marginStart="160dp"
-        android:layout_marginLeft="160dp"
+        android:layout_marginStart="524dp"
+        android:layout_marginLeft="524dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="56dp"
         android:text="@string/SaveGame"
@@ -64,21 +48,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tasksb"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="Save Game" />
 
     <Button
         android:id="@+id/leavegameb"
         android:layout_width="135dp"
         android:layout_height="65dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="160dp"
-        android:layout_marginRight="160dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
         android:layout_marginBottom="56dp"
         android:text="@string/LeaveGame"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/actionsb"
+        app:layout_constraintTop_toBottomOf="@+id/characterb"
         tools:text="Leave Game" />
 
     <Button
@@ -92,6 +77,72 @@
         android:rotation="180"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/activateFog"
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/activate_fog"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/emptyWell"
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/empty_well"
+        app:layout_constraintStart_toEndOf="@+id/activateFog"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/interactItem"
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="128dp"
+        android:text="@string/interact_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/trade"
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="128dp"
+        android:text="@string/trade"
+        app:layout_constraintStart_toEndOf="@+id/interactItem"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/merchant"
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="204dp"
+        android:text="@string/merchant"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/useArticle"
+        android:layout_width="130dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="204dp"
+        android:text="@string/use_article"
+        app:layout_constraintStart_toEndOf="@+id/merchant"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

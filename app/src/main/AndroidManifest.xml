@@ -13,28 +13,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".InteractItem"
+            android:screenOrientation="sensorLandscape">
+        </activity>
+        <activity
             android:name=".WaitScreen"
             android:launchMode="singleInstance"
-            android:screenOrientation="sensorLandscape"></activity>
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="sensorLandscape">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ChatScreen"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Login"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".DistributeItems" android:screenOrientation="landscape"/>
-        <activity android:name=".DistributeItemsWaitPage" android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DistributeItems"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".DistributeItemsWaitPage"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".JoinLobby"
             android:screenOrientation="sensorLandscape" />
@@ -55,7 +63,7 @@
             android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".GameOver"
-            android:screenOrientation="sensorLandscape"/>
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name=".Character_Tab"
             android:screenOrientation="sensorLandscape" />

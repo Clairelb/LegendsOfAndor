@@ -75,7 +75,14 @@
     <string name="roll_dice">ROLL DICE</string>
     <string name="roll_enemy_dice">ROLL ENEMY DICE</string>
     <string name="enemy_name">ENEMY</string>
+    <string name="activate_fog">ACTIVATE FOG</string>
+    <string name="empty_well">EMPTY WELL</string>
+    <string name="interact_item">INTERACT ITEM</string>
+    <string name="trade">TRADE</string>
+    <string name="merchant">MERCHANT</string>
+    <string name="use_article">USE ARTICLE</string>
+    <string name="pick_up_item">PICK UP ITEM</string>
+    <string name="drop_item">DROP ITEM</string>
 
-    <string-array name="action">
-    </string-array>
+    <string-array name="action"></string-array>
 </resources>
