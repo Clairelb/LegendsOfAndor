@@ -698,12 +698,12 @@ public class MonsterFight extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            t.interrupt();
+
             Intent myIntent = new Intent(MonsterFight.this, Board.class);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(myIntent);
             finish();
-
-            t.interrupt();
 
             leaveExecuted = true;
         }

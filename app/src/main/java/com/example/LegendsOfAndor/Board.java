@@ -208,6 +208,8 @@ public class Board extends AppCompatActivity {
                                     if(game.getGoldenShields() <= 0){
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class );
+                                        gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++){
@@ -222,7 +224,12 @@ public class Board extends AppCompatActivity {
                                                     fight.setVisibility(View.INVISIBLE);
                                                     pass.setVisibility(View.INVISIBLE);
                                                     endDay.setVisibility(View.INVISIBLE);
-                                                    interruptThreadAndStartActivity(new Intent(Board.this, JoinFight.class));
+
+                                                    Intent joinFightIntent = new Intent(Board.this, JoinFight.class);
+                                                    joinFightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+
+                                                    interruptThreadAndStartActivity(joinFightIntent);
                                                 }
                                             }
                                         }
@@ -291,7 +298,11 @@ public class Board extends AppCompatActivity {
                     if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
                         Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
                         myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
-                        interruptThreadAndStartActivity(new Intent(Board.this, MonsterFight.class));
+
+                        Intent fightIntent = new Intent(Board.this, MonsterFight.class);
+                        fightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        interruptThreadAndStartActivity(fightIntent);
                     } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
@@ -374,12 +385,12 @@ public class Board extends AppCompatActivity {
 
 
     public void interruptThreadAndStartActivity(Intent myIntent){
+        t.interrupt();
         startActivity(myIntent);
         //if(t!= null || !t.isInterrupted()){
             //t.interrupt();
         //}
         finish();
-        t.interrupt();
     }
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent event) {
