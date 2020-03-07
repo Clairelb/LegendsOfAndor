@@ -323,16 +323,16 @@ public class MonsterFight extends AppCompatActivity {
                                             playersBattleValue.setText(Integer.toString(totalBV));
 
                                             for (Hero h : fight.getHeroes()) {
-                                                if (fight.getHeroesBattleScores().get(i) > 0) {
-                                                    if (i == 0) {
-                                                        player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                    } else if (i == 1) {
-                                                        player2BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                    } else if (i == 2) {
-                                                        player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                    } else { // i = 3
-                                                        player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                    }
+                                                //if (fight.getHeroesBattleScores().get(i) > 0) {
+                                                if (i == 0) {
+                                                    player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                } else if (i == 1) {
+                                                    player2BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                } else if (i == 2) {
+                                                    player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                } else { // i = 3
+                                                    player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+                                                    //}
                                                 }
 
                                                 int playerNum = i + 1;

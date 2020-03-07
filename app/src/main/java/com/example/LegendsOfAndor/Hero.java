@@ -7,8 +7,8 @@ import java.util.ArrayList;
 enum HeroClass {
     WARRIOR,ARCHER,DWARF,WIZARD
 }
-
-public class Hero extends Movable{
+public class Hero {
+//public class Hero extends Movable{
     private HeroClass heroClass;
     private int willPower;
     private int strength;
@@ -145,20 +145,20 @@ public class Hero extends Movable{
 
     public void setRank(int rank) { this.rank = rank; }
 
-        @Override
-    public boolean equals(Object o) {
-            if (o == this) {
-                return true;
-            }
-            if (!(o instanceof Hero)) {
-                return false;
-            }
-            Hero h = (Hero)o;
-            if(h.getHeroClass() == ((Hero) o).heroClass){
-                return true;
-            }
-            return false;
-    }
+//        @Override
+//    public boolean equals(Object o) {
+//            if (o == this) {
+//                return true;
+//            }
+//            if (!(o instanceof Hero)) {
+//                return false;
+//            }
+//            Hero h = (Hero)o;
+//            if(h.getHeroClass() == ((Hero) o).heroClass){
+//                return true;
+//            }
+//            return false;
+//    }
 
 
 }
