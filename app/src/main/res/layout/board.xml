@@ -141,9 +141,9 @@
         android:id="@+id/spText"
         android:layout_width="84dp"
         android:layout_height="30dp"
-        android:layout_marginStart="56dp"
-        android:layout_marginLeft="56dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="100dp"
         android:layout_marginRight="427dp"
         android:layout_marginBottom="31dp"
@@ -152,9 +152,16 @@
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
-        app:layout_constraintStart_toStartOf="@+id/toolbar2"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/endMove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Move"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDay" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

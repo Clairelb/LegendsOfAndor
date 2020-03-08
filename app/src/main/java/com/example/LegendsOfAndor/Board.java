@@ -17,7 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -31,6 +33,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +51,11 @@ enum EndDayResponses {
 enum MoveResponses {
     PICK_UP_FARMER, FARMERS_DIED, NO_OTHER_ACTIONS
 }
+enum EndMoveResponses {
+    BUY_FROM_MERCHANT, EMPTY_WELL, ACTIVATE_FOG, MOVE_ALREADY_ENDED, MUST_MOVE_TO_END_MOVE, NONE
+}
+
+
 
 
 //import static android.webkit.ConsoleMessage.MessageLevel.LOG;
@@ -62,12 +71,16 @@ public class Board extends AppCompatActivity {
     private Button endDay;
     private Button chatb;
     private Button optionsb;
+    private Button endMove;
+
     private Thread t;
-    boolean flag = true;
-    private RegionDatabase regionDatabase;
+    private boolean flag;
+
+    //private RegionDatabase regionDatabase;
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
     private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
+
 
     private Spinner sp;
 
@@ -75,7 +88,8 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        regionDatabase = new RegionDatabase();
+        //regionDatabase = new RegionDatabase();
+        flag = false;
         setContentView(R.layout.board);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final MyPlayer myPlayer = MyPlayer.getInstance();
@@ -87,9 +101,14 @@ public class Board extends AppCompatActivity {
         pass.setVisibility(View.INVISIBLE);
         endDay = findViewById(R.id.endDay);
         endDay.setVisibility(View.INVISIBLE);
+        endMove = findViewById(R.id.endMove);
+        endMove.setVisibility(View.INVISIBLE);
 
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
+
+        final TextView spText = findViewById(R.id.spText);
+        spText.setVisibility(View.INVISIBLE);
 
         sp=(Spinner)findViewById(R.id.sp);
         String[]ls=getResources().getStringArray(R.array.action);
@@ -99,6 +118,7 @@ public class Board extends AppCompatActivity {
         }
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
         sp.setAdapter(adapter);
+        sp.setPrompt("标题栏");
         sp.getSelectedItem();
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -129,13 +149,16 @@ public class Board extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 moveHero(myPlayer.getPlayer().getHero(),space);
-                }
+            }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
+        sp.setVisibility(View.INVISIBLE);
+        //final Toolbar toolbar2 = findViewById(R.id.toolbar2);
+        //toolbar2.setVisibility(View.INVISIBLE);
 
         hourLocation.put(0,new Integer[]{644,15});
         hourLocation.put(1,new Integer[]{892,15});
@@ -184,6 +207,7 @@ public class Board extends AppCompatActivity {
             fight.setVisibility(View.VISIBLE);
             pass.setVisibility(View.VISIBLE);
             endDay.setVisibility(View.VISIBLE);
+            endMove.setVisibility(View.VISIBLE);
 
         }
 
@@ -207,20 +231,53 @@ public class Board extends AppCompatActivity {
                                     if(game.getGoldenShields() <= 0){
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class );
+                                        gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
+                                        for(int i = 0; i < game.getCurrentNumPlayers(); i++){
+                                            //DRAW PLAYERS HERE
+                                            Hero h = game.getCurrentHero();
+                                            Integer s = h.getCurrentSpace();
+                                            moveHero(h,s);
+                                            //DRAW FARMERS HERE
+                                            //DRAW TIME MARKERS HERE
+                                        }
+                                        if(game.getCurrentFight() != null){
+                                            for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
+                                                if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
+                                                    move.setVisibility(View.INVISIBLE);
+                                                    fight.setVisibility(View.INVISIBLE);
+                                                    pass.setVisibility(View.INVISIBLE);
+                                                    endDay.setVisibility(View.INVISIBLE);
+                                                    endMove.setVisibility(View.INVISIBLE);
+
+
+                                                    Intent joinFightIntent = new Intent(Board.this, JoinFight.class);
+                                                    joinFightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+
+                                                    interruptThreadAndStartActivity(joinFightIntent);
+                                                }
+                                            }
+                                        }
                                         if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
                                             move.setVisibility(View.VISIBLE);
                                             fight.setVisibility(View.VISIBLE);
                                             pass.setVisibility(View.VISIBLE);
                                             endDay.setVisibility(View.VISIBLE);
+                                            endMove.setVisibility(View.VISIBLE);
+
                                         }else{
                                             move.setVisibility(View.INVISIBLE);
                                             fight.setVisibility(View.INVISIBLE);
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
+                                            endMove.setVisibility(View.INVISIBLE);
+
                                         }
+
                                     }
                                 }
                             });
@@ -242,10 +299,14 @@ public class Board extends AppCompatActivity {
                 adapter.clear();
                 int region = myPlayer.getPlayer().getHero().getCurrentSpace();
                 ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
-
-                for(Integer e: adjacentRegions){
+                //adapter.add("Not selected");
+                for(Integer e: adjacentRegions) {
                     adapter.add(e.toString());
                 }
+                sp.setVisibility(View.VISIBLE);
+                spText.setVisibility(View.VISIBLE);
+                //toolbar2.setVisibility(View.VISIBLE);
+                flag = true;
 
             }
         });
@@ -253,8 +314,7 @@ public class Board extends AppCompatActivity {
         chatb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
-                startActivity(myIntent);
+                interruptThreadAndStartActivity(new Intent(Board.this, ChatScreen.class));
             }
         });
 
@@ -270,9 +330,11 @@ public class Board extends AppCompatActivity {
                     if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
                         Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
                         myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
-                        t.interrupt();
-                        Intent myIntent = new Intent(v.getContext(), MonsterFight.class);
-                        startActivity(myIntent);
+
+                        Intent fightIntent = new Intent(Board.this, MonsterFight.class);
+                        fightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                        interruptThreadAndStartActivity(fightIntent);
                     } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
@@ -344,6 +406,35 @@ public class Board extends AppCompatActivity {
             }
         });;
 
+        endMove.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                try{
+                    AsyncTask<String, Void, EndMoveResponses> asyncTask;
+
+                    EndMoveSender endMoveSender = new EndMoveSender();
+                    asyncTask = endMoveSender.execute();
+                    if(asyncTask.get() == EndMoveResponses.ACTIVATE_FOG){
+                        Toast.makeText(Board.this,"You can activate an fog area",Toast.LENGTH_LONG);
+                    }else if(asyncTask.get() == EndMoveResponses.BUY_FROM_MERCHANT){
+                        Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG);
+                    }else if(asyncTask.get() == EndMoveResponses.EMPTY_WELL){
+                        Toast.makeText(Board.this,"You are in an area with a well",Toast.LENGTH_LONG);
+                    }else if(asyncTask.get() == EndMoveResponses.MOVE_ALREADY_ENDED){
+                        Toast.makeText(Board.this,"You have already ended the move",Toast.LENGTH_LONG);
+                    }else if(asyncTask.get() == EndMoveResponses.MUST_MOVE_TO_END_MOVE){
+                        Toast.makeText(Board.this,"You must move to end move",Toast.LENGTH_LONG);
+                    }else if(asyncTask.get() == EndMoveResponses.NONE){
+                        Toast.makeText(Board.this,"Successfully ended the move",Toast.LENGTH_LONG);
+                    }
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
         optionsb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -355,10 +446,14 @@ public class Board extends AppCompatActivity {
 
 
     public void interruptThreadAndStartActivity(Intent myIntent){
-        startActivity(myIntent);
         t.interrupt();
+        startActivity(myIntent);
+        //if(t!= null || !t.isInterrupted()){
+        //t.interrupt();
+        //}
+        finish();
     }
-//    @Override
+    //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent event) {
 ////        if(flag){
 ////            this.flag = false;
@@ -520,8 +615,6 @@ public class Board extends AppCompatActivity {
         }
     }
 
-
-
     private static class MoveSender extends AsyncTask<String, Void, MoveRC> {
         @Override
         protected MoveRC doInBackground(String... strings) {
@@ -543,22 +636,21 @@ public class Board extends AppCompatActivity {
         }
     }
 
-//    private static class MoveSender extends AsyncTask<String, Void, MoveResponses> {
-//        @Override
-//        protected MoveResponses doInBackground(String... strings) {
-//            MyPlayer myPlayer = MyPlayer.getInstance();
-//            HttpResponse<String> response;
-//
-//            try {
-//                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/move")
-//                        .asString();
-//                String resultAsJsonString = response.getBody();
-//
-//                return new Gson().fromJson(resultAsJsonString, MoveResponses.class);
-//            } catch (UnirestException e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//    }
+    private static class EndMoveSender extends AsyncTask<String, Void, EndMoveResponses>{
+        @Override
+        protected EndMoveResponses doInBackground(String... strings){
+            HttpResponse<String> response;
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            try{
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/endMove")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, EndMoveResponses.class);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }
