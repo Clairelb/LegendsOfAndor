@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 public class OptionsTab extends AppCompatActivity {
 
     @Override
+    public void onBackPressed(){}
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -31,6 +34,15 @@ public class OptionsTab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), Character_Tab.class);
+                startActivity(myIntent);
+            }
+        });
+
+        Button actionsb = (Button) findViewById(R.id.actionsb);
+        actionsb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), Free_Actions.class);
                 startActivity(myIntent);
             }
         });

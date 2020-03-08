@@ -70,6 +70,12 @@
         <activity
             android:name=".JoinFight"
             android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".Free_Actions"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".BuyFromMerchant"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

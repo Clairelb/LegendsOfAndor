@@ -40,7 +40,7 @@
     <string name="chat">CHAT</string>
     <string name="Back">BACK</string>
     <string name="Character">CHARACTER</string>
-    <string name="Actions">ACTIONS</string>
+    <string name="free_actions">FREE ACTIONS</string>
     <string name="Tasks">TASKS</string>
     <string name="Settings">SETTINGS</string>
     <string name="LeaveGame">LEAVE GAME</string>
@@ -71,7 +71,6 @@
     <string name="end_battle_round">END ROUND</string>
     <string name="calculate_battle_value">CALCULATE BATTLE VALUE</string>
     <string name="calculate_enemy_battle_value">CALCULATE ENEMY BATTLE VALUE</string>
-    <string name="willpower">WP</string>
     <string name="roll_dice">ROLL DICE</string>
     <string name="roll_enemy_dice">ROLL ENEMY DICE</string>
     <string name="enemy_name">ENEMY</string>
@@ -85,5 +84,15 @@
     <string name="drop_item">DROP ITEM</string>
     <string name="get_items">GET ITEMS</string>
 
+    <string name="willpower">WP</string>
+    <string name="price">2 gold / item</string>
+    <string name="bow">Bow</string>
+    <string name="helm">Helm</string>
+    <string name="telescope">Telescope</string>
+    <string name="shield">Shield</string>
+    <string name="falcon">Falcon</string>
+    <string name="wineskin">Wineskin</string>
+    <string name="add_drop_gold">ADD/DROP GOLD</string>
+    <string name="confirm">CONFIRM</string>
     <string-array name="action"></string-array>
 </resources>

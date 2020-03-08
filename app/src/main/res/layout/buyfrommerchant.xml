@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E82B2929"
+    tools:context=".BuyFromMerchant">
+
+    <ImageView
+        android:id="@+id/merchant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/merchant" />
+
+    <ImageButton
+        android:id="@+id/bow"
+        android:layout_width="82dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="22dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/shield"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bow" />
+
+    <ImageButton
+        android:id="@+id/shield"
+        android:layout_width="82dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginBottom="22dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bow"
+        app:srcCompat="@drawable/shield" />
+
+    <ImageButton
+        android:id="@+id/falcon"
+        android:layout_width="82dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginBottom="22dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shield"
+        app:srcCompat="@drawable/falcon" />
+
+    <ImageButton
+        android:id="@+id/SP"
+        android:layout_width="93dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginBottom="8dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/wineskin"
+        app:layout_constraintStart_toEndOf="@+id/falcon"
+        app:srcCompat="@drawable/sp" />
+
+    <ImageView
+        android:id="@+id/Gold"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coin" />
+
+    <TextView
+        android:id="@+id/Gold_Av"
+        android:layout_width="70dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="#CAB7B7"
+        android:textSize="36sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toStartOf="@+id/Gold"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:text="@string/price"
+        android:textColor="#cab7b7"
+        android:textSize="36sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/merchant"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/helm"
+        android:layout_width="91dp"
+        android:layout_height="73dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:layout_marginBottom="18dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/telescope"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/helm" />
+
+    <ImageButton
+        android:id="@+id/wineskin"
+        android:layout_width="76dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginRight="74dp"
+        android:layout_marginBottom="22dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/telescope"
+        app:layout_constraintStart_toEndOf="@+id/falcon"
+        app:srcCompat="@drawable/wineskin" />
+
+    <ImageButton
+        android:id="@+id/telescope"
+        android:layout_width="76dp"
+        android:layout_height="84dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginRight="85dp"
+        android:layout_marginBottom="22dp"
+        android:background="#00FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/telescope" />
+
+    <ImageButton
+        android:id="@+id/backb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#00FFFFFF"
+        android:rotation="180"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_icon" />
+
+    <Button
+        android:id="@+id/confirmb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:text="@string/confirm"
+        android:textSize="22sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Gold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
