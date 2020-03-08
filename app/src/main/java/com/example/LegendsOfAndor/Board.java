@@ -17,9 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,8 +32,6 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +45,7 @@ enum EndDayResponses {
 }
 
 enum MoveResponses {
-    NOT_IN_TURN, MOVE_SUCCESSFUL, ERROR
+    PICK_UP_FARMER, FARMERS_DIED, NO_OTHER_ACTIONS
 }
 
 
@@ -67,12 +63,11 @@ public class Board extends AppCompatActivity {
     private Button chatb;
     private Button optionsb;
     private Thread t;
-    private boolean flag;
-    //private RegionDatabase regionDatabase;
+    boolean flag = true;
+    private RegionDatabase regionDatabase;
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
     private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
-
 
     private Spinner sp;
 
@@ -80,8 +75,7 @@ public class Board extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //regionDatabase = new RegionDatabase();
-        flag = false;
+        regionDatabase = new RegionDatabase();
         setContentView(R.layout.board);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final MyPlayer myPlayer = MyPlayer.getInstance();
@@ -97,9 +91,6 @@ public class Board extends AppCompatActivity {
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
 
-        final TextView spText = findViewById(R.id.spText);
-        spText.setVisibility(View.INVISIBLE);
-
         sp=(Spinner)findViewById(R.id.sp);
         String[]ls=getResources().getStringArray(R.array.action);
 
@@ -108,35 +99,43 @@ public class Board extends AppCompatActivity {
         }
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
         sp.setAdapter(adapter);
-        sp.setPrompt("标题栏");
         sp.getSelectedItem();
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (flag)
-                {
-                    flag = false;
-                    if(adapter.getItem(position).contains("N"))
-                    {
-                        spText.setVisibility(View.INVISIBLE);
-                    }
-                    else {
-                        Integer space = Integer.parseInt(adapter.getItem(position));
-                        moveHero(myPlayer.getPlayer().getHero(), space);
-                        spText.setVisibility(View.INVISIBLE);
+
+                Integer space = Integer.parseInt(adapter.getItem(position));
+
+                try{
+                    AsyncTask<String, Void, MoveRC> asyncTask;
+                    MoveRC moveRC;
+
+                    MoveSender moveSender = new MoveSender();
+                    asyncTask = moveSender.execute(new Gson().toJson(space));
+                    Log.d("CHECK", "here");
+                    moveRC = asyncTask.get();
+                    if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER){
+                        Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
                     }
 
+                    if(moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
+                        Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG);
+                    }
+
+                    if(moveRC.getMoveResponses() == MoveResponses.NO_OTHER_ACTIONS){
+                        Toast.makeText(Board.this, "Please make your next move or end your move", Toast.LENGTH_LONG);
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
                 }
-            }
+                moveHero(myPlayer.getPlayer().getHero(),space);
+                }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-        sp.setVisibility(View.INVISIBLE);
-        //final Toolbar toolbar2 = findViewById(R.id.toolbar2);
-        //toolbar2.setVisibility(View.INVISIBLE);
 
         hourLocation.put(0,new Integer[]{644,15});
         hourLocation.put(1,new Integer[]{892,15});
@@ -208,31 +207,8 @@ public class Board extends AppCompatActivity {
                                     if(game.getGoldenShields() <= 0){
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class );
-                                        gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
-                                        for(int i = 0; i < game.getCurrentNumPlayers(); i++){
-                                            //DRAW PLAYERS HERE
-                                            //DRAW FARMERS HERE
-                                            //DRAW TIME MARKERS HERE
-                                        }
-                                        if(game.getCurrentFight() != null){
-                                            for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
-                                                if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
-                                                    move.setVisibility(View.INVISIBLE);
-                                                    fight.setVisibility(View.INVISIBLE);
-                                                    pass.setVisibility(View.INVISIBLE);
-                                                    endDay.setVisibility(View.INVISIBLE);
-
-                                                    Intent joinFightIntent = new Intent(Board.this, JoinFight.class);
-                                                    joinFightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-
-                                                    interruptThreadAndStartActivity(joinFightIntent);
-                                                }
-                                            }
-                                        }
                                         if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
                                             move.setVisibility(View.VISIBLE);
@@ -245,7 +221,6 @@ public class Board extends AppCompatActivity {
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
                                         }
-
                                     }
                                 }
                             });
@@ -267,14 +242,10 @@ public class Board extends AppCompatActivity {
                 adapter.clear();
                 int region = myPlayer.getPlayer().getHero().getCurrentSpace();
                 ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
-                adapter.add("Not selected");
-                for(Integer e: adjacentRegions) {
+
+                for(Integer e: adjacentRegions){
                     adapter.add(e.toString());
                 }
-                sp.setVisibility(View.VISIBLE);
-                spText.setVisibility(View.VISIBLE);
-                //toolbar2.setVisibility(View.VISIBLE);
-                flag = true;
 
             }
         });
@@ -282,7 +253,8 @@ public class Board extends AppCompatActivity {
         chatb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interruptThreadAndStartActivity(new Intent(Board.this, ChatScreen.class));
+                Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
+                startActivity(myIntent);
             }
         });
 
@@ -298,11 +270,9 @@ public class Board extends AppCompatActivity {
                     if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
                         Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
                         myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
-
-                        Intent fightIntent = new Intent(Board.this, MonsterFight.class);
-                        fightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-                        interruptThreadAndStartActivity(fightIntent);
+                        t.interrupt();
+                        Intent myIntent = new Intent(v.getContext(), MonsterFight.class);
+                        startActivity(myIntent);
                     } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
@@ -385,12 +355,8 @@ public class Board extends AppCompatActivity {
 
 
     public void interruptThreadAndStartActivity(Intent myIntent){
-        t.interrupt();
         startActivity(myIntent);
-        //if(t!= null || !t.isInterrupted()){
-            //t.interrupt();
-        //}
-        finish();
+        t.interrupt();
     }
 //    @Override
 //    public boolean dispatchTouchEvent(MotionEvent event) {
@@ -554,22 +520,45 @@ public class Board extends AppCompatActivity {
         }
     }
 
-    private static class MoveSender extends AsyncTask<String, Void, MoveResponses> {
+
+
+    private static class MoveSender extends AsyncTask<String, Void, MoveRC> {
         @Override
-        protected MoveResponses doInBackground(String... strings) {
+        protected MoveRC doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             HttpResponse<String> response;
 
             try {
                 response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/move")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
                         .asString();
                 String resultAsJsonString = response.getBody();
-
-                return new Gson().fromJson(resultAsJsonString, MoveResponses.class);
+                Log.d("BODY","RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, MoveRC.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
             return null;
         }
     }
+
+//    private static class MoveSender extends AsyncTask<String, Void, MoveResponses> {
+//        @Override
+//        protected MoveResponses doInBackground(String... strings) {
+//            MyPlayer myPlayer = MyPlayer.getInstance();
+//            HttpResponse<String> response;
+//
+//            try {
+//                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/move")
+//                        .asString();
+//                String resultAsJsonString = response.getBody();
+//
+//                return new Gson().fromJson(resultAsJsonString, MoveResponses.class);
+//            } catch (UnirestException e) {
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//    }
 }
