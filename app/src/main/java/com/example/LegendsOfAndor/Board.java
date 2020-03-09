@@ -242,7 +242,7 @@ public class Board extends AppCompatActivity {
                                     }else{
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++){
                                             //DRAW PLAYERS HERE
-                                            Hero h = game.getCurrentHero();
+                                            Hero h = game.getPlayers()[i].getHero();
                                             Integer s = h.getCurrentSpace();
                                             moveHero(h,s);
                                             //DRAW FARMERS HERE
