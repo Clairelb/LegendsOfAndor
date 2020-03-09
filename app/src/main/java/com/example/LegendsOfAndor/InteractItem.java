@@ -67,6 +67,8 @@ public class InteractItem extends AppCompatActivity {
                     PickUpGoldSender pickUpGoldSender = new PickUpGoldSender();
                     pickUpGoldSender.execute(pickUpSpinner.getSelectedItem().toString());
                     Toast.makeText(InteractItem.this, "Successfully picked up " + pickUpSpinner.getSelectedItem().toString() + " gold.", Toast.LENGTH_LONG).show();
+                    int amountPicked = Integer.parseInt(pickUpSpinner.getSelectedItem().toString());
+                    myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().setGold(playerGold + amountPicked);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -80,7 +82,8 @@ public class InteractItem extends AppCompatActivity {
                     DropGoldSender dropGoldSender = new DropGoldSender();
                     dropGoldSender.execute(dropSpinner.getSelectedItem().toString());
                     Toast.makeText(InteractItem.this, "Successfully dropped " + dropSpinner.getSelectedItem().toString() + " gold.", Toast.LENGTH_LONG).show();
-
+                    int amountDropped = Integer.parseInt(dropSpinner.getSelectedItem().toString());
+                    myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().setGold(playerGold - amountDropped);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
