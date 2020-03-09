@@ -615,7 +615,7 @@ public class Board extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pass")
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pass")
                         .asString();
                 String resultAsJsonString = response.getBody();
 
