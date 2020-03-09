@@ -241,7 +241,7 @@ public class Board extends AppCompatActivity {
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++){
-                                            //DRAW PLAYERS HERE
+                                            //DRAW PLAYERS HEREE
                                             Hero h = game.getPlayers()[i].getHero();
                                             Integer s = h.getCurrentSpace();
                                             moveHero(h,s);
