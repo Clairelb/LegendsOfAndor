@@ -1,66 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E82B2929">
-
-    <TextView
-        android:id="@+id/amt_gold_ar"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="37dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textColor="#CAB7B7"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gold_ar" />
-
-    <ImageView
-        android:id="@+id/warrior"
-        android:layout_width="146dp"
-        android:layout_height="164dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/warrior_male" />
+    android:background="#E82B2929"
+    tools:context=".Character_Tab">
 
     <ImageView
         android:id="@+id/archer"
         android:layout_width="146dp"
         android:layout_height="164dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginLeft="108dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/archer_female" />
 
-    <ImageView
-        android:id="@+id/mage"
-        android:layout_width="146dp"
-        android:layout_height="164dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginRight="44dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mage_female" />
-
-    <ImageView
-        android:id="@+id/dwarf"
-        android:layout_width="127dp"
-        android:layout_height="164dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginRight="58dp"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/dwarf_male" />
+    <TextView
+        android:id="@+id/amt_WP_war"
+        android:layout_width="43dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/willpower_war"
+        app:layout_constraintTop_toBottomOf="@+id/amt_SP_war" />
 
     <ImageView
         android:id="@+id/gold_war"
@@ -73,18 +44,71 @@
         app:layout_constraintTop_toBottomOf="@+id/willpower_war"
         app:srcCompat="@drawable/coin" />
 
+    <TextView
+        android:id="@+id/willpower_ar"
+        android:layout_width="43dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:text="@string/willpower"
+        android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/gold_ar"
+        app:layout_constraintStart_toEndOf="@+id/archer" />
+
+    <TextView
+        android:id="@+id/amt_gold_ar"
+        android:layout_width="43dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gold_ar" />
+
     <ImageView
         android:id="@+id/SP_war"
         android:layout_width="43dp"
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/willpower_war"
+        android:layout_marginTop="26dp"
         app:layout_constraintStart_toEndOf="@+id/warrior"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/sp" />
+
+    <TextView
+        android:id="@+id/amt_SP_ar"
+        android:layout_width="43dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/amt_WP_ar"
+        app:layout_constraintStart_toEndOf="@+id/SP_ar" />
+
+    <ImageView
+        android:id="@+id/SP_ar"
+        android:layout_width="43dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/willpower_ar"
+        app:layout_constraintStart_toEndOf="@+id/archer"
         app:srcCompat="@drawable/sp" />
 
     <TextView
@@ -93,27 +117,55 @@
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginTop="12dp"
         android:gravity="center"
         android:text="@string/willpower"
         android:textColor="#CAB7B7"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:fontFamily="@font/gothic"
         app:layout_constraintStart_toEndOf="@+id/warrior"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.245" />
+        app:layout_constraintTop_toBottomOf="@+id/SP_war" />
 
-    <ImageView
-        android:id="@+id/SP_ar"
+    <TextView
+        android:id="@+id/amt_SP_war"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/willpower_ar"
-        app:layout_constraintStart_toEndOf="@+id/archer"
-        app:layout_constraintTop_toBottomOf="@+id/gold_war"
-        app:srcCompat="@drawable/sp" />
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="26dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/SP_war"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/warrior"
+        android:layout_width="146dp"
+        android:layout_height="164dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginLeft="108dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/warrior_male" />
+
+    <TextView
+        android:id="@+id/amt_gold_war"
+        android:layout_width="43dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:gravity="center"
+        android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/gold_war"
+        app:layout_constraintTop_toBottomOf="@+id/amt_WP_war" />
 
     <ImageView
         android:id="@+id/gold_ar"
@@ -121,38 +173,57 @@
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/archer"
         app:srcCompat="@drawable/coin" />
 
     <TextView
-        android:id="@+id/willpower_ar"
+        android:id="@+id/amt_WP_ar"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginLeft="4dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
         android:gravity="center"
-        android:text="@string/willpower"
         android:textColor="#CAB7B7"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/archer"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/amt_gold_ar"
+        app:layout_constraintStart_toEndOf="@+id/willpower_ar" />
+
+    <ImageView
+        android:id="@+id/mage"
+        android:layout_width="146dp"
+        android:layout_height="164dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="104dp"
+        android:layout_marginRight="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752" />
+        app:srcCompat="@drawable/mage_female" />
+
+    <ImageView
+        android:id="@+id/dwarf"
+        android:layout_width="127dp"
+        android:layout_height="164dp"
+        android:layout_marginEnd="118dp"
+        android:layout_marginRight="118dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/dwarf_male" />
 
     <ImageView
         android:id="@+id/SP_mg"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="37dp"
+        android:layout_marginTop="26dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/willpower_mg"
         app:layout_constraintEnd_toStartOf="@+id/mage"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/sp" />
 
     <ImageView
@@ -170,108 +241,66 @@
         android:id="@+id/willpower_mg"
         android:layout_width="43dp"
         android:layout_height="40dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:gravity="center"
         android:text="@string/willpower"
         android:textColor="#CAB7B7"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:fontFamily="@font/gothic"
         app:layout_constraintEnd_toStartOf="@+id/mage"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.247" />
+        app:layout_constraintTop_toBottomOf="@+id/SP_mg" />
 
     <TextView
         android:id="@+id/willpower_dw"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="12dp"
         android:gravity="center"
         android:text="@string/willpower"
         android:textColor="#CAB7B7"
         android:textSize="21sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/dwarf"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.752" />
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/gold_dw"
+        app:layout_constraintEnd_toStartOf="@+id/dwarf" />
 
     <ImageView
         android:id="@+id/SP_dw"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toTopOf="@+id/willpower_dw"
         app:layout_constraintEnd_toStartOf="@+id/dwarf"
-        app:layout_constraintTop_toBottomOf="@+id/gold_mg"
         app:srcCompat="@drawable/sp" />
 
     <ImageView
         android:id="@+id/gold_dw"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/dwarf"
         app:srcCompat="@drawable/coin" />
 
     <TextView
-        android:id="@+id/amt_SP_war"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="36dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textColor="#CAB7B7"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/SP_war"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/amt_WP_war"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textColor="#CAB7B7"
-        app:layout_constraintBottom_toTopOf="@+id/amt_gold_war"
-        app:layout_constraintStart_toEndOf="@+id/willpower_war"
-        app:layout_constraintTop_toBottomOf="@+id/amt_SP_war" />
-
-    <TextView
-        android:id="@+id/amt_gold_war"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="15dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textColor="#CAB7B7"
-        app:layout_constraintStart_toEndOf="@+id/gold_war"
-        app:layout_constraintTop_toBottomOf="@+id/amt_WP_war" />
-
-    <TextView
         android:id="@+id/amt_SP_mg"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:ems="10"
         android:gravity="center"
         android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
         app:layout_constraintEnd_toStartOf="@+id/SP_mg"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -279,14 +308,14 @@
         android:id="@+id/amt_WP_mg"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:ems="10"
         android:gravity="center"
         android:textColor="#CAB7B7"
-        app:layout_constraintBottom_toTopOf="@+id/amt_gold_mg"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
         app:layout_constraintEnd_toStartOf="@+id/willpower_mg"
         app:layout_constraintTop_toBottomOf="@+id/amt_SP_mg" />
 
@@ -294,66 +323,44 @@
         android:id="@+id/amt_gold_mg"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
         android:ems="10"
         android:gravity="center"
         android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
         app:layout_constraintEnd_toStartOf="@+id/gold_mg"
         app:layout_constraintTop_toBottomOf="@+id/amt_WP_mg" />
-
-    <TextView
-        android:id="@+id/amt_SP_ar"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="38dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textColor="#CAB7B7"
-        app:layout_constraintStart_toEndOf="@+id/SP_ar"
-        app:layout_constraintTop_toBottomOf="@+id/amt_gold_war" />
-
-    <TextView
-        android:id="@+id/amt_WP_ar"
-        android:layout_width="43dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:ems="10"
-        android:gravity="center"
-        android:textColor="#CAB7B7"
-        app:layout_constraintBottom_toTopOf="@+id/amt_gold_ar"
-        app:layout_constraintStart_toEndOf="@+id/willpower_ar"
-        app:layout_constraintTop_toBottomOf="@+id/amt_SP_ar" />
 
     <TextView
         android:id="@+id/amt_SP_dw"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="15dp"
         android:ems="10"
         android:gravity="center"
         android:textColor="#CAB7B7"
-        app:layout_constraintEnd_toStartOf="@+id/SP_dw"
-        app:layout_constraintTop_toBottomOf="@+id/amt_gold_mg" />
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/amt_WP_dw"
+        app:layout_constraintEnd_toStartOf="@+id/SP_dw" />
 
     <TextView
         android:id="@+id/amt_gold_dw"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="37dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="24dp"
         android:ems="10"
         android:gravity="center"
         android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/gold_dw" />
 
@@ -361,35 +368,28 @@
         android:id="@+id/amt_WP_dw"
         android:layout_width="43dp"
         android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="12dp"
         android:ems="10"
         android:gravity="center"
         android:textColor="#CAB7B7"
+        android:textSize="21sp"
+        app:fontFamily="@font/gothic"
         app:layout_constraintBottom_toTopOf="@+id/amt_gold_dw"
-        app:layout_constraintEnd_toStartOf="@+id/willpower_dw"
-        app:layout_constraintTop_toBottomOf="@+id/amt_SP_dw" />
+        app:layout_constraintEnd_toStartOf="@+id/willpower_dw" />
 
     <ImageButton
         android:id="@+id/backb"
         android:layout_width="45dp"
         android:layout_height="29dp"
-        android:layout_marginStart="682dp"
-        android:layout_marginLeft="682dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:layout_marginBottom="5dp"
         android:background="#00FFFFFF"
         android:rotation="180"
-        app:layout_constraintBottom_toTopOf="@+id/mage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/back_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

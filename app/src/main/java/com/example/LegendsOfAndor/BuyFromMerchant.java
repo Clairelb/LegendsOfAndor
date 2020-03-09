@@ -141,7 +141,18 @@ public class BuyFromMerchant extends AppCompatActivity {
                     buyFromMerchantResponses = asyncTask.get();
                     if (buyFromMerchantResponses == BuyFromMerchantResponses.SUCCESS) {
                         Toast.makeText(BuyFromMerchant.this, "Purchase Successful", Toast.LENGTH_LONG).show();
-                        //gold_av.setText(String.valueOf(player.getHero().getGold()));
+                        try{
+                            AsyncTask<String, Void, Game> asyncTask1;
+                            Game gameToSet;
+                            GetGame getGame = new GetGame();
+                            asyncTask1 = getGame.execute();
+                            gameToSet = asyncTask1.get();
+                            System.out.println(gameToSet);
+                            MyPlayer.getInstance().setGame(gameToSet);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        gold_av.setText(String.valueOf(MyPlayer.getInstance().getGame().getSinglePlayer(MyPlayer.getInstance().getPlayer().getUsername()).getHero().getGold()));
                     }
                     else if (buyFromMerchantResponses == BuyFromMerchantResponses.NOT_ENOUGH_GOLD){
                         Toast.makeText(BuyFromMerchant.this, "Purchase Failed. Not Enough Gold", Toast.LENGTH_LONG).show();
