@@ -39,6 +39,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 enum PassResponses {
     PASS_SUCCESSFUL, MUST_END_DAY, ONLY_PLAYER_LEFT, NOT_CURRENT_TURN, DAY_ENDED, PASS_SUCCESSFUL_WP_DEDUCTED
@@ -55,6 +56,10 @@ enum EndMoveResponses {
     BUY_FROM_MERCHANT, EMPTY_WELL, ACTIVATE_FOG, MOVE_ALREADY_ENDED, MUST_MOVE_TO_END_MOVE, NONE
 }
 
+
+enum GetAvailableRegionsReponses {
+    NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_AFTER_FIGHT, SUCCESS
+}
 
 
 
@@ -296,17 +301,42 @@ public class Board extends AppCompatActivity {
         move.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                adapter.clear();
-                int region = myPlayer.getPlayer().getHero().getCurrentSpace();
-                ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
-                //adapter.add("Not selected");
-                for(Integer e: adjacentRegions) {
-                    adapter.add(e.toString());
+
+                try{
+                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask;
+                    GetRegionsSender getRegionsSender = new GetRegionsSender();
+
+                    asyncTask = getRegionsSender.execute();
+                    GetAvailableRegionsRC availableRegions = asyncTask.get();
+                            Log.d("REGION",availableRegions.getResponse().toString());
+
+                    adapter.clear();
+
+                    ArrayList<Integer> available = availableRegions.getRegions();
+                    for(Integer i: available){
+                        adapter.add(i.toString());
+                    }
+                    adapter.notifyDataSetChanged();
+                    sp.setAdapter(adapter);
+                    sp.setVisibility(View.VISIBLE);
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
                 }
-                sp.setVisibility(View.VISIBLE);
-                spText.setVisibility(View.VISIBLE);
-                //toolbar2.setVisibility(View.VISIBLE);
-                flag = true;
+
+//                adapter.clear();
+//                int region = myPlayer.getPlayer().getHero().getCurrentSpace();
+//                ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
+//                //adapter.add("Not selected");
+//                for(Integer e: adjacentRegions) {
+//                    adapter.add(e.toString());
+//                }
+//                sp.setVisibility(View.VISIBLE);
+//                spText.setVisibility(View.VISIBLE);
+//                //toolbar2.setVisibility(View.VISIBLE);
+//                flag = true;
 
             }
         });
@@ -415,6 +445,7 @@ public class Board extends AppCompatActivity {
 
                     EndMoveSender endMoveSender = new EndMoveSender();
                     asyncTask = endMoveSender.execute();
+                    Log.d("EndMove", asyncTask.get().toString());
                     if(asyncTask.get() == EndMoveResponses.ACTIVATE_FOG){
                         Toast.makeText(Board.this,"You can activate an fog area",Toast.LENGTH_LONG);
                     }else if(asyncTask.get() == EndMoveResponses.BUY_FROM_MERCHANT){
@@ -425,7 +456,7 @@ public class Board extends AppCompatActivity {
                         Toast.makeText(Board.this,"You have already ended the move",Toast.LENGTH_LONG);
                     }else if(asyncTask.get() == EndMoveResponses.MUST_MOVE_TO_END_MOVE){
                         Toast.makeText(Board.this,"You must move to end move",Toast.LENGTH_LONG);
-                    }else if(asyncTask.get() == EndMoveResponses.NONE){
+                    }else {
                         Toast.makeText(Board.this,"Successfully ended the move",Toast.LENGTH_LONG);
                     }
 
@@ -584,7 +615,7 @@ public class Board extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pass")
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pass")
                         .asString();
                 String resultAsJsonString = response.getBody();
 
@@ -646,6 +677,23 @@ public class Board extends AppCompatActivity {
                         .asString();
                 String resultAsJsonString = response.getBody();
                 return new Gson().fromJson(resultAsJsonString, EndMoveResponses.class);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class GetRegionsSender extends AsyncTask<String, Void, GetAvailableRegionsRC>{
+        @Override
+        protected GetAvailableRegionsRC doInBackground(String... strings){
+            HttpResponse<String> response;
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            try{
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getAvailableRegions")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, GetAvailableRegionsRC.class);
             }catch(Exception e){
                 e.printStackTrace();
             }
