@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
 
-
     <Button
         android:id="@+id/move"
         android:layout_width="wrap_content"
@@ -14,16 +13,8 @@
         android:text="move"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></Button>
-
-    <Button
-        android:id="@+id/fight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="fight"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/move"></Button>
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.415"></Button>
 
     <Button
         android:id="@+id/pass"
@@ -33,7 +24,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/fight"></Button>
 
+    <Button
+        android:id="@+id/fight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="fight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/move"></Button>
 
+    <Button
+        android:id="@+id/endMove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End Move"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/endDay" />
 
     <Button
         android:id="@+id/endDay"
@@ -154,14 +159,6 @@
         app:layout_constraintEnd_toEndOf="@+id/toolbar2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/endMove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="End Move"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/endDay" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
