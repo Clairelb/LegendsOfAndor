@@ -108,7 +108,7 @@ public class DistributeItemsFight extends AppCompatActivity {
                 int arch_willpower = Integer.parseInt(archerWillpower.getSelectedItem().toString());
                 int dwarf_willpower = Integer.parseInt(dwarfWillpower.getSelectedItem().toString());
 
-                if((war_gold + arch_gold + wiz_gold + dwarf_gold == 2) && (wiz_willpower+war_willpower+arch_willpower+dwarf_willpower == 2)){
+                if((war_gold + arch_gold + wiz_gold + dwarf_gold == currentGame.getCurrentFight().getCreature().getGoldReward()) && (wiz_willpower+war_willpower+arch_willpower+dwarf_willpower == currentGame.getCurrentFight().getCreature().getWillpowerReward())){
                     FightDistribution fightDistribution = new FightDistribution();
                     fightDistribution.setArcherGold(arch_gold);
                     fightDistribution.setArcherWillpower(arch_willpower);
@@ -120,10 +120,20 @@ public class DistributeItemsFight extends AppCompatActivity {
                     fightDistribution.setWizardWillpower(wiz_willpower);
                     //SEND DISTRIBUTION TO SERVER
 
+                    try {
+                        DistributeAfterFightSender distributeAfterFightSender = new DistributeAfterFightSender();
+                        distributeAfterFightSender.execute(new Gson().toJson(fightDistribution));
+
+                        Toast.makeText(DistributeItemsFight.this, "Distribution successful. Going back to the board...", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(DistributeItemsFight.this, Board.class));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     //IF DISTRIBUTION OK, GO BACK TO BOARD
 
                 }else{
-                    Toast.makeText(DistributeItemsFight.this, "Invalid distribution. Please try again", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DistributeItemsFight.this, "Invalid distribution. Please try again.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -153,6 +163,24 @@ public class DistributeItemsFight extends AppCompatActivity {
                 String resultAsJsonString = response.getBody();
                 System.out.println("RESPONSE BODY " + response.getBody());
                 return new Gson().fromJson(resultAsJsonString, Game.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class DistributeAfterFightSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+
+            try {
+                Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/distributeAfterFight")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+
             } catch (UnirestException e) {
                 e.printStackTrace();
             }

@@ -71,6 +71,9 @@
             android:name=".JoinFight"
             android:screenOrientation="sensorLandscape" />
         <activity
+            android:name=".DistributeItemsFight"
+            android:screenOrientation="sensorLandscape" />
+        <activity
             android:name=".Free_Actions"
             android:screenOrientation="sensorLandscape" />
         <activity

@@ -282,10 +282,12 @@ public class MonsterFight extends AppCompatActivity {
                                             }
                                         }
                                         if(fight.getCreature().getWillpower() <= 0){
-                                            if(fight.getHeroes().get(0).getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
-                                                interruptThreadAndGoToDistributeFight();
-                                            }else{
-                                                interruptThreadAndGoToBoard();
+                                            if (fight.getHeroes().size() > 0) {
+                                                if (fight.getHeroes().get(0).getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+                                                    interruptThreadAndGoToDistributeFight();
+                                                } else {
+                                                    interruptThreadAndGoToBoard();
+                                                }
                                             }
                                         }else if (heroFound) {
                                             for (int i = 0; i < fight.getHeroes().size(); i++) {
