@@ -161,7 +161,13 @@ public class DistributeItemsWaitPage extends AppCompatActivity {
     }
 
     public void interruptThreadAndStartChat(Boolean isThreadRunning) {
-        startActivityForResult(new Intent(DistributeItemsWaitPage.this, ChatScreen.class), 1);
+        Bundle bundle = new Bundle();
+        bundle.putString("key1", new Gson().toJson(PreviousPage.DISTRIBUTE_ITEMS_WAIT_PAGE));
+        Intent intent = new Intent(DistributeItemsWaitPage.this, ChatScreen.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
         if(isThreadRunning){
             t.interrupt();
         }

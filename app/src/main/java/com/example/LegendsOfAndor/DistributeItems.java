@@ -196,8 +196,12 @@ public class DistributeItems extends AppCompatActivity {
         chatb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), ChatScreen.class);
-                startActivity(myIntent);
+                Bundle bundle = new Bundle();
+                bundle.putString("key1", new Gson().toJson(PreviousPage.DISTRIBUTE_ITEMS));
+                Intent intent = new Intent(DistributeItems.this, ChatScreen.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

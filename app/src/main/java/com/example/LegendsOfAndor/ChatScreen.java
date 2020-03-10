@@ -1,5 +1,6 @@
 package com.example.LegendsOfAndor;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -18,6 +19,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+enum PreviousPage {
+    BOARD, DISTRIBUTE_ITEMS_WAIT_PAGE, DISTRIBUTE_ITEMS, DISTRIBUTE_ITEMS_FIGHT
+}
+
 public class ChatScreen extends AppCompatActivity { // stop thread after back button clicked, test again later TEST AFTER JOIN GAME IS DONE
     private EditText editText;
     private ImageButton sendButton;
@@ -28,12 +33,16 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
     private MyPlayer myPlayer = MyPlayer.getInstance();
 
     private Thread t;
+    private PreviousPage previousPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //display chat screen page
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chat_screen);
+
+        Bundle bundle = getIntent().getExtras();
+        previousPage = new Gson().fromJson(bundle.getString("key1"), PreviousPage.class);
 
         username = MyPlayer.getInstance().getPlayer().getUsername();
         password = MyPlayer.getInstance().getPlayer().getPassword();
@@ -138,6 +147,20 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
     @Override
     public void onBackPressed() {
         t.interrupt();
+
+        Intent intent;
+
+        if (previousPage == PreviousPage.BOARD) {
+            intent = new Intent(ChatScreen.this, Board.class);
+        } else if (previousPage == PreviousPage.DISTRIBUTE_ITEMS) {
+            intent = new Intent(ChatScreen.this, DistributeItems.class);
+        } else if (previousPage == PreviousPage.DISTRIBUTE_ITEMS_WAIT_PAGE) {
+            intent = new Intent(ChatScreen.this, DistributeItemsWaitPage.class);
+        } else { // DISTRIBUTE_ITEMS_FIGHT
+            intent = new Intent(ChatScreen.this, DistributeItemsFight.class);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         setResult(RESULT_OK);
         finish();
     }

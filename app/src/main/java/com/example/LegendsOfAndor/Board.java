@@ -344,7 +344,12 @@ public class Board extends AppCompatActivity {
         chatb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                interruptThreadAndStartActivity(new Intent(Board.this, ChatScreen.class));
+                Bundle bundle = new Bundle();
+                bundle.putString("key1", new Gson().toJson(PreviousPage.BOARD));
+                Intent intent = new Intent(Board.this, ChatScreen.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtras(bundle);
+                interruptThreadAndStartActivity(intent);
             }
         });
 
