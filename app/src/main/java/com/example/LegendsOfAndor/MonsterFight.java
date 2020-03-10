@@ -267,6 +267,7 @@ public class MonsterFight extends AppCompatActivity {
 
                         if(response.getCode() == 200){
                             final Game game = new Gson().fromJson(response.getBody(), Game.class);
+                            myPlayer.setGame(game);
                             final Fight fight = game.getCurrentFight();
                             MyPlayer.getInstance().setGame(game);
 
@@ -280,8 +281,13 @@ public class MonsterFight extends AppCompatActivity {
                                                 heroFound = true;
                                             }
                                         }
-
-                                        if (heroFound) {
+                                        if(fight.getCreature().getWillpower() <= 0){
+                                            if(fight.getHeroes().get(0).getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
+                                                interruptThreadAndGoToDistributeFight();
+                                            }else{
+                                                interruptThreadAndGoToBoard();
+                                            }
+                                        }else if (heroFound) {
                                             for (int i = 0; i < fight.getHeroes().size(); i++) {
                                                 Hero currentPlayer = fight.getHeroes().get(i);
                                                 int playerNumber = i + 1;
@@ -701,6 +707,26 @@ public class MonsterFight extends AppCompatActivity {
             t.interrupt();
 
             Intent myIntent = new Intent(MonsterFight.this, Board.class);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myIntent);
+            finish();
+
+            leaveExecuted = true;
+        }
+    }
+
+    public void interruptThreadAndGoToDistributeFight() {
+        if (!leaveExecuted) {
+            try {
+                LeaveFightSender leaveFightSender = new LeaveFightSender();
+                leaveFightSender.execute("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            t.interrupt();
+
+            Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(myIntent);
             finish();
