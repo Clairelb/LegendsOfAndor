@@ -24,9 +24,6 @@ public class FarmerInteract extends AppCompatActivity {
     private Spinner pickUpFarmerSpinner;
     private Spinner dropFarmerSpinner;
 
-    private Button getFarmerBTN;
-    private Button getMyFarmersBTN;
-
     MyPlayer myPlayer = MyPlayer.getInstance();
 
     ArrayList<Farmer> farmersOnSpace = new ArrayList<Farmer>();
@@ -56,7 +53,7 @@ public class FarmerInteract extends AppCompatActivity {
                 try {
                     PickUpFarmersSender pickUpFarmersSender = new PickUpFarmersSender();
                     pickUpFarmersSender.execute(pickUpFarmerSpinner.getSelectedItem().toString());
-                    Toast.makeText(FarmerInteract.this, "Successfully picked up farmer.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FarmerInteract.this, "Picked up " + pickUpFarmerSpinner.getSelectedItem().toString() + " farmer.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -71,7 +68,7 @@ public class FarmerInteract extends AppCompatActivity {
                 try {
                     DropFarmersSender dropFarmersSender = new DropFarmersSender();
                     dropFarmersSender.execute(dropFarmerSpinner.getSelectedItem().toString());
-                    Toast.makeText(FarmerInteract.this, "Successfully dropped farmer.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(FarmerInteract.this, "Dropped " + dropFarmerSpinner.getSelectedItem().toString() + " farmer.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -91,7 +88,6 @@ public class FarmerInteract extends AppCompatActivity {
                     farmersOnSpace = asyncTask.get();
                     Toast.makeText(FarmerInteract.this, "There are " + farmersOnSpace.size() + " farmers on the region.", Toast.LENGTH_LONG).show();
 
-                    //Updates corresponding spinner for pick up gold
                     ArrayList<Integer> spinnerNumFarmers = new ArrayList<Integer>();
                     for (int i = 0; i <= farmersOnSpace.size(); i++) {
                         spinnerNumFarmers.add(i);
@@ -182,7 +178,7 @@ public class FarmerInteract extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getMyFarmers")
+                response = Unirest.get("http://"+ myPlayer.getServerIP()+":8080/"+ myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getMyFarmers")
                         .asString();
 
                 String resultAsJsonString = response.getBody();
@@ -201,7 +197,7 @@ public class FarmerInteract extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getFarmers")
+                response = Unirest.get("http://"+ myPlayer.getServerIP()+":8080/"+ myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getFarmers")
                         .asString();
 
                 String resultAsJsonString = response.getBody();
