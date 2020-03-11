@@ -22,27 +22,83 @@
     <Button
         android:id="@+id/pickUpFarmer"
         android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
-        android:layout_marginLeft="140dp"
-        android:layout_marginBottom="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/pick_up_farmer"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/dropFarmer"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="140dp"
-        android:layout_marginRight="140dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="150dp"
         android:fontFamily="@font/gothic"
         android:gravity="center"
         android:text="@string/drop_farmer"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/dropFarmerSpinner"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:layout_marginBottom="150dp"
+        android:background="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/getFarmers"
+        app:layout_constraintStart_toEndOf="@+id/dropFarmer" />
+
+    <Spinner
+        android:id="@+id/pickUpFarmerSpinner"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:background="@color/gray"
+        app:layout_constraintEnd_toStartOf="@+id/getMyFarmer"
+        app:layout_constraintStart_toEndOf="@+id/pickUpFarmer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/getMyFarmer"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/get_my_farmer"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/getFarmers"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginRight="100dp"
+        android:layout_marginBottom="150dp"
+        android:fontFamily="@font/gothic"
+        android:gravity="center"
+        android:text="@string/get_farmers"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

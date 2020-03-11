@@ -228,6 +228,7 @@ public class RegionDatabase {
         // TEST!!!!!!!!!!!!!!!!!!!!!!!
         regionDatabase.get(25).getFarmers().add(new Farmer(false));
         // TEST!!!!!!!!!!!!!!!!!!!!!!!
+
         regionDatabase.get(24).getFarmers().add(new Farmer(false));
         if (difficulty == Difficulty.EASY) {
             regionDatabase.get(36).getFarmers().add(new Farmer(false));

@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,18 +21,23 @@ import java.util.ArrayList;
 
 public class FarmerInteract extends AppCompatActivity {
 
+    private Spinner pickUpFarmerSpinner;
+    private Spinner dropFarmerSpinner;
+
+    private Button getFarmerBTN;
+    private Button getMyFarmersBTN;
+
     MyPlayer myPlayer = MyPlayer.getInstance();
+
+    ArrayList<Farmer> farmersOnSpace = new ArrayList<Farmer>();
+    ArrayList<Farmer> farmersCarried = new ArrayList<Farmer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.farmer_interact);
 
-        final int currentSpace = myPlayer.getGame().getCurrentHero().getCurrentSpace();
-        final Region currentRegion = myPlayer.getGame().getRegionDatabase().getRegion(currentSpace);
-        final ArrayList<Farmer> currentFarmers = currentRegion.getFarmers();
 
-//        ArrayList<Farmer> currentFarmers = myPlayer.getGame().getCurrentHero().getFar
 
         Button backb = findViewById(R.id.backb);
         backb.setOnClickListener(new View.OnClickListener() {
@@ -41,62 +48,95 @@ public class FarmerInteract extends AppCompatActivity {
             }
         });
 
-
-        //Need to remove the farmer from the current space, update boolean status of farmer
         Button pickUp = findViewById(R.id.pickUpFarmer);
         pickUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 try {
-                    PickUpFarmersSender pickUpGoldSender = new PickUpFarmersSender();
+                    PickUpFarmersSender pickUpFarmersSender = new PickUpFarmersSender();
+                    pickUpFarmersSender.execute(pickUpFarmerSpinner.getSelectedItem().toString());
                     Toast.makeText(FarmerInteract.this, "Successfully picked up farmer.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //if Boolean isBeingCarried is false and farmer exists on current,. Else output toast message
-//                if (currentFarmers.get(0) != null) {//exists a farmer on space
-//                    //player is not already carrying farmer
-//                    if (myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getFarmers().isEmpty()) {
-//                        ArrayList<Farmer> carriedFarmer = new ArrayList<Farmer>();
-//                        carriedFarmer.add(currentFarmers.get(0));
-//                        //****HOW TO CHECK FARMER ISBEINGCARRIED BOOLEAN****
-//                        currentFarmers.remove(0);//remove farmer from current space
-//                        //set current player with arraylist containing removed farmer from current space
-//                        myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().setFarmers(carriedFarmer);
-//                        Toast.makeText(FarmerInteract.this, "Picked up farmer", Toast.LENGTH_LONG).show();
-//                    }
-//                } else {
-//                    Toast.makeText(FarmerInteract.this, "There are no farmers to pick up.", Toast.LENGTH_LONG).show();
-//                }
             }
         });
 
-        //Need to add farmer to the current space, update boolean status of farmer
         Button drop = findViewById(R.id.dropFarmer);
+        dropFarmerSpinner = findViewById(R.id.dropFarmerSpinner);
         drop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    DropFarmersSender dropGoldSender = new DropFarmersSender();
-//                    dropGoldSender.execute(dropSpinner.getSelectedItem().toString());
+                    DropFarmersSender dropFarmersSender = new DropFarmersSender();
+                    dropFarmersSender.execute(dropFarmerSpinner.getSelectedItem().toString());
                     Toast.makeText(FarmerInteract.this, "Successfully dropped farmer.", Toast.LENGTH_LONG).show();
-//                    int amountDropped = Integer.parseInt(dropSpinner.getSelectedItem().toString());
-//                    myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().setGold(playerGold - amountDropped);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //if Boolean isBeingCarried is true, drop farmer on current space
-//                if (myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getFarmers().size() == 1) {
-//                    //Get the farmer being carried by the current hero, and place it on the current region farmer arraylist
-//                    currentRegion.getFarmers().add(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getFarmers().get(0));
-//                    //Removes the farmer being carried by the current player from their farmer arraylist
-//                    myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getFarmers().remove(0);
-//                } else {
-//                    Toast.makeText(FarmerInteract.this, "No farmer being carried.", Toast.LENGTH_LONG).show();
-//                }
             }
         });
+
+        Button getFarmers = findViewById(R.id.getFarmers);
+        getFarmers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    AsyncTask<String, Void, ArrayList<Farmer>> asyncTask;
+
+                    FarmerInteract.GetFarmersSender getFarmersSender = new FarmerInteract.GetFarmersSender();
+                    asyncTask = getFarmersSender.execute("");
+
+                    farmersOnSpace = asyncTask.get();
+                    Toast.makeText(FarmerInteract.this, "There are " + farmersOnSpace.size() + " farmers on the region.", Toast.LENGTH_LONG).show();
+
+                    //Updates corresponding spinner for pick up gold
+                    ArrayList<Integer> spinnerNumFarmers = new ArrayList<Integer>();
+                    for (int i = 0; i <= farmersOnSpace.size(); i++) {
+                        spinnerNumFarmers.add(i);
+                    }
+                    pickUpFarmerSpinner = findViewById(R.id.pickUpFarmerSpinner);
+                    ArrayAdapter<Integer> adapterPick = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerNumFarmers);
+                    adapterPick.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    pickUpFarmerSpinner.setAdapter(adapterPick);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Button getMyFarmers = findViewById(R.id.getMyFarmer);
+        getMyFarmers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    AsyncTask<String, Void, ArrayList<Farmer>> asyncTask;
+
+                    FarmerInteract.GetMyFarmersSender getMyFarmersSender = new FarmerInteract.GetMyFarmersSender();
+                    asyncTask = getMyFarmersSender.execute("");
+
+                    farmersCarried = asyncTask.get();
+                    Toast.makeText(FarmerInteract.this, "You are carrying " + farmersCarried.size() + " farmers.", Toast.LENGTH_LONG).show();
+
+
+                    ArrayList<Integer> spinnerNumFarmers = new ArrayList<Integer>();
+                    for (int i = 0; i <= farmersCarried.size(); i++) {
+                        spinnerNumFarmers.add(i);
+                    }
+                    dropFarmerSpinner = findViewById(R.id.dropFarmerSpinner);
+                    ArrayAdapter<Integer> adapterPick = new ArrayAdapter<Integer>(getApplicationContext(), android.R.layout.simple_spinner_dropdown_item, spinnerNumFarmers);
+                    adapterPick.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    dropFarmerSpinner.setAdapter(adapterPick);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
     }
 
     private static class DropFarmersSender extends AsyncTask<String, Void, Void> {

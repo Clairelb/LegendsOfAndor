@@ -30,7 +30,7 @@ public class InteractItem extends AppCompatActivity {
 
     MyPlayer myPlayer = MyPlayer.getInstance();
     int playerGold = myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getGold();
-    int goldOnGround = 4; //NEED TO CHANGE FOR SERVER VALUE
+    int goldOnGround = 0; //NEED TO CHANGE FOR SERVER VALUE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

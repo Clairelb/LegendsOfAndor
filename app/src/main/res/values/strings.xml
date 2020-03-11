@@ -114,5 +114,7 @@
     <string name="farmer">FARMER</string>
     <string name="pick_up_farmer">PICK UP FARMER</string>
     <string name="drop_farmer">DROP FARMER</string>
+    <string name="get_my_farmer">GET MY FARMERS</string>
+    <string name="get_farmers">GET FARMERS</string>
     <string-array name="action"></string-array>
 </resources>
