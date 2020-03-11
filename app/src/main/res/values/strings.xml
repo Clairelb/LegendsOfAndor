@@ -101,7 +101,6 @@
     <string name="pick_up_item">PICK UP ITEM</string>
     <string name="drop_item">DROP ITEM</string>
     <string name="get_items">GET ITEMS</string>
-
     <string name="willpower">WP</string>
     <string name="price">2 gold / item</string>
     <string name="bow">Bow</string>
@@ -112,5 +111,8 @@
     <string name="wineskin">Wineskin</string>
     <string name="add_drop_gold">ADD/DROP GOLD</string>
     <string name="confirm">CONFIRM</string>
+    <string name="farmer">FARMER</string>
+    <string name="pick_up_farmer">PICK UP FARMER</string>
+    <string name="drop_farmer">DROP FARMER</string>
     <string-array name="action"></string-array>
 </resources>

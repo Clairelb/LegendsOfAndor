@@ -31,6 +31,24 @@ public class Free_Actions extends AppCompatActivity {
         setContentView(R.layout.free_actions_tab);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        Button farmer = (Button) findViewById(R.id.farmer);
+        farmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), FarmerInteract.class);
+                startActivity(myIntent);
+            }
+        });
+
+        Button interactItem = (Button) findViewById(R.id.interactItem);
+        interactItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), InteractItem.class);
+                startActivity(myIntent);
+            }
+        });
+
         Button backb = (Button) findViewById(R.id.backb);
         backb.setOnClickListener(new View.OnClickListener() {
             @Override

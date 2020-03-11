@@ -62,7 +62,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/add_dropb"
+        android:id="@+id/interactItem"
         android:layout_width="166dp"
         android:layout_height="63dp"
         android:layout_marginStart="282dp"
@@ -71,13 +71,30 @@
         android:layout_marginEnd="283dp"
         android:layout_marginRight="283dp"
         android:layout_marginBottom="173dp"
-        android:text="@string/add_drop_gold"
+        android:text="@string/interact_item"
         android:textSize="28sp"
         app:fontFamily="@font/gothic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/farmer"
+        android:layout_width="166dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="282dp"
+        android:layout_marginLeft="282dp"
+        android:layout_marginEnd="283dp"
+        android:layout_marginRight="283dp"
+        android:layout_marginBottom="84dp"
+        android:text="@string/farmer"
+        android:textSize="28sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/backb"

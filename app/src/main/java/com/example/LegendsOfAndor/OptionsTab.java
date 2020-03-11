@@ -47,14 +47,7 @@ public class OptionsTab extends AppCompatActivity {
             }
         });
 
-        Button interactItem = (Button) findViewById(R.id.interactItem);
-        interactItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), InteractItem.class);
-                startActivity(myIntent);
-            }
-        });
+
 
     }
 }

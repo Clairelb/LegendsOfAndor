@@ -195,7 +195,6 @@ public class MonsterFight extends AppCompatActivity {
 
 
         //Changes and makes visible the picture of the monster currently being faced
-        //!!!!!!!!!!!![NOT FINISHED: Need to find and add wardrak resources]!!!!!!!!!!!!!!!!!!!!!!!!
         currentCreatureIV = findViewById(R.id.creatureImage);
         CreatureType creatureType = myPlayer.getGame().getCurrentFight().getCreature().getCreatureType();
         if (creatureType == CreatureType.GOR) {
@@ -207,10 +206,6 @@ public class MonsterFight extends AppCompatActivity {
         } else { // if creatureType == CreatureType.TROLL
             currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("troll", "drawable", getApplicationContext())));
         }
-
-
-
-
 
         //Adds information for participating players, making their profiles visible
         for (int i = 0; i < playerIndex.size(); i++) {
