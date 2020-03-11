@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
@@ -46,7 +49,7 @@ public class FarmerInteract extends AppCompatActivity {
             public void onClick(View v) {
 
                 try {
-                    PickUpFarmer pickUpGoldSender = new PickUpFarmer();
+                    PickUpFarmersSender pickUpGoldSender = new PickUpFarmersSender();
                     Toast.makeText(FarmerInteract.this, "Successfully picked up farmer.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -75,7 +78,7 @@ public class FarmerInteract extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    DropFarmerSender dropGoldSender = new DropFarmerSender();
+                    DropFarmersSender dropGoldSender = new DropFarmersSender();
 //                    dropGoldSender.execute(dropSpinner.getSelectedItem().toString());
                     Toast.makeText(FarmerInteract.this, "Successfully dropped farmer.", Toast.LENGTH_LONG).show();
 //                    int amountDropped = Integer.parseInt(dropSpinner.getSelectedItem().toString());
@@ -96,13 +99,13 @@ public class FarmerInteract extends AppCompatActivity {
         });
     }
 
-    private static class DropFarmerSender extends AsyncTask<String, Void, Void> {
+    private static class DropFarmersSender extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/dropFarmer")
+                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/dropFarmers")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
@@ -114,13 +117,13 @@ public class FarmerInteract extends AppCompatActivity {
         }
     }
 
-    private static class PickUpFarmer extends AsyncTask<String, Void, Void> {
+    private static class PickUpFarmersSender extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pickUpFarmer")
+                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pickUpFarmers")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
@@ -132,5 +135,41 @@ public class FarmerInteract extends AppCompatActivity {
         }
     }
 
+    private static class GetMyFarmersSender extends AsyncTask<String, Void, ArrayList<Farmer>> {
+        @Override
+        protected ArrayList<Farmer> doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
 
+            try {
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getMyFarmers")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Farmer>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class GetFarmersSender extends AsyncTask<String, Void, ArrayList<Farmer>> {
+        @Override
+        protected ArrayList<Farmer> doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getFarmers")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Farmer>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }
