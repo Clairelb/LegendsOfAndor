@@ -445,26 +445,30 @@ public class Board extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                EndMoveResponses endMoveResponses;
                 try{
                     AsyncTask<String, Void, EndMoveResponses> asyncTask;
-
                     EndMoveSender endMoveSender = new EndMoveSender();
-                    asyncTask = endMoveSender.execute();
-                    Log.d("EndMove", asyncTask.get().toString());
-                    if(asyncTask.get() == EndMoveResponses.ACTIVATE_FOG){
-                        Toast.makeText(Board.this,"You can activate an fog area",Toast.LENGTH_LONG);
-                    }else if(asyncTask.get() == EndMoveResponses.BUY_FROM_MERCHANT){
-                        Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG);
-                    }else if(asyncTask.get() == EndMoveResponses.EMPTY_WELL){
-                        Toast.makeText(Board.this,"You are in an area with a well",Toast.LENGTH_LONG);
-                    }else if(asyncTask.get() == EndMoveResponses.MOVE_ALREADY_ENDED){
-                        Toast.makeText(Board.this,"You have already ended the move",Toast.LENGTH_LONG);
-                    }else if(asyncTask.get() == EndMoveResponses.MUST_MOVE_TO_END_MOVE){
-                        Toast.makeText(Board.this,"You must move to end move",Toast.LENGTH_LONG);
+                    asyncTask = endMoveSender.execute("");
+                    endMoveResponses = asyncTask.get();
+                    //Log.d("EndMove", asyncTask.get().toString());
+                    if(endMoveResponses == EndMoveResponses.ACTIVATE_FOG){
+                        Toast.makeText(Board.this,"A fog token will be activated",Toast.LENGTH_LONG).show();
+                    }else if(endMoveResponses == EndMoveResponses.BUY_FROM_MERCHANT){
+                        //Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG).show();
+                        Intent myIntent = new Intent(v.getContext(), EndMove_Merchant.class);
+                        startActivity(myIntent);
+                    }else if(endMoveResponses == EndMoveResponses.EMPTY_WELL){
+                        //Toast.makeText(Board.this,"You are in an area with a well",Toast.LENGTH_LONG).show();
+                        Intent myIntent = new Intent(v.getContext(), EndMove_Well.class);
+                        startActivity(myIntent);
+                    }else if(endMoveResponses == EndMoveResponses.MOVE_ALREADY_ENDED){
+                        Toast.makeText(Board.this,"You have already ended your move",Toast.LENGTH_LONG).show();
+                    }else if(endMoveResponses == EndMoveResponses.MUST_MOVE_TO_END_MOVE){
+                        Toast.makeText(Board.this,"You must first move",Toast.LENGTH_LONG).show();
                     }else {
-                        Toast.makeText(Board.this,"Successfully ended the move",Toast.LENGTH_LONG);
+                        Toast.makeText(Board.this,"Successfully ended your move",Toast.LENGTH_LONG).show();
                     }
-
                 }catch(Exception e){
                     e.printStackTrace();
                 }

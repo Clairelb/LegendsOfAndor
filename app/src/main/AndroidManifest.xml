@@ -79,6 +79,12 @@
         <activity
             android:name=".BuyFromMerchant"
             android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".EndMove_Well"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".EndMove_Merchant"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>
