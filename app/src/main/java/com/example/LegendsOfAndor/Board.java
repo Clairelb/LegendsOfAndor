@@ -298,10 +298,26 @@ public class Board extends AppCompatActivity {
                 try{
                     AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask;
                     GetRegionsSender getRegionsSender = new GetRegionsSender();
+                    GetAvailableRegionsReponses getAvailableRegionsReponses;
 
                     asyncTask = getRegionsSender.execute();
                     GetAvailableRegionsRC availableRegions = asyncTask.get();
-                            Log.d("REGION",availableRegions.getResponse().toString());
+                    Log.d("REGION",availableRegions.getResponse().toString());
+
+                    getAvailableRegionsReponses = asyncTask.get().getResponse();
+                    if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_FIGHT) {
+                        Toast.makeText(Board.this,"Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
+                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CURRENT_HOUR_MAXED) {
+                        Toast.makeText(Board.this,"Error. Your hours are maxed. You must end your day.", Toast.LENGTH_LONG).show();
+                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.DEDUCT_WILLPOWER) {
+                        Toast.makeText(Board.this,"Moving will result in losing 2 willpower due to overtime.", Toast.LENGTH_LONG).show();
+                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.NOT_CURRENT_TURN) {
+                        Toast.makeText(Board.this,"Error. It is not your turn.", Toast.LENGTH_LONG).show();
+                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.NOT_ENOUGH_WILLPOWER) {
+                        Toast.makeText(Board.this,"Error. You do not have enough willpower.", Toast.LENGTH_LONG).show();
+                    } else { // SuccESS
+
+                    }
 
                     adapter.clear();
 
