@@ -126,7 +126,6 @@
         android:layout_marginLeft="44dp"
         android:layout_marginEnd="51dp"
         android:layout_marginRight="51dp"
-        android:text="CONGRATULATIONS. You have won the fight. You get 2 gold and 2 strength points to distribute amongst your team"
         android:textColor="#FFFFFF"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/distribute_items_fight_toolbar"

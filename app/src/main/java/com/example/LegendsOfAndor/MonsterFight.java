@@ -284,7 +284,7 @@ public class MonsterFight extends AppCompatActivity {
                                         if(fight.getCreature().getWillpower() <= 0){
                                             if (fight.getHeroes().size() > 0) {
                                                 if (fight.getHeroes().get(0).getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
-                                                    interruptThreadAndGoToDistributeFight();
+                                                    interruptThreadAndGoToDistributeFight(fight.getCreature().getCreatureType());
                                                 } else {
                                                     interruptThreadAndGoToBoard();
                                                 }
@@ -717,7 +717,7 @@ public class MonsterFight extends AppCompatActivity {
         }
     }
 
-    public void interruptThreadAndGoToDistributeFight() {
+    public void interruptThreadAndGoToDistributeFight(CreatureType creatureType) {
         if (!leaveExecuted) {
             try {
                 LeaveFightSender leaveFightSender = new LeaveFightSender();
@@ -725,6 +725,7 @@ public class MonsterFight extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
 
             t.interrupt();
 

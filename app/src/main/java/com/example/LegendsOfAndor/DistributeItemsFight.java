@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +17,11 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import org.w3c.dom.Text;
+
+import java.util.Arrays;
+import java.util.List;
+
 public class DistributeItemsFight extends AppCompatActivity {
 
     @Override
@@ -25,7 +31,6 @@ public class DistributeItemsFight extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.distribute_items_fight);
-
 
         final Spinner warriorGold = findViewById(R.id.warrior_fight_gold);
         warriorGold.setVisibility(View.INVISIBLE);
@@ -68,6 +73,9 @@ public class DistributeItemsFight extends AppCompatActivity {
 
         final Game currentGame = MyPlayer.getInstance().getGame();
 
+
+        TextView description = findViewById(R.id.distribute_fight_items_description);
+        description.setText(new StringBuilder().append("CONGRATULATIONS. You have won the fight. You get ").append(currentGame.getCurrentFight().getCreature().getGoldReward()).append(" gold and ").append(currentGame.getCurrentFight().getCreature().getWillpowerReward()).append(" willpower points to distribute amongst your team").toString());
 
         for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
             if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){

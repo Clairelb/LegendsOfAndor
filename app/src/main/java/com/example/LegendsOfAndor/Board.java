@@ -235,13 +235,13 @@ public class Board extends AppCompatActivity {
                                 public void run() {
                                     if(game.getGoldenShields() <= 0){
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
-                                        Intent gameOverIntent = new Intent(Board.this, GameOver.class );
+                                        Intent gameOverIntent = new Intent(Board.this, GameOver.class);
                                         gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++){
-                                            //DRAW PLAYERS HEREE
+                                            //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
                                             Integer s = h.getCurrentSpace();
                                             moveHero(h,s);
@@ -256,12 +256,8 @@ public class Board extends AppCompatActivity {
                                                     pass.setVisibility(View.INVISIBLE);
                                                     endDay.setVisibility(View.INVISIBLE);
                                                     endMove.setVisibility(View.INVISIBLE);
-
-
                                                     Intent joinFightIntent = new Intent(Board.this, JoinFight.class);
                                                     joinFightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-
                                                     interruptThreadAndStartActivity(joinFightIntent);
                                                 }
                                             }
@@ -273,16 +269,13 @@ public class Board extends AppCompatActivity {
                                             pass.setVisibility(View.VISIBLE);
                                             endDay.setVisibility(View.VISIBLE);
                                             endMove.setVisibility(View.VISIBLE);
-
                                         }else{
                                             move.setVisibility(View.INVISIBLE);
                                             fight.setVisibility(View.INVISIBLE);
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
                                             endMove.setVisibility(View.INVISIBLE);
-
                                         }
-
                                     }
                                 }
                             });
