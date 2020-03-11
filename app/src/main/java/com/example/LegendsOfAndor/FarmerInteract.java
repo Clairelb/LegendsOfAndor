@@ -19,6 +19,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
 
+enum PickUpFarmersResponses {
+    FARMERS_DIED, NO_FARMERS, FARMERS_PICKED_UP
+}
+
 public class FarmerInteract extends AppCompatActivity {
 
     private Spinner pickUpFarmerSpinner;
@@ -49,11 +53,23 @@ public class FarmerInteract extends AppCompatActivity {
         pickUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AsyncTask<String, Void, PickUpFarmersResponses> asyncTask;
 
                 try {
                     PickUpFarmersSender pickUpFarmersSender = new PickUpFarmersSender();
-                    pickUpFarmersSender.execute(pickUpFarmerSpinner.getSelectedItem().toString());
-                    Toast.makeText(FarmerInteract.this, "Picked up " + pickUpFarmerSpinner.getSelectedItem().toString() + " farmer.", Toast.LENGTH_LONG).show();
+                    int amountFarmers = Integer.parseInt(pickUpFarmerSpinner.getSelectedItem().toString());
+                    ArrayList<Farmer> farmersToSend = new ArrayList<Farmer>();
+                    for (int i = 0; i < amountFarmers; i++) {
+                        farmersToSend.add(new Farmer(false));
+                    }
+                    asyncTask = pickUpFarmersSender.execute(new Gson().toJson(farmersToSend));
+
+
+                    if (asyncTask.get() == PickUpFarmersResponses.FARMERS_DIED) {
+                        Toast.makeText(FarmerInteract.this, "The " + pickUpFarmerSpinner.getSelectedItem().toString() + " you just picked up died.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(FarmerInteract.this, "Picked up " + pickUpFarmerSpinner.getSelectedItem().toString() + " farmer.", Toast.LENGTH_LONG).show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -67,7 +83,12 @@ public class FarmerInteract extends AppCompatActivity {
             public void onClick(View v) {
                 try {
                     DropFarmersSender dropFarmersSender = new DropFarmersSender();
-                    dropFarmersSender.execute(dropFarmerSpinner.getSelectedItem().toString());
+                    int amountFarmers = Integer.parseInt(dropFarmerSpinner.getSelectedItem().toString());
+                    ArrayList<Farmer> farmersToSend = new ArrayList<Farmer>();
+                    for (int i = 0; i < amountFarmers; i++) {
+                        farmersToSend.add(new Farmer(false));
+                    }
+                    dropFarmersSender.execute(new Gson().toJson(farmersToSend));
                     Toast.makeText(FarmerInteract.this, "Dropped " + dropFarmerSpinner.getSelectedItem().toString() + " farmer.", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -153,17 +174,20 @@ public class FarmerInteract extends AppCompatActivity {
         }
     }
 
-    private static class PickUpFarmersSender extends AsyncTask<String, Void, Void> {
+    private static class PickUpFarmersSender extends AsyncTask<String, Void, PickUpFarmersResponses> {
         @Override
-        protected Void doInBackground(String... strings) {
+        protected PickUpFarmersResponses doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
 
             try {
-                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pickUpFarmers")
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/pickUpFarmers")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
 
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, PickUpFarmersResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
