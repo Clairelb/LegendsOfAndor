@@ -91,6 +91,8 @@ public class Board extends AppCompatActivity {
     private ImageView[] farmers = new ImageView[4];
     private ArrayList<ImageView> gors = new ArrayList<>();
     private ArrayList<ImageView> skrall = new ArrayList<>();
+    private ArrayList<ImageView> wells = new ArrayList<>();
+    private ArrayList<ImageView> emptyWells = new ArrayList<>();
 
     private Spinner sp;
 
@@ -131,6 +133,32 @@ public class Board extends AppCompatActivity {
 
 
         skrall.add((ImageView) findViewById(R.id.skrall0));
+
+        wells.add((ImageView)findViewById(R.id.well5));
+        wells.add((ImageView)findViewById(R.id.well35));
+        wells.add((ImageView)findViewById(R.id.well45));
+        wells.add((ImageView)findViewById(R.id.well55));
+        emptyWells.add((ImageView)findViewById(R.id.emptywell5));
+        emptyWells.add((ImageView)findViewById(R.id.emptywell35));
+        emptyWells.add((ImageView)findViewById(R.id.emptywell45));
+        emptyWells.add((ImageView)findViewById(R.id.emptywell55));
+
+        wells.get(0).setX(123);
+        wells.get(0).setY(31);
+        wells.get(1).setX(232);
+        wells.get(1).setY(753);
+        wells.get(2).setX(1271);
+        wells.get(2).setY(556);
+        wells.get(3).setX(1116);
+        wells.get(3).setY(103);
+        emptyWells.get(0).setX(123);
+        emptyWells.get(0).setY(31);
+        emptyWells.get(1).setX(232);
+        emptyWells.get(1).setY(753);
+        emptyWells.get(2).setX(1271);
+        emptyWells.get(2).setY(556);
+        emptyWells.get(3).setX(1116);
+        emptyWells.get(3).setY(103);
 
         final TextView spText = findViewById(R.id.spText);
         spText.setVisibility(View.INVISIBLE);
@@ -316,6 +344,41 @@ public class Board extends AppCompatActivity {
                                             skrall.get(i).setVisibility((View.VISIBLE));
                                             moveMonster(skrall.get(i), skralRegion.get(i));
                                         }
+
+                                        //Update Wells
+                                        if(game.getRegionDatabase().getRegion(15).isFountainStatus())
+                                        {
+                                            wells.get(0).setVisibility(View.VISIBLE);
+                                            emptyWells.get(0).setVisibility(View.INVISIBLE);
+                                        }else{
+                                            wells.get(0).setVisibility(View.INVISIBLE);
+                                            emptyWells.get(0).setVisibility(View.VISIBLE);
+                                        }
+                                        if(game.getRegionDatabase().getRegion(35).isFountainStatus())
+                                        {
+                                            wells.get(1).setVisibility(View.VISIBLE);
+                                            emptyWells.get(1).setVisibility(View.INVISIBLE);
+                                        }else{
+                                            wells.get(1).setVisibility(View.INVISIBLE);
+                                            emptyWells.get(1).setVisibility(View.VISIBLE);
+                                        }
+                                        if(game.getRegionDatabase().getRegion(45).isFountainStatus())
+                                        {
+                                            wells.get(2).setVisibility(View.VISIBLE);
+                                            emptyWells.get(2).setVisibility(View.INVISIBLE);
+                                        }else{
+                                            wells.get(2).setVisibility(View.INVISIBLE);
+                                            emptyWells.get(2).setVisibility(View.VISIBLE);
+                                        }
+                                        if(game.getRegionDatabase().getRegion(55).isFountainStatus())
+                                        {
+                                            wells.get(3).setVisibility(View.VISIBLE);
+                                            emptyWells.get(3).setVisibility(View.INVISIBLE);
+                                        }else{
+                                            wells.get(3).setVisibility(View.INVISIBLE);
+                                            emptyWells.get(3).setVisibility(View.VISIBLE);
+                                        }
+
                                         if(game.getCurrentFight() != null){
                                             for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
                                                 if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
