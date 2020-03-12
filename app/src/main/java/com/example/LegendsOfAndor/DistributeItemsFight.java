@@ -82,18 +82,15 @@ public class DistributeItemsFight extends AppCompatActivity {
                 archerGold.setVisibility(View.VISIBLE);
                 archerWillpower.setVisibility(View.VISIBLE);
                 archer_text.setVisibility(View.VISIBLE);
-            }
-            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
+            }else if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
                 warriorGold.setVisibility(View.VISIBLE);
                 warriorWillpower.setVisibility(View.VISIBLE);
                 warrior_text.setVisibility(View.VISIBLE);
-            }
-            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
+            }else if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
                 wizardGold.setVisibility(View.VISIBLE);
                 wizardWillpower.setVisibility(View.VISIBLE);
                 wizard_text.setVisibility(View.VISIBLE);
-            }
-            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.DWARF){
+            }else {
                 dwarfGold.setVisibility(View.VISIBLE);
                 dwarfWillpower.setVisibility(View.VISIBLE);
                 dwarf_text.setVisibility(View.VISIBLE);
