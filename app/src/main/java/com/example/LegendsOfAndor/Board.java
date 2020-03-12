@@ -183,9 +183,6 @@ public class Board extends AppCompatActivity {
         this.warrior = findViewById(R.id.warrior);
 
 
-        warrior.setX(235);  //get the color, then determine the location
-        warrior.setY(152);
-
 
         try{
             AsyncTask<String, Void, Game> asyncTask;
@@ -304,7 +301,7 @@ public class Board extends AppCompatActivity {
                     GetAvailableRegionsRC availableRegions = asyncTask.get();
                     Log.d("REGION",availableRegions.getResponse().toString());
 
-                    getAvailableRegionsReponses = asyncTask.get().getResponse();
+                    getAvailableRegionsReponses = availableRegions.getResponse();
                     if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_FIGHT) {
                         Toast.makeText(Board.this,"Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
                     } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CURRENT_HOUR_MAXED) {
