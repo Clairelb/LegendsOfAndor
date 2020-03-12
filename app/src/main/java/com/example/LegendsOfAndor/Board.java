@@ -305,6 +305,90 @@ public class Board extends AppCompatActivity {
 
         }
 
+        for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
+            //DRAW PLAYERS HERE
+            Hero h = currentGame.getPlayers()[i].getHero();
+            Integer s = h.getCurrentSpace();
+            moveHero(h, s);
+
+            //DRAW TIME MARKERS HERE
+            if(h.isHasEndedDay())
+            {
+                moveHeroTime(h, hourLocation.get(0)[0],hourLocation.get(0)[1]);
+            }else{
+                int time = h.getCurrentHour();
+                moveHeroTime(h, hourLocation.get(time)[0],hourLocation.get(time)[1]);
+            }
+        }
+
+        for(int i = 0; i < currentGame.getFarmers().size();i++){
+            if(currentGame.getFarmers().get(i).isBeingCarried()){
+                farmers[i].setVisibility(View.INVISIBLE);
+            }else{
+
+                //If the farmer is not being carried, then draw the farmer,
+                //use function  displayFarmer(farmers[i], int position);
+                // need the position of the farmer.
+            }
+
+        }
+        ArrayList<Region> mRegion = currentGame.getRegionDatabase().getAllRegionsWithCreatures();
+        ArrayList<Integer> gorRegion = new ArrayList<>();
+        ArrayList<Integer> skralRegion = new ArrayList<>();
+
+        for(Region r: mRegion){
+            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
+                gorRegion.add(r.getNumber());
+            }
+            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
+                skralRegion.add(r.getNumber());
+            }
+        }
+        System.out.println("total"+ mRegion.size());
+        System.out.println("sieze" + gorRegion.size());
+        for(int i = 0; i <gorRegion.size();i++){
+            gors.get(i).setVisibility(View.VISIBLE);
+            moveMonster(gors.get(i),gorRegion.get(i));
+        }
+        for(int i = 0; i < skralRegion.size();i++){
+            skrall.get(i).setVisibility((View.VISIBLE));
+            moveMonster(skrall.get(i), skralRegion.get(i));
+        }
+
+        //Update Wells
+        if(currentGame.getRegionDatabase().getRegion(5).isFountainStatus())
+        {
+            wells.get(0).setVisibility(View.VISIBLE);
+            emptyWells.get(0).setVisibility(View.INVISIBLE);
+        }else{
+            wells.get(0).setVisibility(View.INVISIBLE);
+            emptyWells.get(0).setVisibility(View.VISIBLE);
+        }
+        if(currentGame.getRegionDatabase().getRegion(35).isFountainStatus())
+        {
+            wells.get(1).setVisibility(View.VISIBLE);
+            emptyWells.get(1).setVisibility(View.INVISIBLE);
+        }else{
+            wells.get(1).setVisibility(View.INVISIBLE);
+            emptyWells.get(1).setVisibility(View.VISIBLE);
+        }
+        if(currentGame.getRegionDatabase().getRegion(45).isFountainStatus())
+        {
+            wells.get(2).setVisibility(View.VISIBLE);
+            emptyWells.get(2).setVisibility(View.INVISIBLE);
+        }else{
+            wells.get(2).setVisibility(View.INVISIBLE);
+            emptyWells.get(2).setVisibility(View.VISIBLE);
+        }
+        if(currentGame.getRegionDatabase().getRegion(55).isFountainStatus())
+        {
+            wells.get(3).setVisibility(View.VISIBLE);
+            emptyWells.get(3).setVisibility(View.INVISIBLE);
+        }else{
+            wells.get(3).setVisibility(View.INVISIBLE);
+            emptyWells.get(3).setVisibility(View.VISIBLE);
+        }
+
 
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
