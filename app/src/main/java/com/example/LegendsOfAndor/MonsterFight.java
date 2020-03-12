@@ -251,6 +251,7 @@ public class MonsterFight extends AppCompatActivity {
         enemyWP.setVisibility(View.VISIBLE);
         enemySP.setVisibility(View.VISIBLE);
 
+        final int[] index = {0};
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
@@ -261,6 +262,9 @@ public class MonsterFight extends AppCompatActivity {
                     try {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
                                 .asString();
+
+                        System.out.println("!!!!!!!" + index[0]);
+                        index[0]++;
 
                         if(response.getCode() == 200){
                             final Game game = new Gson().fromJson(response.getBody(), Game.class);
@@ -689,36 +693,42 @@ public class MonsterFight extends AppCompatActivity {
     }
 
     public void interruptThreadAndGoToBoard() {
-        threadInterrupted = true;
+        if (!leaveExecuted) {
+            threadInterrupted = true;
 
-        try {
-            LeaveFightSender leaveFightSender = new LeaveFightSender();
-            leaveFightSender.execute("");
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                LeaveFightSender leaveFightSender = new LeaveFightSender();
+                leaveFightSender.execute("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            Intent myIntent = new Intent(MonsterFight.this, Board.class);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myIntent);
+            finish();
         }
-
-        Intent myIntent = new Intent(MonsterFight.this, Board.class);
-        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(myIntent);
-        finish();
+        leaveExecuted = true;
     }
 
     public void interruptThreadAndGoToDistributeFight(CreatureType creatureType) {
-        threadInterrupted = true;
+        if (!leaveExecuted) {
+            threadInterrupted = true;
 
-        try {
-            LeaveFightSender leaveFightSender = new LeaveFightSender();
-            leaveFightSender.execute("");
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                LeaveFightSender leaveFightSender = new LeaveFightSender();
+                leaveFightSender.execute("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
+            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myIntent);
+            finish();
         }
-
-
-        Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
-        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(myIntent);
-        finish();
+        leaveExecuted = true;
     }
 
 
