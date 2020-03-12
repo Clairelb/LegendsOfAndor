@@ -93,6 +93,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<ImageView> skrall = new ArrayList<>();
     private ArrayList<ImageView> wells = new ArrayList<>();
     private ArrayList<ImageView> emptyWells = new ArrayList<>();
+    private ArrayList<ImageView> theros = new ArrayList<>();
 
     private Spinner sp;
 
@@ -160,6 +161,31 @@ public class Board extends AppCompatActivity {
         emptyWells.get(3).setX(1106);
         emptyWells.get(3).setY(103);
 
+        theros.add((ImageView)findViewById(R.id.twarrior));
+        theros.get(0).setVisibility(View.INVISIBLE);
+        theros.add((ImageView)findViewById(R.id.tarcher_male));
+        theros.get(1).setVisibility(View.INVISIBLE);
+        theros.add((ImageView)findViewById(R.id.tdwarf_male));
+        theros.get(2).setVisibility(View.INVISIBLE);
+        theros.add((ImageView)findViewById(R.id.tmage_male));
+        theros.get(3).setVisibility(View.INVISIBLE);
+
+        for(int i = 0; i < myPlayer.getGame().getAllHeroes().size();i++){
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD){
+                theros.get(3).setVisibility(View.VISIBLE);
+            }
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF){
+                theros.get(2).setVisibility(View.VISIBLE);
+            }
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER){
+                theros.get(1).setVisibility(View.VISIBLE);
+            }
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR){
+                theros.get(0).setVisibility(View.VISIBLE);
+            }
+        }
+
+
         final TextView spText = findViewById(R.id.spText);
         spText.setVisibility(View.INVISIBLE);
 
@@ -223,7 +249,7 @@ public class Board extends AppCompatActivity {
         hourLocation.put(7,new Integer[]{1345,15});
         hourLocation.put(8,new Integer[]{1447,15});
         hourLocation.put(9,new Integer[]{1527,15});
-        hourLocation.put(100,new Integer[]{1603,15});
+        hourLocation.put(10,new Integer[]{1603,15});
 
         this.archer = findViewById(R.id.archer_male);
         this.archer.setVisibility(View.INVISIBLE);
@@ -310,7 +336,15 @@ public class Board extends AppCompatActivity {
                                             moveHero(h, s);
 
                                             //DRAW TIME MARKERS HERE
+                                            if(h.isHasEndedDay())
+                                            {
+                                                moveHeroTime(h, hourLocation.get(0)[0],hourLocation.get(0)[1]);
+                                            }else{
+                                                int time = h.getCurrentHour();
+                                                moveHeroTime(h, hourLocation.get(time)[0],hourLocation.get(time)[1]);
+                                            }
                                         }
+
                                         for(int i = 0; i < game.getFarmers().size();i++){
                                             if(game.getFarmers().get(i).isBeingCarried()){
                                                 farmers[i].setVisibility(View.INVISIBLE);
@@ -699,6 +733,23 @@ public class Board extends AppCompatActivity {
             movePic((this.wizard),space);
         }
         hero.setCurrentSpace(space);
+
+    }
+
+    private void moveHeroTime(Hero hero, float  x, float y){
+        if(hero.getHeroClass() == HeroClass.WARRIOR){
+            movePic(this.theros.get(0), x-5, y);
+        }
+        if(hero.getHeroClass() == HeroClass.ARCHER){
+            movePic(this.theros.get(1), x+10, y);
+        }
+        if(hero.getHeroClass() == HeroClass.DWARF){
+            movePic(this.theros.get(2), x-5, y+15);
+        }
+        if(hero.getHeroClass() == HeroClass.WIZARD){
+            movePic(this.theros.get(3), x+10, y+15);
+        }
+        //hero.setCurrentSpace(space);
 
     }
 

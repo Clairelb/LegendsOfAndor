@@ -247,6 +247,31 @@
             app:srcCompat="@drawable/emptywell"
             android:visibility="invisible"/>
 
+        <ImageView
+            android:id="@+id/twarrior"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:src="@drawable/warrior_male" />
+
+        <ImageView
+            android:id="@+id/tarcher_male"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+
+            app:srcCompat="@drawable/archer" />
+
+        <ImageView
+            android:id="@+id/tdwarf_male"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/dwarf_male" />
+
+        <ImageView
+            android:id="@+id/tmage_male"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/mage" />
+
 
 
 
