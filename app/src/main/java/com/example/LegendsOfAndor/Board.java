@@ -143,21 +143,21 @@ public class Board extends AppCompatActivity {
         emptyWells.add((ImageView)findViewById(R.id.emptywell45));
         emptyWells.add((ImageView)findViewById(R.id.emptywell55));
 
-        wells.get(0).setX(123);
-        wells.get(0).setY(31);
+        wells.get(0).setX(59);
+        wells.get(0).setY(345);
         wells.get(1).setX(232);
         wells.get(1).setY(753);
         wells.get(2).setX(1271);
-        wells.get(2).setY(556);
-        wells.get(3).setX(1116);
+        wells.get(2).setY(536);
+        wells.get(3).setX(1106);
         wells.get(3).setY(103);
-        emptyWells.get(0).setX(123);
-        emptyWells.get(0).setY(31);
+        emptyWells.get(0).setX(59);
+        emptyWells.get(0).setY(345);
         emptyWells.get(1).setX(232);
         emptyWells.get(1).setY(753);
         emptyWells.get(2).setX(1271);
-        emptyWells.get(2).setY(556);
-        emptyWells.get(3).setX(1116);
+        emptyWells.get(2).setY(536);
+        emptyWells.get(3).setX(1106);
         emptyWells.get(3).setY(103);
 
         final TextView spText = findViewById(R.id.spText);
@@ -346,7 +346,7 @@ public class Board extends AppCompatActivity {
                                         }
 
                                         //Update Wells
-                                        if(game.getRegionDatabase().getRegion(15).isFountainStatus())
+                                        if(game.getRegionDatabase().getRegion(5).isFountainStatus())
                                         {
                                             wells.get(0).setVisibility(View.VISIBLE);
                                             emptyWells.get(0).setVisibility(View.INVISIBLE);

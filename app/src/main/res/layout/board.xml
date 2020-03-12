@@ -196,54 +196,54 @@
 
         <ImageView
             android:id="@+id/well5"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/well" />
 
         <ImageView
             android:id="@+id/emptywell5"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/emptywell"
             android:visibility="invisible"/>
 
 
         <ImageView
             android:id="@+id/well35"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/well" />
 
         <ImageView
             android:id="@+id/emptywell35"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/emptywell"
             android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/well45"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/well" />
 
         <ImageView
             android:id="@+id/emptywell45"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/emptywell"
             android:visibility="invisible"/>
 
         <ImageView
             android:id="@+id/well55"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/well" />
 
         <ImageView
             android:id="@+id/emptywell55"
-            android:layout_width="11dp"
-            android:layout_height="10dp"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
             app:srcCompat="@drawable/emptywell"
             android:visibility="invisible"/>
 
