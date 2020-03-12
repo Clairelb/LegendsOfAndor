@@ -33,6 +33,8 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
     private MyPlayer myPlayer = MyPlayer.getInstance();
 
     private Thread t;
+    private boolean threadInterrupted = false;
+
     private PreviousPage previousPage;
 
     @Override
@@ -106,7 +108,7 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
         t = new Thread(new Runnable() { // this runs forever checking for new messages
             @Override
             public void run() {
-                while(!Thread.currentThread().isInterrupted()) {
+                while(!threadInterrupted) {
                     try {
                         final HttpResponse<String> response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName()+"/"+username+"/getMsg")
                                 .asString();
@@ -134,9 +136,6 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
                         }
 
                     } catch (Exception e) {
-                        if (e instanceof InterruptedException) {
-                            Thread.currentThread().interrupt();
-                        }
                         e.printStackTrace();                    }
                 }
             }
@@ -146,7 +145,7 @@ public class ChatScreen extends AppCompatActivity { // stop thread after back bu
 
     @Override
     public void onBackPressed() {
-        t.interrupt();
+        threadInterrupted = true;
 
         Intent intent;
 

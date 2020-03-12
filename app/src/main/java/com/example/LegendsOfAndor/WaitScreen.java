@@ -55,6 +55,8 @@ public class WaitScreen extends AppCompatActivity {
     private Spinner heroSP;
 
     private Thread t;
+    private boolean threadTerminated = false;
+
     MyPlayer myPlayer = MyPlayer.getInstance();
     Game updatedGame = null;
 
@@ -162,7 +164,7 @@ public class WaitScreen extends AppCompatActivity {
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
-                while (!Thread.currentThread().isInterrupted()) {
+                while (!threadTerminated) {
                     try {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getPregameUpdate")
                                 .asString();
@@ -270,9 +272,6 @@ public class WaitScreen extends AppCompatActivity {
                             });
                         }
                     } catch (Exception e) {
-                        if (e instanceof InterruptedException) {
-                            Thread.currentThread().interrupt();
-                        }
                         e.printStackTrace();
                     }
                 }
@@ -290,7 +289,7 @@ public class WaitScreen extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                t.interrupt();
+                threadTerminated = true;
                 //myPlayer.setGame(null);
 
                 Intent intent = new Intent(WaitScreen.this, CreateGame.class);
@@ -370,6 +369,8 @@ public class WaitScreen extends AppCompatActivity {
     }
 
     public void interruptThreadAndStartActivity() {
+        threadTerminated = true;
+
         Intent myIntent;
         if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())){
             myIntent = new Intent(WaitScreen.this, DistributeItems.class);
@@ -379,7 +380,6 @@ public class WaitScreen extends AppCompatActivity {
         myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
         finish();
-        t.interrupt();
     }
 
 

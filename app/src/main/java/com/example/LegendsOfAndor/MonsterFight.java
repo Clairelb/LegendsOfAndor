@@ -121,6 +121,8 @@ public class MonsterFight extends AppCompatActivity {
     private ImageView enemyd5;
 
     private Thread t;
+    private boolean threadInterrupted = false;
+
     private boolean leaveExecuted = false;
 
     MyPlayer myPlayer = MyPlayer.getInstance();
@@ -255,7 +257,7 @@ public class MonsterFight extends AppCompatActivity {
             public void run() {
                 final MyPlayer myPlayer = MyPlayer.getInstance();
 
-                while (!Thread.currentThread().isInterrupted()) {
+                while (!threadInterrupted) {
                     try {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
                                 .asString();
@@ -326,7 +328,6 @@ public class MonsterFight extends AppCompatActivity {
                                             playersBattleValue.setText(Integer.toString(totalBV));
 
                                             for (Hero h : fight.getHeroes()) {
-                                                //if (fight.getHeroesBattleScores().get(i) > 0) {
                                                 if (i == 0) {
                                                     player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
                                                 } else if (i == 1) {
@@ -335,7 +336,6 @@ public class MonsterFight extends AppCompatActivity {
                                                     player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
                                                 } else { // i = 3
                                                     player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
-                                                    //}
                                                 }
 
                                                 int playerNum = i + 1;
@@ -525,9 +525,6 @@ public class MonsterFight extends AppCompatActivity {
                             });
                         }
                     } catch (Exception e) {
-                        if (e instanceof InterruptedException) {
-                            Thread.currentThread().interrupt();
-                        }
                         e.printStackTrace();
                     }
                 }
@@ -627,7 +624,6 @@ public class MonsterFight extends AppCompatActivity {
                     } else if (asyncTask.get() == EndBattleRoundResponses.TIE_ROUND) {
                         Toast.makeText(MonsterFight.this, "This round resulted in a tie!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_DEFEATED) {
-                        t.interrupt();
                         Toast.makeText(MonsterFight.this, "Heroes win! Creature defeated!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndBattleRoundResponses.BATTLE_LOST) {
                         Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated! Going back to the board...", Toast.LENGTH_LONG).show();
@@ -693,44 +689,36 @@ public class MonsterFight extends AppCompatActivity {
     }
 
     public void interruptThreadAndGoToBoard() {
-        if (!leaveExecuted) {
-            try {
-                LeaveFightSender leaveFightSender = new LeaveFightSender();
-                leaveFightSender.execute("");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        threadInterrupted = true;
 
-            t.interrupt();
-
-            Intent myIntent = new Intent(MonsterFight.this, Board.class);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(myIntent);
-            finish();
-
-            leaveExecuted = true;
+        try {
+            LeaveFightSender leaveFightSender = new LeaveFightSender();
+            leaveFightSender.execute("");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        Intent myIntent = new Intent(MonsterFight.this, Board.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myIntent);
+        finish();
     }
 
     public void interruptThreadAndGoToDistributeFight(CreatureType creatureType) {
-        if (!leaveExecuted) {
-            try {
-                LeaveFightSender leaveFightSender = new LeaveFightSender();
-                leaveFightSender.execute("");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        threadInterrupted = true;
 
-
-            t.interrupt();
-
-            Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
-            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(myIntent);
-            finish();
-
-            leaveExecuted = true;
+        try {
+            LeaveFightSender leaveFightSender = new LeaveFightSender();
+            leaveFightSender.execute("");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+
+        Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myIntent);
+        finish();
     }
 
 

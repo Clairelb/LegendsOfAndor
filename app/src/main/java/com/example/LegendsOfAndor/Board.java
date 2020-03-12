@@ -79,6 +79,8 @@ public class Board extends AppCompatActivity {
     private Button endMove;
 
     private Thread t;
+    private boolean threadTerminated = false;
+
     private boolean flag;
 
     //private RegionDatabase regionDatabase;
@@ -219,7 +221,7 @@ public class Board extends AppCompatActivity {
             @Override
             public void run() {
                 final MyPlayer myPlayer = MyPlayer.getInstance();
-                while (!Thread.currentThread().isInterrupted()) {
+                while (!threadTerminated) {
                     try {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
                                 .asString();
@@ -278,9 +280,6 @@ public class Board extends AppCompatActivity {
                             });
                         }
                     } catch (Exception e) {
-                        if (e instanceof InterruptedException) {
-                            Thread.currentThread().interrupt();
-                        }
                         e.printStackTrace();
                     }
                 }
@@ -492,7 +491,7 @@ public class Board extends AppCompatActivity {
 
 
     public void interruptThreadAndStartActivity(Intent myIntent){
-        t.interrupt();
+        threadTerminated = true;
         startActivity(myIntent);
         //if(t!= null || !t.isInterrupted()){
         //t.interrupt();
