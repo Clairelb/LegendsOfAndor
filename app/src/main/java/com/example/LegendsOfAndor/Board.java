@@ -66,10 +66,10 @@ enum GetAvailableRegionsReponses {
 //import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Board extends AppCompatActivity {
-    ImageView archer;
-    ImageView wizard;
-    ImageView dwarf;
-    public ImageView warrior;
+    private ImageView archer;
+    private ImageView wizard;
+    private ImageView dwarf;
+    private ImageView warrior;
     private Button move;
     private Button fight;
     private Button pass;
@@ -77,6 +77,7 @@ public class Board extends AppCompatActivity {
     private Button chatb;
     private Button optionsb;
     private Button endMove;
+
 
     private Thread t;
     private boolean threadTerminated = false;
@@ -87,7 +88,9 @@ public class Board extends AppCompatActivity {
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
     private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
-
+    private ImageView[] farmers = new ImageView[4];
+    private ArrayList<ImageView> gors = new ArrayList<>();
+    private ArrayList<ImageView> skrall = new ArrayList<>();
 
     private Spinner sp;
 
@@ -113,6 +116,21 @@ public class Board extends AppCompatActivity {
 
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
+        farmers[0] = findViewById(R.id.farmer0);
+        farmers[1] = findViewById(R.id.farmer1);
+        farmers[2] = findViewById(R.id.farmer2);
+        farmers[3] = findViewById(R.id.farmer3);
+
+
+        gors.add((ImageView) findViewById(R.id.gor0));
+        gors.add((ImageView) findViewById(R.id.gor1));
+        gors.add((ImageView) findViewById(R.id.gor2));
+        gors.add((ImageView) findViewById(R.id.gor3));
+        gors.add((ImageView) findViewById(R.id.gor4));
+        gors.add((ImageView) findViewById(R.id.gor5));
+
+
+        skrall.add((ImageView) findViewById(R.id.skrall0));
 
         final TextView spText = findViewById(R.id.spText);
         spText.setVisibility(View.INVISIBLE);
@@ -180,9 +198,27 @@ public class Board extends AppCompatActivity {
         hourLocation.put(100,new Integer[]{1603,15});
 
         this.archer = findViewById(R.id.archer_male);
+        this.archer.setVisibility(View.INVISIBLE);
         this.wizard = findViewById(R.id.mage_male);
+        this.wizard.setVisibility(View.INVISIBLE);
         this.dwarf  = findViewById(R.id.dwarf_male);
+        this.dwarf.setVisibility(View.INVISIBLE);
         this.warrior = findViewById(R.id.warrior);
+        this.warrior.setVisibility(View.INVISIBLE);
+        for(int i = 0; i < myPlayer.getGame().getAllHeroes().size();i++){
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD){
+                this.wizard.setVisibility(View.VISIBLE);
+            }
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF){
+                this.dwarf.setVisibility(View.VISIBLE);
+            }
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER){
+                this.archer.setVisibility(View.VISIBLE);
+            }
+            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR){
+                this.warrior.setVisibility(View.VISIBLE);
+            }
+        }
 
 
 
@@ -239,13 +275,46 @@ public class Board extends AppCompatActivity {
 
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
-                                        for(int i = 0; i < game.getCurrentNumPlayers(); i++){
+                                        for(int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
                                             Integer s = h.getCurrentSpace();
-                                            moveHero(h,s);
-                                            //DRAW FARMERS HERE
+                                            moveHero(h, s);
+
                                             //DRAW TIME MARKERS HERE
+                                        }
+                                        for(int i = 0; i < game.getFarmers().size();i++){
+                                            if(game.getFarmers().get(i).isBeingCarried()){
+                                                farmers[i].setVisibility(View.INVISIBLE);
+                                            }else{
+
+                                                //If the farmer is not being carried, then draw the farmer,
+                                                //use function  displayFarmer(farmers[i], int position);
+                                                // need the position of the farmer.
+                                            }
+
+                                        }
+                                        ArrayList<Region> mRegion = game.getRegionDatabase().getAllRegionsWithCreatures();
+                                        ArrayList<Integer> gorRegion = new ArrayList<>();
+                                        ArrayList<Integer> skralRegion = new ArrayList<>();
+
+                                        for(Region r: mRegion){
+                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
+                                                gorRegion.add(r.getNumber());
+                                            }
+                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
+                                                skralRegion.add(r.getNumber());
+                                            }
+                                        }
+                                        System.out.println("total"+ mRegion.size());
+                                        System.out.println("sieze" + gorRegion.size());
+                                        for(int i = 0; i <gorRegion.size();i++){
+                                            gors.get(i).setVisibility(View.VISIBLE);
+                                            moveMonster(gors.get(i),gorRegion.get(i));
+                                        }
+                                        for(int i = 0; i < skralRegion.size();i++){
+                                            skrall.get(i).setVisibility((View.VISIBLE));
+                                            moveMonster(skrall.get(i), skralRegion.get(i));
                                         }
                                         if(game.getCurrentFight() != null){
                                             for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
@@ -545,6 +614,14 @@ public class Board extends AppCompatActivity {
 //        }
 //        return super.dispatchTouchEvent(event);
 //    }
+
+    private void displayFarmer(ImageView imageView, int space){
+        final MyPlayer myPlayer = MyPlayer.getInstance();
+
+        float[] coor = myPlayer.getGame().getRegionDatabase().getRegion(space).getCoordinates();
+        imageView.setX(coor[0]);
+        imageView.setY(coor[1]+10);
+    }
     private void moveHero(Hero hero, int space){
         if(hero.getHeroClass() == HeroClass.WARRIOR){
             movePic(this.warrior, space);
@@ -561,6 +638,15 @@ public class Board extends AppCompatActivity {
         hero.setCurrentSpace(space);
 
     }
+
+    private void moveMonster(ImageView imageView, int space){
+        final MyPlayer myPlayer = MyPlayer.getInstance();
+
+        float[] coor = myPlayer.getGame().getRegionDatabase().getRegion(space).getCoordinates();
+        imageView.setX(coor[0]+10);
+        imageView.setY(coor[1]+10);
+    }
+
 
     //Used to move anything on on the board
     public void movePic(ImageView imageView, int space){
