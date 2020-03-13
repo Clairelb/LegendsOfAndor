@@ -94,6 +94,8 @@ public class Board extends AppCompatActivity {
     private ArrayList<ImageView> wells = new ArrayList<>();
     private ArrayList<ImageView> emptyWells = new ArrayList<>();
     private ArrayList<ImageView> theros = new ArrayList<>();
+    private Button realMove;
+    private int nextMove;
 
     private Spinner sp;
 
@@ -104,6 +106,8 @@ public class Board extends AppCompatActivity {
         //regionDatabase = new RegionDatabase();
         flag = false;
         setContentView(R.layout.board);
+        realMove = findViewById(R.id.realMove);
+        realMove.setVisibility(View.INVISIBLE);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final MyPlayer myPlayer = MyPlayer.getInstance();
         move = findViewById(R.id.move);
@@ -205,29 +209,8 @@ public class Board extends AppCompatActivity {
 
                 Integer space = Integer.parseInt(adapter.getItem(position));
 
-                try{
-                    AsyncTask<String, Void, MoveRC> asyncTask;
-                    MoveRC moveRC;
 
-                    MoveSender moveSender = new MoveSender();
-                    asyncTask = moveSender.execute(new Gson().toJson(space));
-                    Log.d("CHECK", "here");
-                    moveRC = asyncTask.get();
-                    if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER){
-                        Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
-                    }
-
-                    if(moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
-                        Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG);
-                    }
-
-                    if(moveRC.getMoveResponses() == MoveResponses.NO_OTHER_ACTIONS){
-                        Toast.makeText(Board.this, "Please make your next move or end your move", Toast.LENGTH_LONG);
-                    }
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-                moveHero(myPlayer.getPlayer().getHero(),space);
+                nextMove =space;
             }
 
             @Override
@@ -298,10 +281,14 @@ public class Board extends AppCompatActivity {
         if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
             Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
             move.setVisibility(View.VISIBLE);
+            realMove.setVisibility(View.VISIBLE);
+
             fight.setVisibility(View.VISIBLE);
             pass.setVisibility(View.VISIBLE);
             endDay.setVisibility(View.VISIBLE);
             endMove.setVisibility(View.VISIBLE);
+            realMove = findViewById(R.id.realMove);
+            realMove.setVisibility(View.VISIBLE);
 
         }
 
@@ -325,7 +312,16 @@ public class Board extends AppCompatActivity {
             if(currentGame.getFarmers().get(i).isBeingCarried()){
                 farmers[i].setVisibility(View.INVISIBLE);
             }else{
-
+                ArrayList<Region> allRegion = currentGame.getRegionDatabase().getRegionDatabase();
+                int counter = 0;
+                for(Region r: allRegion){
+                    if(r.getFarmers().size()>0){
+                        farmers[counter].setVisibility(View.VISIBLE);
+                        displayFarmer(farmers[counter], r.getNumber());
+                        counter ++;
+                    }
+                }
+                counter = 0;
                 //If the farmer is not being carried, then draw the farmer,
                 //use function  displayFarmer(farmers[i], int position);
                 // need the position of the farmer.
@@ -501,6 +497,8 @@ public class Board extends AppCompatActivity {
                                             for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
                                                 if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
                                                     move.setVisibility(View.INVISIBLE);
+                                                    realMove.setVisibility(View.INVISIBLE);
+
                                                     fight.setVisibility(View.INVISIBLE);
                                                     pass.setVisibility(View.INVISIBLE);
                                                     endDay.setVisibility(View.INVISIBLE);
@@ -514,12 +512,16 @@ public class Board extends AppCompatActivity {
                                         if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
                                             move.setVisibility(View.VISIBLE);
+                                            realMove.setVisibility(View.VISIBLE);
+
                                             fight.setVisibility(View.VISIBLE);
                                             pass.setVisibility(View.VISIBLE);
                                             endDay.setVisibility(View.VISIBLE);
                                             endMove.setVisibility(View.VISIBLE);
                                         }else{
                                             move.setVisibility(View.INVISIBLE);
+                                            realMove.setVisibility(View.INVISIBLE);
+
                                             fight.setVisibility(View.INVISIBLE);
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
@@ -536,6 +538,36 @@ public class Board extends AppCompatActivity {
             }
         });
         t.start();
+
+        realMove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    AsyncTask<String, Void, MoveRC> asyncTask;
+                    MoveRC moveRC;
+
+                    MoveSender moveSender = new MoveSender();
+                    asyncTask = moveSender.execute(new Gson().toJson(nextMove));
+                    Log.d("CHECK", "here");
+                    moveRC = asyncTask.get();
+                    if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER){
+                        Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
+                    }
+
+                    if(moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
+                        Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG);
+                    }
+
+                    if(moveRC.getMoveResponses() == MoveResponses.NO_OTHER_ACTIONS){
+                        Toast.makeText(Board.this, "Please make your next move or end your move", Toast.LENGTH_LONG);
+                    }
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                moveHero(myPlayer.getPlayer().getHero(),nextMove);
+
+            }
+        });
 
         move.setOnClickListener(new View.OnClickListener(){
             @Override
