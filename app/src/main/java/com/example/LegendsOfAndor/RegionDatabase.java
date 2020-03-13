@@ -234,7 +234,7 @@ public class RegionDatabase {
         regionDatabase.get(4).setCoordinatesa(new float[]{124,386});
         regionDatabase.get(5).setCoordinatesa(new float[]{69,345});
         regionDatabase.get(6).setCoordinatesa(new float[]{416,306});
-        regionDatabase.get(7).setCoordinatesa(new float[]{166,305});
+        regionDatabase.get(7).setCoordinatesa(new float[]{140,260});
         regionDatabase.get(8).setCoordinatesa(new float[]{325,137});
         regionDatabase.get(9).setCoordinatesa(new float[]{244,41});
         regionDatabase.get(10).setCoordinatesa(new float[]{338,475});
@@ -270,7 +270,7 @@ public class RegionDatabase {
         regionDatabase.get(40).setCoordinatesa(new float[]{737,733});
         regionDatabase.get(41).setCoordinatesa(new float[] {621,768});
         regionDatabase.get(42).setCoordinatesa(new float[] {1152,640});
-        regionDatabase.get(43).setCoordinatesa(new float[] {325,137});
+        regionDatabase.get(43).setCoordinatesa(new float[] {1152,705});
         regionDatabase.get(44).setCoordinatesa(new float[] {1121,518});
         regionDatabase.get(45).setCoordinatesa(new float[] {1251,556});
         regionDatabase.get(46).setCoordinatesa(new float[] {1147,445});
@@ -299,6 +299,7 @@ public class RegionDatabase {
         regionDatabase.get(69).setCoordinatesa(new float[] {1372,813});
         regionDatabase.get(70).setCoordinatesa(new float[] {1364,878});
         regionDatabase.get(71).setCoordinatesa(new float[] {1266,686});
+        regionDatabase.get(72).setCoordinatesa((new float[]{394,589}));
         //missing 72!!!!
         // 73 - 79 no regions on map
         regionDatabase.get(80).setCoordinatesa(new float[] {1529,936});
