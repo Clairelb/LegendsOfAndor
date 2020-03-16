@@ -39,13 +39,6 @@ public class Creature {
         }
     }
 
-    public Creature(int strength, int willpower, int goldReward, int willpowerReward) {
-        this.strength = strength;
-        this.willpower = willpower;
-        this.goldReward = goldReward;
-        this.willpowerReward = willpowerReward;
-    }
-
     public int getStrength() {
         return strength;
     }
