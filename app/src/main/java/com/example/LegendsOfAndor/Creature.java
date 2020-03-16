@@ -1,7 +1,7 @@
 package com.example.LegendsOfAndor;
 
 enum CreatureType {
-    GOR, SKRAL, TROLL, WARDRAKS
+    GOR, SKRAL, TROLL, WARDRAKS, SKRAL_BOSS
 }
 
 
@@ -37,6 +37,30 @@ public class Creature {
             goldReward = 6;
             willpowerReward = 6;
         }
+    }
+
+    public Creature(Difficulty difficulty, int totalPlayers) {
+        creatureType = CreatureType.SKRAL_BOSS;
+        if (difficulty == Difficulty.HARD) {
+            if (totalPlayers == 2) {
+                strength = 20;
+            } else if (totalPlayers == 3) {
+                strength = 30;
+            } else { // == 4
+                strength = 40;
+            }
+        } else {
+            if (totalPlayers == 2) {
+                strength = 10;
+            } else if (totalPlayers == 3) {
+                strength = 20;
+            } else { // == 4
+                strength = 30;
+            }
+        }
+        willpower = 6;
+        goldReward = 0;
+        willpowerReward = 0;
     }
 
     public int getStrength() {
