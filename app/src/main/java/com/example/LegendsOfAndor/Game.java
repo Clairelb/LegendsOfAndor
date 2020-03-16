@@ -46,6 +46,7 @@ public class Game  {
         itemsDistributedMessage = "";
         currentHero = null;
         this.gameStatus = GameStatus.IN_PROGRESS;
+        this.narrator = new Narrator();
     }
 
     public int getMaxNumPlayers() {
@@ -232,4 +233,12 @@ public class Game  {
     public GameStatus getGameStatus() { return gameStatus; }
 
     public void setGameStatus(GameStatus gameStatus) { this.gameStatus = gameStatus; }
+
+    public Narrator getNarrator() {
+        return narrator;
+    }
+
+    public void setNarrator(Narrator narrator) {
+        this.narrator = narrator;
+    }
 }
