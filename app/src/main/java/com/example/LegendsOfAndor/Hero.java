@@ -22,6 +22,7 @@ public class Hero {
     private boolean fought;
     private int rank;
     private boolean movedPrince;
+    private ArrayList<GemStone> gemStones;
 
     public Hero() {}
 
@@ -49,6 +50,7 @@ public class Hero {
         gold = 0;
         items = new ArrayList<>();
         farmers = new ArrayList<>();
+        gemStones = new ArrayList<>();
     }
     public HeroClass getHeroClass() {
         return heroClass;
@@ -149,6 +151,14 @@ public class Hero {
 
     public void setMovedPrince(boolean movedPrince) {
         this.movedPrince = movedPrince;
+    }
+
+    public ArrayList<GemStone> getGemStones() {
+        return gemStones;
+    }
+
+    public void setGemStones(ArrayList<GemStone> gemStones) {
+        this.gemStones = gemStones;
     }
 
 //        @Override

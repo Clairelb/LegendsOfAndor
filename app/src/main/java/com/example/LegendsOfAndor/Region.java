@@ -23,6 +23,7 @@ public class Region {
     private ArrayList<Creature> currentCreatures;
     private ArrayList<Farmer> farmers;
     private float[] coordinates;
+    private ArrayList<GemStone> gemStones;
 
     public Region() {}
 
@@ -38,6 +39,7 @@ public class Region {
         items = new ArrayList<>();
         farmers = new ArrayList<>();
         currentCreatures = new ArrayList<>();
+        gemStones = new ArrayList<>();
     }
     public int getNumber() {
         return number;
@@ -162,4 +164,12 @@ public class Region {
     public void setCoordinatesa(float[] coor) {this.coordinates = coor;}
 
     public float[] getCoordinates() {return this.coordinates;}
+
+    public ArrayList<GemStone> getGemStones() {
+        return gemStones;
+    }
+
+    public void setGemStones(ArrayList<GemStone> gemStones) {
+        this.gemStones = gemStones;
+    }
 }
