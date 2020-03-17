@@ -27,6 +27,7 @@ public class Game  {
     private GameStatus gameStatus;
     private Narrator narrator;
     private PrinceThorald princeThorald;
+    private NarratorSpace runeStoneLegendCard;
 
     public Game() {}
 
@@ -249,5 +250,13 @@ public class Game  {
 
     public void setPrinceThorald(PrinceThorald princeThorald) {
         this.princeThorald = princeThorald;
+    }
+
+    public NarratorSpace getRuneStoneLegendCard() {
+        return runeStoneLegendCard;
+    }
+
+    public void setRuneStoneLegendCard(NarratorSpace runeStoneLegendCard) {
+        this.runeStoneLegendCard = runeStoneLegendCard;
     }
 }
