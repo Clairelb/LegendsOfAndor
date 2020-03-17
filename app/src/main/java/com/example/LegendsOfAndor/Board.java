@@ -58,7 +58,7 @@ enum EndMoveResponses {
 
 
 enum GetAvailableRegionsReponses {
-    NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_AFTER_FIGHT, SUCCESS
+    NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_AFTER_FIGHT, CANNOT_MOVE_AFTER_MOVE_PRINCE, SUCCESS
 }
 
 
@@ -573,18 +573,20 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                try{
+                try {
                     AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask;
                     GetRegionsSender getRegionsSender = new GetRegionsSender();
                     GetAvailableRegionsReponses getAvailableRegionsReponses;
 
                     asyncTask = getRegionsSender.execute();
                     GetAvailableRegionsRC availableRegions = asyncTask.get();
-                    Log.d("REGION",availableRegions.getResponse().toString());
+                    Log.d("REGION", availableRegions.getResponse().toString());
 
                     getAvailableRegionsReponses = availableRegions.getResponse();
                     if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_FIGHT) {
-                        Toast.makeText(Board.this,"Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Board.this, "Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
+                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_MOVE_PRINCE) {
+                        Toast.makeText(Board.this, "Error. You cannot move after moving prince.", Toast.LENGTH_LONG).show();
                     } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CURRENT_HOUR_MAXED) {
                         Toast.makeText(Board.this,"Error. Your hours are maxed. You must end your day.", Toast.LENGTH_LONG).show();
                     } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.DEDUCT_WILLPOWER) {
@@ -661,6 +663,10 @@ public class Board extends AppCompatActivity {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
                         Toast.makeText(Board.this, "Fight error. Cannot fight after day ended.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get().getFightResponses() == FightResponses.CANNOT_FIGHT_AFTER_MOVE) {
+                        Toast.makeText(Board.this, "Fight error. Cannot fight after move.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get().getFightResponses() == FightResponses.CANNOT_FIGHT_AFTER_MOVE_PRINCE) {
+                        Toast.makeText(Board.this, "Fight error. Cannot fight after move prince.", Toast.LENGTH_LONG).show();
                     } else { // not current turn
                         Toast.makeText(Board.this, "Fight error. It is not your turn yet.", Toast.LENGTH_LONG).show();
                     }

@@ -3,7 +3,7 @@ package com.example.LegendsOfAndor;
 import java.util.ArrayList;
 
 enum TurnOptions{
-    MOVE, FIGHT, NONE
+    MOVE, FIGHT, MOVE_PRINCE, NONE
 }
 enum GameStatus{
     GAME_WON, GAME_LOST, GAME_ERROR, IN_PROGRESS
