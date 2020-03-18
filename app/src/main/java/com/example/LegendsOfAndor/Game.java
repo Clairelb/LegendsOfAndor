@@ -29,6 +29,7 @@ public class Game  {
     private PrinceThorald princeThorald;
     private NarratorSpace runeStoneLegendCard;
     private Witch witch;
+    private int skralStronghold;
 
     public Game() {}
 
@@ -267,5 +268,13 @@ public class Game  {
 
     public void setWitch(Witch witch) {
         this.witch = witch;
+    }
+
+    public int getSkralStronghold() {
+        return skralStronghold;
+    }
+
+    public void setSkralStronghold(int skralStronghold) {
+        this.skralStronghold = skralStronghold;
     }
 }
