@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +28,7 @@ public class LegendCardA5 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_legend_card_a5);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         final MyPlayer myPlayer = MyPlayer.getInstance();
         heroDie = findViewById(R.id.legend_card_a5_die);
@@ -43,7 +45,7 @@ public class LegendCardA5 extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (roll == 0) {
+                //if (roll == 0) {
                     roll = die.rollDie();
 
                     if (roll == 1) {
@@ -59,9 +61,9 @@ public class LegendCardA5 extends AppCompatActivity {
                     } else { // roll == 6
                         heroDie.setImageDrawable(getResources().getDrawable(getResourceID("archer_dice_6", "drawable", getApplicationContext())));
                     }
-                } else {
-                    Toast.makeText(LegendCardA5.this, "You may only roll the die once.", Toast.LENGTH_LONG).show();
-                }
+                //} else {
+                    //Toast.makeText(LegendCardA5.this, "You may only roll the die once.", Toast.LENGTH_LONG).show();
+                //}
             }
         });
 
@@ -70,8 +72,8 @@ public class LegendCardA5 extends AppCompatActivity {
             public void onClick(View v) {
                 if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
                     if (roll != 0) {
-                        ActivateLegendCardRuneStonesSender activateLegendCardRuneStonesSender = new ActivateLegendCardRuneStonesSender();
-                        activateLegendCardRuneStonesSender.execute(new Gson().toJson(roll));
+                        SetRuneStonesLegendCardSender setRuneStonesLegendCardSender = new SetRuneStonesLegendCardSender();
+                        setRuneStonesLegendCardSender.execute(new Gson().toJson(roll));
 
                         Intent intent = new Intent(LegendCardA5.this, DistributeItems.class);
                         startActivity(intent);
@@ -103,7 +105,7 @@ public class LegendCardA5 extends AppCompatActivity {
     @Override
     public void onBackPressed() {}
 
-    private static class ActivateLegendCardRuneStonesSender extends AsyncTask<String, Void, Void> {
+    private static class SetRuneStonesLegendCardSender extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
