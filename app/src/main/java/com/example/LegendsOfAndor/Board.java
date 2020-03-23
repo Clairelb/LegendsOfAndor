@@ -121,7 +121,7 @@ public class Board extends AppCompatActivity {
         endMove = findViewById(R.id.endMove);
         endMove.setVisibility(View.INVISIBLE);
 
-        chatb= findViewById(R.id.chatb);
+        chatb = findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
         farmers[0] = findViewById(R.id.farmer0);
         farmers[1] = findViewById(R.id.farmer1);
@@ -139,14 +139,14 @@ public class Board extends AppCompatActivity {
 
         skrall.add((ImageView) findViewById(R.id.skrall0));
 
-        wells.add((ImageView)findViewById(R.id.well5));
-        wells.add((ImageView)findViewById(R.id.well35));
-        wells.add((ImageView)findViewById(R.id.well45));
-        wells.add((ImageView)findViewById(R.id.well55));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell5));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell35));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell45));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell55));
+        wells.add((ImageView) findViewById(R.id.well5));
+        wells.add((ImageView) findViewById(R.id.well35));
+        wells.add((ImageView) findViewById(R.id.well45));
+        wells.add((ImageView) findViewById(R.id.well55));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell5));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell35));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell45));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell55));
 
         wells.get(0).setX(59);
         wells.get(0).setY(345);
@@ -165,26 +165,26 @@ public class Board extends AppCompatActivity {
         emptyWells.get(3).setX(1106);
         emptyWells.get(3).setY(103);
 
-        theros.add((ImageView)findViewById(R.id.twarrior));
+        theros.add((ImageView) findViewById(R.id.twarrior));
         theros.get(0).setVisibility(View.INVISIBLE);
-        theros.add((ImageView)findViewById(R.id.tarcher_male));
+        theros.add((ImageView) findViewById(R.id.tarcher_male));
         theros.get(1).setVisibility(View.INVISIBLE);
-        theros.add((ImageView)findViewById(R.id.tdwarf_male));
+        theros.add((ImageView) findViewById(R.id.tdwarf_male));
         theros.get(2).setVisibility(View.INVISIBLE);
-        theros.add((ImageView)findViewById(R.id.tmage_male));
+        theros.add((ImageView) findViewById(R.id.tmage_male));
         theros.get(3).setVisibility(View.INVISIBLE);
 
-        for(int i = 0; i < myPlayer.getGame().getAllHeroes().size();i++){
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD){
+        for (int i = 0; i < myPlayer.getGame().getAllHeroes().size(); i++) {
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD) {
                 theros.get(3).setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF) {
                 theros.get(2).setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER) {
                 theros.get(1).setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR) {
                 theros.get(0).setVisibility(View.VISIBLE);
             }
         }
@@ -193,13 +193,13 @@ public class Board extends AppCompatActivity {
         final TextView spText = findViewById(R.id.spText);
         spText.setVisibility(View.INVISIBLE);
 
-        sp=(Spinner)findViewById(R.id.sp);
-        String[]ls=getResources().getStringArray(R.array.action);
+        sp = (Spinner) findViewById(R.id.sp);
+        String[] ls = getResources().getStringArray(R.array.action);
 
-        for(int i=0;i<ls.length;i++){
+        for (int i = 0; i < ls.length; i++) {
             list.add(ls[i]);
         }
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
         sp.setAdapter(adapter);
         sp.setPrompt("标题栏");
         sp.getSelectedItem();
@@ -210,7 +210,7 @@ public class Board extends AppCompatActivity {
                 Integer space = Integer.parseInt(adapter.getItem(position));
 
 
-                nextMove =space;
+                nextMove = space;
             }
 
             @Override
@@ -222,44 +222,43 @@ public class Board extends AppCompatActivity {
         //final Toolbar toolbar2 = findViewById(R.id.toolbar2);
         //toolbar2.setVisibility(View.INVISIBLE);
 
-        hourLocation.put(0,new Integer[]{644,15});
-        hourLocation.put(1,new Integer[]{892,15});
-        hourLocation.put(2,new Integer[]{971,15});
-        hourLocation.put(3,new Integer[]{1042,15});
-        hourLocation.put(4,new Integer[]{1122,15});
-        hourLocation.put(5,new Integer[]{1198,15});
-        hourLocation.put(6,new Integer[]{1269,15});
-        hourLocation.put(7,new Integer[]{1345,15});
-        hourLocation.put(8,new Integer[]{1447,15});
-        hourLocation.put(9,new Integer[]{1527,15});
-        hourLocation.put(10,new Integer[]{1603,15});
+        hourLocation.put(0, new Integer[]{644, 15});
+        hourLocation.put(1, new Integer[]{892, 15});
+        hourLocation.put(2, new Integer[]{971, 15});
+        hourLocation.put(3, new Integer[]{1042, 15});
+        hourLocation.put(4, new Integer[]{1122, 15});
+        hourLocation.put(5, new Integer[]{1198, 15});
+        hourLocation.put(6, new Integer[]{1269, 15});
+        hourLocation.put(7, new Integer[]{1345, 15});
+        hourLocation.put(8, new Integer[]{1447, 15});
+        hourLocation.put(9, new Integer[]{1527, 15});
+        hourLocation.put(10, new Integer[]{1603, 15});
 
         this.archer = findViewById(R.id.archer_male);
         this.archer.setVisibility(View.INVISIBLE);
         this.wizard = findViewById(R.id.mage_male);
         this.wizard.setVisibility(View.INVISIBLE);
-        this.dwarf  = findViewById(R.id.dwarf_male);
+        this.dwarf = findViewById(R.id.dwarf_male);
         this.dwarf.setVisibility(View.INVISIBLE);
         this.warrior = findViewById(R.id.warrior);
         this.warrior.setVisibility(View.INVISIBLE);
-        for(int i = 0; i < myPlayer.getGame().getAllHeroes().size();i++){
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD){
+        for (int i = 0; i < myPlayer.getGame().getAllHeroes().size(); i++) {
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD) {
                 this.wizard.setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF) {
                 this.dwarf.setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER) {
                 this.archer.setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR) {
                 this.warrior.setVisibility(View.VISIBLE);
             }
         }
 
 
-
-        try{
+        try {
             AsyncTask<String, Void, Game> asyncTask;
             Game gameToSet;
             GetGame getGame = new GetGame();
@@ -267,19 +266,19 @@ public class Board extends AppCompatActivity {
             gameToSet = asyncTask.get();
             System.out.println(gameToSet);
             myPlayer.setGame(gameToSet);
-            for(int i = 0; i < gameToSet.getCurrentNumPlayers(); i++){
-                if(gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())){
+            for (int i = 0; i < gameToSet.getCurrentNumPlayers(); i++) {
+                if (gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())) {
                     myPlayer.setPlayer(gameToSet.getPlayers()[i]);
                     System.out.println("SET PLAYER");
                     break;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Game currentGame = myPlayer.getGame();
-        if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
-            Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
+        if (currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+            Toast.makeText(Board.this, "It is your turn to go first", Toast.LENGTH_LONG).show();
             move.setVisibility(View.VISIBLE);
             realMove.setVisibility(View.VISIBLE);
 
@@ -292,33 +291,32 @@ public class Board extends AppCompatActivity {
 
         }
 
-        for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
+        for (int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
             //DRAW PLAYERS HERE
             Hero h = currentGame.getPlayers()[i].getHero();
             Integer s = h.getCurrentSpace();
             moveHero(h, s);
 
             //DRAW TIME MARKERS HERE
-            if(h.isHasEndedDay())
-            {
-                moveHeroTime(h, hourLocation.get(0)[0],hourLocation.get(0)[1]);
-            }else{
+            if (h.isHasEndedDay()) {
+                moveHeroTime(h, hourLocation.get(0)[0], hourLocation.get(0)[1]);
+            } else {
                 int time = h.getCurrentHour();
-                moveHeroTime(h, hourLocation.get(time)[0],hourLocation.get(time)[1]);
+                moveHeroTime(h, hourLocation.get(time)[0], hourLocation.get(time)[1]);
             }
         }
 
-        for(int i = 0; i < currentGame.getFarmers().size();i++){
-            if(currentGame.getFarmers().get(i).isBeingCarried()){
+        for (int i = 0; i < currentGame.getFarmers().size(); i++) {
+            if (currentGame.getFarmers().get(i).isBeingCarried()) {
                 farmers[i].setVisibility(View.INVISIBLE);
-            }else{
+            } else {
                 ArrayList<Region> allRegion = currentGame.getRegionDatabase().getRegionDatabase();
                 int counter = 0;
-                for(Region r: allRegion){
-                    if(r.getFarmers().size()>0){
+                for (Region r : allRegion) {
+                    if (r.getFarmers().size() > 0) {
                         farmers[counter].setVisibility(View.VISIBLE);
                         displayFarmer(farmers[counter], r.getNumber());
-                        counter ++;
+                        counter++;
                     }
                 }
                 counter = 0;
@@ -332,61 +330,59 @@ public class Board extends AppCompatActivity {
         ArrayList<Integer> gorRegion = new ArrayList<>();
         ArrayList<Integer> skralRegion = new ArrayList<>();
 
-        for(Region r: mRegion){
-            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
+        for (Region r : mRegion) {
+            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR) {
                 gorRegion.add(r.getNumber());
             }
-            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
+            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL) {
                 skralRegion.add(r.getNumber());
             }
         }
-        System.out.println("total"+ mRegion.size());
+        System.out.println("total" + mRegion.size());
         System.out.println("sieze" + gorRegion.size());
-        for(int i = 0; i <gorRegion.size();i++){
+        for (int i = 0; i < gorRegion.size(); i++) {
             gors.get(i).setVisibility(View.VISIBLE);
-            moveMonster(gors.get(i),gorRegion.get(i));
+            moveMonster(gors.get(i), gorRegion.get(i));
         }
-        for(int i = 0; i < skralRegion.size();i++){
+        for (int i = 0; i < skralRegion.size(); i++) {
             skrall.get(i).setVisibility((View.VISIBLE));
             moveMonster(skrall.get(i), skralRegion.get(i));
         }
 
         //Update Wells
-        if(currentGame.getRegionDatabase().getRegion(5).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(5).isFountainStatus()) {
             wells.get(0).setVisibility(View.VISIBLE);
             emptyWells.get(0).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(0).setVisibility(View.INVISIBLE);
             emptyWells.get(0).setVisibility(View.VISIBLE);
         }
-        if(currentGame.getRegionDatabase().getRegion(35).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(35).isFountainStatus()) {
             wells.get(1).setVisibility(View.VISIBLE);
             emptyWells.get(1).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(1).setVisibility(View.INVISIBLE);
             emptyWells.get(1).setVisibility(View.VISIBLE);
         }
-        if(currentGame.getRegionDatabase().getRegion(45).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(45).isFountainStatus()) {
             wells.get(2).setVisibility(View.VISIBLE);
             emptyWells.get(2).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(2).setVisibility(View.INVISIBLE);
             emptyWells.get(2).setVisibility(View.VISIBLE);
         }
-        if(currentGame.getRegionDatabase().getRegion(55).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(55).isFountainStatus()) {
             wells.get(3).setVisibility(View.VISIBLE);
             emptyWells.get(3).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(3).setVisibility(View.INVISIBLE);
             emptyWells.get(3).setVisibility(View.VISIBLE);
         }
 
-        Toast.makeText(Board.this, "The rune stones legend card appears at " +currentGame.getRuneStoneLegendCard().toString() + " space.", Toast.LENGTH_LONG).show();
-
+        if (!myPlayer.isRuneStoneToastDisplayed()) {
+            myPlayer.setRuneStoneToastDisplayed(true);
+            Toast.makeText(Board.this, "The rune stones legend card appears at " + currentGame.getRuneStoneLegendCard().toString() + " space.", Toast.LENGTH_LONG).show();
+        }
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
@@ -410,6 +406,47 @@ public class Board extends AppCompatActivity {
 
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
+                                        if (game.getNarrator().getSlot() == NarratorSpace.C) {
+                                            if (!myPlayer.isLegendCardCDisplayed()) {
+                                                myPlayer.setLegendCardCDisplayed(true);
+                                                Intent intent;
+                                                if (game.getDifficultMode()) {
+                                                    intent = new Intent(Board.this, LegendCardC1Hard.class);
+                                                } else {
+                                                    intent = new Intent(Board.this, LegendCardC1Easy.class);
+                                                }
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == game.getRuneStoneLegendCard()) {
+                                            if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
+                                                myPlayer.setLegendCardRuneStonesDisplayed(true);
+                                                Intent intent;
+                                                if (game.getDifficultMode()) {
+                                                    intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
+                                                } else {
+                                                    intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
+                                                }
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == NarratorSpace.G) {
+                                            if (!myPlayer.isLegendCardGDisplayed()) {
+                                                myPlayer.setLegendCardGDisplayed(true);
+                                                Intent intent = new Intent(Board.this, LegendCardG.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
+                                            if (!myPlayer.isLegendCardNDisplayed()) {
+                                                myPlayer.setLegendCardNDisplayed(true);
+                                                Intent intent = new Intent(Board.this, LegendCardN.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        }
+
+
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();

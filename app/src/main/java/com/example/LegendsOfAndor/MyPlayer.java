@@ -5,6 +5,11 @@ public class MyPlayer {
    private Player player;
    private String serverIP;
    private Game game;
+   private boolean runeStoneToastDisplayed;
+   private boolean legendCardCDisplayed;
+   private boolean legendCardRuneStonesDisplayed;
+   private boolean legendCardGDisplayed;
+   private boolean legendCardNDisplayed;
 
    public void setPlayer(Player p){
        player = p;
@@ -36,4 +41,44 @@ public class MyPlayer {
    public void setGame(Game game) {
        this.game = game;
    }
+
+    public boolean isRuneStoneToastDisplayed() {
+        return runeStoneToastDisplayed;
+    }
+
+    public void setRuneStoneToastDisplayed(boolean runeStoneToastDisplayed) {
+        this.runeStoneToastDisplayed = runeStoneToastDisplayed;
+    }
+
+    public boolean isLegendCardCDisplayed() {
+        return legendCardCDisplayed;
+    }
+
+    public void setLegendCardCDisplayed(boolean legendCardCDisplayed) {
+        this.legendCardCDisplayed = legendCardCDisplayed;
+    }
+
+    public boolean isLegendCardRuneStonesDisplayed() {
+        return legendCardRuneStonesDisplayed;
+    }
+
+    public void setLegendCardRuneStonesDisplayed(boolean legendCardRuneStonesDisplayed) {
+        this.legendCardRuneStonesDisplayed = legendCardRuneStonesDisplayed;
+    }
+
+    public boolean isLegendCardGDisplayed() {
+        return legendCardGDisplayed;
+    }
+
+    public void setLegendCardGDisplayed(boolean legendCardGDisplayed) {
+        this.legendCardGDisplayed = legendCardGDisplayed;
+    }
+
+    public boolean isLegendCardNDisplayed() {
+        return legendCardNDisplayed;
+    }
+
+    public void setLegendCardNDisplayed(boolean legendCardNDisplayed) {
+        this.legendCardNDisplayed = legendCardNDisplayed;
+    }
 }
