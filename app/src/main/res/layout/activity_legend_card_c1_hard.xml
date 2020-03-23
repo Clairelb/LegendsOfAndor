@@ -9,11 +9,34 @@
 
     <Button
         android:id="@+id/next_legend_card_c1_hard"
-        android:layout_width="280dp"
-        android:layout_height="51dp"
+        android:layout_width="271dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
         android:text="NEXT LEGEND CARD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/roll_die_c1_hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ROLL DIE"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/next_legend_card_c1_hard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/hero_die_c1_hard"
+        android:layout_width="38dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
 </androidx.constraintlayout.widget.ConstraintLayout>

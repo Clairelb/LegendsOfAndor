@@ -2,6 +2,7 @@ package com.example.LegendsOfAndor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ public class LegendCardA3Easy extends AppCompatActivity {
 
     private Button nextLegendCardBTN;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

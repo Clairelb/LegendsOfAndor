@@ -2,6 +2,7 @@ package com.example.LegendsOfAndor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -30,6 +31,7 @@ public class LegendCardRuneStonesEasy extends AppCompatActivity {
     private ArrayList<Integer> runeStonePositions;
     private String runeStonesPositionsText;
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
