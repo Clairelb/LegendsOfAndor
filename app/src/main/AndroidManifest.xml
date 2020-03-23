@@ -13,9 +13,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".FarmerInteract"
+        <activity android:name=".legend_card_n"></activity>
+        <activity android:name=".legend_card_g" />
+        <activity android:name=".legend_card_the_witch" />
+        <activity android:name=".legend_card_rune_stones_hard" />
+        <activity android:name=".legend_card_rune_stones_easy" />
+        <activity android:name=".legend_card_c2" />
+        <activity android:name=".legend_card_c1_hard" />
+        <activity android:name=".legend_card_c1_easy" />
+        <activity android:name=".legend_card_a5" />
+        <activity android:name=".legend_card_a4" />
+        <activity android:name=".legend_card_a3_hard" />
+        <activity android:name=".legend_card_a3_easy" />
+        <activity android:name=".legend_card_a2" />
+        <activity android:name=".legend_card_a1" />
+        <activity
+            android:name=".FarmerInteract"
             android:screenOrientation="sensorLandscape"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".InteractItem"
             android:screenOrientation="sensorLandscape" />

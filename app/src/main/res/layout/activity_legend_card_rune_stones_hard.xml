@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/legendcard_rune_stones_hard"
+    tools:context="com.example.LegendsOfAndor.legend_card_rune_stones_hard">
+
+    <ImageView
+        android:id="@+id/hero_die_rune_stones_hard"
+        android:layout_width="38dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.01"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/archer_dice" />
+
+    <ImageView
+        android:id="@+id/enemy_die_rune_stones_hard"
+        android:layout_width="38dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/hero_die_rune_stones_hard"
+        app:srcCompat="@drawable/enemy_dice" />
+
+    <TextView
+        android:id="@+id/text_view_rune_stones_hard"
+        android:layout_width="250dp"
+        android:layout_height="33dp"
+        android:text="Rune Stone Positions: "
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.024"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/roll_dice_rune_stones_hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:text="@string/roll_dice"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/to_board_rune_stones_hard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TO BOARD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.912"
+        app:layout_constraintStart_toStartOf="@+id/text_view_rune_stones_hard"
+        app:layout_constraintTop_toBottomOf="@+id/roll_dice_rune_stones_hard" />
+</androidx.constraintlayout.widget.ConstraintLayout>
