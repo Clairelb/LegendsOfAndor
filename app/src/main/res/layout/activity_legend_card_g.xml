@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/legendcard_g"
-    tools:context="com.example.LegendsOfAndor.legend_card_g">
+    tools:context="com.example.LegendsOfAndor.LegendCardG">
 
     <Button
         android:id="@+id/to_board_g"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/legendcard_a5"
-    tools:context="com.example.LegendsOfAndor.legend_card_a5">
+    tools:context="com.example.LegendsOfAndor.LegendCardA5">
 
     <Button
         android:id="@+id/roll_die_button_a5"
@@ -20,10 +20,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/to_board_a5"
+        android:id="@+id/to_distribute_items_a5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TO BOARD"
+        android:text="TO DISTRIBUTE ITEMS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -32,7 +32,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:id="@+id/legend_card_a5_dice"
+        android:id="@+id/legend_card_a5_die"
         android:layout_width="58dp"
         android:layout_height="43dp"
         android:layout_marginBottom="24dp"

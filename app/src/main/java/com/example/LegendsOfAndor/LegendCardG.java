@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class legend_card_g extends AppCompatActivity {
+public class LegendCardG extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

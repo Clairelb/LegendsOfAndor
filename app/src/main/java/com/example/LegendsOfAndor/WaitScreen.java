@@ -19,8 +19,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 enum SelectHeroResponses {
     SELECT_HERO_SUCCESS, ERROR_HERO_ALREADY_SELECTED, ERROR_DUPLICATE_HERO
 }
@@ -372,15 +370,25 @@ public class WaitScreen extends AppCompatActivity {
         threadTerminated = true;
 
         Intent myIntent;
-        if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())){
-            myIntent = new Intent(WaitScreen.this, DistributeItems.class);
-        }else{
-            myIntent = new Intent(WaitScreen.this, DistributeItemsWaitPage.class);
-        }
+        myIntent = new Intent(WaitScreen.this, LegendCardA1.class);
         myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
         finish();
     }
+
+//    public void interruptThreadAndStartActivity() {
+//        threadTerminated = true;
+//
+//        Intent myIntent;
+//        if(myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())){
+//            myIntent = new Intent(WaitScreen.this, DistributeItems.class);
+//        }else{
+//            myIntent = new Intent(WaitScreen.this, DistributeItemsWaitPage.class);
+//        }
+//        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(myIntent);
+//        finish();
+//    }
 
 
     private static class LeavePregameSender extends AsyncTask<String, Void, String> {

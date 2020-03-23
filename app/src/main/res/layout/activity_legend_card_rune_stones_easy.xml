@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/legendcard_rune_stones_easy"
-    tools:context="com.example.LegendsOfAndor.legend_card_rune_stones_easy">
+    tools:context="com.example.LegendsOfAndor.LegendCardRuneStonesEasy">
 
     <ImageView
         android:id="@+id/hero_die_rune_stones_easy"

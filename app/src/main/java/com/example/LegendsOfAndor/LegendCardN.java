@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class legend_card_a5 extends AppCompatActivity {
+public class LegendCardN extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_legend_card_a5);
+        setContentView(R.layout.activity_legend_card_n);
     }
 }
