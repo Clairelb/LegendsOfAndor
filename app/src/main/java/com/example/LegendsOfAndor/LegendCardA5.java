@@ -109,7 +109,7 @@ public class LegendCardA5 extends AppCompatActivity {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/activateLegendCardRuneStones")
+                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/setRuneStonesLegendCard")
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();

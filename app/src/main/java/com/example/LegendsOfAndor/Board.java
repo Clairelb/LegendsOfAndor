@@ -385,6 +385,7 @@ public class Board extends AppCompatActivity {
             emptyWells.get(3).setVisibility(View.VISIBLE);
         }
 
+        Toast.makeText(Board.this, "The rune stones legend card appears at " +currentGame.getRuneStoneLegendCard().toString() + " space.", Toast.LENGTH_LONG).show();
 
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
