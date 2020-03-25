@@ -809,8 +809,9 @@ public class Board extends AppCompatActivity {
         optionsb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), OptionsTab.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(Board.this, OptionsTab.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                interruptThreadAndStartActivity(intent);
             }
         });
     }
