@@ -19,12 +19,14 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.LegendsOfAndor.PublicEnums.FightResponses;
+import com.example.LegendsOfAndor.PublicEnums.*;
+import com.example.LegendsOfAndor.PublicEnums.FogKind;
+import com.example.LegendsOfAndor.ReturnClasses.ActivateFogRC;
 import com.example.LegendsOfAndor.ReturnClasses.FightRC;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.gson.Gson;
@@ -63,6 +65,8 @@ enum GetAvailableRegionsReponses {
 
 
 
+
+
 //import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Board extends AppCompatActivity {
@@ -79,6 +83,7 @@ public class Board extends AppCompatActivity {
     private Button endMove;
     private int nextMove;
     private Button realMove;
+
 
 
     private Thread t;
@@ -503,7 +508,7 @@ public class Board extends AppCompatActivity {
                                             }
                                         }
                                         System.out.println("total"+ mRegion.size());
-                                        System.out.println("sieze" + gorRegion.size());
+                                        System.out.println("size" + gorRegion.size());
                                         for(int i = 0; i <gorRegion.size();i++){
                                             gors.get(i).setVisibility(View.VISIBLE);
                                             moveMonster(gors.get(i),gorRegion.get(i));
@@ -578,6 +583,7 @@ public class Board extends AppCompatActivity {
                                             endDay.setVisibility(View.INVISIBLE);
                                             endMove.setVisibility(View.INVISIBLE);
                                         }
+
                                     }
                                 }
                             });
@@ -747,10 +753,9 @@ public class Board extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });;
+        });
 
         endMove.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 EndMoveResponses endMoveResponses;
@@ -759,9 +764,44 @@ public class Board extends AppCompatActivity {
                     EndMoveSender endMoveSender = new EndMoveSender();
                     asyncTask = endMoveSender.execute("");
                     endMoveResponses = asyncTask.get();
-                    //Log.d("EndMove", asyncTask.get().toString());
                     if(endMoveResponses == EndMoveResponses.ACTIVATE_FOG){
                         Toast.makeText(Board.this,"A fog token will be activated",Toast.LENGTH_LONG).show();
+
+                        try {
+                            AsyncTask<String, Void, ActivateFogRC> asyncTaskFog;
+                            ActivateFogSender activateFogSender = new ActivateFogSender();
+                            asyncTaskFog = activateFogSender.execute("");
+                            FogKind f = asyncTaskFog.get().getFogKind();
+                            if(asyncTaskFog.get().getActivateFogResponses() == ActivateFogResponses.SUCCESS){
+                                if(f == FogKind.GOLD){
+                                    Toast.makeText(Board.this,"Gold added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.MONSTER){
+                                    Toast.makeText(Board.this,"A monster appeared in your region",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.THREE_WP){
+                                    Toast.makeText(Board.this,"Three willpower points added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.SP){
+                                    Toast.makeText(Board.this,"Strength point added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.WITCHBREW){
+                                    Toast.makeText(Board.this,"A witchbrew was added to your inventory",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.WINESKIN){
+                                    Toast.makeText(Board.this,"A wineskin was added to your inventory",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.TWO_WP){
+                                    Toast.makeText(Board.this,"Two willpower points added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.EVENT){
+                                    //Event card
+                                }
+                            }
+                        }
+                        catch (Exception e) {
+                        e.printStackTrace();
+                        }
                     }else if(endMoveResponses == EndMoveResponses.BUY_FROM_MERCHANT){
                         //Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG).show();
                         Intent myIntent = new Intent(v.getContext(), EndMove_Merchant.class);
@@ -786,10 +826,12 @@ public class Board extends AppCompatActivity {
         optionsb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), OptionsTab.class);
-                startActivity(myIntent);
+                Intent intent = new Intent(Board.this, OptionsTab.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                interruptThreadAndStartActivity(intent);
             }
         });
+
     }
 
 
@@ -1046,6 +1088,25 @@ public class Board extends AppCompatActivity {
                 String resultAsJsonString = response.getBody();
                 return new Gson().fromJson(resultAsJsonString, GetAvailableRegionsRC.class);
             }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class ActivateFogSender extends AsyncTask<String, Void, ActivateFogRC> {
+        @Override
+        protected ActivateFogRC doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateFog")
+                        .header("Content-Type", "application/json")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString,ActivateFogRC.class );
+            } catch (UnirestException e) {
                 e.printStackTrace();
             }
             return null;

@@ -87,10 +87,10 @@
 
     <com.example.LegendsOfAndor.ZoomableViewGroup
         android:id="@+id/zoomableViewGroup"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="69dp">
+        tools:layout_editor_absoluteX="-2dp">
 
         <ImageView
             android:id="@+id/board"
@@ -136,66 +136,71 @@
             android:id="@+id/farmer1"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/farmer"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/farmer" />
 
         <ImageView
             android:id="@+id/farmer2"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/farmer"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/farmer" />
 
         <ImageView
             android:id="@+id/farmer3"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/farmer"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/farmer" />
 
         <ImageView
             android:id="@+id/farmer0"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/farmer"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/farmer" />
 
         <ImageView
             android:id="@+id/gor0"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/gor"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
         <ImageView
             android:id="@+id/gor1"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/gor"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
         <ImageView
             android:id="@+id/gor2"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/gor"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
         <ImageView
             android:id="@+id/gor3"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/gor"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
         <ImageView
             android:id="@+id/gor4"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/gor"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
         <ImageView
             android:id="@+id/gor5"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            app:srcCompat="@drawable/gor"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
 
         <ImageView
             android:id="@+id/skrall0"
@@ -213,8 +218,8 @@
             android:id="@+id/emptywell5"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            app:srcCompat="@drawable/emptywell"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/emptywell" />
 
 
         <ImageView
@@ -227,8 +232,8 @@
             android:id="@+id/emptywell35"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            app:srcCompat="@drawable/emptywell"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/emptywell" />
 
         <ImageView
             android:id="@+id/well45"
@@ -240,8 +245,8 @@
             android:id="@+id/emptywell45"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            app:srcCompat="@drawable/emptywell"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/emptywell" />
 
         <ImageView
             android:id="@+id/well55"
@@ -253,8 +258,8 @@
             android:id="@+id/emptywell55"
             android:layout_width="12dp"
             android:layout_height="12dp"
-            app:srcCompat="@drawable/emptywell"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/emptywell" />
 
         <ImageView
             android:id="@+id/twarrior"
@@ -280,9 +285,6 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             app:srcCompat="@drawable/mage" />
-
-
-
 
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>

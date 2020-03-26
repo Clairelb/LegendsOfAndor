@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/interact_item_background">
+
+
+    <ImageButton
+        android:id="@+id/add_wineskin"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="184dp"
+        android:layout_marginRight="184dp"
+        android:layout_marginBottom="17dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_shield"
+        app:layout_constraintEnd_toStartOf="@+id/drop_telescope"
+        app:layout_constraintTop_toBottomOf="@+id/selected_item"
+        app:srcCompat="@drawable/wineskin" />
+
+    <ImageButton
+        android:id="@+id/add_shield"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="184dp"
+        android:layout_marginRight="184dp"
+        android:layout_marginBottom="16dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_bow"
+        app:layout_constraintEnd_toStartOf="@+id/drop_runestone"
+        app:srcCompat="@drawable/shield" />
+
+    <ImageButton
+        android:id="@+id/add_bow"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="184dp"
+        android:layout_marginRight="184dp"
+        android:layout_marginBottom="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_falcon"
+        app:srcCompat="@drawable/bow" />
+
+
+    <ImageButton
+        android:id="@+id/add_falcon"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/add_medicinal_herb"
+        app:srcCompat="@drawable/falcon" />
+
+    <TextView
+        android:id="@+id/add_item_description"
+        android:layout_width="136dp"
+        android:layout_height="50dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:text="Add Item"
+        android:textColor="#cab7b7"
+        android:textSize="36sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <TextView
+        android:id="@+id/drop_item_description"
+        android:layout_width="136dp"
+        android:layout_height="50dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:text="Drop Item"
+        android:textColor="#cab7b7"
+        android:textSize="36sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.794"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.044" />
+
+    <ImageButton
+        android:id="@+id/add_helm"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="17dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_witch_brew"
+        app:layout_constraintEnd_toStartOf="@+id/add_wineskin"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_description"
+        app:srcCompat="@drawable/helm" />
+
+    <ImageButton
+        android:id="@+id/add_witch_brew"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="17dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_medicinal_herb"
+        app:layout_constraintEnd_toStartOf="@+id/add_shield"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageButton
+        android:id="@+id/add_medicinal_herb"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/add_bow"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageButton
+        android:id="@+id/add_runestone"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="16dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_falcon"
+        app:layout_constraintEnd_toStartOf="@+id/add_witch_brew"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageButton
+        android:id="@+id/add_telescope"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="16dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_runestone"
+        app:layout_constraintEnd_toStartOf="@+id/add_helm"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_item_description"
+        app:srcCompat="@drawable/telescope" />
+
+    <ImageButton
+        android:id="@+id/drop_telescope"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="18dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_runestone"
+        app:layout_constraintEnd_toStartOf="@+id/drop_helm"
+        app:layout_constraintTop_toBottomOf="@+id/drop_item_description"
+        app:srcCompat="@drawable/telescope" />
+
+    <ImageButton
+        android:id="@+id/drop_runestone"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="17dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_falcon"
+        app:layout_constraintEnd_toStartOf="@+id/drop_witch_brew"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageButton
+        android:id="@+id/drop_falcon"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_medicinal_herb"
+        app:srcCompat="@drawable/falcon" />
+
+    <ImageButton
+        android:id="@+id/drop_shield"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="17dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_bow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/shield" />
+
+    <ImageButton
+        android:id="@+id/drop_bow"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/bow" />
+
+    <ImageButton
+        android:id="@+id/drop_helm"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="38dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="18dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_witch_brew"
+        app:layout_constraintEnd_toStartOf="@+id/drop_wineskin"
+        app:layout_constraintTop_toBottomOf="@+id/drop_item_description"
+        app:srcCompat="@drawable/helm" />
+
+    <ImageButton
+        android:id="@+id/drop_medicinal_herb"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="80dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_bow"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageButton
+        android:id="@+id/drop_witch_brew"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginBottom="17dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_medicinal_herb"
+        app:layout_constraintEnd_toStartOf="@+id/drop_shield"
+        app:srcCompat="@drawable/coin" />
+
+    <ImageButton
+        android:id="@+id/drop_wineskin"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="18dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_shield"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/trade_backb"
+        app:srcCompat="@drawable/wineskin" />
+
+    <ImageButton
+        android:id="@+id/trade_backb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00FFFFFF"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.963"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.032"
+        app:srcCompat="@drawable/back_icon" />
+
+    <TextView
+        android:id="@+id/selected_item"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="62dp"
+        android:layout_marginLeft="62dp"
+        android:layout_marginEnd="49dp"
+        android:layout_marginRight="49dp"
+        android:autoText="false"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_item_description"
+        app:layout_constraintHorizontal_bias="0.518"
+        app:layout_constraintStart_toEndOf="@+id/add_item_description"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.057" />
+
+    <Button
+        android:id="@+id/add_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="79dp"
+        android:layout_marginLeft="79dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="388dp"
+        android:layout_marginRight="388dp"
+        android:layout_marginBottom="15dp"
+        android:text="Add Item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_medicinal_herb" />
+
+    <Button
+        android:id="@+id/drop_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Drop Item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <Button
+        android:id="@+id/get_items"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Items"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.21"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.515" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

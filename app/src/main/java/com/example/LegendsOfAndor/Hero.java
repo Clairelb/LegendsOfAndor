@@ -24,23 +24,24 @@ public class Hero {
     private boolean movedPrince;
     private ArrayList<RuneStone> runeStones;
 
+
     public Hero() {}
 
     public Hero(HeroClass heroClass) {
         this.heroClass = heroClass;
 
         if (heroClass == HeroClass.ARCHER) {
-            currentSpace = 53;
+            currentSpace = 25;
             rank = 25;
 
         } else if (heroClass == HeroClass.DWARF) {
-            currentSpace = 43;
+            currentSpace = 25;
             rank = 7;
         } else if (heroClass == HeroClass.WARRIOR) {
             currentSpace = 25;
             rank = 14;
         } else { // wizard
-            currentSpace = 9;
+            currentSpace = 25;
             rank = 34;
         }
         willPower = 7;
@@ -160,21 +161,6 @@ public class Hero {
     public void setRuneStones(ArrayList<RuneStone> runeStones) {
         this.runeStones = runeStones;
     }
-
-//        @Override
-//    public boolean equals(Object o) {
-//            if (o == this) {
-//                return true;
-//            }
-//            if (!(o instanceof Hero)) {
-//                return false;
-//            }
-//            Hero h = (Hero)o;
-//            if(h.getHeroClass() == ((Hero) o).heroClass){
-//                return true;
-//            }
-//            return false;
-//    }
 
 
 }

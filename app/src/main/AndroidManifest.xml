@@ -103,6 +103,8 @@
         <activity
             android:name=".EndMove_Merchant"
             android:screenOrientation="sensorLandscape" />
+        <activity android:name=".Trade"
+            android:screenOrientation="sensorLandscape"/>
     </application>
 
 </manifest>
