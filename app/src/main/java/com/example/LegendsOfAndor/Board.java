@@ -25,6 +25,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.example.LegendsOfAndor.PublicEnums.*;
+import com.example.LegendsOfAndor.PublicEnums.FogKind;
+import com.example.LegendsOfAndor.ReturnClasses.ActivateFogRC;
 import com.example.LegendsOfAndor.ReturnClasses.FightRC;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.gson.Gson;
@@ -774,10 +776,9 @@ public class Board extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        });;
+        });
 
         endMove.setOnClickListener(new View.OnClickListener(){
-
             @Override
             public void onClick(View v) {
                 EndMoveResponses endMoveResponses;
@@ -786,9 +787,44 @@ public class Board extends AppCompatActivity {
                     EndMoveSender endMoveSender = new EndMoveSender();
                     asyncTask = endMoveSender.execute("");
                     endMoveResponses = asyncTask.get();
-                    //Log.d("EndMove", asyncTask.get().toString());
                     if(endMoveResponses == EndMoveResponses.ACTIVATE_FOG){
                         Toast.makeText(Board.this,"A fog token will be activated",Toast.LENGTH_LONG).show();
+
+                        try {
+                            AsyncTask<String, Void, ActivateFogRC> asyncTaskFog;
+                            ActivateFogSender activateFogSender = new ActivateFogSender();
+                            asyncTaskFog = activateFogSender.execute("");
+                            FogKind f = asyncTaskFog.get().getFogKind();
+                            if(asyncTaskFog.get().getActivateFogResponses() == ActivateFogResponses.SUCCESS){
+                                if(f == FogKind.GOLD){
+                                    Toast.makeText(Board.this,"Gold added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.MONSTER){
+                                    Toast.makeText(Board.this,"A monster appeared in your region",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.THREE_WP){
+                                    Toast.makeText(Board.this,"Three willpower points added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.SP){
+                                    Toast.makeText(Board.this,"Strength point added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.WITCHBREW){
+                                    Toast.makeText(Board.this,"A witchbrew was added to your inventory",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.WINESKIN){
+                                    Toast.makeText(Board.this,"A wineskin was added to your inventory",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.TWO_WP){
+                                    Toast.makeText(Board.this,"Two willpower points added",Toast.LENGTH_LONG).show();
+                                }
+                                else if(f == FogKind.EVENT){
+                                    //Event card
+                                }
+                            }
+                        }
+                        catch (Exception e) {
+                        e.printStackTrace();
+                        }
                     }else if(endMoveResponses == EndMoveResponses.BUY_FROM_MERCHANT){
                         //Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG).show();
                         Intent myIntent = new Intent(v.getContext(), EndMove_Merchant.class);
@@ -1080,4 +1116,24 @@ public class Board extends AppCompatActivity {
             return null;
         }
     }
+
+    private static class ActivateFogSender extends AsyncTask<String, Void, ActivateFogRC> {
+        @Override
+        protected ActivateFogRC doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateFog")
+                        .header("Content-Type", "application/json")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString,ActivateFogRC.class );
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
 }
