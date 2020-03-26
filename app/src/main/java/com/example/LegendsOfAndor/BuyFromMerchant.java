@@ -153,12 +153,21 @@ public class BuyFromMerchant extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         gold_av.setText(String.valueOf(MyPlayer.getInstance().getGame().getSinglePlayer(MyPlayer.getInstance().getPlayer().getUsername()).getHero().getGold()));
+                        merchantPurchase.setStrength(0);
+                        items.clear();
+                        merchantPurchase.setItems(items);
                     }
                     else if (buyFromMerchantResponses == BuyFromMerchantResponses.NOT_ENOUGH_GOLD){
                         Toast.makeText(BuyFromMerchant.this, "Purchase Failed. Not Enough Gold", Toast.LENGTH_LONG).show();
+                        merchantPurchase.setStrength(0);
+                        items.clear();
+                        merchantPurchase.setItems(items);
                     }
                     else{
                         Toast.makeText(BuyFromMerchant.this, "No merchant located in your region", Toast.LENGTH_LONG).show();
+                        merchantPurchase.setStrength(0);
+                        items.clear();
+                        merchantPurchase.setItems(items);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
