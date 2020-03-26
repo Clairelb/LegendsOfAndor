@@ -67,6 +67,15 @@ public class Free_Actions extends AppCompatActivity {
             }
         });
 
+        Button tradeb = (Button) findViewById(R.id.tradeb);
+        tradeb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), Trade.class);
+                startActivity(myIntent);
+            }
+        });
+
         Button wellb = (Button) findViewById(R.id.wellb);
         wellb.setOnClickListener(new View.OnClickListener() {
             @Override

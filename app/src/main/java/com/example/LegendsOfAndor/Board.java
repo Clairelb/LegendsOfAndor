@@ -19,12 +19,12 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.LegendsOfAndor.PublicEnums.FightResponses;
+import com.example.LegendsOfAndor.PublicEnums.*;
 import com.example.LegendsOfAndor.ReturnClasses.FightRC;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.google.gson.Gson;
@@ -63,6 +63,8 @@ enum GetAvailableRegionsReponses {
 
 
 
+
+
 //import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class Board extends AppCompatActivity {
@@ -77,6 +79,7 @@ public class Board extends AppCompatActivity {
     private Button chatb;
     private Button optionsb;
     private Button endMove;
+
 
 
     private Thread t;
@@ -487,7 +490,7 @@ public class Board extends AppCompatActivity {
                                             }
                                         }
                                         System.out.println("total"+ mRegion.size());
-                                        System.out.println("sieze" + gorRegion.size());
+                                        System.out.println("size" + gorRegion.size());
                                         for(int i = 0; i <gorRegion.size();i++){
                                             gors.get(i).setVisibility(View.VISIBLE);
                                             moveMonster(gors.get(i),gorRegion.get(i));
@@ -565,6 +568,7 @@ public class Board extends AppCompatActivity {
                                             endDay.setVisibility(View.INVISIBLE);
                                             endMove.setVisibility(View.INVISIBLE);
                                         }
+
                                     }
                                 }
                             });
@@ -814,6 +818,7 @@ public class Board extends AppCompatActivity {
                 interruptThreadAndStartActivity(intent);
             }
         });
+
     }
 
 
@@ -1075,5 +1080,4 @@ public class Board extends AppCompatActivity {
             return null;
         }
     }
-
 }

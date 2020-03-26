@@ -277,4 +277,6 @@ public class Game  {
     public void setSkralStronghold(int skralStronghold) {
         this.skralStronghold = skralStronghold;
     }
+
+
 }
