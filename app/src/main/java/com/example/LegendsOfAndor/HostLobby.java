@@ -25,6 +25,8 @@ enum HostGameResponses {
 }
 
 public class HostLobby extends AppCompatActivity {
+    private static final String[] BAD_CHARACTERS = {"/",";","?",":","@","=","&","<",">","#","%","{","}","|","^","~","[","]","`","\""};
+
 
     @Override
     public void onBackPressed() {
@@ -89,7 +91,9 @@ public class HostLobby extends AppCompatActivity {
                 System.out.println("GAME NAME" + gameName);
                 if(gameName == null || gameName.length()== 0){
                     Toast.makeText(HostLobby.this, "Please specify game name.", Toast.LENGTH_LONG).show();
-                }else{
+                } if(stringContainsItemFromList(gameName,BAD_CHARACTERS)){
+                    Toast.makeText(HostLobby.this, "Invalid character in game name", Toast.LENGTH_LONG).show();
+                } else{
                     myPlayer.getPlayer().setHero(new Hero(new Gson().fromJson(s2.getSelectedItem().toString(), HeroClass.class)));
                     Game game = new Game(myPlayer.getPlayer(), maxNumPlayers, gameName, difficulty.isChecked());
                     myPlayer.setGame(game);
@@ -115,6 +119,18 @@ public class HostLobby extends AppCompatActivity {
 
             }
         });
+    }
+
+    public static boolean stringContainsItemFromList(String inputStr, String[] items)
+    {
+        for(int i =0; i < items.length; i++)
+        {
+            if(inputStr.contains(items[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static class HostGameSender extends AsyncTask<String, Void, HostGameResponses> {
