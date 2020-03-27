@@ -1,5 +1,6 @@
 package com.example.LegendsOfAndor;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
@@ -28,7 +29,7 @@ import java.util.List;
 
 
 enum JoinGameResponses {
-    JOIN_GAME_SUCCESS, ERROR_GAME_FULL, ERROR_GAME_DNE
+    JOIN_GAME_SUCCESS, ERROR_GAME_FULL, ERROR_GAME_DNE, ERROR_GAME_LOADED
 }
 
 
@@ -44,6 +45,7 @@ public class JoinLobby extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +133,8 @@ public class JoinLobby extends AppCompatActivity {
                             Toast.makeText(JoinLobby.this, "Join game error. Game does not exist.", Toast.LENGTH_LONG).show();
                         } else if (joinGameResponses == JoinGameResponses.ERROR_GAME_FULL) {
                             Toast.makeText(JoinLobby.this, "Join game error. Game already full.", Toast.LENGTH_LONG).show();
+                        } else if (joinGameResponses == JoinGameResponses.ERROR_GAME_LOADED) {
+                            Toast.makeText(JoinLobby.this, "Join game error. Target game has a loaded game.", Toast.LENGTH_LONG).show();
                         } else if (joinGameResponses == JoinGameResponses.JOIN_GAME_SUCCESS) {
                             Toast.makeText(JoinLobby.this, "Join game success. Added to game " + gameName + ".", Toast.LENGTH_LONG).show();
 

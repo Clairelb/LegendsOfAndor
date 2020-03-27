@@ -2,6 +2,7 @@ package com.example.LegendsOfAndor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -29,6 +30,10 @@ enum IsReadyResponses {
 
 enum StartGameResponses {
     START_GAME_SUCCESS, ERROR_PLAYER_NOT_READY, ERROR_NOT_HOST, ERROR_NOT_ENOUGH_PLAYERS
+}
+
+enum LeavePregameResponses {
+    ERROR_GAME_LOADED, LEAVE_SUCCESS
 }
 
 public class WaitScreen extends AppCompatActivity {
@@ -62,6 +67,7 @@ public class WaitScreen extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -283,17 +289,22 @@ public class WaitScreen extends AppCompatActivity {
                 MyPlayer.getInstance().getPlayer().setHero(null);
                 try {
                     LeavePregameSender leavePregameSender = new LeavePregameSender();
-                    leavePregameSender.execute();
+                    AsyncTask<String, Void, LeavePregameResponses> asyncTask = leavePregameSender.execute();
+
+                    if (asyncTask.get() == LeavePregameResponses.ERROR_GAME_LOADED) {
+                        Toast.makeText(WaitScreen.this, "Leave error. Cannot leave after loading game.", Toast.LENGTH_LONG).show();
+                    } else {
+                        threadTerminated = true;
+                        //myPlayer.setGame(null);
+
+                        Intent intent = new Intent(WaitScreen.this, CreateGame.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent); //EXIT LOBBY AND HEAD TO CREATE GAME
+                        finish();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                threadTerminated = true;
-                //myPlayer.setGame(null);
-
-                Intent intent = new Intent(WaitScreen.this, CreateGame.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent); //EXIT LOBBY AND HEAD TO CREATE GAME
-                finish();
             }
         });
 
@@ -391,18 +402,23 @@ public class WaitScreen extends AppCompatActivity {
 //    }
 
 
-    private static class LeavePregameSender extends AsyncTask<String, Void, String> {
+    private static class LeavePregameSender extends AsyncTask<String, Void, LeavePregameResponses> {
         @Override
-        protected String doInBackground(String... strings) {
+        protected LeavePregameResponses doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
 
             try {
-                Unirest.delete("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/leavePregame") // here game1 is a test, the gameName goes here
+                response = Unirest.delete("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/leavePregame") // here game1 is a test, the gameName goes here
                         .asString();
+
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, LeavePregameResponses.class);
+
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
-            return "";
+            return null;
         }
     }
 

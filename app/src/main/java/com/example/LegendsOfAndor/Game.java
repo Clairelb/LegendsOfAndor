@@ -30,6 +30,7 @@ public class Game  {
     private NarratorSpace runeStoneLegendCard;
     private Witch witch;
     private int skralStronghold;
+    private boolean gameLoaded;
 
     public Game() {}
 
@@ -51,6 +52,7 @@ public class Game  {
         currentHero = null;
         this.gameStatus = GameStatus.IN_PROGRESS;
         this.narrator = new Narrator();
+        gameLoaded = false;
     }
 
     public int getMaxNumPlayers() {
@@ -278,5 +280,11 @@ public class Game  {
         this.skralStronghold = skralStronghold;
     }
 
+    public boolean isGameLoaded() {
+        return gameLoaded;
+    }
 
+    public void setGameLoaded(boolean gameLoaded) {
+        this.gameLoaded = gameLoaded;
+    }
 }
