@@ -103,6 +103,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<ImageView> theros = new ArrayList<>();
     private ImageView skrall_boss;
     private ArrayList<ImageView> wardraks = new ArrayList<>();
+    private ImageView narrator;
 
     private Spinner sp;
 
@@ -177,6 +178,9 @@ public class Board extends AppCompatActivity {
             wardraks.get(i).setVisibility(View.INVISIBLE);
         }
 
+
+        //narrator
+        narrator = (ImageView)findViewById(R.id.narrator);
 
 
         wells.add((ImageView)findViewById(R.id.well5));
@@ -472,6 +476,12 @@ public class Board extends AppCompatActivity {
             emptyWells.get(3).setVisibility(View.VISIBLE);
         }
 
+        //narrators
+        NarratorSpace narratorSpace = myPlayer.getGame().getNarrator().getSlot();
+        HashMap<NarratorSpace,Integer[]> narratorSpaceHashMap = myPlayer.getGame().getNarrator().getMap();
+        Integer[] narratorCoor = narratorSpaceHashMap.get(narratorSpace);
+        movePic(narrator, narratorCoor[0], narratorCoor[1]);
+
 
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
@@ -564,6 +574,11 @@ public class Board extends AppCompatActivity {
                                             moveMonster(wardraks.get(i),wardrakRegion.get(i));
                                         }
 
+                                        //narrators
+                                        NarratorSpace narratorSpace = myPlayer.getGame().getNarrator().getSlot();
+                                        HashMap<NarratorSpace,Integer[]> narratorSpaceHashMap = myPlayer.getGame().getNarrator().getMap();
+                                        Integer[] narratorCoor = narratorSpaceHashMap.get(narratorSpace);
+                                        movePic(narrator, narratorCoor[0], narratorCoor[1]);
                                         //Update Wells
                                         if(game.getRegionDatabase().getRegion(5).isFountainStatus())
                                         {

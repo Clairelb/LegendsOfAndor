@@ -393,6 +393,11 @@
             android:layout_width="10dp"
             android:layout_height="10dp"
             app:srcCompat="@drawable/mage" />
+        <ImageView
+            android:id="@+id/narrator"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/narrator" />
 
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>
