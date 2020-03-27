@@ -201,12 +201,120 @@
             android:layout_height="10dp"
             android:visibility="invisible"
             app:srcCompat="@drawable/gor" />
+        <ImageView
+            android:id="@+id/gor6"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor7"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor8"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor9"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor10"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor11"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor12"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor13"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor14"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
+        <ImageView
+            android:id="@+id/gor15"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/gor" />
+
 
         <ImageView
             android:id="@+id/skrall0"
             android:layout_width="10dp"
             android:layout_height="10dp"
             app:srcCompat="@drawable/skral" />
+
+        <ImageView
+            android:id="@+id/skrall1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/skral" />
+        <ImageView
+            android:id="@+id/skrall2"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/skral" />
+        <ImageView
+            android:id="@+id/skrall3"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/skral" />
+
+        <ImageView
+            android:id="@+id/skrall_boss"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/skral" />
+
+        <ImageView
+        android:id="@+id/wardrak0"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        app:srcCompat="@drawable/wardrak" />
+
+        <ImageView
+            android:id="@+id/wardrak1"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/wardrak" />
+
+
+
+
 
         <ImageView
             android:id="@+id/well5"

@@ -101,6 +101,8 @@ public class Board extends AppCompatActivity {
     private ArrayList<ImageView> wells = new ArrayList<>();
     private ArrayList<ImageView> emptyWells = new ArrayList<>();
     private ArrayList<ImageView> theros = new ArrayList<>();
+    private ImageView skrall_boss;
+    private ArrayList<ImageView> wardraks = new ArrayList<>();
 
     private Spinner sp;
 
@@ -140,9 +142,42 @@ public class Board extends AppCompatActivity {
         gors.add((ImageView) findViewById(R.id.gor3));
         gors.add((ImageView) findViewById(R.id.gor4));
         gors.add((ImageView) findViewById(R.id.gor5));
+        gors.add((ImageView) findViewById(R.id.gor6));
+        gors.add((ImageView) findViewById(R.id.gor7));
+        gors.add((ImageView) findViewById(R.id.gor8));
+        gors.add((ImageView) findViewById(R.id.gor9));
+        gors.add((ImageView) findViewById(R.id.gor10));
+        gors.add((ImageView) findViewById(R.id.gor11));
+        gors.add((ImageView) findViewById(R.id.gor12));
+        gors.add((ImageView) findViewById(R.id.gor13));
+        gors.add((ImageView) findViewById(R.id.gor14));
+        gors.add((ImageView) findViewById(R.id.gor15));
+        for(int i = 0; i < gors.size();i++){
+            gors.get(i).setVisibility(View.INVISIBLE);
+        }
+
+
+
 
 
         skrall.add((ImageView) findViewById(R.id.skrall0));
+        skrall.add((ImageView) findViewById(R.id.skrall1));
+        skrall.add((ImageView) findViewById(R.id.skrall2));
+        skrall.add((ImageView) findViewById(R.id.skrall3));
+        for(int i = 0 ; i < skrall.size();i++){
+            skrall.get(i).setVisibility(View.INVISIBLE);
+        }
+
+        skrall_boss = findViewById(R.id.skrall_boss);
+        skrall_boss.setVisibility(View.INVISIBLE);
+
+        wardraks.add((ImageView) findViewById(R.id.wardrak0));
+        wardraks.add((ImageView) findViewById(R.id.wardrak1));
+        for(int i = 0 ; i < wardraks.size();i++){
+            wardraks.get(i).setVisibility(View.INVISIBLE);
+        }
+
+
 
         wells.add((ImageView)findViewById(R.id.well5));
         wells.add((ImageView)findViewById(R.id.well35));
@@ -236,7 +271,6 @@ public class Board extends AppCompatActivity {
         });
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
         sp.setAdapter(adapter);
-        sp.setPrompt("标题栏");
         sp.getSelectedItem();
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -498,6 +532,7 @@ public class Board extends AppCompatActivity {
                                         ArrayList<Region> mRegion = game.getRegionDatabase().getAllRegionsWithCreatures();
                                         ArrayList<Integer> gorRegion = new ArrayList<>();
                                         ArrayList<Integer> skralRegion = new ArrayList<>();
+                                        ArrayList<Integer> wardrakRegion = new ArrayList<>();
 
                                         for(Region r: mRegion){
                                             if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
@@ -505,6 +540,13 @@ public class Board extends AppCompatActivity {
                                             }
                                             if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
                                                 skralRegion.add(r.getNumber());
+                                            }
+                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS){
+                                                skrall_boss.setVisibility(View.VISIBLE);
+                                                moveMonster(skrall_boss,r.getNumber());
+                                            }
+                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS){
+                                                wardrakRegion.add(r.getNumber());
                                             }
                                         }
                                         System.out.println("total"+ mRegion.size());
@@ -516,6 +558,10 @@ public class Board extends AppCompatActivity {
                                         for(int i = 0; i < skralRegion.size();i++){
                                             skrall.get(i).setVisibility((View.VISIBLE));
                                             moveMonster(skrall.get(i), skralRegion.get(i));
+                                        }
+                                        for(int i = 0; i < wardrakRegion.size();i++){
+                                            wardraks.get(i).setVisibility(View.VISIBLE);
+                                            moveMonster(wardraks.get(i),wardrakRegion.get(i));
                                         }
 
                                         //Update Wells
