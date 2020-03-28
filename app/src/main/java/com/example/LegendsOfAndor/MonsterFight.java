@@ -251,8 +251,6 @@ public class MonsterFight extends AppCompatActivity {
         enemyWP.setVisibility(View.VISIBLE);
         enemySP.setVisibility(View.VISIBLE);
 
-        final int[] index = {0};
-
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
@@ -263,14 +261,12 @@ public class MonsterFight extends AppCompatActivity {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
                                 .asString();
 
-                        System.out.println("!!!!!!!" + index[0]);
-                        index[0]++;
-
                         if(response.getCode() == 200){
                             final Game game = new Gson().fromJson(response.getBody(), Game.class);
-                            myPlayer.setGame(game);
+                            if (game.getCurrentFight() != null) {
+                                myPlayer.setGame(game);
+                            }
                             final Fight fight = game.getCurrentFight();
-                            MyPlayer.getInstance().setGame(game);
 
                             runOnUiThread(new Runnable() { // cannot run this part on separate thread, so this forces the following to run on UiThread
                                 @Override

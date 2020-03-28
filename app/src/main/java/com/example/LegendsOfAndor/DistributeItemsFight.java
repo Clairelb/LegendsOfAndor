@@ -59,20 +59,7 @@ public class DistributeItemsFight extends AppCompatActivity {
         final TextView wizard_text = findViewById(R.id.wizard_fight);
         wizard_text.setVisibility(View.INVISIBLE);
 
-        try{
-            AsyncTask<String, Void, Game> asyncTask1;
-            Game gameToSet;
-            GetGame getGame = new GetGame();
-            asyncTask1 = getGame.execute();
-            gameToSet = asyncTask1.get();
-            System.out.println(gameToSet);
-            MyPlayer.getInstance().setGame(gameToSet);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
         final Game currentGame = MyPlayer.getInstance().getGame();
-
 
         TextView description = findViewById(R.id.distribute_fight_items_description);
         description.setText(new StringBuilder().append("CONGRATULATIONS. You have won the fight. You get ").append(currentGame.getCurrentFight().getCreature().getGoldReward()).append(" gold and ").append(currentGame.getCurrentFight().getCreature().getWillpowerReward()).append(" willpower points to distribute amongst your team").toString());
@@ -157,26 +144,6 @@ public class DistributeItemsFight extends AppCompatActivity {
         });
 
 
-    }
-
-    private static class GetGame extends AsyncTask<String, Void, Game > {
-        @Override
-        protected Game doInBackground(String... strings) {
-            MyPlayer myPlayer = MyPlayer.getInstance();
-            HttpResponse<String> response;
-
-            try {
-                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameByUsername")
-                        .asString();
-
-                String resultAsJsonString = response.getBody();
-                System.out.println("RESPONSE BODY " + response.getBody());
-                return new Gson().fromJson(resultAsJsonString, Game.class);
-            } catch (UnirestException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
     }
 
     private static class DistributeAfterFightSender extends AsyncTask<String, Void, Void> {
