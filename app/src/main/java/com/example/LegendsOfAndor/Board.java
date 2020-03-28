@@ -38,6 +38,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +96,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<String> list=new ArrayList<String>();
     private ArrayAdapter<String> adapter;
     private HashMap<Integer, Integer[]> hourLocation = new HashMap<>();
-    private ImageView[] farmers = new ImageView[4];
+    private ArrayList<ImageView> farmers = new ArrayList<>();
     private ArrayList<ImageView> gors = new ArrayList<>();
     private ArrayList<ImageView> skrall = new ArrayList<>();
     private ArrayList<ImageView> wells = new ArrayList<>();
@@ -131,11 +132,12 @@ public class Board extends AppCompatActivity {
 
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
-        farmers[0] = findViewById(R.id.farmer0);
-        farmers[1] = findViewById(R.id.farmer1);
-        farmers[2] = findViewById(R.id.farmer2);
-        farmers[3] = findViewById(R.id.farmer3);
 
+
+        farmers.add((ImageView)findViewById(R.id.farmer0));
+        farmers.add((ImageView)findViewById(R.id.farmer1));
+        farmers.add((ImageView)findViewById(R.id.farmer2));
+        farmers.add((ImageView)findViewById(R.id.farmer3));
 
         gors.add((ImageView) findViewById(R.id.gor0));
         gors.add((ImageView) findViewById(R.id.gor1));
@@ -399,26 +401,7 @@ public class Board extends AppCompatActivity {
             }
         }
 
-        for(int i = 0; i < currentGame.getFarmers().size();i++){
-            if(currentGame.getFarmers().get(i).isBeingCarried()){
-                farmers[i].setVisibility(View.INVISIBLE);
-            }else{
-                ArrayList<Region> allRegion = currentGame.getRegionDatabase().getRegionDatabase();
-                int counter = 0;
-                for(Region r: allRegion){
-                    if(r.getFarmers().size()>0){
-                        farmers[counter].setVisibility(View.VISIBLE);
-                        displayFarmer(farmers[counter], r.getNumber());
-                        counter ++;
-                    }
-                }
-                counter = 0;
-                //If the farmer is not being carried, then draw the farmer,
-                //use function  displayFarmer(farmers[i], int position);
-                // need the position of the farmer.
-            }
 
-        }
         ArrayList<Region> mRegion = currentGame.getRegionDatabase().getAllRegionsWithCreatures();
         ArrayList<Integer> gorRegion = new ArrayList<>();
         ArrayList<Integer> skralRegion = new ArrayList<>();
@@ -482,6 +465,27 @@ public class Board extends AppCompatActivity {
         Integer[] narratorCoor = narratorSpaceHashMap.get(narratorSpace);
         movePic(narrator, narratorCoor[0], narratorCoor[1]);
 
+        ArrayList<Integer> toDrawFarmer1 = new ArrayList<>();
+        ArrayList<Region> regionList1 = myPlayer.getGame().getRegionDatabase().getRegionDatabase();
+        for(int i = 0; i < regionList1.size();i++){
+            int num = regionList1.get(i).getFarmers().size();
+            for(int j = 0; j < num; j++){
+                if(!regionList1.get(i).getFarmers().get(j).isBeingCarried){
+                    toDrawFarmer1.add(regionList1.get(i).getNumber());
+                }
+            }
+        }
+        for(int i = 0 ; i < farmers.size();i++){
+            farmers.get(i).setVisibility(View.INVISIBLE);
+        }
+
+        for(int i = 0; i < toDrawFarmer1.size();i ++){
+            farmers.get(i).setVisibility(View.VISIBLE)  ;
+            displayFarmer(farmers.get(i), toDrawFarmer1.get(i));
+        }
+
+
+
 
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
@@ -522,23 +526,26 @@ public class Board extends AppCompatActivity {
                                             }
                                         }
 
-                                        for(int i = 0; i < game.getFarmers().size();i++){
-                                            if(game.getFarmers().get(i).isBeingCarried()){
-                                                farmers[i].setVisibility(View.INVISIBLE);
-                                            }else{
-                                                ArrayList<Region> allRegion = game.getRegionDatabase().getRegionDatabase();
-                                                int counter = 0;
-                                                for(Region r: allRegion){
-                                                    if(r.getFarmers().size()!= 0){
-                                                        displayFarmer(farmers[counter],r.getNumber());
-                                                    }
+                                        ArrayList<Integer> toDrawFarmer = new ArrayList<>();
+                                        ArrayList<Region> regionList = myPlayer.getGame().getRegionDatabase().getRegionDatabase();
+                                        for(int i = 0; i < regionList.size();i++){
+                                            int num = regionList.get(i).getFarmers().size();
+                                            for(int j = 0; j < num; j++){
+                                                if(!regionList.get(i).getFarmers().get(j).isBeingCarried){
+                                                    toDrawFarmer.add(regionList.get(i).getNumber());
                                                 }
-                                                //If the farmer is not being carried, then draw the farmer,
-                                                //use function  displayFarmer(farmers[i], int position);
-                                                // need the position of the farmer
                                             }
-
                                         }
+                                        for(int i = 0 ; i < farmers.size();i++){
+                                            farmers.get(i).setVisibility(View.INVISIBLE);
+                                        }
+
+                                        for(int i = 0; i < toDrawFarmer.size();i ++){
+                                            farmers.get(i).setVisibility(View.VISIBLE)  ;
+                                            displayFarmer(farmers.get(i), toDrawFarmer.get(i));
+                                        }
+
+
                                         ArrayList<Region> mRegion = game.getRegionDatabase().getAllRegionsWithCreatures();
                                         ArrayList<Integer> gorRegion = new ArrayList<>();
                                         ArrayList<Integer> skralRegion = new ArrayList<>();
