@@ -406,6 +406,12 @@
             android:layout_height="10dp"
             app:srcCompat="@drawable/narrator" />
 
+        <ImageView
+            android:id="@+id/witch"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/witch" />
+
 
     </com.example.LegendsOfAndor.ZoomableViewGroup>
 

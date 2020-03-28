@@ -106,6 +106,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<ImageView> wardraks = new ArrayList<>();
     private ImageView narrator;
     private ImageView prince;
+    private ImageView witch;
 
     private Spinner sp;
 
@@ -185,9 +186,12 @@ public class Board extends AppCompatActivity {
         //narrator
         narrator = (ImageView)findViewById(R.id.narrator);
 
+        //prince
         prince = (ImageView)findViewById((R.id.prince));
         prince.setVisibility(View.INVISIBLE);
 
+        //witch
+        witch = (ImageView)findViewById(R.id.witch);
 
         wells.add((ImageView)findViewById(R.id.well5));
         wells.add((ImageView)findViewById(R.id.well35));
@@ -487,6 +491,13 @@ public class Board extends AppCompatActivity {
             farmers.get(i).setVisibility(View.VISIBLE)  ;
             displayFarmer(farmers.get(i), toDrawFarmer1.get(i));
         }
+        Witch temp = myPlayer.getGame().getWitch();
+        if(temp!= null){
+            witch.setVisibility(View.VISIBLE);
+            displayFarmer(witch, temp.getCurrentPosition());
+        }else{
+            witch.setVisibility(View.INVISIBLE);
+        }
 
 
 
@@ -587,6 +598,15 @@ public class Board extends AppCompatActivity {
                                         //prince
                                         if(myPlayer.getGame().getPrinceThorald() != null){
                                             displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
+                                        }
+                                        //witch
+
+                                        Witch temp = myPlayer.getGame().getWitch();
+                                        if(temp!= null){
+                                            witch.setVisibility(View.VISIBLE);
+                                            displayFarmer(witch, temp.getCurrentPosition());
+                                        }else{
+                                            witch.setVisibility(View.INVISIBLE);
                                         }
 
                                         //narrators
