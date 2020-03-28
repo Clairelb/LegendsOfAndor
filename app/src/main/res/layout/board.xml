@@ -312,6 +312,13 @@
             android:layout_height="10dp"
             app:srcCompat="@drawable/wardrak" />
 
+        <ImageView
+            android:id="@+id/prince"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            app:srcCompat="@drawable/prince" />
+
+
 
 
 

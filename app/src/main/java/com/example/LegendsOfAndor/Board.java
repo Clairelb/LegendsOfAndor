@@ -105,6 +105,7 @@ public class Board extends AppCompatActivity {
     private ImageView skrall_boss;
     private ArrayList<ImageView> wardraks = new ArrayList<>();
     private ImageView narrator;
+    private ImageView prince;
 
     private Spinner sp;
 
@@ -183,6 +184,9 @@ public class Board extends AppCompatActivity {
 
         //narrator
         narrator = (ImageView)findViewById(R.id.narrator);
+
+        prince = (ImageView)findViewById((R.id.prince));
+        prince.setVisibility(View.INVISIBLE);
 
 
         wells.add((ImageView)findViewById(R.id.well5));
@@ -579,6 +583,10 @@ public class Board extends AppCompatActivity {
                                         for(int i = 0; i < wardrakRegion.size();i++){
                                             wardraks.get(i).setVisibility(View.VISIBLE);
                                             moveMonster(wardraks.get(i),wardrakRegion.get(i));
+                                        }
+                                        //prince
+                                        if(myPlayer.getGame().getPrinceThorald() != null){
+                                            displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
                                         }
 
                                         //narrators
