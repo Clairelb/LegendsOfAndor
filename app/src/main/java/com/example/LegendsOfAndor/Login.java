@@ -16,6 +16,8 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
+import java.util.Arrays;
+
 enum LoginResponses {
     LOGIN_SUCCESS, NEW_LOGIN_CREATED, LOGIN_ERROR_INCORRECT_PASSWORD, LOGIN_ERROR_ALREADY_LOGGED_IN
 }
@@ -32,6 +34,7 @@ public class Login extends AppCompatActivity {
     private Button loginButton;
     private Player p;
     private MyPlayer myPlayer = MyPlayer.getInstance();
+    private static final String[] BAD_CHARACTERS = {"/",";","?",":","@","=","&","<",">","#","%","{","}","|","^","~","[","]","`","\""};
 
     @Override
     public void onBackPressed() {
@@ -63,6 +66,8 @@ public class Login extends AppCompatActivity {
                 serverIP = ipInput.getText().toString();
                 if (username == null || password == null || serverIP == null || username.length() == 0 || password.length() == 0 || serverIP.length() == 0) {
                     Toast.makeText(Login.this, "Please fill out all required fields", Toast.LENGTH_LONG).show();
+                } else if(stringContainsItemFromList(username,BAD_CHARACTERS) || stringContainsItemFromList(password,BAD_CHARACTERS)){
+                    Toast.makeText(Login.this, "Invalid characters in input. Please try again", Toast.LENGTH_LONG).show();
                 } else {
                     p = new Player(username, password, GlobalStaticMethods.getRandomColor());
                     usernameInput.setText("");
@@ -103,6 +108,18 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public static boolean stringContainsItemFromList(String inputStr, String[] items)
+    {
+        for(int i =0; i < items.length; i++)
+        {
+            if(inputStr.contains(items[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static class LoginSender extends AsyncTask<String, Void, LoginResponses> {

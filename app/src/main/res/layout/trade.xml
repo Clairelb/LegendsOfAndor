@@ -32,7 +32,7 @@
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/add_bow"
-        app:layout_constraintEnd_toStartOf="@+id/drop_runestone"
+        app:layout_constraintEnd_toStartOf="@+id/drop_runestone_yellow"
         app:srcCompat="@drawable/shield" />
 
     <ImageButton
@@ -53,8 +53,8 @@
         android:id="@+id/add_falcon"
         android:layout_width="61dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="80dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
@@ -83,6 +83,7 @@
         android:id="@+id/drop_item_description"
         android:layout_width="136dp"
         android:layout_height="50dp"
+        android:autoText="false"
         android:background="#3B4646"
         android:gravity="center"
         android:text="Drop Item"
@@ -101,8 +102,8 @@
         android:layout_width="61dp"
         android:layout_height="64dp"
         android:layout_marginTop="39dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="17dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
@@ -115,52 +116,80 @@
         android:id="@+id/add_witch_brew"
         android:layout_width="61dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="17dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/add_medicinal_herb"
         app:layout_constraintEnd_toStartOf="@+id/add_shield"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/witch_brew" />
 
     <ImageButton
         android:id="@+id/add_medicinal_herb"
         android:layout_width="61dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="80dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/add_bow"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/medicinal_herb" />
 
     <ImageButton
-        android:id="@+id/add_runestone"
+        android:id="@+id/add_runestone_blue"
         android:layout_width="61dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="22dp"
-        android:layout_marginRight="22dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginRight="34dp"
+        android:layout_marginBottom="15dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/add_runestone_yellow"
+        app:layout_constraintEnd_toStartOf="@+id/drop_runestone_green"
+        app:layout_constraintTop_toBottomOf="@+id/selected_item"
+        app:srcCompat="@drawable/blue_runestone" />
+
+    <ImageButton
+        android:id="@+id/add_runestone_yellow"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="161dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView3"
+        app:srcCompat="@drawable/yellow_runestone" />
+
+    <ImageButton
+        android:id="@+id/add_runestone_green"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/add_falcon"
         app:layout_constraintEnd_toStartOf="@+id/add_witch_brew"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/green_runestone" />
 
     <ImageButton
         android:id="@+id/add_telescope"
         android:layout_width="61dp"
         android:layout_height="64dp"
         android:layout_marginTop="41dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
         android:layout_marginBottom="16dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/add_runestone"
+        app:layout_constraintBottom_toTopOf="@+id/add_runestone_green"
         app:layout_constraintEnd_toStartOf="@+id/add_helm"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,13 +206,13 @@
         android:layout_marginBottom="18dp"
         android:background="#00FFFFFF"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/drop_runestone"
+        app:layout_constraintBottom_toTopOf="@+id/drop_runestone_yellow"
         app:layout_constraintEnd_toStartOf="@+id/drop_helm"
         app:layout_constraintTop_toBottomOf="@+id/drop_item_description"
         app:srcCompat="@drawable/telescope" />
 
     <ImageButton
-        android:id="@+id/drop_runestone"
+        android:id="@+id/drop_runestone_yellow"
         android:layout_width="61dp"
         android:layout_height="64dp"
         android:layout_marginEnd="22dp"
@@ -193,7 +222,38 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/drop_falcon"
         app:layout_constraintEnd_toStartOf="@+id/drop_witch_brew"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/yellow_runestone" />
+
+    <ImageButton
+        android:id="@+id/drop_runestone_blue"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="160dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_runestone_yellow"
+        app:srcCompat="@drawable/blue_runestone" />
+
+    <ImageButton
+        android:id="@+id/drop_runestone_green"
+        android:layout_width="61dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="18dp"
+        android:background="#00FFFFFF"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/drop_runestone_blue"
+        app:layout_constraintEnd_toStartOf="@+id/drop_telescope"
+        app:layout_constraintStart_toEndOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/selected_item"
+        app:srcCompat="@drawable/green_runestone" />
 
     <ImageButton
         android:id="@+id/drop_falcon"
@@ -260,7 +320,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/drop_bow"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/medicinal_herb" />
 
     <ImageButton
         android:id="@+id/drop_witch_brew"
@@ -273,7 +333,7 @@
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/drop_medicinal_herb"
         app:layout_constraintEnd_toStartOf="@+id/drop_shield"
-        app:srcCompat="@drawable/coin" />
+        app:srcCompat="@drawable/witch_brew" />
 
     <ImageButton
         android:id="@+id/drop_wineskin"
@@ -312,7 +372,6 @@
         android:layout_marginLeft="62dp"
         android:layout_marginEnd="49dp"
         android:layout_marginRight="49dp"
-        android:autoText="false"
         android:background="#3B4646"
         android:gravity="center"
         android:textAllCaps="true"
@@ -330,17 +389,15 @@
         android:id="@+id/add_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="79dp"
-        android:layout_marginLeft="79dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="18dp"
-        android:layout_marginEnd="388dp"
-        android:layout_marginRight="388dp"
         android:layout_marginBottom="15dp"
         android:text="Add Item"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/drop_item"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_medicinal_herb" />
+        app:layout_constraintTop_toBottomOf="@+id/add_medicinal_herb"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/drop_item"
@@ -349,10 +406,10 @@
         android:text="Drop Item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.958" />
+        app:layout_constraintVertical_bias="0.961" />
 
     <Button
         android:id="@+id/get_items"
@@ -365,5 +422,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.515" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="9dp"
+        android:layout_height="316dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:background="#cab7b7"
+        android:text="TextView"
+        android:textColor="#cab7b7"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/drop_runestone_blue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/add_runestone_blue"
+        app:layout_constraintTop_toBottomOf="@+id/selected_item"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="lllllllllllllllllllllll" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

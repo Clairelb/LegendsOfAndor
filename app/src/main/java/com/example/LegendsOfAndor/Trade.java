@@ -30,7 +30,9 @@ public class Trade extends AppCompatActivity {
     ImageButton add_wineskin;
     ImageButton add_helm;
     ImageButton add_telescope;
-    ImageButton add_runestone;
+    ImageButton add_runestone_yellow;
+    ImageButton add_runestone_blue;
+    ImageButton add_runestone_green;
     ImageButton add_witch_brew;
     ImageButton add_medicinal_herb;
     ImageButton add_falcon;
@@ -39,7 +41,9 @@ public class Trade extends AppCompatActivity {
     ImageButton drop_wineskin;
     ImageButton drop_helm;
     ImageButton drop_telescope;
-    ImageButton drop_runestone;
+    ImageButton drop_runestone_yellow;
+    ImageButton drop_runestone_blue;
+    ImageButton drop_runestone_green;
     ImageButton drop_witch_brew;
     ImageButton drop_medicinal_herb;
     ImageButton drop_falcon;
@@ -57,6 +61,7 @@ public class Trade extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.trade);
 
+
             get_items = findViewById(R.id.get_items);
             selected_item = findViewById(R.id.selected_item);
             add_item = findViewById(R.id.add_item);
@@ -68,43 +73,51 @@ public class Trade extends AppCompatActivity {
             add_wineskin = findViewById(R.id.add_wineskin);
             add_helm = findViewById(R.id.add_helm);
             add_telescope = findViewById(R.id.add_telescope);
-            add_runestone = findViewById(R.id.add_runestone);
+            add_runestone_yellow = findViewById(R.id.add_runestone_yellow);
             add_witch_brew = findViewById(R.id.add_witch_brew);
             add_medicinal_herb = findViewById(R.id.add_medicinal_herb);
             add_falcon = findViewById(R.id.add_falcon);
             add_shield = findViewById(R.id.add_shield);
             add_bow = findViewById(R.id.add_bow);
+            add_runestone_blue = findViewById(R.id.add_runestone_blue);
+            add_runestone_green = findViewById(R.id.add_runestone_green);
 
             add_wineskin.setVisibility(View.INVISIBLE);
             add_bow.setVisibility(View.INVISIBLE);
             add_falcon.setVisibility(View.INVISIBLE);
             add_helm.setVisibility(View.INVISIBLE);
             add_medicinal_herb.setVisibility(View.INVISIBLE);
-            add_runestone.setVisibility(View.INVISIBLE);
+            add_runestone_yellow.setVisibility(View.INVISIBLE);
             add_shield.setVisibility(View.INVISIBLE);
             add_telescope.setVisibility(View.INVISIBLE);
             add_witch_brew.setVisibility(View.INVISIBLE);
             add_item.setVisibility(View.INVISIBLE);
+            add_runestone_blue.setVisibility(View.INVISIBLE);
+            add_runestone_green.setVisibility(View.INVISIBLE);
 
             drop_wineskin = findViewById(R.id.drop_wineskin);
             drop_helm = findViewById(R.id.drop_helm);
             drop_telescope = findViewById(R.id.drop_telescope);
-            drop_runestone = findViewById(R.id.drop_runestone);
+            drop_runestone_yellow = findViewById(R.id.drop_runestone_yellow);
             drop_witch_brew = findViewById(R.id.drop_witch_brew);
             drop_medicinal_herb = findViewById(R.id.drop_medicinal_herb);
             drop_falcon = findViewById(R.id.drop_falcon);
             drop_shield = findViewById(R.id.drop_shield);
             drop_bow = findViewById(R.id.drop_bow);
+            drop_runestone_blue = findViewById(R.id.drop_runestone_blue);
+            drop_runestone_green = findViewById(R.id.drop_runestone_green);
 
             drop_wineskin.setVisibility(View.INVISIBLE);
             drop_helm.setVisibility(View.INVISIBLE);
             drop_telescope.setVisibility(View.INVISIBLE);
-            drop_runestone.setVisibility(View.INVISIBLE);
+            drop_runestone_yellow.setVisibility(View.INVISIBLE);
             drop_witch_brew.setVisibility(View.INVISIBLE);
             drop_medicinal_herb.setVisibility(View.INVISIBLE);
             drop_falcon.setVisibility(View.INVISIBLE);
             drop_shield.setVisibility(View.INVISIBLE);
             drop_bow.setVisibility(View.INVISIBLE);
+            drop_runestone_blue.setVisibility(View.INVISIBLE);
+            drop_runestone_green.setVisibility(View.INVISIBLE);
 
             try{
                 AsyncTask<String, Void, Game> asyncTaskGame;
@@ -151,7 +164,15 @@ public class Trade extends AppCompatActivity {
             }
 
             for(RuneStone runeStone : MyPlayer.getInstance().getPlayer().getHero().getRuneStones()){
-                drop_runestone.setVisibility(View.VISIBLE);
+                if(runeStone.getColour() == Colour.BLUE){
+                    drop_runestone_blue.setVisibility(View.VISIBLE);
+                }
+                if(runeStone.getColour() == Colour.GREEN){
+                    drop_runestone_green.setVisibility(View.VISIBLE);
+                }
+                if(runeStone.getColour() == Colour.YELLOW){
+                    drop_runestone_yellow.setVisibility(View.VISIBLE);
+                }
             }
 
             tradeb.setOnClickListener(new View.OnClickListener() {
@@ -212,8 +233,16 @@ public class Trade extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if(runeStones.size() > 0){
-                        add_runestone.setVisibility(View.VISIBLE);
+                    for(RuneStone runeStone : runeStones){
+                        if(runeStone.getColour() == Colour.BLUE){
+                          add_runestone_blue.setVisibility(View.VISIBLE);
+                        }
+                        if(runeStone.getColour() == Colour.GREEN){
+                            add_runestone_green.setVisibility(View.VISIBLE);
+                        }
+                        if(runeStone.getColour() == Colour.YELLOW){
+                            add_runestone_yellow.setVisibility(View.VISIBLE);
+                        }
                     }
 
                 }
@@ -273,11 +302,29 @@ public class Trade extends AppCompatActivity {
                 }
             });
 
-            add_runestone.setOnClickListener(new View.OnClickListener() {
+            add_runestone_yellow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selected_item.setText("Adding: Runestone");
-                    selectedItem = "runestone";
+                    selected_item.setText("Adding: Yellow Runestone");
+                    selectedItem = "runestoneY";
+                    isAdding = true;
+                }
+            });
+
+            add_runestone_green.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected_item.setText("Adding: Green Runestone");
+                    selectedItem = "runestoneG";
+                    isAdding = true;
+                }
+            });
+
+            add_runestone_blue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected_item.setText("Adding: Blue Runestone");
+                    selectedItem = "runestoneB";
                     isAdding = true;
                 }
             });
@@ -354,11 +401,29 @@ public class Trade extends AppCompatActivity {
                 }
             });
 
-            drop_runestone.setOnClickListener(new View.OnClickListener() {
+            drop_runestone_yellow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    selected_item.setText("Dropping: Runestone");
-                    selectedItem = "runestone";
+                    selected_item.setText("Dropping: Yellow Runestone");
+                    selectedItem = "runestoneY";
+                    isAdding = false;
+                }
+            });
+
+            drop_runestone_green.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected_item.setText("Dropping: Green Runestone");
+                    selectedItem = "runestoneG";
+                    isAdding = false;
+                }
+            });
+
+            drop_runestone_blue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    selected_item.setText("Dropping: Blue Runestone");
+                    selectedItem = "runestoneB";
                     isAdding = false;
                 }
             });
@@ -389,15 +454,20 @@ public class Trade extends AppCompatActivity {
                         AddDropItemResponses addDropItemResponses = null;
 
 
-                        if(selectedItem.equals("runestone")){
+                        if(selectedItem.equals("runestoneG") || selectedItem.equals("runestoneY") || selectedItem.equals("runestoneB")){
                             try{
                                 AddRunestoneSender addRunestoneSender = new AddRunestoneSender();
-                                asyncTask = addRunestoneSender.execute();
+                                if(selectedItem.equals("runestoneG")){
+                                    asyncTask = addRunestoneSender.execute(new Gson().toJson(Colour.GREEN));
+                                }else if (selectedItem.equals("runestoneY")){
+                                    asyncTask = addRunestoneSender.execute(new Gson().toJson(Colour.YELLOW));
+                                }else if (selectedItem.equals("runestoneB")){
+                                    asyncTask = addRunestoneSender.execute(new Gson().toJson(Colour.BLUE));
+                                }
                                 addDropItemResponses = asyncTask.get();
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-
                         }else{
                             try {
                                 AddItemSender addItemSender = new AddItemSender();
@@ -432,7 +502,6 @@ public class Trade extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-
                         if(addDropItemResponses == AddDropItemResponses.ITEM_ADDED){
                             Toast.makeText(Trade.this, "Added item successfully", Toast.LENGTH_LONG).show();
                             Intent myIntent = new Intent(Trade.this, Free_Actions.class);
@@ -440,6 +509,8 @@ public class Trade extends AppCompatActivity {
                             finish();
                         }else if (addDropItemResponses == AddDropItemResponses.ADD_DROP_FAILURE){
                             Toast.makeText(Trade.this, "Could not successfully add item", Toast.LENGTH_LONG).show();
+                        } else if (addDropItemResponses == AddDropItemResponses.MAX_ITEMS){
+                            Toast.makeText(Trade.this, "Max number of items. Could not add", Toast.LENGTH_LONG).show();
                         }
                     }else{
                         Toast.makeText(Trade.this, "Please select an item to add", Toast.LENGTH_LONG).show();
@@ -453,15 +524,21 @@ public class Trade extends AppCompatActivity {
                     if(!isAdding && selectedItem!= null){
                         AsyncTask<String, Void, AddDropItemResponses> asyncTask = null;
                         AddDropItemResponses addDropItemResponses = null;
-                        if(selectedItem.equals("runestone")){
+
+                        if(selectedItem.equals("runestoneG") || selectedItem.equals("runestoneY") || selectedItem.equals("runestoneB")){
                             try{
                                 DropRunestoneSender dropRunestoneSender = new DropRunestoneSender();
-                                asyncTask = dropRunestoneSender.execute();
+                                if(selectedItem.equals("runestoneG")){
+                                    asyncTask = dropRunestoneSender.execute(new Gson().toJson(Colour.GREEN));
+                                }else if (selectedItem.equals("runestoneY")){
+                                    asyncTask = dropRunestoneSender.execute(new Gson().toJson(Colour.YELLOW));
+                                }else if (selectedItem.equals("runestoneB")){
+                                    asyncTask = dropRunestoneSender.execute(new Gson().toJson(Colour.BLUE));
+                                }
                                 addDropItemResponses = asyncTask.get();
                             }catch (Exception e){
                                 e.printStackTrace();
                             }
-
                         }else{
                             try {
                                 DropItemSender dropItemSender = new DropItemSender();
@@ -502,7 +579,7 @@ public class Trade extends AppCompatActivity {
                             Intent myIntent = new Intent(Trade.this, Free_Actions.class);
                             startActivity(myIntent);
                             finish();
-                        }else if (addDropItemResponses == AddDropItemResponses.ADD_DROP_FAILURE){
+                        } else if (addDropItemResponses == AddDropItemResponses.ADD_DROP_FAILURE){
                             Toast.makeText(Trade.this, "Error dropping item", Toast.LENGTH_LONG).show();
                         }
 
@@ -599,7 +676,9 @@ public class Trade extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/addRunestone")
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/addRunestone")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
                         .asString();
                 String resultAsJsonString = response.getBody();
 
@@ -618,7 +697,9 @@ public class Trade extends AppCompatActivity {
             HttpResponse<String> response;
 
             try {
-                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/dropRunestone")
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/dropRunestone")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
                         .asString();
                 String resultAsJsonString = response.getBody();
 
