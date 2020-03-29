@@ -1,5 +1,7 @@
 package com.example.LegendsOfAndor;
 
+import java.util.ArrayList;
+
 public class MyPlayer {
    private static MyPlayer myPlayer = null;
    private Player player;
@@ -10,6 +12,7 @@ public class MyPlayer {
    private boolean legendCardRuneStonesDisplayed;
    private boolean legendCardGDisplayed;
    private boolean legendCardNDisplayed;
+   private ArrayList<Integer> possibleCreaturesToFight;
 
    public void setPlayer(Player p){
        player = p;
@@ -80,5 +83,13 @@ public class MyPlayer {
 
     public void setLegendCardNDisplayed(boolean legendCardNDisplayed) {
         this.legendCardNDisplayed = legendCardNDisplayed;
+    }
+
+    public ArrayList<Integer> getPossibleCreaturesToFight() {
+        return possibleCreaturesToFight;
+    }
+
+    public void setPossibleCreaturesToFight(ArrayList<Integer> possibleCreaturesToFight) {
+        this.possibleCreaturesToFight = possibleCreaturesToFight;
     }
 }

@@ -13,7 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LegendCardN"></activity>
+        <activity
+            android:name=".ChooseMonsterFight"
+            android:screenOrientation="sensorLandscape"/>
+        <activity android:name=".LegendCardN" />
         <activity android:name=".LegendCardG" />
         <activity android:name=".LegendCardTheWitch" />
         <activity android:name=".LegendCardRuneStonesHard" />
@@ -103,8 +106,9 @@
         <activity
             android:name=".EndMove_Merchant"
             android:screenOrientation="sensorLandscape" />
-        <activity android:name=".Trade"
-            android:screenOrientation="sensorLandscape"/>
+        <activity
+            android:name=".Trade"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

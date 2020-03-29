@@ -1,16 +1,9 @@
 package com.example.LegendsOfAndor;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,20 +19,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.LegendsOfAndor.PublicEnums.*;
 import com.example.LegendsOfAndor.PublicEnums.FogKind;
 import com.example.LegendsOfAndor.ReturnClasses.ActivateFogRC;
-import com.example.LegendsOfAndor.ReturnClasses.FightRC;
-import com.github.chrisbanes.photoview.PhotoView;
+import com.example.LegendsOfAndor.ReturnClasses.GetPossibleCreaturesToFightRC;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 enum PassResponses {
@@ -60,7 +47,7 @@ enum EndMoveResponses {
 
 
 enum GetAvailableRegionsReponses {
-    NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_AFTER_FIGHT, SUCCESS
+    NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_AFTER_FIGHT, CANNOT_MOVE_AFTER_MOVE_PRINCE, SUCCESS
 }
 
 
@@ -257,14 +244,8 @@ public class Board extends AppCompatActivity {
                     moveRC = asyncTask.get();
                     if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER){
                         Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
-                    }
-
-                    if(moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
-                        Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG);
-                    }
-
-                    if(moveRC.getMoveResponses() == MoveResponses.NO_OTHER_ACTIONS){
-                        Toast.makeText(Board.this, "Please make your next move or end your move", Toast.LENGTH_LONG);
+                    } else if (moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
+                        Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG).show();
                     }
                 }catch(Exception e){
                     e.printStackTrace();
@@ -661,18 +642,20 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v){
 
-                try{
+                try {
                     AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask;
                     GetRegionsSender getRegionsSender = new GetRegionsSender();
                     GetAvailableRegionsReponses getAvailableRegionsReponses;
 
                     asyncTask = getRegionsSender.execute();
                     GetAvailableRegionsRC availableRegions = asyncTask.get();
-                    Log.d("REGION",availableRegions.getResponse().toString());
+                    Log.d("REGION", availableRegions.getResponse().toString());
 
                     getAvailableRegionsReponses = availableRegions.getResponse();
                     if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_FIGHT) {
-                        Toast.makeText(Board.this,"Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Board.this, "Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
+                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_MOVE_PRINCE) {
+                        Toast.makeText(Board.this, "Error. You cannot move after moving prince.", Toast.LENGTH_LONG).show();
                     } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CURRENT_HOUR_MAXED) {
                         Toast.makeText(Board.this,"Error. Your hours are maxed. You must end your day.", Toast.LENGTH_LONG).show();
                     } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.DEDUCT_WILLPOWER) {
@@ -732,25 +715,31 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 try {
-                    AsyncTask<String, Void, FightRC> asyncTask;
+                    AsyncTask<String, Void, GetPossibleCreaturesToFightRC> asyncTask;
 
                     FightSender messageSender = new FightSender();
                     asyncTask = messageSender.execute("");
 
-                    if (asyncTask.get().getFightResponses() == FightResponses.JOINED_FIGHT) {
-                        Toast.makeText(Board.this, "Joining fight...", Toast.LENGTH_LONG).show();
-                        myPlayer.getGame().setCurrentFight(asyncTask.get().getFight());
+                    System.out.println("!!!!!!!" + new Gson().toJson(asyncTask.get().getGetPossibleCreaturesToFightResponses()));
 
-                        Intent fightIntent = new Intent(Board.this, MonsterFight.class);
+                    if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.SUCCESS) {
+                        Toast.makeText(Board.this, "Joining choose monster fight...", Toast.LENGTH_LONG).show();
+                        myPlayer.setPossibleCreaturesToFight(asyncTask.get().getPossibleCreaturesToFight());
+
+                        Intent fightIntent = new Intent(Board.this, ChooseMonsterFight.class);
                         fightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                         interruptThreadAndStartActivity(fightIntent);
-                    } else if (asyncTask.get().getFightResponses() == FightResponses.NO_CREATURE_FOUND) {
+                    } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.NO_CREATURE_FOUND) {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get().getFightResponses() == FightResponses.DAY_ENDED) {
+                    } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.DAY_ENDED) {
                         Toast.makeText(Board.this, "Fight error. Cannot fight after day ended.", Toast.LENGTH_LONG).show();
-                    } else { // not current turn
+                    } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.NOT_CURRENT_TURN){
                         Toast.makeText(Board.this, "Fight error. It is not your turn yet.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.CANNOT_FIGHT_AFTER_MOVE) {
+                        Toast.makeText(Board.this, "Fight error. Cannot fight after moving.", Toast.LENGTH_LONG).show();
+                    } else { // CANNOT_FIGHT_MOVE_PRINCE
+                        Toast.makeText(Board.this, "Fight error. Cannot fight after moving prince.", Toast.LENGTH_LONG).show();
                     }
 
                 } catch (Exception e) {
@@ -1043,18 +1032,18 @@ public class Board extends AppCompatActivity {
         }
     }
 
-    private static class FightSender extends AsyncTask<String, Void, FightRC> {
+    private static class FightSender extends AsyncTask<String, Void, GetPossibleCreaturesToFightRC> {
         @Override
-        protected FightRC doInBackground(String... strings) {
+        protected GetPossibleCreaturesToFightRC doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             HttpResponse<String> response;
 
             try {
-                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/fight")
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getPossibleCreaturesToFight")
                         .asString();
                 String resultAsJsonString = response.getBody();
 
-                return new Gson().fromJson(resultAsJsonString, FightRC.class);
+                return new Gson().fromJson(resultAsJsonString, GetPossibleCreaturesToFightRC.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
