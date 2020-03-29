@@ -14,6 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ChooseItemFight"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ChooseMonsterFight"
             android:screenOrientation="sensorLandscape"
             tools:ignore="LockedOrientationActivity" />

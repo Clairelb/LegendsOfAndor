@@ -44,6 +44,7 @@ public class MonsterFight extends AppCompatActivity {
     private Button getEnemyDice;
     private Button rollEnemyDice;
     private Button attack;
+    private Button useItem;
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
     private TextView playersBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
@@ -637,6 +638,18 @@ public class MonsterFight extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        useItem = findViewById(R.id.use_item_btn);
+        useItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                threadInterrupted = true;
+                Intent myIntent = new Intent(MonsterFight.this, ChooseItemFight.class);
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(myIntent);
+                finish();
             }
         });
 

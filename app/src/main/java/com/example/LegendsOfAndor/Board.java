@@ -891,10 +891,12 @@ public class Board extends AppCompatActivity {
                         }
                     }else if(endMoveResponses == EndMoveResponses.BUY_FROM_MERCHANT){
                         //Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG).show();
+                        threadTerminated = true;
                         Intent myIntent = new Intent(v.getContext(), EndMove_Merchant.class);
                         startActivity(myIntent);
                     }else if(endMoveResponses == EndMoveResponses.EMPTY_WELL){
                         //Toast.makeText(Board.this,"You are in an area with a well",Toast.LENGTH_LONG).show();
+                        threadTerminated = true;
                         Intent myIntent = new Intent(v.getContext(), EndMove_Well.class);
                         startActivity(myIntent);
                     }else if(endMoveResponses == EndMoveResponses.MOVE_ALREADY_ENDED){
