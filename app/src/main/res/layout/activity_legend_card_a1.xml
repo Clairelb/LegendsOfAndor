@@ -9,12 +9,12 @@
 
     <Button
         android:id="@+id/next_legend_card_a1"
-        android:layout_width="330dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="92dp"
+        android:layout_width="289dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="80dp"
         android:text="NEXT LEGEND CARD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

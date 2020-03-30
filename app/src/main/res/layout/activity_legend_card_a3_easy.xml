@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/next_legend_card_a3_easy"
-        android:layout_width="330dp"
-        android:layout_height="52dp"
+        android:layout_width="290dp"
+        android:layout_height="44dp"
         android:layout_marginBottom="24dp"
         android:text="NEXT LEGEND CARD"
         app:layout_constraintBottom_toBottomOf="parent"
