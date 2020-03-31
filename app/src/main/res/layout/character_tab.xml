@@ -392,4 +392,266 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_icon" />
 
+    <TextView
+        android:id="@+id/helm_war"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toStartOf="@+id/warrior"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shield_bow_falcon_war"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toStartOf="@+id/warrior"
+        app:layout_constraintTop_toBottomOf="@+id/helm_war" />
+
+    <TextView
+        android:id="@+id/article1_war"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toStartOf="@+id/warrior"
+        app:layout_constraintTop_toBottomOf="@+id/shield_bow_falcon_war" />
+
+    <TextView
+        android:id="@+id/article2_war"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toStartOf="@+id/warrior"
+        app:layout_constraintTop_toBottomOf="@+id/article1_war" />
+
+    <TextView
+        android:id="@+id/article3_war"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:gravity="right"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintEnd_toStartOf="@+id/warrior"
+        app:layout_constraintTop_toBottomOf="@+id/article2_war" />
+
+    <TextView
+        android:id="@+id/helm_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/shield_bow_falcon_ar"
+        app:layout_constraintEnd_toStartOf="@+id/archer" />
+
+    <TextView
+        android:id="@+id/shield_bow_falcon_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/article1_ar"
+        app:layout_constraintEnd_toStartOf="@+id/archer" />
+
+    <TextView
+        android:id="@+id/article1_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/article2_ar"
+        app:layout_constraintEnd_toStartOf="@+id/archer" />
+
+    <TextView
+        android:id="@+id/article2_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/article3_ar"
+        app:layout_constraintEnd_toStartOf="@+id/archer" />
+
+    <TextView
+        android:id="@+id/article3_ar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/archer" />
+
+    <TextView
+        android:id="@+id/helm_mg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="24dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/mage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shield_bow_falcon_mg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/mage"
+        app:layout_constraintTop_toBottomOf="@+id/helm_mg" />
+
+    <TextView
+        android:id="@+id/article1_mg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/mage"
+        app:layout_constraintTop_toBottomOf="@+id/shield_bow_falcon_mg" />
+
+    <TextView
+        android:id="@+id/article2_mg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/mage"
+        app:layout_constraintTop_toBottomOf="@+id/article1_mg" />
+
+    <TextView
+        android:id="@+id/article3_mg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintStart_toEndOf="@+id/mage"
+        app:layout_constraintTop_toBottomOf="@+id/article2_mg" />
+
+    <TextView
+        android:id="@+id/helm_dw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/shield_bow_falcon_dw"
+        app:layout_constraintStart_toEndOf="@+id/dwarf" />
+
+    <TextView
+        android:id="@+id/shield_bow_falcon_dw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/article1_dw"
+        app:layout_constraintStart_toEndOf="@+id/dwarf" />
+
+    <TextView
+        android:id="@+id/article1_dw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/article2_dw"
+        app:layout_constraintStart_toEndOf="@+id/dwarf" />
+
+    <TextView
+        android:id="@+id/article2_dw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="4dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/article3_dw"
+        app:layout_constraintStart_toEndOf="@+id/dwarf" />
+
+    <TextView
+        android:id="@+id/article3_dw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginBottom="24dp"
+        android:textColor="#CAB7B7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dwarf" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

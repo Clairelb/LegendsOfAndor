@@ -117,4 +117,9 @@
     <string name="get_my_farmer">GET MY FARMERS</string>
     <string name="get_farmers">GET FARMERS</string>
     <string-array name="action"></string-array>
+    <string name="witchbrew">Witch\'s Brew</string>
+    <string name="med_herb">Medicinal Herb</string>
+    <string name="rune_stoneG">Rune Stone G</string>
+    <string name="rune_stoneB">Rune Stone B</string>
+    <string name="rune_stoneY">Rune Stone Y</string>
 </resources>

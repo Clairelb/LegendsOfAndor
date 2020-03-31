@@ -1,6 +1,7 @@
 package com.example.LegendsOfAndor;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class Character_Tab extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.character_tab);
-        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         //warrior - invisible
         ImageView warrior = findViewById(R.id.warrior);
@@ -46,16 +47,11 @@ public class Character_Tab extends AppCompatActivity {
         TextView amt_WP_war = findViewById(R.id.amt_WP_war);
         amt_WP_war.setVisibility(View.INVISIBLE);
 
-        /*TextView helm_war = findViewById(R.id.helm_war);
-        helm_war.setVisibility(View.INVISIBLE);
+        TextView helm_war = findViewById(R.id.helm_war);
         TextView shield_bow_falcon_war = findViewById(R.id.shield_bow_falcon_war);
-        shield_bow_falcon_war.setVisibility(View.INVISIBLE);
         TextView article1_war = findViewById(R.id.article1_war);
-        article1_war.setVisibility(View.INVISIBLE);
         TextView article2_war = findViewById(R.id.article2_war);
-        article2_war.setVisibility(View.INVISIBLE);
         TextView article3_war = findViewById(R.id.article3_war);
-        article3_war.setVisibility(View.INVISIBLE);*/
 
         //mage - invisible
         ImageView mage = findViewById(R.id.mage);
@@ -73,16 +69,11 @@ public class Character_Tab extends AppCompatActivity {
         TextView amt_WP_mg = findViewById(R.id.amt_WP_mg);
         amt_WP_mg.setVisibility(View.INVISIBLE);
 
-        /*TextView helm_mg = findViewById(R.id.helm_mg);
-        helm_mg.setVisibility(View.INVISIBLE);
+        TextView helm_mg = findViewById(R.id.helm_mg);
         TextView shield_bow_falcon_mg = findViewById(R.id.shield_bow_falcon_mg);
-        shield_bow_falcon_mg.setVisibility(View.INVISIBLE);
         TextView article1_mg = findViewById(R.id.article1_mg);
-        article1_mg.setVisibility(View.INVISIBLE);
         TextView article2_mg = findViewById(R.id.article2_mg);
-        article2_mg.setVisibility(View.INVISIBLE);
         TextView article3_mg = findViewById(R.id.article3_mg);
-        article3_mg.setVisibility(View.INVISIBLE);*/
 
         //dwarf - invisible
         ImageView dwarf = findViewById(R.id.dwarf);
@@ -100,16 +91,11 @@ public class Character_Tab extends AppCompatActivity {
         TextView amt_WP_dw = findViewById(R.id.amt_WP_dw);
         amt_WP_dw.setVisibility(View.INVISIBLE);
 
-        /*TextView helm_dw = findViewById(R.id.helm_dw);
-        helm_dw.setVisibility(View.INVISIBLE);
+        TextView helm_dw = findViewById(R.id.helm_dw);
         TextView shield_bow_falcon_dw = findViewById(R.id.shield_bow_falcon_dw);
-        shield_bow_falcon_dw.setVisibility(View.INVISIBLE);
         TextView article1_dw = findViewById(R.id.article1_dw);
-        article1_dw.setVisibility(View.INVISIBLE);
         TextView article2_dw = findViewById(R.id.article2_dw);
-        article2_dw.setVisibility(View.INVISIBLE);
         TextView article3_dw = findViewById(R.id.article3_dw);
-        article3_dw.setVisibility(View.INVISIBLE);*/
 
         //archer - invisible
         ImageView archer = findViewById(R.id.archer);
@@ -127,16 +113,11 @@ public class Character_Tab extends AppCompatActivity {
         TextView amt_WP_ar = findViewById(R.id.amt_WP_ar);
         amt_WP_ar.setVisibility(View.INVISIBLE);
 
-        /*TextView helm_ar = findViewById(R.id.helm_ar);
-        helm_ar.setVisibility(View.INVISIBLE);
+        TextView helm_ar = findViewById(R.id.helm_ar);
         TextView shield_bow_falcon_ar = findViewById(R.id.shield_bow_falcon_ar);
-        shield_bow_falcon_ar.setVisibility(View.INVISIBLE);
         TextView article1_ar = findViewById(R.id.article1_ar);
-        article1_ar.setVisibility(View.INVISIBLE);
         TextView article2_ar = findViewById(R.id.article2_ar);
-        article2_ar.setVisibility(View.INVISIBLE);
         TextView article3_ar = findViewById(R.id.article3_ar);
-        article3_ar.setVisibility(View.INVISIBLE);*/
 
         try{
             AsyncTask<String, Void, Game> asyncTask1;
@@ -154,7 +135,8 @@ public class Character_Tab extends AppCompatActivity {
 
         for (int i = 0; i < game .getCurrentNumPlayers(); i++) {
             HeroClass hClass = game.getPlayers()[i].getHero().getHeroClass();
-            //ArrayList<Item> items = game.getPlayers()[i].getHero().getItems();
+            Hero hero = game.getPlayers()[i].getHero();
+            ArrayList<Item> items = hero.getItems();
             if (hClass == HeroClass.WARRIOR) {
                 warrior.setVisibility(View.VISIBLE);
                 gold_war.setVisibility(View.VISIBLE);
@@ -168,6 +150,102 @@ public class Character_Tab extends AppCompatActivity {
                 amt_gold_war.setText(String.valueOf(game.getPlayers()[i].getHero().getGold()));
                 amt_WP_war.setText(String.valueOf(game.getPlayers()[i].getHero().getWillPower()));
 
+                for (Item item : items){
+                    ItemType type = item.getItemType();
+                    if(type == ItemType.HELM){
+                        helm_war.setText(R.string.helm);
+                    }
+                    if(type == ItemType.BOW){
+                        shield_bow_falcon_war.setText(R.string.bow);
+                    }
+                    if(type == ItemType.FALCON){
+                        shield_bow_falcon_war.setText(R.string.falcon);
+                    }
+                    if(type == ItemType.SHIELD){
+                        shield_bow_falcon_war.setText(R.string.shield);
+                    }
+                    if(type == ItemType.TELESCOPE){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.telescope);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.telescope);
+                        }
+                        else{
+                            article3_war.setText(R.string.telescope);
+                        }
+                    }
+                    if(type == ItemType.WINESKIN){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.wineskin);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.wineskin);
+                        }
+                        else{
+                            article3_war.setText(R.string.wineskin);
+                        }
+                    }
+                    if(type == ItemType.MEDICINAL_HERB){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.med_herb);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.med_herb);
+                        }
+                        else{
+                            article3_war.setText(R.string.med_herb);
+                        }
+                    }
+                    if(type == ItemType.WITCH_BREW){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.witchbrew);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.witchbrew);
+                        }
+                        else{
+                            article3_war.setText(R.string.witchbrew);
+                        }
+                    }
+                }
+                ArrayList<RuneStone> runes = hero.getRuneStones();
+                for (RuneStone rune : runes){
+                    Colour colour = rune.getColour();
+                    if(colour == Colour.BLUE){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.rune_stoneB);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.rune_stoneB);
+                        }
+                        else{
+                            article3_war.setText(R.string.rune_stoneB);
+                        }
+                    }
+                    if(colour == Colour.GREEN){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.rune_stoneG);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.rune_stoneG);
+                        }
+                        else{
+                            article3_war.setText(R.string.rune_stoneG);
+                        }
+                    }
+                    if(colour == Colour.YELLOW){
+                        if(article1_war.getText().toString().isEmpty()){
+                            article1_war.setText(R.string.rune_stoneY);
+                        }
+                        else if(article2_war.getText().toString().isEmpty()){
+                            article2_war.setText(R.string.rune_stoneY);
+                        }
+                        else{
+                            article3_war.setText(R.string.rune_stoneY);
+                        }
+                    }
+                }
             }
             if(hClass == HeroClass.ARCHER){
                 archer.setVisibility(View.VISIBLE);
@@ -181,6 +259,103 @@ public class Character_Tab extends AppCompatActivity {
                 amt_SP_ar.setText(String.valueOf(game.getPlayers()[i].getHero().getStrength()));
                 amt_gold_ar.setText(String.valueOf(game.getPlayers()[i].getHero().getGold()));
                 amt_WP_ar.setText(String.valueOf(game.getPlayers()[i].getHero().getWillPower()));
+
+                for (Item item : items){
+                    ItemType type = item.getItemType();
+                    if(type == ItemType.HELM){
+                        helm_ar.setText(R.string.helm);
+                    }
+                    if(type == ItemType.BOW){
+                        shield_bow_falcon_ar.setText(R.string.bow);
+                    }
+                    if(type == ItemType.FALCON){
+                        shield_bow_falcon_ar.setText(R.string.falcon);
+                    }
+                    if(type == ItemType.SHIELD){
+                        shield_bow_falcon_ar.setText(R.string.shield);
+                    }
+                    if(type == ItemType.TELESCOPE){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.telescope);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.telescope);
+                        }
+                        else{
+                            article3_ar.setText(R.string.telescope);
+                        }
+                    }
+                    if(type == ItemType.WINESKIN){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.wineskin);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.wineskin);
+                        }
+                        else{
+                            article3_ar.setText(R.string.wineskin);
+                        }
+                    }
+                    if(type == ItemType.MEDICINAL_HERB){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.med_herb);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.med_herb);
+                        }
+                        else{
+                            article3_ar.setText(R.string.med_herb);
+                        }
+                    }
+                    if(type == ItemType.WITCH_BREW){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.witchbrew);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.witchbrew);
+                        }
+                        else{
+                            article3_ar.setText(R.string.witchbrew);
+                        }
+                    }
+                }
+                ArrayList<RuneStone> runes = hero.getRuneStones();
+                for (RuneStone rune : runes){
+                    Colour colour = rune.getColour();
+                    if(colour == Colour.BLUE){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.rune_stoneB);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.rune_stoneB);
+                        }
+                        else{
+                            article3_ar.setText(R.string.rune_stoneB);
+                        }
+                    }
+                    if(colour == Colour.GREEN){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.rune_stoneG);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.rune_stoneG);
+                        }
+                        else{
+                            article3_ar.setText(R.string.rune_stoneG);
+                        }
+                    }
+                    if(colour == Colour.YELLOW){
+                        if(article1_ar.getText().toString().isEmpty()){
+                            article1_ar.setText(R.string.rune_stoneY);
+                        }
+                        else if(article2_ar.getText().toString().isEmpty()){
+                            article2_ar.setText(R.string.rune_stoneY);
+                        }
+                        else{
+                            article3_ar.setText(R.string.rune_stoneY);
+                        }
+                    }
+                }
             }
             if(hClass == HeroClass.WIZARD){
                 mage.setVisibility(View.VISIBLE);
@@ -194,6 +369,103 @@ public class Character_Tab extends AppCompatActivity {
                 amt_SP_mg.setText(String.valueOf(game.getPlayers()[i].getHero().getStrength()));
                 amt_gold_mg.setText(String.valueOf(game.getPlayers()[i].getHero().getGold()));
                 amt_WP_mg.setText(String.valueOf(game.getPlayers()[i].getHero().getWillPower()));
+
+                for (Item item : items){
+                    ItemType type = item.getItemType();
+                    if(type == ItemType.HELM){
+                        helm_mg.setText(R.string.helm);
+                    }
+                    if(type == ItemType.BOW){
+                        shield_bow_falcon_mg.setText(R.string.bow);
+                    }
+                    if(type == ItemType.FALCON){
+                        shield_bow_falcon_mg.setText(R.string.falcon);
+                    }
+                    if(type == ItemType.SHIELD){
+                        shield_bow_falcon_mg.setText(R.string.shield);
+                    }
+                    if(type == ItemType.TELESCOPE){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.telescope);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.telescope);
+                        }
+                        else{
+                            article3_mg.setText(R.string.telescope);
+                        }
+                    }
+                    if(type == ItemType.WINESKIN){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.wineskin);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.wineskin);
+                        }
+                        else{
+                            article3_mg.setText(R.string.wineskin);
+                        }
+                    }
+                    if(type == ItemType.MEDICINAL_HERB){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.med_herb);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.med_herb);
+                        }
+                        else{
+                            article3_mg.setText(R.string.med_herb);
+                        }
+                    }
+                    if(type == ItemType.WITCH_BREW){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.witchbrew);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.witchbrew);
+                        }
+                        else{
+                            article3_mg.setText(R.string.witchbrew);
+                        }
+                    }
+                }
+                ArrayList<RuneStone> runes = hero.getRuneStones();
+                for (RuneStone rune : runes){
+                    Colour colour = rune.getColour();
+                    if(colour == Colour.BLUE){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.rune_stoneB);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.rune_stoneB);
+                        }
+                        else{
+                            article3_mg.setText(R.string.rune_stoneB);
+                        }
+                    }
+                    if(colour == Colour.GREEN){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.rune_stoneG);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.rune_stoneG);
+                        }
+                        else{
+                            article3_mg.setText(R.string.rune_stoneG);
+                        }
+                    }
+                    if(colour == Colour.YELLOW){
+                        if(article1_mg.getText().toString().isEmpty()){
+                            article1_mg.setText(R.string.rune_stoneY);
+                        }
+                        else if(article2_mg.getText().toString().isEmpty()){
+                            article2_mg.setText(R.string.rune_stoneY);
+                        }
+                        else{
+                            article3_mg.setText(R.string.rune_stoneY);
+                        }
+                    }
+                }
             }
             if(hClass == HeroClass.DWARF){
                 dwarf.setVisibility(View.VISIBLE);
@@ -207,6 +479,103 @@ public class Character_Tab extends AppCompatActivity {
                 amt_SP_dw.setText(String.valueOf(game.getPlayers()[i].getHero().getStrength()));
                 amt_gold_dw.setText(String.valueOf(game.getPlayers()[i].getHero().getGold()));
                 amt_WP_dw.setText(String.valueOf(game.getPlayers()[i].getHero().getWillPower()));
+
+                for (Item item : items){
+                    ItemType type = item.getItemType();
+                    if(type == ItemType.HELM){
+                        helm_dw.setText(R.string.helm);
+                    }
+                    if(type == ItemType.BOW){
+                        shield_bow_falcon_dw.setText(R.string.bow);
+                    }
+                    if(type == ItemType.FALCON){
+                        shield_bow_falcon_dw.setText(R.string.falcon);
+                    }
+                    if(type == ItemType.SHIELD){
+                        shield_bow_falcon_dw.setText(R.string.shield);
+                    }
+                    if(type == ItemType.TELESCOPE){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.telescope);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.telescope);
+                        }
+                        else{
+                            article3_dw.setText(R.string.telescope);
+                        }
+                    }
+                    if(type == ItemType.WINESKIN){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.wineskin);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.wineskin);
+                        }
+                        else{
+                            article3_dw.setText(R.string.wineskin);
+                        }
+                    }
+                    if(type == ItemType.MEDICINAL_HERB){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.med_herb);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.med_herb);
+                        }
+                        else{
+                            article3_dw.setText(R.string.med_herb);
+                        }
+                    }
+                    if(type == ItemType.WITCH_BREW){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.witchbrew);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.witchbrew);
+                        }
+                        else{
+                            article3_dw.setText(R.string.witchbrew);
+                        }
+                    }
+                }
+                ArrayList<RuneStone> runes = hero.getRuneStones();
+                for (RuneStone rune : runes){
+                    Colour colour = rune.getColour();
+                    if(colour == Colour.BLUE){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.rune_stoneB);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.rune_stoneB);
+                        }
+                        else{
+                            article3_dw.setText(R.string.rune_stoneB);
+                        }
+                    }
+                    if(colour == Colour.GREEN){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.rune_stoneG);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.rune_stoneG);
+                        }
+                        else{
+                            article3_dw.setText(R.string.rune_stoneG);
+                        }
+                    }
+                    if(colour == Colour.YELLOW){
+                        if(article1_dw.getText().toString().isEmpty()){
+                            article1_dw.setText(R.string.rune_stoneY);
+                        }
+                        else if(article2_dw.getText().toString().isEmpty()){
+                            article2_dw.setText(R.string.rune_stoneY);
+                        }
+                        else{
+                            article3_dw.setText(R.string.rune_stoneY);
+                        }
+                    }
+                }
             }
         }
 
