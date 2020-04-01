@@ -1,5 +1,6 @@
 package com.example.LegendsOfAndor;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -18,10 +19,16 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.sql.Savepoint;
 
 public class OptionsTab extends AppCompatActivity {
+    private Button backb;
+    private Button characterb;
+    private Button actionsb;
+    private Button savegameb;
+    private Button leavegameb;
 
     @Override
     public void onBackPressed(){}
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,7 +36,7 @@ public class OptionsTab extends AppCompatActivity {
         setContentView(R.layout.options_tab);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        Button backb = (Button) findViewById(R.id.backb);
+        backb = findViewById(R.id.backb);
         backb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,7 +45,7 @@ public class OptionsTab extends AppCompatActivity {
             }
         });
 
-        Button characterb = (Button) findViewById(R.id.characterb);
+        characterb = findViewById(R.id.characterb);
         characterb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +54,7 @@ public class OptionsTab extends AppCompatActivity {
             }
         });
 
-        Button actionsb = (Button) findViewById(R.id.actionsb);
+        actionsb = findViewById(R.id.actionsb);
         actionsb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +63,7 @@ public class OptionsTab extends AppCompatActivity {
             }
         });
 
-        Button savegameb = (Button) findViewById(R.id.savegameb);
+        savegameb = findViewById(R.id.savegameb);
         savegameb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +78,19 @@ public class OptionsTab extends AppCompatActivity {
             }
         });
 
+        leavegameb = findViewById(R.id.leavegameb);
+        leavegameb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LeaveGameSender leaveGameSender = new LeaveGameSender();
+                leaveGameSender.execute("");
+
+                Toast.makeText(OptionsTab.this, "Leaving game...", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(OptionsTab.this, CreateGame.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private static class SaveGameSender extends AsyncTask<String, Void, Void> {
@@ -79,8 +99,22 @@ public class OptionsTab extends AppCompatActivity {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() + "/saveGame")
-                        .header("Content-Type", "application/json")
+                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/saveGame")
+                        .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class LeaveGameSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+
+            try {
+                Unirest.delete("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/leaveGame")
                         .asString();
             } catch (UnirestException e) {
                 e.printStackTrace();

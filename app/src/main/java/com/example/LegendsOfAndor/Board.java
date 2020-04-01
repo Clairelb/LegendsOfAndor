@@ -508,6 +508,14 @@ public class Board extends AppCompatActivity {
                             runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
+                                    if (game.isLeftGame()) {
+                                        Toast.makeText(Board.this,"Someone left the game. Going back to the join/create game screen...", Toast.LENGTH_LONG).show();
+
+                                        Intent intent = new Intent(Board.this, CreateGame.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        interruptThreadAndStartActivity(intent);
+                                    }
+
                                     if (game.getGameStatus() == GameStatus.GAME_WON || game.getGameStatus() == GameStatus.GAME_LOST) {
                                         Intent intent = new Intent(Board.this, LegendCardN.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
