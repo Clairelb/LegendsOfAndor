@@ -7,10 +7,81 @@
     android:background="#E82B2929"
     tools:context=".BuyFromMerchant">
 
+    <TextView
+        android:id="@+id/amt_sp"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="66dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/amt_wineskin"
+        app:layout_constraintEnd_toStartOf="@+id/SP" />
+
+    <TextView
+        android:id="@+id/amt_wineskin"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="59dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/wineskin" />
+
+    <TextView
+        android:id="@+id/amt_helm"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="66dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/amt_telescope"
+        app:layout_constraintStart_toEndOf="@+id/helm" />
+
+    <TextView
+        android:id="@+id/amt_telescope"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginBottom="59dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/telescope" />
+
+    <TextView
+        android:id="@+id/amt_shield"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="107dp"
+        android:layout_marginLeft="107dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/shield"
+        app:layout_constraintStart_toEndOf="@+id/amt_bow" />
+
     <ImageView
         android:id="@+id/merchant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="158dp"
+        android:layout_height="151dp"
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="14dp"
@@ -172,5 +243,35 @@
         app:fontFamily="@font/gothic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Gold" />
+
+    <TextView
+        android:id="@+id/amt_bow"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="71dp"
+        android:layout_marginLeft="71dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/bow"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/amt_falcon"
+        android:layout_width="15dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="102dp"
+        android:layout_marginLeft="102dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#cab7b7"
+        android:textSize="18sp"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toTopOf="@+id/falcon"
+        app:layout_constraintStart_toEndOf="@+id/amt_shield" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

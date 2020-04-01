@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.LegendsOfAndor.PublicEnums.AddDropItemResponses;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -20,7 +21,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.ArrayList;
 
 enum BuyFromMerchantResponses {
-    SUCCESS, NOT_ENOUGH_GOLD, MERCHANT_DNE
+    SUCCESS, NOT_ENOUGH_GOLD, MERCHANT_DNE, MAX_ITEMS
 }
 
 public class BuyFromMerchant extends AppCompatActivity {
@@ -58,65 +59,91 @@ public class BuyFromMerchant extends AppCompatActivity {
         final MerchantPurchase merchantPurchase = new MerchantPurchase(0, items);
 
         ImageButton SP = (ImageButton) findViewById(R.id.SP);
+        final TextView amt_sp = (TextView) findViewById(R.id.amt_sp);
         SP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int strength = merchantPurchase.getStrength();
                 merchantPurchase.setStrength(strength + 1);
+                amt_sp.setText(String.valueOf(strength+1));
             }
         });
 
         ImageButton helm = (ImageButton) findViewById(R.id.helm);
+        final TextView amt_helm = (TextView) findViewById(R.id.amt_helm);
         helm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.add(new Item(ItemType.HELM));
                 merchantPurchase.setItems(items);
+                String amthelm = amt_helm.getText().toString();
+                int amt = Integer.parseInt(amthelm);
+                amt_helm.setText(String.valueOf(amt+1));
             }
         });
 
         ImageButton falcon = (ImageButton) findViewById(R.id.falcon);
+        final TextView amt_falcon = (TextView) findViewById(R.id.amt_falcon);
         falcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.add(new Item(ItemType.FALCON));
                 merchantPurchase.setItems(items);
+                String amtfalcon = amt_falcon.getText().toString();
+                int amt = Integer.parseInt(amtfalcon);
+                amt_falcon.setText(String.valueOf(amt+1));
             }
         });
 
         ImageButton bow = (ImageButton) findViewById(R.id.bow);
+        final TextView amt_bow = (TextView) findViewById(R.id.amt_bow);
         bow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.add(new Item(ItemType.BOW));
                 merchantPurchase.setItems(items);
+                String amtbow = amt_bow.getText().toString();
+                int amt = Integer.parseInt(amtbow);
+                amt_bow.setText(String.valueOf(amt+1));
             }
         });
 
         ImageButton shield = (ImageButton) findViewById(R.id.shield);
+        final TextView amt_shield = (TextView) findViewById(R.id.amt_shield);
         shield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.add(new Item(ItemType.SHIELD));
                 merchantPurchase.setItems(items);
+                String amtshield = amt_shield.getText().toString();
+                int amt = Integer.parseInt(amtshield);
+                amt_shield.setText(String.valueOf(amt+1));
             }
         });
 
         ImageButton wineskin = (ImageButton) findViewById(R.id.wineskin);
+        final TextView amt_wineskin = (TextView) findViewById(R.id.amt_wineskin);
         wineskin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.add(new Item(ItemType.WINESKIN));
                 merchantPurchase.setItems(items);
+                String amtwineskin = amt_wineskin.getText().toString();
+                int amt = Integer.parseInt(amtwineskin);
+                amt_wineskin.setText(String.valueOf(amt+1));
             }
         });
 
         ImageButton telescope = (ImageButton) findViewById(R.id.telescope);
+        final TextView amt_telescope = (TextView) findViewById(R.id.amt_telescope);
         telescope.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 items.add(new Item(ItemType.TELESCOPE));
                 merchantPurchase.setItems(items);
+                String amttelesope = amt_telescope.getText().toString();
+                int amt = Integer.parseInt(amttelesope);
+                amt_telescope.setText(String.valueOf(amt+1));
             }
         });
 
@@ -156,18 +183,52 @@ public class BuyFromMerchant extends AppCompatActivity {
                         merchantPurchase.setStrength(0);
                         items.clear();
                         merchantPurchase.setItems(items);
+                        amt_bow.setText(Integer.toString(0));
+                        amt_falcon.setText(Integer.toString(0));
+                        amt_helm.setText(Integer.toString(0));
+                        amt_shield.setText(Integer.toString(0));
+                        amt_sp.setText(Integer.toString(0));
+                        amt_telescope.setText(Integer.toString(0));
+                        amt_wineskin.setText(Integer.toString(0));
                     }
                     else if (buyFromMerchantResponses == BuyFromMerchantResponses.NOT_ENOUGH_GOLD){
                         Toast.makeText(BuyFromMerchant.this, "Purchase Failed. Not Enough Gold", Toast.LENGTH_LONG).show();
                         merchantPurchase.setStrength(0);
                         items.clear();
                         merchantPurchase.setItems(items);
+                        amt_bow.setText(Integer.toString(0));
+                        amt_falcon.setText(Integer.toString(0));
+                        amt_helm.setText(Integer.toString(0));
+                        amt_shield.setText(Integer.toString(0));
+                        amt_sp.setText(Integer.toString(0));
+                        amt_telescope.setText(Integer.toString(0));
+                        amt_wineskin.setText(Integer.toString(0));
+                    }
+                    else if (buyFromMerchantResponses == BuyFromMerchantResponses.MAX_ITEMS){
+                        Toast.makeText(BuyFromMerchant.this, "Purchase Failed. Not Enough Inventory Slots", Toast.LENGTH_LONG).show();
+                        merchantPurchase.setStrength(0);
+                        items.clear();
+                        merchantPurchase.setItems(items);
+                        amt_bow.setText(Integer.toString(0));
+                        amt_falcon.setText(Integer.toString(0));
+                        amt_helm.setText(Integer.toString(0));
+                        amt_shield.setText(Integer.toString(0));
+                        amt_sp.setText(Integer.toString(0));
+                        amt_telescope.setText(Integer.toString(0));
+                        amt_wineskin.setText(Integer.toString(0));
                     }
                     else{
                         Toast.makeText(BuyFromMerchant.this, "No merchant located in your region", Toast.LENGTH_LONG).show();
                         merchantPurchase.setStrength(0);
                         items.clear();
                         merchantPurchase.setItems(items);
+                        amt_bow.setText(Integer.toString(0));
+                        amt_falcon.setText(Integer.toString(0));
+                        amt_helm.setText(Integer.toString(0));
+                        amt_shield.setText(Integer.toString(0));
+                        amt_sp.setText(Integer.toString(0));
+                        amt_telescope.setText(Integer.toString(0));
+                        amt_wineskin.setText(Integer.toString(0));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
