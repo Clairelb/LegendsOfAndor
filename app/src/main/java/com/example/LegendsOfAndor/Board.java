@@ -502,10 +502,18 @@ public class Board extends AppCompatActivity {
 
                         if(response.getCode() == 200){
                             final Game game = new Gson().fromJson(response.getBody(), Game.class);
-                            MyPlayer.getInstance().setGame(game);
+                            if (game != null) {
+                                MyPlayer.getInstance().setGame(game);
+                            }
                             runOnUiThread(new Runnable() { // cannot run this part on seperate thread, so this forces the following to run on UiThread
                                 @Override
                                 public void run() {
+                                    if (game.getGameStatus() == GameStatus.GAME_WON || game.getGameStatus() == GameStatus.GAME_LOST) {
+                                        Intent intent = new Intent(Board.this, LegendCardN.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        interruptThreadAndStartActivity(intent);
+                                    }
+
                                     if(game.getGoldenShields() <= 0){
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class);
@@ -557,9 +565,14 @@ public class Board extends AppCompatActivity {
                                         } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
                                             if (!myPlayer.isLegendCardNDisplayed()) {
                                                 myPlayer.setLegendCardNDisplayed(true);
-                                                Intent intent = new Intent(Board.this, LegendCardN.class);
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                interruptThreadAndStartActivity(intent);
+                                                if (myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
+                                                    try {
+                                                        ActivateLegendCardN activateLegendCardN = new ActivateLegendCardN();
+                                                        activateLegendCardN.execute("");
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
                                             }
                                         }
 
@@ -1271,6 +1284,21 @@ public class Board extends AppCompatActivity {
 
             try {
                 Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/foundWitch")
+                        .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class ActivateLegendCardN extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+
+            try {
+                Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateLegendCardN")
                         .asString();
             } catch (UnirestException e) {
                 e.printStackTrace();

@@ -1,5 +1,6 @@
 package com.example.LegendsOfAndor;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -26,6 +27,7 @@ public class CreateGame extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
