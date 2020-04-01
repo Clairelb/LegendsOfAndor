@@ -376,6 +376,11 @@ public class Board extends AppCompatActivity {
 
         }
 
+        if (!myPlayer.isRuneStoneToastDisplayed()) {
+            myPlayer.setRuneStoneToastDisplayed(true);
+            Toast.makeText(Board.this, "The rune stones legend card appears at " + currentGame.getRuneStoneLegendCard().toString() + " space.", Toast.LENGTH_LONG).show();
+        }
+
         for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
             //DRAW PLAYERS HERE
             Hero h = currentGame.getPlayers()[i].getHero();
@@ -508,6 +513,56 @@ public class Board extends AppCompatActivity {
 
                                         interruptThreadAndStartActivity(gameOverIntent);
                                     }else{
+                                        if (game.isFoundWitch()) {
+                                            if (!myPlayer.isLegendCardTheWitchDisplayed()) {
+                                                myPlayer.setLegendCardTheWitchDisplayed(true);
+
+                                                Intent intent = new Intent(Board.this, LegendCardTheWitch.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        }
+
+                                        if (game.getNarrator().getSlot() == NarratorSpace.C) {
+                                            if (!myPlayer.isLegendCardCDisplayed()) {
+                                                myPlayer.setLegendCardCDisplayed(true);
+                                                Intent intent;
+                                                if (game.getDifficultMode()) {
+                                                    intent = new Intent(Board.this, LegendCardC1Hard.class);
+                                                } else {
+                                                    intent = new Intent(Board.this, LegendCardC1Easy.class);
+                                                }
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == game.getRuneStoneLegendCard()) {
+                                            if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
+                                                myPlayer.setLegendCardRuneStonesDisplayed(true);
+                                                Intent intent;
+                                                if (game.getDifficultMode()) {
+                                                    intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
+                                                } else {
+                                                    intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
+                                                }
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == NarratorSpace.G) {
+                                            if (!myPlayer.isLegendCardGDisplayed()) {
+                                                myPlayer.setLegendCardGDisplayed(true);
+                                                Intent intent = new Intent(Board.this, LegendCardG.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
+                                            if (!myPlayer.isLegendCardNDisplayed()) {
+                                                myPlayer.setLegendCardNDisplayed(true);
+                                                Intent intent = new Intent(Board.this, LegendCardN.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        }
+
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
@@ -861,25 +916,32 @@ public class Board extends AppCompatActivity {
                             FogKind f = asyncTaskFog.get().getFogKind();
                             if(asyncTaskFog.get().getActivateFogResponses() == ActivateFogResponses.SUCCESS){
                                 if(f == FogKind.GOLD){
-                                    Toast.makeText(Board.this,"Gold added",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"Gold added.",Toast.LENGTH_LONG).show();
                                 }
                                 else if(f == FogKind.MONSTER){
-                                    Toast.makeText(Board.this,"A monster appeared in your region",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"A monster appeared in your region.",Toast.LENGTH_LONG).show();
                                 }
                                 else if(f == FogKind.THREE_WP){
-                                    Toast.makeText(Board.this,"Three willpower points added",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"Three willpower points added.",Toast.LENGTH_LONG).show();
                                 }
                                 else if(f == FogKind.SP){
-                                    Toast.makeText(Board.this,"Strength point added",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"Strength points added.",Toast.LENGTH_LONG).show();
                                 }
                                 else if(f == FogKind.WITCHBREW){
-                                    Toast.makeText(Board.this,"A witchbrew was added to your inventory",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"A witchbrew was added to your inventory. Now proceeding to The Witch legend card...",Toast.LENGTH_LONG).show();
+
+                                    try {
+                                        FoundWitchSender foundWitchSender = new FoundWitchSender();
+                                        foundWitchSender.execute("");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                                 else if(f == FogKind.WINESKIN){
-                                    Toast.makeText(Board.this,"A wineskin was added to your inventory",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"A wineskin was added to your inventory.",Toast.LENGTH_LONG).show();
                                 }
                                 else if(f == FogKind.TWO_WP){
-                                    Toast.makeText(Board.this,"Two willpower points added",Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this,"Two willpower points added.",Toast.LENGTH_LONG).show();
                                 }
                                 else if(f == FogKind.EVENT){
                                     //Event card
@@ -1202,4 +1264,18 @@ public class Board extends AppCompatActivity {
         }
     }
 
+    private static class FoundWitchSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+
+            try {
+                Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/foundWitch")
+                        .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }

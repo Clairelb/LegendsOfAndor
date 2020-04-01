@@ -31,6 +31,7 @@ public class Game  {
     private Witch witch;
     private int skralStronghold;
     private boolean gameLoaded;
+    private boolean foundWitch;
 
     public Game() {}
 
@@ -286,5 +287,13 @@ public class Game  {
 
     public void setGameLoaded(boolean gameLoaded) {
         this.gameLoaded = gameLoaded;
+    }
+
+    public boolean isFoundWitch() {
+        return foundWitch;
+    }
+
+    public void setFoundWitch(boolean foundWitch) {
+        this.foundWitch = foundWitch;
     }
 }

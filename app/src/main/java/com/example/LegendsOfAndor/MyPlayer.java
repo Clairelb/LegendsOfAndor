@@ -12,6 +12,7 @@ public class MyPlayer {
    private boolean legendCardRuneStonesDisplayed;
    private boolean legendCardGDisplayed;
    private boolean legendCardNDisplayed;
+   private boolean legendCardTheWitchDisplayed;
    private ArrayList<Integer> possibleCreaturesToFight;
 
    public void setPlayer(Player p){
@@ -91,5 +92,13 @@ public class MyPlayer {
 
     public void setPossibleCreaturesToFight(ArrayList<Integer> possibleCreaturesToFight) {
         this.possibleCreaturesToFight = possibleCreaturesToFight;
+    }
+
+    public boolean isLegendCardTheWitchDisplayed() {
+        return legendCardTheWitchDisplayed;
+    }
+
+    public void setLegendCardTheWitchDisplayed(boolean legendCardTheWitchDisplayed) {
+        this.legendCardTheWitchDisplayed = legendCardTheWitchDisplayed;
     }
 }
