@@ -45,7 +45,7 @@ enum MoveResponses {
     PICK_UP_FARMER, FARMERS_DIED, NO_OTHER_ACTIONS
 }
 enum EndMoveResponses {
-    BUY_FROM_MERCHANT, EMPTY_WELL, ACTIVATE_FOG, MOVE_ALREADY_ENDED, MUST_MOVE_TO_END_MOVE, NONE
+    BUY_FROM_MERCHANT, EMPTY_WELL, BUY_WITCH_BREW, ACTIVATE_FOG, MOVE_ALREADY_ENDED, MUST_MOVE_TO_END_MOVE, NONE
 }
 
 
@@ -123,6 +123,14 @@ public class Board extends AppCompatActivity {
 
         chatb= findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
+
+        if (myPlayer.isFoundWitch()) {
+            myPlayer.setFoundWitch(false);
+
+            Intent intent = new Intent(Board.this, BuyWitchBrewOptions.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            interruptThreadAndStartActivity(intent);
+        }
 
 
         farmers.add((ImageView)findViewById(R.id.farmer0));
@@ -922,71 +930,68 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EndMoveResponses endMoveResponses;
-                try{
+                try {
                     AsyncTask<String, Void, EndMoveResponses> asyncTask;
                     EndMoveSender endMoveSender = new EndMoveSender();
                     asyncTask = endMoveSender.execute("");
                     endMoveResponses = asyncTask.get();
-                    if(endMoveResponses == EndMoveResponses.ACTIVATE_FOG){
-                        Toast.makeText(Board.this,"A fog token will be activated",Toast.LENGTH_LONG).show();
+                    if (endMoveResponses == EndMoveResponses.ACTIVATE_FOG) {
+                        Toast.makeText(Board.this, "A fog token will be activated", Toast.LENGTH_LONG).show();
 
                         try {
                             AsyncTask<String, Void, ActivateFogRC> asyncTaskFog;
                             ActivateFogSender activateFogSender = new ActivateFogSender();
                             asyncTaskFog = activateFogSender.execute("");
                             FogKind f = asyncTaskFog.get().getFogKind();
-                            if(asyncTaskFog.get().getActivateFogResponses() == ActivateFogResponses.SUCCESS){
-                                if(f == FogKind.GOLD){
-                                    Toast.makeText(Board.this,"Gold added.",Toast.LENGTH_LONG).show();
-                                }
-                                else if(f == FogKind.MONSTER){
-                                    Toast.makeText(Board.this,"A monster appeared in your region.",Toast.LENGTH_LONG).show();
-                                }
-                                else if(f == FogKind.THREE_WP){
-                                    Toast.makeText(Board.this,"Three willpower points added.",Toast.LENGTH_LONG).show();
-                                }
-                                else if(f == FogKind.SP){
-                                    Toast.makeText(Board.this,"Strength points added.",Toast.LENGTH_LONG).show();
-                                }
-                                else if(f == FogKind.WITCHBREW){
-                                    Toast.makeText(Board.this,"A witchbrew was added to your inventory. Now proceeding to The Witch legend card...",Toast.LENGTH_LONG).show();
+                            if (asyncTaskFog.get().getActivateFogResponses() == ActivateFogResponses.SUCCESS) {
+                                if (f == FogKind.GOLD) {
+                                    Toast.makeText(Board.this, "Gold added.", Toast.LENGTH_LONG).show();
+                                } else if (f == FogKind.MONSTER) {
+                                    Toast.makeText(Board.this, "A monster appeared in your region.", Toast.LENGTH_LONG).show();
+                                } else if (f == FogKind.THREE_WP) {
+                                    Toast.makeText(Board.this, "Three willpower points added.", Toast.LENGTH_LONG).show();
+                                } else if (f == FogKind.SP) {
+                                    Toast.makeText(Board.this, "Strength points added.", Toast.LENGTH_LONG).show();
+                                } else if (f == FogKind.WITCHBREW) {
+                                    Toast.makeText(Board.this, "A witchbrew was added to your inventory. Now proceeding to The Witch legend card...", Toast.LENGTH_LONG).show();
 
+                                    myPlayer.setFoundWitch(true);
                                     try {
                                         FoundWitchSender foundWitchSender = new FoundWitchSender();
                                         foundWitchSender.execute("");
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                }
-                                else if(f == FogKind.WINESKIN){
-                                    Toast.makeText(Board.this,"A wineskin was added to your inventory.",Toast.LENGTH_LONG).show();
-                                }
-                                else if(f == FogKind.TWO_WP){
-                                    Toast.makeText(Board.this,"Two willpower points added.",Toast.LENGTH_LONG).show();
-                                }
-                                else if(f == FogKind.EVENT){
+                                } else if (f == FogKind.WINESKIN) {
+                                    Toast.makeText(Board.this, "A wineskin was added to your inventory.", Toast.LENGTH_LONG).show();
+                                } else if (f == FogKind.TWO_WP) {
+                                    Toast.makeText(Board.this, "Two willpower points added.", Toast.LENGTH_LONG).show();
+                                } else if (f == FogKind.EVENT) {
                                     //Event card
                                 }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                        catch (Exception e) {
-                        e.printStackTrace();
-                        }
-                    }else if(endMoveResponses == EndMoveResponses.BUY_FROM_MERCHANT){
+                    } else if (endMoveResponses == EndMoveResponses.BUY_FROM_MERCHANT) {
                         //Toast.makeText(Board.this,"You can buy items from a merchant",Toast.LENGTH_LONG).show();
                         threadTerminated = true;
                         Intent myIntent = new Intent(v.getContext(), EndMove_Merchant.class);
                         startActivity(myIntent);
-                    }else if(endMoveResponses == EndMoveResponses.EMPTY_WELL){
+                    } else if (endMoveResponses == EndMoveResponses.EMPTY_WELL) {
                         //Toast.makeText(Board.this,"You are in an area with a well",Toast.LENGTH_LONG).show();
                         threadTerminated = true;
                         Intent myIntent = new Intent(v.getContext(), EndMove_Well.class);
                         startActivity(myIntent);
-                    }else if(endMoveResponses == EndMoveResponses.MOVE_ALREADY_ENDED){
-                        Toast.makeText(Board.this,"You have already ended your move",Toast.LENGTH_LONG).show();
-                    }else if(endMoveResponses == EndMoveResponses.MUST_MOVE_TO_END_MOVE){
-                        Toast.makeText(Board.this,"You must first move",Toast.LENGTH_LONG).show();
-                    }else {
+                    } else if (endMoveResponses == EndMoveResponses.MOVE_ALREADY_ENDED) {
+                        Toast.makeText(Board.this, "You have already ended your move", Toast.LENGTH_LONG).show();
+                    } else if (endMoveResponses == EndMoveResponses.MUST_MOVE_TO_END_MOVE) {
+                        Toast.makeText(Board.this, "You must first move", Toast.LENGTH_LONG).show();
+                    } else if (endMoveResponses == EndMoveResponses.BUY_WITCH_BREW) {
+                        threadTerminated = true;
+                        Intent myIntent = new Intent(v.getContext(), BuyWitchBrewOptions.class);
+                        startActivity(myIntent);
+                    } else {
                         Toast.makeText(Board.this,"Successfully ended your move",Toast.LENGTH_LONG).show();
                     }
                 }catch(Exception e){

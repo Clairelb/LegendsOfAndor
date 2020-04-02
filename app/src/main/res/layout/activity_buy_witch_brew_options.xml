@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/board"
+    tools:context="com.example.LegendsOfAndor.BuyWitchBrewOptions">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/buy_witch_brew_options_toolbar"
+        android:layout_width="606dp"
+        android:layout_height="199dp"
+        android:background="#3B4646"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/joinFightOptions"
+        android:layout_width="286dp"
+        android:layout_height="63dp"
+        android:gravity="center"
+        android:text="Would you like to buy Witch's Brew?"
+        android:textColor="#cab7b7"
+        android:textSize="36sp"
+        android:visibility="visible"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintTop_toTopOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/buy_witch_brew_options_yes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="YES "
+        app:layout_constraintBottom_toBottomOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/buy_witch_brew_options_no"
+        app:layout_constraintHorizontal_bias="0.592"
+        app:layout_constraintStart_toStartOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/joinFightOptions" />
+
+    <Button
+        android:id="@+id/buy_witch_brew_options_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
+        android:text="NO"
+        app:layout_constraintBottom_toBottomOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintEnd_toEndOf="@+id/buy_witch_brew_options_toolbar"
+        app:layout_constraintTop_toBottomOf="@+id/joinFightOptions" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
