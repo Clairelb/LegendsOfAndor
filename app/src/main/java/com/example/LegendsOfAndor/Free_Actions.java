@@ -21,6 +21,8 @@ enum EmptyWellResponses {
 
 public class Free_Actions extends AppCompatActivity {
 
+    MyPlayer myPlayer;
+
     @Override
     public void onBackPressed(){}
 
@@ -30,6 +32,7 @@ public class Free_Actions extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.free_actions_tab);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        myPlayer = MyPlayer.getInstance();
 
         Button farmer = (Button) findViewById(R.id.farmer);
         farmer.setOnClickListener(new View.OnClickListener() {
@@ -72,6 +75,15 @@ public class Free_Actions extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(v.getContext(), Trade.class);
+                startActivity(myIntent);
+            }
+        });
+
+        Button use_article = findViewById(R.id.articleb);
+        use_article.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), UseArticle.class);
                 startActivity(myIntent);
             }
         });
@@ -124,4 +136,5 @@ public class Free_Actions extends AppCompatActivity {
             return null;
         }
     }
+
 }

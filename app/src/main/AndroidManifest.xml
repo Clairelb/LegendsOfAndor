@@ -147,6 +147,15 @@
         <activity
             android:name=".Trade"
             android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity android:name=".FalconTrade"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".FalconTradeSelectHero"
+        android:screenOrientation="sensorLandscape"
+        tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".UseArticle"
+            android:screenOrientation="sensorLandscape"
             tools:ignore="LockedOrientationActivity" />
     </application>
 

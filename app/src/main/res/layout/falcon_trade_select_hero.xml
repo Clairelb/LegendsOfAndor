@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/endmove_background">
+
+    <Button
+        android:id="@+id/select_falcon_hero_backb"
+        android:layout_width="64dp"
+        android:layout_height="47dp"
+        android:background="@drawable/back_icon"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <TextView
+        android:id="@+id/select_hero_for_falcon_trade"
+        android:layout_width="279dp"
+        android:layout_height="70dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:text="SELECT HERO FOR FALCON TRADE"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <TextView
+        android:id="@+id/selected_hero_for_falcon_trade"
+        android:layout_width="175dp"
+        android:layout_height="31dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.971"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/please_wait_for_falcon_hero"
+        android:layout_width="355dp"
+        android:layout_height="167dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:text="Please wait for hero to join falcon trade"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        android:visibility="invisible"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.598" />
+
+    <ImageButton
+        android:id="@+id/falcon_trade_archer"
+        android:layout_width="113dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/falcon_trade_wizard"
+        app:layout_constraintTop_toBottomOf="@+id/select_hero_for_falcon_trade"
+        app:srcCompat="@drawable/archer_female" />
+
+    <ImageButton
+        android:id="@+id/falcon_trade_warrior"
+        android:layout_width="113dp"
+        android:layout_height="128dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginRight="72dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/falcon_trade_wizard"
+        app:layout_constraintTop_toBottomOf="@+id/falcon_trade_archer"
+        app:srcCompat="@drawable/warrior_male" />
+
+    <ImageButton
+        android:id="@+id/falcon_trade_wizard"
+        android:layout_width="113dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/selected_hero_for_falcon_trade"
+        app:layout_constraintTop_toBottomOf="@+id/select_hero_for_falcon_trade"
+        app:srcCompat="@drawable/mage_female" />
+
+    <ImageButton
+        android:id="@+id/falcon_trade_dwarf"
+        android:layout_width="113dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginRight="54dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toStartOf="@+id/confirm_falcon_hero_selection"
+        app:layout_constraintTop_toBottomOf="@+id/falcon_trade_wizard"
+        app:srcCompat="@drawable/dwarf_male" />
+
+    <Button
+        android:id="@+id/confirm_falcon_hero_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="113dp"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/selected_hero_for_falcon_trade"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

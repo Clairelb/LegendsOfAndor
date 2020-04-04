@@ -7,6 +7,11 @@ import java.util.ArrayList;
 enum HeroClass {
     WARRIOR,ARCHER,DWARF,WIZARD
 }
+
+enum FalconTradeStatus{
+    NOT_IN_TRADE,TRADE_PENDING,IN_TRADE
+}
+
 public class Hero {
 //public class Hero extends Movable{
     private HeroClass heroClass;
@@ -25,6 +30,9 @@ public class Hero {
     private ArrayList<RuneStone> runeStones;
     private boolean bowActivated;
     private boolean shieldActivatedFight;
+    private FalconTradeStatus falconTradeStatus;
+    private HeroClass falconTradingWith;
+    private FalconTradeObject currentFalconTrade;
 
     public Hero() {}
 
@@ -52,6 +60,10 @@ public class Hero {
         items = new ArrayList<>();
         farmers = new ArrayList<>();
         runeStones = new ArrayList<>();
+        falconTradeStatus = FalconTradeStatus.NOT_IN_TRADE;
+        falconTradingWith = null;
+        currentFalconTrade = null;
+
     }
     public HeroClass getHeroClass() {
         return heroClass;
@@ -176,5 +188,30 @@ public class Hero {
 
     public void setShieldActivatedFight(boolean shieldActivatedFight) {
         this.shieldActivatedFight = shieldActivatedFight;
+    }
+
+
+    public FalconTradeStatus getFalconTradeStatus() {
+        return falconTradeStatus;
+    }
+
+    public void setFalconTradeStatus(FalconTradeStatus falconTradeStatus) {
+        this.falconTradeStatus = falconTradeStatus;
+    }
+
+    public HeroClass getFalconTradingWith() {
+        return falconTradingWith;
+    }
+
+    public void setFalconTradingWith(HeroClass falconTradingWith) {
+        this.falconTradingWith = falconTradingWith;
+    }
+
+    public FalconTradeObject getCurrentFalconTrade() {
+        return currentFalconTrade;
+    }
+
+    public void setCurrentFalconTrade(FalconTradeObject currentFalconTrade) {
+        this.currentFalconTrade = currentFalconTrade;
     }
 }

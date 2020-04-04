@@ -9,7 +9,7 @@ import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button startButton; // hi
+    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent myIntent = new Intent(v.getContext(), Login.class);
                 Intent myIntent = new Intent(v.getContext(), Login.class);
                 startActivity(myIntent);
             }

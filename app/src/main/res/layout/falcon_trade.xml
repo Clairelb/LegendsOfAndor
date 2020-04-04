@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/endmove_background">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="12dp"
+        android:layout_height="264dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:background="#3B4646"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/p2_helm"
+        app:layout_constraintTop_toBottomOf="@+id/falcon_trade_description" />
+
+    <TextView
+        android:id="@+id/falcon_trade_description"
+        android:layout_width="237dp"
+        android:layout_height="45dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:text="Falcon Trade"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.043" />
+
+    <TextView
+        android:id="@+id/p1_heroclass"
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <TextView
+        android:id="@+id/p2_heroclass"
+        android:layout_width="133dp"
+        android:layout_height="20dp"
+        android:background="#3B4646"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:autoSizeTextType="uniform"
+        app:fontFamily="@font/gothic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.973"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
+
+    <ImageButton
+        android:id="@+id/p1_gold_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/coin"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_wineskin_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_gold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_witch_brew_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/witch_brew"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_medicinal_herb_pic"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_runestone_blue_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/blue_runestone"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_witch_brew_pic"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_runestone_green_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/green_runestone"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_runestone_blue_pic"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_runestone_yellow_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/yellow_runestone"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_runestone_green_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_gold_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/coin"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_wineskin_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p2_runestone_yellow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_helm_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="138dp"
+        android:background="@drawable/helm"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/p2_witch_brew" />
+
+    <ImageButton
+        android:id="@+id/p2_medicinal_herb_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="82dp"
+        android:background="@drawable/medicinal_herb"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p2_telescope_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/telescope"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_helm_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p2_runestone_blue" />
+
+    <ImageButton
+        android:id="@+id/p2_wineskin_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginRight="21dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/wineskin"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p2_telescope_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p2_runestone_green" />
+
+    <ImageButton
+        android:id="@+id/p1_runestone_yellow_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="61dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/yellow_runestone"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_runestone_green_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_runestone_yellow"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p1_runestone_blue_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/blue_runestone"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_witch_brew_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_runestone_blue" />
+
+    <ImageButton
+        android:id="@+id/p1_witch_brew_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="138dp"
+        android:background="@drawable/witch_brew"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/p1_witch_brew" />
+
+    <ImageButton
+        android:id="@+id/p1_runestone_green_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/green_runestone"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_runestone_blue_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_runestone_green" />
+
+    <ImageButton
+        android:id="@+id/p1_wineskin_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/wineskin"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_telescope_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_wineskin"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p1_telescope_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/telescope"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_helm_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_telescope"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p1_helm_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/helm"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/p1_medicinal_herb_pic"
+        app:layout_constraintEnd_toStartOf="@+id/p1_helm"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/p1_medicinal_herb_pic"
+        android:layout_width="50dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="82dp"
+        android:background="@drawable/medicinal_herb"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/p1_medicinal_herb"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/p1_gold"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/p1_wineskin"
+        app:layout_constraintEnd_toStartOf="@+id/p1_runestone_yellow_pic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Spinner
+        android:id="@+id/p1_runestone_yellow"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/p1_runestone_green"
+        app:layout_constraintEnd_toStartOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/falcon_trade_description" />
+
+    <Spinner
+        android:id="@+id/p2_helm"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="52dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_has_confirmed"
+        app:layout_constraintEnd_toStartOf="@+id/p2_helm_pic" />
+
+    <Spinner
+        android:id="@+id/p2_medicinal_herb"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="27dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/p2_medicinal_herb_pic" />
+
+    <Spinner
+        android:id="@+id/p2_telescope"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_helm"
+        app:layout_constraintEnd_toStartOf="@+id/p2_telescope_pic" />
+
+    <Spinner
+        android:id="@+id/p2_wineskin"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_telescope"
+        app:layout_constraintEnd_toStartOf="@+id/p2_wineskin_pic" />
+
+    <Spinner
+        android:id="@+id/p2_witch_brew"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_medicinal_herb"
+        app:layout_constraintEnd_toStartOf="@+id/p2_witch_brew_pic" />
+
+    <Spinner
+        android:id="@+id/p2_runestone_blue"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_witch_brew"
+        app:layout_constraintEnd_toStartOf="@+id/p2_runestone_blue_pic" />
+
+    <Spinner
+        android:id="@+id/p2_runestone_green"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_runestone_blue"
+        app:layout_constraintEnd_toStartOf="@+id/p2_runestone_green_pic" />
+
+    <Spinner
+        android:id="@+id/p2_runestone_yellow"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p2_runestone_green"
+        app:layout_constraintEnd_toStartOf="@+id/p2_runestone_yellow_pic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/p2_gold"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/p2_wineskin"
+        app:layout_constraintEnd_toStartOf="@+id/p2_gold_pic"
+        app:layout_constraintTop_toBottomOf="@+id/falcon_trade_description" />
+
+    <Spinner
+        android:id="@+id/p1_runestone_green"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_runestone_blue"
+        app:layout_constraintEnd_toStartOf="@+id/textView5" />
+
+    <Spinner
+        android:id="@+id/p1_runestone_blue"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_witch_brew"
+        app:layout_constraintEnd_toStartOf="@+id/textView5" />
+
+    <Spinner
+        android:id="@+id/p1_witch_brew"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="48dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_has_confirmed"
+        app:layout_constraintEnd_toStartOf="@+id/textView5" />
+
+    <Spinner
+        android:id="@+id/p1_wineskin"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_telescope"
+        app:layout_constraintEnd_toStartOf="@+id/p1_runestone_green_pic" />
+
+    <Spinner
+        android:id="@+id/p1_telescope"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="37dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_helm"
+        app:layout_constraintEnd_toStartOf="@+id/p1_runestone_blue_pic" />
+
+    <Spinner
+        android:id="@+id/p1_medicinal_herb"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="69dp"
+        android:layout_marginRight="69dp"
+        android:layout_marginBottom="22dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_confirm"
+        app:layout_constraintEnd_toStartOf="@+id/p1_has_confirmed" />
+
+    <Spinner
+        android:id="@+id/p1_helm"
+        android:layout_width="67dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="36dp"
+        android:background="#D5634646"
+        app:layout_constraintBottom_toTopOf="@+id/p1_medicinal_herb"
+        app:layout_constraintEnd_toStartOf="@+id/p1_witch_brew_pic" />
+
+    <Button
+        android:id="@+id/p2_confirm"
+        android:layout_width="86dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginRight="66dp"
+        android:layout_marginBottom="11dp"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/p1_confirm"
+        android:layout_width="86dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginLeft="66dp"
+        android:layout_marginBottom="16dp"
+        android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/trade_items_falcon"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="190dp"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="190dp"
+        android:layout_marginRight="190dp"
+        android:layout_marginBottom="16dp"
+        android:text="Trade"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/p2_confirm"
+        app:layout_constraintStart_toEndOf="@+id/p1_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/p2_has_confirmed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="138dp"
+        android:layout_marginLeft="138dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        android:layout_marginBottom="67dp"
+        android:background="@color/red"
+        android:text="Confirmed"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/p2_medicinal_herb"
+        app:layout_constraintStart_toEndOf="@+id/p1_has_confirmed" />
+
+    <TextView
+        android:id="@+id/p1_has_confirmed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginRight="44dp"
+        android:layout_marginBottom="70dp"
+        android:background="@color/red"
+        android:text="Confirmed"
+        android:textAllCaps="true"
+        android:textColor="#cab7b7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textView5" />
+</androidx.constraintlayout.widget.ConstraintLayout>
