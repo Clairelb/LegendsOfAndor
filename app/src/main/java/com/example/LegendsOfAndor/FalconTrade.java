@@ -23,6 +23,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.util.ArrayList;
 
+enum ProcessFalconTradeResponses{
+    TRADE_PROCESSED,TRADE_FAILED, CANNOT_ACCEPT_ITEMS
+}
+
 public class FalconTrade extends AppCompatActivity {
 
     Spinner p1_gold;
@@ -538,37 +542,44 @@ public class FalconTrade extends AppCompatActivity {
                                     for(int i = 0; i < game.getCurrentNumPlayers(); i++){
                                         if(game.getPlayers()[i].getHero().getHeroClass() == p1_hero_class){
                                             FalconTradeObject currentTrade = game.getPlayers()[i].getHero().getCurrentFalconTrade();
-                                            p1_gold.setSelection(getIndex(p1_gold, currentTrade.getP1_gold()));
-                                            p1_wineskin.setSelection(getIndex(p1_wineskin, currentTrade.getP1_wineskin()));
-                                            p1_runestone_blue.setSelection(getIndex(p1_runestone_blue, currentTrade.getP1_runestone_blue()));
-                                            p1_runestone_green.setSelection(getIndex(p1_runestone_green, currentTrade.getP1_runestone_green()));
-                                            p1_runestone_yellow.setSelection(getIndex(p1_runestone_yellow,currentTrade.getP1_runestone_yellow()));
-                                            p1_telescope.setSelection(getIndex(p1_telescope, currentTrade.getP1_telescope()));
-                                            p1_helm.setSelection(getIndex(p1_helm, currentTrade.getP1_helm()));
-                                            p1_medicinal_herb.setSelection(getIndex(p1_medicinal_herb, currentTrade.getP1_medicinal_herb()));
-                                            p1_witch_brew.setSelection(getIndex(p1_witch_brew,currentTrade.getP1_witch_brew()));
-                                            p2_gold.setSelection(getIndex(p2_gold, currentTrade.getP2_gold()));
-                                            p2_wineskin.setSelection(getIndex(p2_wineskin, currentTrade.getP2_wineskin()));
-                                            p2_runestone_blue.setSelection(getIndex(p2_runestone_blue, currentTrade.getP2_runestone_blue()));
-                                            p2_runestone_green.setSelection(getIndex(p2_runestone_green, currentTrade.getP2_runestone_green()));
-                                            p2_runestone_yellow.setSelection(getIndex(p2_runestone_yellow,currentTrade.getP2_runestone_yellow()));
-                                            p2_telescope.setSelection(getIndex(p2_telescope, currentTrade.getP2_telescope()));
-                                            p2_helm.setSelection(getIndex(p2_helm, currentTrade.getP2_helm()));
-                                            p2_medicinal_herb.setSelection(getIndex(p2_medicinal_herb, currentTrade.getP2_medicinal_herb()));
-                                            p2_witch_brew.setSelection(getIndex(p2_witch_brew,currentTrade.getP2_witch_brew()));
-                                            if(!currentTrade.isDontUpdate()){
-                                                if(currentTrade.isP1_hasConfirmed()){
-                                                    p1_hasConfirmed.setBackgroundColor(Color.GREEN);
-                                                }else{
-                                                    p1_hasConfirmed.setBackgroundColor(Color.RED);
-                                                }
-                                            }
-                                            if(currentTrade.isP2_hasConfirmed()){
-                                                p2_hasConfirmed.setBackgroundColor(Color.GREEN);
+                                            if(currentTrade == null){
+                                                Toast.makeText(FalconTrade.this, "Falcon Trade Processed", Toast.LENGTH_LONG).show();
+                                                threadTerminated = true;
+                                                startActivity(new Intent(FalconTrade.this, UseArticle.class));
+                                                finish();
                                             }else{
-                                                p2_hasConfirmed.setBackgroundColor(Color.RED);
+                                                p1_gold.setSelection(getIndex(p1_gold, currentTrade.getP1_gold()));
+                                                p1_wineskin.setSelection(getIndex(p1_wineskin, currentTrade.getP1_wineskin()));
+                                                p1_runestone_blue.setSelection(getIndex(p1_runestone_blue, currentTrade.getP1_runestone_blue()));
+                                                p1_runestone_green.setSelection(getIndex(p1_runestone_green, currentTrade.getP1_runestone_green()));
+                                                p1_runestone_yellow.setSelection(getIndex(p1_runestone_yellow,currentTrade.getP1_runestone_yellow()));
+                                                p1_telescope.setSelection(getIndex(p1_telescope, currentTrade.getP1_telescope()));
+                                                p1_helm.setSelection(getIndex(p1_helm, currentTrade.getP1_helm()));
+                                                p1_medicinal_herb.setSelection(getIndex(p1_medicinal_herb, currentTrade.getP1_medicinal_herb()));
+                                                p1_witch_brew.setSelection(getIndex(p1_witch_brew,currentTrade.getP1_witch_brew()));
+                                                p2_gold.setSelection(getIndex(p2_gold, currentTrade.getP2_gold()));
+                                                p2_wineskin.setSelection(getIndex(p2_wineskin, currentTrade.getP2_wineskin()));
+                                                p2_runestone_blue.setSelection(getIndex(p2_runestone_blue, currentTrade.getP2_runestone_blue()));
+                                                p2_runestone_green.setSelection(getIndex(p2_runestone_green, currentTrade.getP2_runestone_green()));
+                                                p2_runestone_yellow.setSelection(getIndex(p2_runestone_yellow,currentTrade.getP2_runestone_yellow()));
+                                                p2_telescope.setSelection(getIndex(p2_telescope, currentTrade.getP2_telescope()));
+                                                p2_helm.setSelection(getIndex(p2_helm, currentTrade.getP2_helm()));
+                                                p2_medicinal_herb.setSelection(getIndex(p2_medicinal_herb, currentTrade.getP2_medicinal_herb()));
+                                                p2_witch_brew.setSelection(getIndex(p2_witch_brew,currentTrade.getP2_witch_brew()));
+                                                if(!currentTrade.isDontUpdate()){
+                                                    if(currentTrade.isP1_hasConfirmed()){
+                                                        p1_hasConfirmed.setBackgroundColor(Color.GREEN);
+                                                    }else{
+                                                        p1_hasConfirmed.setBackgroundColor(Color.RED);
+                                                    }
+                                                }
+                                                if(currentTrade.isP2_hasConfirmed()){
+                                                    p2_hasConfirmed.setBackgroundColor(Color.GREEN);
+                                                }else{
+                                                    p2_hasConfirmed.setBackgroundColor(Color.RED);
+                                                }
+                                                currentTrade.setDontUpdate(false);
                                             }
-                                            currentTrade.setDontUpdate(false);
                                         }
                                     }
                                 }
@@ -970,9 +981,23 @@ public class FalconTrade extends AppCompatActivity {
                 ColorDrawable p1_color = (ColorDrawable) p1_hasConfirmed.getBackground();
                 ColorDrawable p2_color = (ColorDrawable) p2_hasConfirmed.getBackground();
                 if(p1_color.getColor() == Color.GREEN && p2_color.getColor() == Color.GREEN){
-                    Toast.makeText(FalconTrade.this,"READY TO TRADE", Toast.LENGTH_LONG).show();
+                    AsyncTask<String,Void,ProcessFalconTradeResponses> asyncTask;
+                    ProcessFalconTradeResponses processFalconTradeResponses = null;
+                    ProcessFalconTrade processFalconTrade = new ProcessFalconTrade();
+                    try{
+                        asyncTask = processFalconTrade.execute(new Gson().toJson(clientTrade));
+                        processFalconTradeResponses = asyncTask.get();
+                    }catch(Exception e){
+                        e.printStackTrace();
+                    }
+                    if (processFalconTradeResponses == ProcessFalconTradeResponses.CANNOT_ACCEPT_ITEMS) {
+                        Toast.makeText(FalconTrade.this,"One or more of the heroes cannot accept the items requested" , Toast.LENGTH_LONG).show();
+                    }else if (processFalconTradeResponses == ProcessFalconTradeResponses.TRADE_FAILED){
+                        Toast.makeText(FalconTrade.this,"Falcon trade failed for unknown reasons, please try again" , Toast.LENGTH_LONG).show();
+                    }else if(processFalconTradeResponses == ProcessFalconTradeResponses.TRADE_PROCESSED){
+                    }
                 }else{
-                    Toast.makeText(FalconTrade.this,"NOT READY TO TRADE. Hero 1: " + clientTrade.isP1_hasConfirmed() + " Hero 2: " + clientTrade.isP2_hasConfirmed(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(FalconTrade.this,"Not ready to trade. Please wait until both players confirm" , Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -1041,6 +1066,28 @@ public class FalconTrade extends AppCompatActivity {
                         .header("Content-Type", "application/json")
                         .body(strings[0])
                         .asString();
+
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class ProcessFalconTrade extends AsyncTask<String, Void, ProcessFalconTradeResponses> {
+        @Override
+        protected ProcessFalconTradeResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() +  "/processFalconTrade")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, ProcessFalconTradeResponses.class);
 
             } catch (UnirestException e) {
                 e.printStackTrace();

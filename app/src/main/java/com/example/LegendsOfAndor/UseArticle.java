@@ -54,11 +54,13 @@ public class UseArticle extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        for(Item item : myPlayer.getPlayer().getHero().getItems()){
-//            if(item.getItemType() == ItemType.FALCON){
-//                startFalconTrade.setVisibility(View.VISIBLE);
-//            }
-//        }
+        for(Item item : myPlayer.getPlayer().getHero().getItems()){
+            if(item.getItemType() == ItemType.FALCON){
+                if(item.getNumUses() == 1){
+                    startFalconTrade.setVisibility(View.VISIBLE);
+                }
+            }
+        }
 
         if(myPlayer.getPlayer().getHero().getFalconTradeStatus() == FalconTradeStatus.TRADE_PENDING){
             joinFalconTrade.setVisibility(View.VISIBLE);
