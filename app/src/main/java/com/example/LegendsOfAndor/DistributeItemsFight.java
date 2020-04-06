@@ -62,7 +62,7 @@ public class DistributeItemsFight extends AppCompatActivity {
         final Game currentGame = MyPlayer.getInstance().getGame();
 
         TextView description = findViewById(R.id.distribute_fight_items_description);
-        description.setText(new StringBuilder().append("CONGRATULATIONS. You have won the fight. You get ").append(currentGame.getCurrentFight().getCreature().getGoldReward()).append(" gold and ").append(currentGame.getCurrentFight().getCreature().getWillpowerReward()).append(" willpower points to distribute amongst your team").toString());
+        description.setText(new StringBuilder().append("CONGRATULATIONS. You have won the fight. You get ").append(currentGame.getCurrentFight().getCreature().getGoldReward()).append(" gold and willpower to distribute amongst your team").toString());
 
         for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
             if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
@@ -100,7 +100,7 @@ public class DistributeItemsFight extends AppCompatActivity {
                 int arch_willpower = Integer.parseInt(archerWillpower.getSelectedItem().toString());
                 int dwarf_willpower = Integer.parseInt(dwarfWillpower.getSelectedItem().toString());
 
-                if((war_gold + arch_gold + wiz_gold + dwarf_gold == currentGame.getCurrentFight().getCreature().getGoldReward()) && (wiz_willpower+war_willpower+arch_willpower+dwarf_willpower == currentGame.getCurrentFight().getCreature().getWillpowerReward())){
+                if((war_gold + arch_gold + wiz_gold + dwarf_gold + wiz_willpower + war_willpower + arch_willpower + dwarf_willpower) == currentGame.getCurrentFight().getCreature().getGoldReward()){
                     FightDistribution fightDistribution = new FightDistribution();
                     fightDistribution.setArcherGold(arch_gold);
                     fightDistribution.setArcherWillpower(arch_willpower);
