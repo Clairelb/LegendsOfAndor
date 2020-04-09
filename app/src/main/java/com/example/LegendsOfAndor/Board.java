@@ -81,13 +81,13 @@ public class Board extends AppCompatActivity {
     private Button realMove;
 
     private Button getDirectionPrince;
-    private Button confirmMovePrince;
+//    private Button confirmMovePrince;
     private Button endMovePrince;
     private Spinner princeRegions;
     private ArrayAdapter<String> adapterPrince;
     private ArrayList<String> listPrince=new ArrayList<String>();
     private int PrinceNextMove;
-
+    private boolean princeflag = false;
 
 
 
@@ -271,8 +271,7 @@ public class Board extends AppCompatActivity {
         endMovePrince = findViewById(R.id.endMovePrince);
         endMovePrince.setVisibility(View.INVISIBLE);
 
-        confirmMovePrince =findViewById(R.id.movePrinceConfirm);
-        confirmMovePrince.setVisibility(View.INVISIBLE);
+
 
         getDirectionPrince = findViewById(R.id.getRegionPrince);
         getDirectionPrince.setVisibility(View.INVISIBLE);
@@ -282,19 +281,19 @@ public class Board extends AppCompatActivity {
 
 
 
-        confirmMovePrince.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                try {
-                    AsyncTask<String, Void, Void> asyncTask;
-                    MovePrinceSender movePrinceSender = new MovePrinceSender();
-                    asyncTask = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
-                }catch(Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
+//        confirmMovePrince.setOnClickListener(new View.OnClickListener(){
+//
+//            @Override
+//            public void onClick(View v) {
+//                try {
+//                    AsyncTask<String, Void, Void> asyncTask;
+//                    MovePrinceSender movePrinceSender = new MovePrinceSender();
+//                    asyncTask = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
+//                }catch(Exception e){
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         realMove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -356,6 +355,57 @@ public class Board extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+        getDirectionPrince.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                try{
+                    AsyncTask<String, Void, Void> asyncTaskp1;
+                    MovePrinceSender movePrinceSender = new MovePrinceSender();
+                    asyncTaskp1 = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
+
+                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
+                    GetPrinceSender getPrinceSender = new GetPrinceSender();
+                    GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+
+                    asyncTask = getPrinceSender.execute();
+                    GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask.get();
+
+                    ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+                    for(Integer i: availableMove){
+                        String temp = i+"";
+                        adapterPrince.add(temp);
+                    }
+                    adapterPrince.clear();
+                    adapterPrince.notifyDataSetChanged();
+                    princeRegions.setAdapter(adapterPrince);
+
+
+
+                    getPrinceThoraldMovesResponses = princeAvailableRegion.getGetPrinceThoraldMovesResponses();
+
+                    if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_FIGHT){
+                        Toast.makeText(Board.this, "Error. You cannot move the prince after fighting.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_MOVE){
+                        Toast.makeText(Board.this, "Error. You cannot move the prince after moving.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.PRINCE_DNE){
+                        Toast.makeText(Board.this, "Error. The Prince DNE.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CURRENT_HOUR_MAXED){
+                        Toast.makeText(Board.this, "You have already reached the maximum hour and can't move futher.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.DEDUCT_WILLPOWER){
+                        Toast.makeText(Board.this, "You have already used up all normal hour, will power is deducted.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_CURRENT_TURN) {
+                        Toast.makeText(Board.this, "You are not in the current turn.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_ENOUGH_WILLPOWER){
+                        Toast.makeText(Board.this, "You don't have enought Will power", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.SUCCESS){
+                        Toast.makeText(Board.this, "Move successfully", Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -833,7 +883,7 @@ public class Board extends AppCompatActivity {
                                                     pass.setVisibility(View.INVISIBLE);
                                                     endDay.setVisibility(View.INVISIBLE);
                                                     endMove.setVisibility(View.INVISIBLE);
-                                                    confirmMovePrince.setVisibility(View.INVISIBLE);
+//                                                    confirmMovePrince.setVisibility(View.INVISIBLE);
                                                     getDirectionPrince.setVisibility(View.INVISIBLE);
                                                     endMovePrince.setVisibility(View.INVISIBLE);
                                                     princeRegions.setVisibility(View.INVISIBLE);
@@ -852,12 +902,33 @@ public class Board extends AppCompatActivity {
                                             endDay.setVisibility(View.VISIBLE);
                                             endMove.setVisibility(View.VISIBLE);
                                             if(game.getPrinceThorald()!= null){
-                                                confirmMovePrince.setVisibility(View.VISIBLE);
+                                                    if(princeflag == false){
+
+                                                        try{
+                                                            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
+                                                            GetPrinceSender getPrinceSender = new GetPrinceSender();
+                                                            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+
+                                                            asyncTask2 = getPrinceSender.execute();
+                                                            GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask2.get();
+
+                                                            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+                                                            for(Integer i: availableMove){
+                                                                String temp1 = i+"";
+                                                                adapterPrince.add(temp1);
+                                                            }
+                                                            adapterPrince.clear();
+                                                            adapterPrince.notifyDataSetChanged();
+                                                            princeRegions.setAdapter(adapterPrince);
+                                                        }catch(Exception e){
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+
                                                 getDirectionPrince.setVisibility(View.VISIBLE);
                                                 endMovePrince.setVisibility(View.VISIBLE);
                                                 princeRegions.setVisibility(View.VISIBLE);
                                             }else{
-                                                confirmMovePrince.setVisibility(View.INVISIBLE);
                                                 getDirectionPrince.setVisibility(View.INVISIBLE);
                                                 endMovePrince.setVisibility(View.INVISIBLE);
                                                 princeRegions.setVisibility(View.INVISIBLE);
@@ -869,7 +940,7 @@ public class Board extends AppCompatActivity {
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
                                             endMove.setVisibility(View.INVISIBLE);
-                                            confirmMovePrince.setVisibility(View.INVISIBLE);
+//                                            confirmMovePrince.setVisibility(View.INVISIBLE);
                                             getDirectionPrince.setVisibility(View.INVISIBLE);
                                             endMovePrince.setVisibility(View.INVISIBLE);
                                             princeRegions.setVisibility(View.INVISIBLE);
@@ -889,41 +960,7 @@ public class Board extends AppCompatActivity {
         t.start();
 
 
-        getDirectionPrince.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                try{
-                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
-                    GetPrinceSender getPrinceSender = new GetPrinceSender();
-                   GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
-
-                    asyncTask = getPrinceSender.execute();
-                    GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask.get();
-                    getPrinceThoraldMovesResponses = princeAvailableRegion.getGetPrinceThoraldMovesResponses();
-
-                    if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_FIGHT){
-                        Toast.makeText(Board.this, "Error. You cannot move the prince after fighting.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_MOVE){
-                        Toast.makeText(Board.this, "Error. You cannot move the prince after moving.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.PRINCE_DNE){
-                        Toast.makeText(Board.this, "Error. The Prince DNE.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CURRENT_HOUR_MAXED){
-                        Toast.makeText(Board.this, "You have already reached the maximum hour and can't move futher.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.DEDUCT_WILLPOWER){
-                        Toast.makeText(Board.this, "You have already used up all normal hour, will power is deducted.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_CURRENT_TURN) {
-                        Toast.makeText(Board.this, "You are not in the current turn.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_ENOUGH_WILLPOWER){
-                        Toast.makeText(Board.this, "You don't have enought Will power", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.SUCCESS){
-                        Toast.makeText(Board.this, "Move successfully", Toast.LENGTH_LONG).show();
-                    }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
 //        move.setOnClickListener(new View.OnClickListener(){
 //            @Override
 //            public void onClick(View v){

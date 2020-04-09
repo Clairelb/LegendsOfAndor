@@ -432,25 +432,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/movePrinceConfirm"
-        android:layout_width="75dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="272dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:text="Move prince to"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/getRegionPrince"
         android:layout_width="83dp"
         android:layout_height="54dp"
-        android:layout_marginTop="216dp"
+        android:layout_marginTop="300dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
-        android:text="Confirm"
+        android:text="Move Prince"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -469,7 +459,7 @@
         android:id="@+id/spPrinceRegion"
         android:layout_width="80dp"
         android:layout_height="38dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="24dp"
         android:layout_marginRight="24dp"
         app:layout_constraintEnd_toEndOf="parent"
