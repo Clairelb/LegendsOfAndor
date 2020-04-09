@@ -53,7 +53,13 @@ enum GetAvailableRegionsReponses {
     NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_AFTER_FIGHT, CANNOT_MOVE_AFTER_MOVE_PRINCE, SUCCESS
 }
 
+enum GetPrinceThoraldMovesResponses {
+    PRINCE_DNE, NOT_CURRENT_TURN, DEDUCT_WILLPOWER, NOT_ENOUGH_WILLPOWER, CURRENT_HOUR_MAXED, CANNOT_MOVE_PRINCE_AFTER_FIGHT, CANNOT_MOVE_PRINCE_AFTER_MOVE, SUCCESS
+}
 
+enum EndMovePrinceThoraldResponses {
+    MUST_MOVE_PRINCE_TO_END_MOVE, MOVE_PRINCE_ALREADY_ENDED, SUCCESS
+}
 
 
 
@@ -73,6 +79,16 @@ public class Board extends AppCompatActivity {
     private Button endMove;
     private int nextMove;
     private Button realMove;
+
+    private Button getDirectionPrince;
+    private Button confirmMovePrince;
+    private Button endMovePrince;
+    private Spinner princeRegions;
+    private ArrayAdapter<String> adapterPrince;
+    private ArrayList<String> listPrince=new ArrayList<String>();
+    private int PrinceNextMove;
+
+
 
 
 
@@ -108,8 +124,8 @@ public class Board extends AppCompatActivity {
         setContentView(R.layout.board);
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         final MyPlayer myPlayer = MyPlayer.getInstance();
-        move = findViewById(R.id.move);
-        move.setVisibility(View.INVISIBLE);
+//        move = findViewById(R.id.move);
+//        move.setVisibility(View.INVISIBLE);
         realMove = findViewById(R.id.realMove);
         realMove.setVisibility(View.INVISIBLE);
         fight = findViewById(R.id.fight);
@@ -245,11 +261,40 @@ public class Board extends AppCompatActivity {
         spText.setVisibility(View.INVISIBLE);
 
         sp=(Spinner)findViewById(R.id.sp);
+        sp.bringToFront();
         String[]ls=getResources().getStringArray(R.array.action);
 
         for(int i=0;i<ls.length;i++){
             list.add(ls[i]);
         }
+
+        endMovePrince = findViewById(R.id.endMovePrince);
+        endMovePrince.setVisibility(View.INVISIBLE);
+
+        confirmMovePrince =findViewById(R.id.movePrinceConfirm);
+        confirmMovePrince.setVisibility(View.INVISIBLE);
+
+        getDirectionPrince = findViewById(R.id.getRegionPrince);
+        getDirectionPrince.setVisibility(View.INVISIBLE);
+
+        princeRegions = findViewById(R.id.spPrinceRegion);
+        princeRegions.setVisibility(View.INVISIBLE);
+
+
+
+        confirmMovePrince.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                try {
+                    AsyncTask<String, Void, Void> asyncTask;
+                    MovePrinceSender movePrinceSender = new MovePrinceSender();
+                    asyncTask = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
 
         realMove.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,6 +312,24 @@ public class Board extends AppCompatActivity {
                     } else if (moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
                         Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG).show();
                     }
+
+                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
+                    GetRegionsSender getRegionsSender = new GetRegionsSender();
+                    GetAvailableRegionsReponses getAvailableRegionsReponses;
+
+                    asyncTask1 = getRegionsSender.execute();
+                    GetAvailableRegionsRC availableRegions = asyncTask1.get();
+                    Log.d("REGION", availableRegions.getResponse().toString());
+
+                    adapter.clear();
+
+                    ArrayList<Integer> available = availableRegions.getRegions();
+                    for(Integer i: available){
+                        adapter.add(i.toString());
+                    }
+                    adapter.notifyDataSetChanged();
+                    sp.setAdapter(adapter);
+
                 }catch(Exception e){
                     e.printStackTrace();
                 }
@@ -274,12 +337,39 @@ public class Board extends AppCompatActivity {
 
             }
         });
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,list);
+        //Prince spinner
+
+        adapterPrince = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item);
+        adapterPrince.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        princeRegions.setAdapter((adapterPrince));
+        princeRegions.getSelectedItem();
+
+        princeRegions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Integer space = Integer.parseInt(adapter.getItem(position));
+                PrinceNextMove = space;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         sp.setAdapter(adapter);
         sp.getSelectedItem();
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+
 
                 Integer space = Integer.parseInt(adapter.getItem(position));
 
@@ -313,7 +403,7 @@ public class Board extends AppCompatActivity {
 
             }
         });
-        sp.setVisibility(View.INVISIBLE);
+        sp.setVisibility(View.VISIBLE);
         //final Toolbar toolbar2 = findViewById(R.id.toolbar2);
         //toolbar2.setVisibility(View.INVISIBLE);
 
@@ -376,7 +466,7 @@ public class Board extends AppCompatActivity {
         if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
             Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
             realMove.setVisibility(View.VISIBLE);
-            move.setVisibility(View.VISIBLE);
+//            move.setVisibility(View.VISIBLE);
             fight.setVisibility(View.VISIBLE);
             pass.setVisibility(View.VISIBLE);
             endDay.setVisibility(View.VISIBLE);
@@ -495,6 +585,25 @@ public class Board extends AppCompatActivity {
             witch.setVisibility(View.INVISIBLE);
         }
 
+        AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
+        GetRegionsSender getRegionsSender = new GetRegionsSender();
+        GetAvailableRegionsReponses getAvailableRegionsReponses;
+        try {
+            asyncTask1 = getRegionsSender.execute();
+            GetAvailableRegionsRC availableRegions = asyncTask1.get();
+            Log.d("REGION", availableRegions.getResponse().toString());
+
+            adapter.clear();
+
+            ArrayList<Integer> available = availableRegions.getRegions();
+            for (Integer i : available) {
+                adapter.add(i.toString());
+            }
+            adapter.notifyDataSetChanged();
+            sp.setAdapter(adapter);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
 
 
@@ -719,11 +828,15 @@ public class Board extends AppCompatActivity {
                                             for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
                                                 if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
                                                     realMove.setVisibility(View.INVISIBLE);
-                                                    move.setVisibility(View.INVISIBLE);
+//                                                    move.setVisibility(View.INVISIBLE);
                                                     fight.setVisibility(View.INVISIBLE);
                                                     pass.setVisibility(View.INVISIBLE);
                                                     endDay.setVisibility(View.INVISIBLE);
                                                     endMove.setVisibility(View.INVISIBLE);
+                                                    confirmMovePrince.setVisibility(View.INVISIBLE);
+                                                    getDirectionPrince.setVisibility(View.INVISIBLE);
+                                                    endMovePrince.setVisibility(View.INVISIBLE);
+                                                    princeRegions.setVisibility(View.INVISIBLE);
                                                     Intent joinFightIntent = new Intent(Board.this, JoinFight.class);
                                                     joinFightIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                     interruptThreadAndStartActivity(joinFightIntent);
@@ -733,18 +846,34 @@ public class Board extends AppCompatActivity {
                                         if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
                                             realMove.setVisibility(View.VISIBLE);
-                                            move.setVisibility(View.VISIBLE);
+//                                            move.setVisibility(View.VISIBLE);
                                             fight.setVisibility(View.VISIBLE);
                                             pass.setVisibility(View.VISIBLE);
                                             endDay.setVisibility(View.VISIBLE);
                                             endMove.setVisibility(View.VISIBLE);
+                                            if(game.getPrinceThorald()!= null){
+                                                confirmMovePrince.setVisibility(View.VISIBLE);
+                                                getDirectionPrince.setVisibility(View.VISIBLE);
+                                                endMovePrince.setVisibility(View.VISIBLE);
+                                                princeRegions.setVisibility(View.VISIBLE);
+                                            }else{
+                                                confirmMovePrince.setVisibility(View.INVISIBLE);
+                                                getDirectionPrince.setVisibility(View.INVISIBLE);
+                                                endMovePrince.setVisibility(View.INVISIBLE);
+                                                princeRegions.setVisibility(View.INVISIBLE);
+                                            }
                                         }else{
                                             realMove.setVisibility(View.INVISIBLE);
-                                            move.setVisibility(View.INVISIBLE);
+//                                            move.setVisibility(View.INVISIBLE);
                                             fight.setVisibility(View.INVISIBLE);
                                             pass.setVisibility(View.INVISIBLE);
                                             endDay.setVisibility(View.INVISIBLE);
                                             endMove.setVisibility(View.INVISIBLE);
+                                            confirmMovePrince.setVisibility(View.INVISIBLE);
+                                            getDirectionPrince.setVisibility(View.INVISIBLE);
+                                            endMovePrince.setVisibility(View.INVISIBLE);
+                                            princeRegions.setVisibility(View.INVISIBLE);
+
                                         }
 
                                     }
@@ -759,66 +888,102 @@ public class Board extends AppCompatActivity {
         });
         t.start();
 
-        move.setOnClickListener(new View.OnClickListener(){
+
+        getDirectionPrince.setOnClickListener(new View.OnClickListener(){
+
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
+                try{
+                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
+                    GetPrinceSender getPrinceSender = new GetPrinceSender();
+                   GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
 
-                try {
-                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask;
-                    GetRegionsSender getRegionsSender = new GetRegionsSender();
-                    GetAvailableRegionsReponses getAvailableRegionsReponses;
+                    asyncTask = getPrinceSender.execute();
+                    GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask.get();
+                    getPrinceThoraldMovesResponses = princeAvailableRegion.getGetPrinceThoraldMovesResponses();
 
-                    asyncTask = getRegionsSender.execute();
-                    GetAvailableRegionsRC availableRegions = asyncTask.get();
-                    Log.d("REGION", availableRegions.getResponse().toString());
-
-                    getAvailableRegionsReponses = availableRegions.getResponse();
-                    if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_FIGHT) {
-                        Toast.makeText(Board.this, "Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
-                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_MOVE_PRINCE) {
-                        Toast.makeText(Board.this, "Error. You cannot move after moving prince.", Toast.LENGTH_LONG).show();
-                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CURRENT_HOUR_MAXED) {
-                        Toast.makeText(Board.this,"Error. Your hours are maxed. You must end your day.", Toast.LENGTH_LONG).show();
-                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.DEDUCT_WILLPOWER) {
-                        Toast.makeText(Board.this,"Moving will result in losing 2 willpower due to overtime.", Toast.LENGTH_LONG).show();
-                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.NOT_CURRENT_TURN) {
-                        Toast.makeText(Board.this,"Error. It is not your turn.", Toast.LENGTH_LONG).show();
-                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.NOT_ENOUGH_WILLPOWER) {
-                        Toast.makeText(Board.this,"Error. You do not have enough willpower.", Toast.LENGTH_LONG).show();
-                    } else { // SuccESS
-
+                    if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_FIGHT){
+                        Toast.makeText(Board.this, "Error. You cannot move the prince after fighting.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_MOVE){
+                        Toast.makeText(Board.this, "Error. You cannot move the prince after moving.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.PRINCE_DNE){
+                        Toast.makeText(Board.this, "Error. The Prince DNE.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CURRENT_HOUR_MAXED){
+                        Toast.makeText(Board.this, "You have already reached the maximum hour and can't move futher.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.DEDUCT_WILLPOWER){
+                        Toast.makeText(Board.this, "You have already used up all normal hour, will power is deducted.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_CURRENT_TURN) {
+                        Toast.makeText(Board.this, "You are not in the current turn.", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_ENOUGH_WILLPOWER){
+                        Toast.makeText(Board.this, "You don't have enought Will power", Toast.LENGTH_LONG).show();
+                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.SUCCESS){
+                        Toast.makeText(Board.this, "Move successfully", Toast.LENGTH_LONG).show();
                     }
-
-                    adapter.clear();
-
-                    ArrayList<Integer> available = availableRegions.getRegions();
-                    for(Integer i: available){
-                        adapter.add(i.toString());
-                    }
-                    adapter.notifyDataSetChanged();
-                    sp.setAdapter(adapter);
-                    sp.setVisibility(View.VISIBLE);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
+                }catch (Exception e){
                     e.printStackTrace();
                 }
-
-//                adapter.clear();
-//                int region = myPlayer.getPlayer().getHero().getCurrentSpace();
-//                ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
-//                //adapter.add("Not selected");
-//                for(Integer e: adjacentRegions) {
-//                    adapter.add(e.toString());
-//                }
-//                sp.setVisibility(View.VISIBLE);
-//                spText.setVisibility(View.VISIBLE);
-//                //toolbar2.setVisibility(View.VISIBLE);
-//                flag = true;
-
             }
         });
+//        move.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//
+//                try {
+//                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask;
+//                    GetRegionsSender getRegionsSender = new GetRegionsSender();
+//                    GetAvailableRegionsReponses getAvailableRegionsReponses;
+//
+//                    asyncTask = getRegionsSender.execute();
+//                    GetAvailableRegionsRC availableRegions = asyncTask.get();
+//                    Log.d("REGION", availableRegions.getResponse().toString());
+//
+//                    getAvailableRegionsReponses = availableRegions.getResponse();
+//                    if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_FIGHT) {
+//                        Toast.makeText(Board.this, "Error. You cannot move after fighting.", Toast.LENGTH_LONG).show();
+//                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CANNOT_MOVE_AFTER_MOVE_PRINCE) {
+//                        Toast.makeText(Board.this, "Error. You cannot move after moving prince.", Toast.LENGTH_LONG).show();
+//                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.CURRENT_HOUR_MAXED) {
+//                        Toast.makeText(Board.this,"Error. Your hours are maxed. You must end your day.", Toast.LENGTH_LONG).show();
+//                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.DEDUCT_WILLPOWER) {
+//                        Toast.makeText(Board.this,"Moving will result in losing 2 willpower due to overtime.", Toast.LENGTH_LONG).show();
+//                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.NOT_CURRENT_TURN) {
+//                        Toast.makeText(Board.this,"Error. It is not your turn.", Toast.LENGTH_LONG).show();
+//                    } else if (getAvailableRegionsReponses == GetAvailableRegionsReponses.NOT_ENOUGH_WILLPOWER) {
+//                        Toast.makeText(Board.this,"Error. You do not have enough willpower.", Toast.LENGTH_LONG).show();
+//                    } else { // SuccESS
+//
+//                    }
+//
+//                    adapter.clear();
+//
+//                    ArrayList<Integer> available = availableRegions.getRegions();
+//                    for(Integer i: available){
+//                        adapter.add(i.toString());
+//                    }
+//                    adapter.notifyDataSetChanged();
+//                    sp.setAdapter(adapter);
+//                    sp.setVisibility(View.VISIBLE);
+//
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
+//                }
+//
+////                adapter.clear();
+////                int region = myPlayer.getPlayer().getHero().getCurrentSpace();
+////                ArrayList<Integer> adjacentRegions = MyPlayer.getInstance().getGame().getRegionDatabase().getRegion(region).getAdjacentRegions();
+////                //adapter.add("Not selected");
+////                for(Integer e: adjacentRegions) {
+////                    adapter.add(e.toString());
+////                }
+////                sp.setVisibility(View.VISIBLE);
+////                spText.setVisibility(View.VISIBLE);
+////                //toolbar2.setVisibility(View.VISIBLE);
+////                flag = true;
+//
+//            }
+//        });
 
         chatb.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -921,6 +1086,27 @@ public class Board extends AppCompatActivity {
                     }
 
                 } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+        endMovePrince.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                EndMovePrinceThoraldResponses endMovePrinceThoraldResponses;
+                try{
+                    AsyncTask<String,Void,EndMovePrinceThoraldResponses> asyncTask;
+                    EndMovePrinceSender endMovePrinceSender = new EndMovePrinceSender();
+                    asyncTask = endMovePrinceSender.execute("");
+                    endMovePrinceThoraldResponses = asyncTask.get();
+
+                    if(endMovePrinceThoraldResponses == EndMovePrinceThoraldResponses.SUCCESS){
+                        Toast.makeText(Board.this, "Move prince successfully", Toast.LENGTH_LONG).show();
+                    }
+                }catch(Exception e){
                     e.printStackTrace();
                 }
             }
@@ -1237,6 +1423,26 @@ public class Board extends AppCompatActivity {
         }
     }
 
+    private static class MovePrinceSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/movePrinceThorald")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                Log.d("BODY","RESPONSE BODY " + response.getBody());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     private static class EndMoveSender extends AsyncTask<String, Void, EndMoveResponses>{
         @Override
         protected EndMoveResponses doInBackground(String... strings){
@@ -1254,6 +1460,23 @@ public class Board extends AppCompatActivity {
         }
     }
 
+    private static class EndMovePrinceSender extends AsyncTask<String, Void, EndMovePrinceThoraldResponses>{
+        @Override
+        protected EndMovePrinceThoraldResponses doInBackground(String... strings){
+            HttpResponse<String> response;
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            try{
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/endMovePrinceThorald")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, EndMovePrinceThoraldResponses.class);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
     private static class GetRegionsSender extends AsyncTask<String, Void, GetAvailableRegionsRC>{
         @Override
         protected GetAvailableRegionsRC doInBackground(String... strings){
@@ -1264,6 +1487,23 @@ public class Board extends AppCompatActivity {
                         .asString();
                 String resultAsJsonString = response.getBody();
                 return new Gson().fromJson(resultAsJsonString, GetAvailableRegionsRC.class);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class GetPrinceSender extends AsyncTask<String, Void, GetPrinceThoraldMovesRC>{
+        @Override
+        protected GetPrinceThoraldMovesRC doInBackground(String... strings){
+            HttpResponse<String> response;
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            try{
+                response = Unirest.get("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/getPrinceThoraldMoves")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString, GetPrinceThoraldMovesRC.class);
             }catch(Exception e){
                 e.printStackTrace();
             }

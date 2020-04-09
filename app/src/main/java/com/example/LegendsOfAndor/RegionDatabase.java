@@ -234,7 +234,7 @@ public class RegionDatabase {
         regionDatabase.get(4).setCoordinatesa(new float[]{124,386});
         regionDatabase.get(5).setCoordinatesa(new float[]{69,345});
         regionDatabase.get(6).setCoordinatesa(new float[]{416,306});
-        regionDatabase.get(7).setCoordinatesa(new float[]{140,260});
+        regionDatabase.get(7).setCoordinatesa(new float[]{140,110});
         regionDatabase.get(8).setCoordinatesa(new float[]{325,137});
         regionDatabase.get(9).setCoordinatesa(new float[]{244,41});
         regionDatabase.get(10).setCoordinatesa(new float[]{338,475});
