@@ -128,4 +128,5 @@
     <string name="rune_stoneG">Rune Stone G</string>
     <string name="rune_stoneB">Rune Stone B</string>
     <string name="rune_stoneY">Rune Stone Y</string>
+    <string name="title_activity_event_card">Event Card</string>
 </resources>

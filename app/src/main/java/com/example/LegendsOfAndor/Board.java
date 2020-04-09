@@ -1154,6 +1154,9 @@ public class Board extends AppCompatActivity {
                                     Toast.makeText(Board.this, "Two willpower points added.", Toast.LENGTH_LONG).show();
                                 } else if (f == FogKind.EVENT) {
                                     //Event card
+                                    Intent intent = new Intent(Board.this, EventCard.class);
+                                    interruptThreadAndStartActivity(intent);
+                                    finish();
                                 }
                             }
                         } catch (Exception e) {
