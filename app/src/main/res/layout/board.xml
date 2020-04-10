@@ -108,6 +108,96 @@
             android:visibility="invisible" />
 
         <ImageView
+            android:id="@+id/fog8"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog11"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog12"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog13"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog16"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog32"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog42"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog44"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog46"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog47"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog48"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog49"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog56"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog63"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
+            android:id="@+id/fog64"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:srcCompat="@drawable/fog" />
+
+        <ImageView
             android:id="@+id/warrior"
             android:layout_width="10dp"
             android:layout_height="10dp"
@@ -374,6 +464,7 @@
             android:layout_height="12dp"
             android:visibility="invisible"
             app:srcCompat="@drawable/emptywell" />
+
 
         <ImageView
             android:id="@+id/twarrior"

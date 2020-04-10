@@ -4,65 +4,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/board"
-    android:orientation="vertical">
+    android:background="@drawable/board">
 
 
     <ImageView
         android:id="@+id/e1"
         android:layout_width="647dp"
-        android:layout_height="722dp"
+        android:layout_height="500dp"
         android:src="@drawable/e1"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-96dp"
-        tools:layout_editor_absoluteY="24dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
 
     <ImageView
         android:id="@+id/e2"
         android:layout_width="647dp"
-        android:layout_height="722dp"
+        android:layout_height="500dp"
         android:src="@drawable/e2"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-96dp"
-        tools:layout_editor_absoluteY="24dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
 
     <ImageView
         android:id="@+id/e3"
         android:layout_width="647dp"
-        android:layout_height="722dp"
+        android:layout_height="500dp"
         android:src="@drawable/e3"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-96dp"
-        tools:layout_editor_absoluteY="24dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
+
 
     <ImageView
         android:id="@+id/e4"
         android:layout_width="647dp"
-        android:layout_height="722dp"
+        android:layout_height="500dp"
         android:src="@drawable/e4"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-96dp"
-        tools:layout_editor_absoluteY="24dp" />
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
 
     <ImageView
         android:id="@+id/e5"
         android:layout_width="647dp"
-        android:layout_height="722dp"
+        android:layout_height="500dp"
         android:src="@drawable/e5"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-96dp"
-        tools:layout_editor_absoluteY="24dp" />
-
-
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
 
     <Button
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginLeft="64dp"
-        android:text="Back to board"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/e4"></Button>
+        android:layout_marginBottom="32dp"
+        android:text=" Accept the event and go back to board"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

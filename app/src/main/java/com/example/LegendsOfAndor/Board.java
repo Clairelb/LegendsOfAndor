@@ -106,6 +106,7 @@ public class Board extends AppCompatActivity {
     private ArrayList<ImageView> skrall = new ArrayList<>();
     private ArrayList<ImageView> wells = new ArrayList<>();
     private ArrayList<ImageView> emptyWells = new ArrayList<>();
+    private HashMap<Integer, ImageView> fogs = new HashMap<>();
     private ArrayList<ImageView> theros = new ArrayList<>();
     private ImageView skrall_boss;
     private ArrayList<ImageView> wardraks = new ArrayList<>();
@@ -231,6 +232,63 @@ public class Board extends AppCompatActivity {
         emptyWells.get(2).setY(536);
         emptyWells.get(3).setX(1106);
         emptyWells.get(3).setY(103);
+
+        fogs.put(8,(ImageView)findViewById(R.id.fog8));
+        fogs.put(11,(ImageView)findViewById(R.id.fog11));
+        fogs.put(12,(ImageView)findViewById(R.id.fog12));
+        fogs.put(13,(ImageView)findViewById(R.id.fog13));
+        fogs.put(16,(ImageView)findViewById(R.id.fog16));
+        fogs.put(32,(ImageView)findViewById(R.id.fog32));
+        fogs.put(42,(ImageView)findViewById(R.id.fog42));
+        fogs.put(44,(ImageView)findViewById(R.id.fog44));
+        fogs.put(46,(ImageView)findViewById(R.id.fog46));
+        fogs.put(47,(ImageView)findViewById(R.id.fog47));
+        fogs.put(48,(ImageView)findViewById(R.id.fog48));
+        fogs.put(49,(ImageView)findViewById(R.id.fog49));
+        fogs.put(56,(ImageView)findViewById(R.id.fog56));
+        fogs.put(63,(ImageView)findViewById(R.id.fog63));
+        fogs.put(64,(ImageView)findViewById(R.id.fog64));
+        RegionDatabase reg = myPlayer.getGame().getRegionDatabase();
+        fogs.get(8).setX(reg.getRegion(8).getCoordinates()[0]+10);
+        fogs.get(8).setY(reg.getRegion(8).getCoordinates()[1]-10);
+        fogs.get(11).setX(reg.getRegion(11).getCoordinates()[0]+5);
+        fogs.get(11).setY(reg.getRegion(11).getCoordinates()[1]);
+        fogs.get(12).setX(reg.getRegion(12).getCoordinates()[0]+10);
+        fogs.get(12).setY(reg.getRegion(12).getCoordinates()[1]-5);
+        fogs.get(13).setX(reg.getRegion(13).getCoordinates()[0]+5);
+        fogs.get(13).setY(reg.getRegion(13).getCoordinates()[1]);
+        fogs.get(16).setX(reg.getRegion(16).getCoordinates()[0]);
+        fogs.get(16).setY(reg.getRegion(16).getCoordinates()[1]);
+        fogs.get(32).setX(reg.getRegion(32).getCoordinates()[0]);
+        fogs.get(32).setY(reg.getRegion(32).getCoordinates()[1]);
+        fogs.get(42).setX(reg.getRegion(42).getCoordinates()[0]);
+        fogs.get(42).setY(reg.getRegion(42).getCoordinates()[1]);
+        fogs.get(44).setX(reg.getRegion(44).getCoordinates()[0]);
+        fogs.get(44).setY(reg.getRegion(44).getCoordinates()[1]-1);
+        fogs.get(46).setX(reg.getRegion(46).getCoordinates()[0]);
+        fogs.get(46).setY(reg.getRegion(46).getCoordinates()[1]);
+        fogs.get(47).setX(reg.getRegion(47).getCoordinates()[0]);
+        fogs.get(47).setY(reg.getRegion(47).getCoordinates()[1]);
+        fogs.get(48).setX(reg.getRegion(48).getCoordinates()[0]);
+        fogs.get(48).setY(reg.getRegion(48).getCoordinates()[1]);
+        fogs.get(49).setX(reg.getRegion(49).getCoordinates()[0]);
+        fogs.get(49).setY(reg.getRegion(49).getCoordinates()[1]);
+        fogs.get(56).setX(reg.getRegion(56).getCoordinates()[0]);
+        fogs.get(56).setY(reg.getRegion(56).getCoordinates()[1]);
+        fogs.get(63).setX(reg.getRegion(63).getCoordinates()[0]);
+        fogs.get(63).setY(reg.getRegion(63).getCoordinates()[1]);
+        fogs.get(64).setX(reg.getRegion(64).getCoordinates()[0]);
+        fogs.get(64).setY(reg.getRegion(64).getCoordinates()[1]);
+
+        for(int i=7; i<67; i++)
+        {
+            if(reg.getRegion(i).isFogRevealed()== true)
+            {
+                fogs.get(i).setVisibility(View.INVISIBLE);
+            };
+
+        }
+
 
         theros.add((ImageView)findViewById(R.id.twarrior));
         theros.get(0).setVisibility(View.INVISIBLE);
@@ -872,6 +930,22 @@ public class Board extends AppCompatActivity {
                                         }else{
                                             wells.get(3).setVisibility(View.INVISIBLE);
                                             emptyWells.get(3).setVisibility(View.VISIBLE);
+                                        }
+
+                                        //update fogs
+                                        RegionDatabase r2 = game.getRegionDatabase();
+                                        for(int i=7; i<67; i++)
+                                        {
+                                            if(r2.getRegion(i).isFogRevealed()== true)
+                                            {
+                                                fogs.get(i).setVisibility(View.INVISIBLE);
+                                            }
+                                            else {
+                                                if(fogs.get(i)!=null)
+                                                {
+                                                    fogs.get(i).setVisibility(View.VISIBLE);
+                                                }
+                                            };
                                         }
 
                                         if(game.getCurrentFight() != null){

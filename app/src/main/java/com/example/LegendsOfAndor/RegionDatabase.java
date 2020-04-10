@@ -269,8 +269,8 @@ public class RegionDatabase {
         regionDatabase.get(39).setCoordinatesa(new float[]{950,689});
         regionDatabase.get(40).setCoordinatesa(new float[]{737,733});
         regionDatabase.get(41).setCoordinatesa(new float[] {621,768});
-        regionDatabase.get(42).setCoordinatesa(new float[] {1152,640});
-        regionDatabase.get(43).setCoordinatesa(new float[] {1152,705});
+        regionDatabase.get(42).setCoordinatesa(new float[] {1090,571});
+        regionDatabase.get(43).setCoordinatesa(new float[] {1152,640});
         regionDatabase.get(44).setCoordinatesa(new float[] {1121,518});
         regionDatabase.get(45).setCoordinatesa(new float[] {1251,556});
         regionDatabase.get(46).setCoordinatesa(new float[] {1147,445});
