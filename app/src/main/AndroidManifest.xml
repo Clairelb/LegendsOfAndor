@@ -16,7 +16,9 @@
         <activity
             android:name=".EventCard"
             android:label="@string/title_activity_event_card"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppTheme"
+            tools:ignore="LockedOrientationActivity"></activity>
         <activity
             android:name=".BuyWitchBrew"
             android:screenOrientation="sensorLandscape"
