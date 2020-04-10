@@ -48,6 +48,7 @@ public class MonsterFight extends AppCompatActivity {
     private Button useItem;
     private Button surrender;
     private Button rollBow;
+    private Button flip;
 
     private Spinner p1Flip;
     private Spinner p2Flip;
@@ -553,8 +554,32 @@ public class MonsterFight extends AppCompatActivity {
         p3Flip = findViewById(R.id.p3WizardFlip);
         p4Flip = findViewById(R.id.p4WizardFlip);
 
+        flip = findViewById(R.id.flipDice);
+        flip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //loop through all player's sliders, find one that is not 0
+                for (int i = 0; i < myPlayer.getGame().getCurrentFight().getHeroes().size(); i++) {
+                    //flip die index by selected index
+                    if (Integer.parseInt(p1Flip.getSelectedItem().toString()) != 0) {
+                        int rollIndex = Integer.parseInt(p1Flip.getSelectedItem().toString());
+                        myDice.get(rollIndex).flipDie(rollIndex);
 
+                    } else if (Integer.parseInt(p2Flip.getSelectedItem().toString()) != 0) {
+                        int rollIndex = Integer.parseInt(p2Flip.getSelectedItem().toString());
+                        myDice.get(rollIndex).flipDie(rollIndex);
 
+                    } else if (Integer.parseInt(p3Flip.getSelectedItem().toString()) != 0) {
+                        int rollIndex = Integer.parseInt(p3Flip.getSelectedItem().toString());
+                        myDice.get(rollIndex).flipDie(rollIndex);
+
+                    } else {
+                        int rollIndex = Integer.parseInt(p4Flip.getSelectedItem().toString());
+                        myDice.get(rollIndex).flipDie(rollIndex);
+                    }
+                }
+            }
+        });
 
         //Resets the monster's willpower
         surrender = findViewById(R.id.surrender_btn);
