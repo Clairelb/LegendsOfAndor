@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +46,16 @@ public class MonsterFight extends AppCompatActivity {
     private Button rollEnemyDice;
     private Button attack;
     private Button useItem;
+    private Button surrender;
+    private Button rollBow;
+
+    private Spinner p1Flip;
+    private Spinner p2Flip;
+    private Spinner p3Flip;
+    private Spinner p4Flip;
+
+    private Spinner playerFlipSpinner;
+
     private ImageView imageDice1, imageDice2, imageDice3, imageDice4;
     private TextView playersBattleValue;// = findViewById(R.id.playerBattleValue);
     private TextView monsterBattleValue;
@@ -130,6 +141,9 @@ public class MonsterFight extends AppCompatActivity {
 
     ArrayList<Die> myDice = new ArrayList<>();
     ArrayList<Die> creatureDice = new ArrayList<>();
+    int rollCount = 0; //counts number of times rollDice button is clicked
+    int archerDice = 0;
+    boolean diceFlag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -363,7 +377,7 @@ public class MonsterFight extends AppCompatActivity {
                                                 currentD4.setVisibility(View.INVISIBLE);
                                                 currentD5.setVisibility(View.INVISIBLE);
 
-    //                                        imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
+//                                            imageDice1.setImageDrawable(getResources().getDrawable(getResourceID(dice1, "drawable", getApplicationContext())));
                                                 if (h.getHeroClass() == HeroClass.WARRIOR) {
                                                     String class_id;
                                                     for (int j = 0; j < fight.getWarriorDice().size(); j++) {
@@ -533,15 +547,46 @@ public class MonsterFight extends AppCompatActivity {
         });
         t.start();
 
+        //Sets the wizard spinner index flip for each hero
+        p1Flip = findViewById(R.id.p1WizardFlip);
+        p2Flip = findViewById(R.id.p2WizardFlip);
+        p3Flip = findViewById(R.id.p3WizardFlip);
+        p4Flip = findViewById(R.id.p4WizardFlip);
 
+
+
+
+        //Resets the monster's willpower
+        surrender = findViewById(R.id.surrender_btn);
+        surrender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
+                if (currentMonster.getCreatureType() == CreatureType.GOR) {
+                    currentMonster.setWillpower(4);
+                } else if (currentMonster.getCreatureType() == CreatureType.TROLL) {
+                    currentMonster.setWillpower(12);
+                } else if (currentMonster.getCreatureType() == CreatureType.WARDRAKS) {
+                    currentMonster.setWillpower(7);
+                } else { //SKRAL or SKRAL_BOSS
+                    currentMonster.setWillpower(6);
+                }
+                startActivity(new Intent(v.getContext(), Board.class));
+            }
+        }) ;
 
         //Retrieves the amount of dice for the current player class
         getDice = findViewById(R.id.get_dice);
+        rollDice = findViewById(R.id.roll_dice);
+        rollDice.setVisibility(View.INVISIBLE);
+
+
         getDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AsyncTask<String, Void, ArrayList<Die>> asyncTask;
-
+                rollDice.setVisibility(View.VISIBLE);
+                diceFlag = true;
                 try {
                     GetDiceSender getDiceSender = new GetDiceSender();
                     asyncTask = getDiceSender.execute();
@@ -552,40 +597,157 @@ public class MonsterFight extends AppCompatActivity {
             }
         });
 
-        rollDice = findViewById(R.id.roll_dice);
+
+//        rollDice = findViewById(R.id.roll_dice);
         rollDice.setOnClickListener(new View.OnClickListener(){
+
             @Override
             public void onClick(View v){
-                ArrayList<Integer> myDiceRolls = new ArrayList<>();
+                if (diceFlag == false) {
+                    Toast.makeText(MonsterFight.this, "Get dice first.", Toast.LENGTH_LONG).show();
+                } else {
+                    ArrayList<Integer> myDiceRolls = new ArrayList<>();
+                    for (Die die : myDice) {
+                        myDiceRolls.add(die.rollDie());
+                    }
 
-                for (Die die : myDice) {
-                    myDiceRolls.add(die.rollDie());
+                    try {
+                        CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+                        calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
-                try {
-                    CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
-                    calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 //player1BV.setText("BV: " + battleValue);
             }
+
+
+//                if (myPlayer.getGame().getCurrentHero().getHeroClass() == HeroClass.ARCHER) {
+//                    int i = 0; //Player index for finding archer dice
+//
+//                    if (myPlayer.getGame().getCurrentHero().getWillPower() < 7) {
+//                        archerDice = 3;
+//                    } else if (myPlayer.getGame().getCurrentHero().getWillPower() > 6 && myPlayer.getGame().getCurrentHero().getWillPower() < 14) {
+//                        archerDice = 4;
+//                    } else {
+//                        archerDice = 5;
+//                    }
+//
+//                    for (int k = 0; k < 4; k++) {
+//                        String diceNum1 = "player" + i + "_d" + 1;
+//                        String diceNum2 = "player" + i + "_d" + 2;
+//                        String diceNum3 = "player" + i + "_d" + 3;
+//                        String diceNum4 = "player" + i + "_d" + 4;
+//                        String diceNum5 = "player" + i + "_d" + 5;
+//                        int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
+//                        int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
+//                        int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
+//                        int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
+//                        int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
+//                    }
+//
+//                    if ((rollCount + 1) < archerDice) {
+//                        rollCount++;
+//                        if (rollCount == 1) { //roll all dice, but only show the first die
+//                            for (Die die : myDice) {
+//                                myDiceRolls.add(die.rollDie());
+//                            }
+//                            //reveals first die
+//                        } else if (rollCount == 2) {
+//                            //reveal 2nd die
+//                        } else if (rollCount == 3) {
+//                            //reveal 3rd die
+//                        } else if (rollCount == 4) {
+//                            //reveal 4th die
+//                        } else {
+//                            //reveal 5th die
+//                        }
+//                    } else {
+//                        Toast.makeText(MonsterFight.this, "No more dice left to roll.", Toast.LENGTH_LONG).show();
+//                        //Last die, archer cannot roll anymore
+//                    }
+//
+//
+//
+//                } else if (myPlayer.getGame().getCurrentHero().getHeroClass() == HeroClass.WIZARD) {
+//                    rollDice.setEnabled(false);//Disables the roll dice after one roll.
+//                    //automatically select best dice to flip?
+//                    for (Die die : myDice) {
+//                        myDiceRolls.add(die.rollDie());
+//                    }
+//                } else {
+//                    rollDice.setEnabled(false);//Disables the roll dice after one roll.
+//                    for (Die die : myDice) {
+//                        myDiceRolls.add(die.rollDie());
+//                    }
+//
+//                    try {
+//                        CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+//                        calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+
+
         });
+
+        rollBow = findViewById(R.id.bow_roll);
+        rollBow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Bow is not activated when the monster is on the same spot as the player
+                if (myPlayer.getGame().getCurrentHero().getHeroClass() == HeroClass.ARCHER || myPlayer.getGame().getCurrentHero().isBowActivated() == true) {
+                    ArrayList<Integer> bowDiceRolls = new ArrayList<>();
+                    for (Die die : myDice) {
+                        bowDiceRolls.add(die.rollDie());
+                    }
+                    for (int i = 0; i < myPlayer.getGame().getCurrentFight().getHeroes().size(); i++) {
+                        //find player number of the archer
+                        if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
+                            int playerNum = i + 1;
+                            if (playerNum == 1) {
+                                player1d1.setVisibility(View.VISIBLE);
+                                player1d1.setVisibility(View.VISIBLE);
+                                player1d1.setVisibility(View.VISIBLE);
+                                player1d1.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+
+                    try {
+                        CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(MonsterFight.this, "You do not have a bow.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
 
         getEnemyDice = findViewById(R.id.get_enemy_dice);
         getEnemyDice.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 AsyncTask<String, Void, ArrayList<Die>> asyncTask;
-
-                try {
-                    GetCreatureDiceSender getCreatureDiceSender = new GetCreatureDiceSender();
-                    asyncTask = getCreatureDiceSender.execute();
-                    creatureDice = asyncTask.get();
-                } catch (Exception e) {
-                    e.printStackTrace();
+                //Only the fight initiator can get the enemy dice
+                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0) == myPlayer.getGame().getCurrentHero()) {
+                    try {
+                        GetCreatureDiceSender getCreatureDiceSender = new GetCreatureDiceSender();
+                        asyncTask = getCreatureDiceSender.execute();
+                        creatureDice = asyncTask.get();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(MonsterFight.this, "Only the fight host can do this.", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
 
@@ -594,16 +756,20 @@ public class MonsterFight extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ArrayList<Integer> creatureRolls = new ArrayList<>();
+                //Only the fight initiator can roll the enemy dice
+                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0) == myPlayer.getGame().getCurrentHero()) {
+                    for (Die die : creatureDice) {
+                        creatureRolls.add(die.rollDie());
+                    }
 
-                for (Die die : creatureDice) {
-                    creatureRolls.add(die.rollDie());
-                }
-
-                try {
-                    CalculateCreatureBattleValueSender calculateCreatureBattleValueSender = new CalculateCreatureBattleValueSender();
-                    calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+                        CalculateCreatureBattleValueSender calculateCreatureBattleValueSender = new CalculateCreatureBattleValueSender();
+                        calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(MonsterFight.this, "Only the fight host can do this.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -612,6 +778,7 @@ public class MonsterFight extends AppCompatActivity {
         attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                rollDice.setEnabled(true);//Enables the roll dice button after current attack registered
                 try {
                     AsyncTask<String, Void, EndBattleRoundResponses> asyncTask;
 

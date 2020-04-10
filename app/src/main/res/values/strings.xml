@@ -122,11 +122,19 @@
     <string name="drop_farmer">DROP FARMER</string>
     <string name="get_my_farmer">GET MY FARMERS</string>
     <string name="get_farmers">GET FARMERS</string>
+    <string name="get_available_regions">GET AVAILABLE REGIONS</string>
     <string-array name="action"></string-array>
     <string name="witchbrew">Witch\'s Brew</string>
     <string name="med_herb">Medicinal Herb</string>
     <string name="rune_stoneG">Rune Stone G</string>
     <string name="rune_stoneB">Rune Stone B</string>
     <string name="rune_stoneY">Rune Stone Y</string>
-    <string name="title_activity_event_card">Event Card</string>
+    <string name="use_bow">USE BOW</string>
+    <string-array name="wizard_flip_index">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>
