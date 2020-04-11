@@ -736,9 +736,28 @@ public class MonsterFight extends AppCompatActivity {
                             int playerNum = i + 1;
                             if (playerNum == 1) {
                                 player1d1.setVisibility(View.VISIBLE);
-                                player1d1.setVisibility(View.VISIBLE);
-                                player1d1.setVisibility(View.VISIBLE);
-                                player1d1.setVisibility(View.VISIBLE);
+                                player1d2.setVisibility(View.VISIBLE);
+                                player1d3.setVisibility(View.VISIBLE);
+                                player1d4.setVisibility(View.VISIBLE);
+                                player1d5.setVisibility(View.VISIBLE);
+                            } else if (playerNum == 2) {
+                                player2d1.setVisibility(View.VISIBLE);
+                                player2d2.setVisibility(View.VISIBLE);
+                                player2d3.setVisibility(View.VISIBLE);
+                                player2d4.setVisibility(View.VISIBLE);
+                                player2d5.setVisibility(View.VISIBLE);
+                            } else if (playerNum == 3) {
+                                player3d1.setVisibility(View.VISIBLE);
+                                player3d2.setVisibility(View.VISIBLE);
+                                player3d3.setVisibility(View.VISIBLE);
+                                player3d4.setVisibility(View.VISIBLE);
+                                player3d5.setVisibility(View.VISIBLE);
+                            } else {
+                                player4d1.setVisibility(View.VISIBLE);
+                                player4d2.setVisibility(View.VISIBLE);
+                                player4d3.setVisibility(View.VISIBLE);
+                                player4d4.setVisibility(View.VISIBLE);
+                                player4d5.setVisibility(View.VISIBLE);
                             }
                         }
                     }
