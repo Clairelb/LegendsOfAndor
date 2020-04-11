@@ -36,6 +36,10 @@ enum EndBattleRoundResponses {
     WON_ROUND, LOST_ROUND, TIE_ROUND, CREATURE_DEFEATED, BATTLE_LOST, PLAYERS_NO_BATTLE_VALUE, CREATURE_NO_BATTLE_VALUE, WAITING_FOR_PLAYERS_TO_JOIN
 }
 
+enum RollDieOneByOneResponses {
+    ERROR_NO_MORE_DIE_TO_ROLL, SUCCESS
+}
+
 public class MonsterFight extends AppCompatActivity {
 
     public static final Random RANDOM = new Random();
@@ -49,6 +53,7 @@ public class MonsterFight extends AppCompatActivity {
     private Button surrender;
     private Button rollBow;
     private Button flip;
+    private Button useBow;
 
     private Spinner p1Flip;
     private Spinner p2Flip;
@@ -724,51 +729,25 @@ public class MonsterFight extends AppCompatActivity {
         rollBow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Bow is not activated when the monster is on the same spot as the player
-                if (myPlayer.getGame().getCurrentHero().getHeroClass() == HeroClass.ARCHER || myPlayer.getGame().getCurrentHero().isBowActivated() == true) {
-                    ArrayList<Integer> bowDiceRolls = new ArrayList<>();
-                    for (Die die : myDice) {
-                        bowDiceRolls.add(die.rollDie());
-                    }
-                    for (int i = 0; i < myPlayer.getGame().getCurrentFight().getHeroes().size(); i++) {
-                        //find player number of the archer
-                        if (myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() == HeroClass.ARCHER) {
-                            int playerNum = i + 1;
-                            if (playerNum == 1) {
-                                player1d1.setVisibility(View.VISIBLE);
-                                player1d2.setVisibility(View.VISIBLE);
-                                player1d3.setVisibility(View.VISIBLE);
-                                player1d4.setVisibility(View.VISIBLE);
-                                player1d5.setVisibility(View.VISIBLE);
-                            } else if (playerNum == 2) {
-                                player2d1.setVisibility(View.VISIBLE);
-                                player2d2.setVisibility(View.VISIBLE);
-                                player2d3.setVisibility(View.VISIBLE);
-                                player2d4.setVisibility(View.VISIBLE);
-                                player2d5.setVisibility(View.VISIBLE);
-                            } else if (playerNum == 3) {
-                                player3d1.setVisibility(View.VISIBLE);
-                                player3d2.setVisibility(View.VISIBLE);
-                                player3d3.setVisibility(View.VISIBLE);
-                                player3d4.setVisibility(View.VISIBLE);
-                                player3d5.setVisibility(View.VISIBLE);
-                            } else {
-                                player4d1.setVisibility(View.VISIBLE);
-                                player4d2.setVisibility(View.VISIBLE);
-                                player4d3.setVisibility(View.VISIBLE);
-                                player4d4.setVisibility(View.VISIBLE);
-                                player4d5.setVisibility(View.VISIBLE);
-                            }
-                        }
-                    }
+                try {
+                    RollDieOneByOneSender rollDieOneByOneSender = new RollDieOneByOneSender();
+                    AsyncTask<String, Void, RollDieOneByOneResponses> asyncTask;
 
-                    try {
-                        CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (myDice.size() > 0) {
+                        try {
+                            int dieRoll = myDice.get(0).rollDie();
+                            asyncTask = rollDieOneByOneSender.execute(new Gson().toJson(dieRoll));
+                            if (asyncTask.get() == RollDieOneByOneResponses.ERROR_NO_MORE_DIE_TO_ROLL) {
+                                Toast.makeText(MonsterFight.this, "Error. There are no more die to roll.", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        Toast.makeText(MonsterFight.this, "Error. You must get your die first.", Toast.LENGTH_LONG).show();
                     }
-                } else {
-                    Toast.makeText(MonsterFight.this, "You do not have a bow.", Toast.LENGTH_LONG).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -780,7 +759,7 @@ public class MonsterFight extends AppCompatActivity {
             public void onClick(View v) {
                 AsyncTask<String, Void, ArrayList<Die>> asyncTask;
                 //Only the fight initiator can get the enemy dice
-                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0) == myPlayer.getGame().getCurrentHero()) {
+                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0).getHeroClass().equals(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass())) {
                     try {
                         GetCreatureDiceSender getCreatureDiceSender = new GetCreatureDiceSender();
                         asyncTask = getCreatureDiceSender.execute();
@@ -1075,6 +1054,27 @@ public class MonsterFight extends AppCompatActivity {
                 String resultAsJsonString = response.getBody();
 
                 return new Gson().fromJson(resultAsJsonString, EndBattleRoundResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class RollDieOneByOneSender extends AsyncTask<String, Void, RollDieOneByOneResponses> {
+        @Override
+        protected RollDieOneByOneResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/rollDieOneByOne")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, RollDieOneByOneResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
