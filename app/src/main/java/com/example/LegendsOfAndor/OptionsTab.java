@@ -24,6 +24,7 @@ public class OptionsTab extends AppCompatActivity {
     private Button actionsb;
     private Button savegameb;
     private Button leavegameb;
+    private MyPlayer myPlayer;
 
     @Override
     public void onBackPressed(){}
@@ -35,6 +36,40 @@ public class OptionsTab extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.options_tab);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        myPlayer = MyPlayer.getInstance();
+
+        try{
+            AsyncTask<String, Void, Game> asyncTaskGame;
+            Game gameToSet;
+            GetGame getGame = new GetGame();
+            asyncTaskGame = getGame.execute();
+            gameToSet = asyncTaskGame.get();
+            System.out.println(gameToSet);
+            myPlayer.setGame(gameToSet);
+            for(int i = 0; i < gameToSet.getCurrentNumPlayers(); i++){
+                if(gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())){
+                    myPlayer.setPlayer(gameToSet.getPlayers()[i]);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        actionsb = findViewById(R.id.actionsb);
+
+        if(!myPlayer.getPlayer().getHero().isHasEndedDay()){
+            actionsb.setVisibility(View.VISIBLE);
+        }else{
+            actionsb.setVisibility(View.INVISIBLE);
+        }
+
+        actionsb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), Free_Actions.class);
+                startActivity(myIntent);
+            }
+        });
 
         backb = findViewById(R.id.backb);
         backb.setOnClickListener(new View.OnClickListener() {
@@ -54,14 +89,6 @@ public class OptionsTab extends AppCompatActivity {
             }
         });
 
-        actionsb = findViewById(R.id.actionsb);
-        actionsb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), Free_Actions.class);
-                startActivity(myIntent);
-            }
-        });
 
         savegameb = findViewById(R.id.savegameb);
         savegameb.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +143,26 @@ public class OptionsTab extends AppCompatActivity {
             try {
                 Unirest.delete("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/leaveGame")
                         .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class GetGame extends AsyncTask<String, Void, Game > {
+        @Override
+        protected Game doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameByUsername")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                System.out.println("RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, Game.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
