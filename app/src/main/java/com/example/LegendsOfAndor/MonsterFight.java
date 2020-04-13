@@ -25,6 +25,7 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -38,6 +39,10 @@ enum EndBattleRoundResponses {
 
 enum RollDieOneByOneResponses {
     ERROR_NO_MORE_DIE_TO_ROLL, SUCCESS
+}
+
+enum ActivateWizardAbilityResponses {
+    ERROR_NOT_WIZARD, ERROR_DIE_NOT_FLIPPABLE, ERROR_HERO_ALREADY_CALCULATED_BV, ERROR_WIZARD_ABILITY_ALREADY_USED, SUCCESS
 }
 
 public class MonsterFight extends AppCompatActivity {
@@ -143,13 +148,15 @@ public class MonsterFight extends AppCompatActivity {
 
     private boolean leaveExecuted = false;
 
-    MyPlayer myPlayer = MyPlayer.getInstance();
-
     ArrayList<Die> myDice = new ArrayList<>();
+    ArrayList<Integer> rollBowValues = new ArrayList<>();
     ArrayList<Die> creatureDice = new ArrayList<>();
     int rollCount = 0; //counts number of times rollDice button is clicked
     int archerDice = 0;
     boolean diceFlag = false;
+    boolean usingBow = false;
+
+    MyPlayer myPlayer = MyPlayer.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,6 +180,13 @@ public class MonsterFight extends AppCompatActivity {
         enemyd3 = findViewById(R.id.enemy_d3);
         enemyd4 = findViewById(R.id.enemy_d4);
         enemyd5 = findViewById(R.id.enemy_d5);
+
+        p1Flip = findViewById(R.id.p1WizardFlip);
+        p2Flip = findViewById(R.id.p2WizardFlip);
+        p3Flip = findViewById(R.id.p3WizardFlip);
+        p4Flip = findViewById(R.id.p4WizardFlip);
+        flip = findViewById(R.id.flipDice);
+
 
 //        int playersInFight = playerIndex.size();
         List<TextView> profileList = new ArrayList<TextView>();
@@ -255,6 +269,18 @@ public class MonsterFight extends AppCompatActivity {
             userWP.setVisibility(View.VISIBLE);
             userSP.setVisibility(View.VISIBLE);
             userBV.setVisibility(View.VISIBLE);
+
+            if (myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass() == HeroClass.WIZARD) {
+                if (i == 0) {
+                    p1Flip.setVisibility(View.VISIBLE);
+                } else if (i == 1) {
+                    p2Flip.setVisibility(View.VISIBLE);
+                } else if (i == 2) {
+                    p3Flip.setVisibility(View.VISIBLE);
+                } else if (i == 3) {
+                    p4Flip.setVisibility(View.VISIBLE);
+                }
+            }
         }
 
         //Add information for current creature, makes attributes visible
@@ -271,6 +297,23 @@ public class MonsterFight extends AppCompatActivity {
         enemyProfile.setVisibility(View.VISIBLE);
         enemyWP.setVisibility(View.VISIBLE);
         enemySP.setVisibility(View.VISIBLE);
+
+        if (myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass().equals(HeroClass.ARCHER) || myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().isBowActivated()) {
+            usingBow = true;
+        }
+
+        rollBow = findViewById(R.id.bow_roll);
+        getDice = findViewById(R.id.get_dice);
+        rollDice = findViewById(R.id.roll_dice);
+
+        if (!usingBow) {
+            rollBow.setVisibility(View.INVISIBLE);
+        }
+
+        if (myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass() == HeroClass.WIZARD) {
+            flip.setVisibility(View.VISIBLE)
+            ;
+        }
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
@@ -332,6 +375,18 @@ public class MonsterFight extends AppCompatActivity {
                                                 userWP.setVisibility(View.VISIBLE);
                                                 userSP.setVisibility(View.VISIBLE);
                                                 userBV.setVisibility(View.VISIBLE);
+
+                                                if (myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass() == HeroClass.WIZARD) {
+                                                    if (i == 0) {
+                                                        p1Flip.setVisibility(View.VISIBLE);
+                                                    } else if (i == 1) {
+                                                        p2Flip.setVisibility(View.VISIBLE);
+                                                    } else if (i == 2) {
+                                                        p3Flip.setVisibility(View.VISIBLE);
+                                                    } else if (i == 3) {
+                                                        p4Flip.setVisibility(View.VISIBLE);
+                                                    }
+                                                }
                                             }
 
                                             int i = 0;
@@ -553,35 +608,98 @@ public class MonsterFight extends AppCompatActivity {
         });
         t.start();
 
-        //Sets the wizard spinner index flip for each hero
-        p1Flip = findViewById(R.id.p1WizardFlip);
-        p2Flip = findViewById(R.id.p2WizardFlip);
-        p3Flip = findViewById(R.id.p3WizardFlip);
-        p4Flip = findViewById(R.id.p4WizardFlip);
-
-        flip = findViewById(R.id.flipDice);
         flip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //loop through all player's sliders, find one that is not 0
-                for (int i = 0; i < myPlayer.getGame().getCurrentFight().getHeroes().size(); i++) {
-                    //flip die index by selected index
+                HashMap<Integer, Integer> playersToFlipDie = new HashMap<>();
+
+                if (p1Flip.getSelectedItem() != null) {
                     if (Integer.parseInt(p1Flip.getSelectedItem().toString()) != 0) {
-                        int rollIndex = Integer.parseInt(p1Flip.getSelectedItem().toString());
-                        myDice.get(rollIndex).flipDie(rollIndex);
-
-                    } else if (Integer.parseInt(p2Flip.getSelectedItem().toString()) != 0) {
-                        int rollIndex = Integer.parseInt(p2Flip.getSelectedItem().toString());
-                        myDice.get(rollIndex).flipDie(rollIndex);
-
-                    } else if (Integer.parseInt(p3Flip.getSelectedItem().toString()) != 0) {
-                        int rollIndex = Integer.parseInt(p3Flip.getSelectedItem().toString());
-                        myDice.get(rollIndex).flipDie(rollIndex);
-
-                    } else {
-                        int rollIndex = Integer.parseInt(p4Flip.getSelectedItem().toString());
-                        myDice.get(rollIndex).flipDie(rollIndex);
+                        playersToFlipDie.put(0, Integer.parseInt(p1Flip.getSelectedItem().toString()) - 1);
                     }
+                }
+
+                if (p2Flip.getSelectedItem() != null) {
+                    if (Integer.parseInt(p2Flip.getSelectedItem().toString()) != 0) {
+                        playersToFlipDie.put(1, Integer.parseInt(p2Flip.getSelectedItem().toString()) - 1);
+                    }
+                }
+
+                if (p3Flip.getSelectedItem() != null) {
+                    if (Integer.parseInt(p3Flip.getSelectedItem().toString()) != 0) {
+                        playersToFlipDie.put(2, Integer.parseInt(p3Flip.getSelectedItem().toString()) - 1);
+                    }
+                }
+
+                if (p4Flip.getSelectedItem() != null) {
+                    if (Integer.parseInt(p4Flip.getSelectedItem().toString()) != 0) {
+                        playersToFlipDie.put(3, Integer.parseInt(p4Flip.getSelectedItem().toString()) - 1);
+                    }
+                }
+
+                if (playersToFlipDie.size() == 0) {
+                    Toast.makeText(MonsterFight.this, "Error. You must select a die from one of the player's spinners to flip the die.", Toast.LENGTH_LONG).show();
+                } else if (playersToFlipDie.size() > 1) {
+                    Toast.makeText(MonsterFight.this, "Error. You may only roll one player's die.", Toast.LENGTH_LONG).show();
+                } else {
+                    HeroClass targetHeroClass = myPlayer.getGame().getCurrentFight().getHeroes().get(new ArrayList<>(playersToFlipDie.keySet()).get(0)).getHeroClass();
+                    int dieValue;
+                    int newDieValue = 0;
+
+                    if (targetHeroClass == HeroClass.ARCHER) {
+                        dieValue = myPlayer.getGame().getCurrentFight().getArcherDice().get(new ArrayList<>(playersToFlipDie.values()).get(0));
+                    } else if (targetHeroClass == HeroClass.DWARF) {
+                        dieValue = myPlayer.getGame().getCurrentFight().getDwarfDice().get(new ArrayList<>(playersToFlipDie.values()).get(0));
+                    } else if (targetHeroClass == HeroClass.WARRIOR) {
+                        dieValue = myPlayer.getGame().getCurrentFight().getWarriorDice().get(new ArrayList<>(playersToFlipDie.values()).get(0));
+                    } else { // wizard
+                        dieValue = myPlayer.getGame().getCurrentFight().getWizardDice().get(new ArrayList<>(playersToFlipDie.values()).get(0));
+                    }
+
+                    if (dieValue == 1) {
+                        newDieValue = 6;
+                    } else if (dieValue == 2) {
+                        newDieValue = 5;
+                    } else if (dieValue == 3) {
+                        newDieValue =4;
+                    } else if (dieValue == 4) {
+                        newDieValue =3;
+                    } else if (dieValue == 5) {
+                        newDieValue = 2;
+                    } else if (dieValue == 6) {
+                        newDieValue = 1;
+                    } else if (dieValue == 8) {
+                        newDieValue = 12;
+                    } else if (dieValue == 9) {
+                        newDieValue = 10;
+                    } else if (dieValue == 10) {
+                        newDieValue = 9;
+                    } else if (dieValue == 12) {
+                        newDieValue = 8;
+                    }
+
+                    ActivateWizardTarget activateWizardTarget = new ActivateWizardTarget(targetHeroClass, new ArrayList<>(playersToFlipDie.values()).get(0), newDieValue);
+
+                    try {
+                        AsyncTask<String, Void, ActivateWizardAbilityResponses> asyncTask;
+                        ActivateWizardAbilitySender activateWizardAbilitySender = new ActivateWizardAbilitySender();
+                        asyncTask = activateWizardAbilitySender.execute(new Gson().toJson(activateWizardTarget));
+
+                        if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_NOT_WIZARD) {
+                            Toast.makeText(MonsterFight.this, "Error. You are not a wizard.", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_DIE_NOT_FLIPPABLE) {
+                            Toast.makeText(MonsterFight.this, "Error. The selected die is not flippable", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_HERO_ALREADY_CALCULATED_BV) {
+                            Toast.makeText(MonsterFight.this, "Error. The target hero already calculated their battle value.", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_WIZARD_ABILITY_ALREADY_USED) {
+                            Toast.makeText(MonsterFight.this, "Error. You already used the wizard ability.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(MonsterFight.this, "Wizard ability used", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -591,24 +709,25 @@ public class MonsterFight extends AppCompatActivity {
         surrender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Creature currentMonster = myPlayer.getGame().getCurrentFight().getCreature();
-                if (currentMonster.getCreatureType() == CreatureType.GOR) {
-                    currentMonster.setWillpower(4);
-                } else if (currentMonster.getCreatureType() == CreatureType.TROLL) {
-                    currentMonster.setWillpower(12);
-                } else if (currentMonster.getCreatureType() == CreatureType.WARDRAKS) {
-                    currentMonster.setWillpower(7);
-                } else { //SKRAL or SKRAL_BOSS
-                    currentMonster.setWillpower(6);
+                try {
+                    AsyncTask<String, Void, LeaveFightResponses> asyncTask;
+
+                    LeaveFightSender leaveFightSender = new LeaveFightSender();
+                    asyncTask = leaveFightSender.execute("");
+                    if (asyncTask.get() == LeaveFightResponses.CANNOT_LEAVE_WITHOUT_FIGHTING) {
+                        Toast.makeText(MonsterFight.this, "Error. You cannot leave without fighting a single round.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == LeaveFightResponses.CANNOT_LEAVE_AFTER_ROLLING) {
+                        Toast.makeText(MonsterFight.this, "Error. You cannot leave after rolling the die. Please wait for the battle round to finish.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(MonsterFight.this, "Going back to the board...", Toast.LENGTH_LONG).show();
+                        threadInterrupted = true;
+                        startActivity(new Intent(MonsterFight.this, Board.class));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                startActivity(new Intent(v.getContext(), Board.class));
             }
         }) ;
-
-        //Retrieves the amount of dice for the current player class
-        getDice = findViewById(R.id.get_dice);
-        rollDice = findViewById(R.id.roll_dice);
-        rollDice.setVisibility(View.INVISIBLE);
 
 
         getDice.setOnClickListener(new View.OnClickListener() {
@@ -621,6 +740,11 @@ public class MonsterFight extends AppCompatActivity {
                     GetDiceSender getDiceSender = new GetDiceSender();
                     asyncTask = getDiceSender.execute();
                     myDice = asyncTask.get();
+
+                    rollBowValues.clear();
+                    for (int i = 0; i < myDice.size(); i++) {
+                        rollBowValues.add(0);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -636,21 +760,32 @@ public class MonsterFight extends AppCompatActivity {
                 if (diceFlag == false) {
                     Toast.makeText(MonsterFight.this, "Get dice first.", Toast.LENGTH_LONG).show();
                 } else {
-                    ArrayList<Integer> myDiceRolls = new ArrayList<>();
-                    for (Die die : myDice) {
-                        myDiceRolls.add(die.rollDie());
-                    }
+                    if (!usingBow) {
+                        ArrayList<Integer> myDiceRolls = new ArrayList<>();
+                        for (Die die : myDice) {
+                            myDiceRolls.add(die.rollDie());
+                        }
 
-                    try {
-                        CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
-                        calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
+                        try {
+                            CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+                            calculateBattleValueSender.execute(new Gson().toJson(myDiceRolls));
 
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        if (rollBowValues.get(0) > 0) {
+                            try {
+                                CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
+                                calculateBattleValueSender.execute(new Gson().toJson(rollBowValues));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(MonsterFight.this, "You must roll at least one die by roll bow due to the usage of the bow.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }
-
-                //player1BV.setText("BV: " + battleValue);
             }
 
 
@@ -725,7 +860,6 @@ public class MonsterFight extends AppCompatActivity {
 
         });
 
-        rollBow = findViewById(R.id.bow_roll);
         rollBow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -736,9 +870,20 @@ public class MonsterFight extends AppCompatActivity {
                     if (myDice.size() > 0) {
                         try {
                             int dieRoll = myDice.get(0).rollDie();
+
                             asyncTask = rollDieOneByOneSender.execute(new Gson().toJson(dieRoll));
                             if (asyncTask.get() == RollDieOneByOneResponses.ERROR_NO_MORE_DIE_TO_ROLL) {
                                 Toast.makeText(MonsterFight.this, "Error. There are no more die to roll.", Toast.LENGTH_LONG).show();
+                            } else {
+                                int indexOfZero = 0;
+
+                                for (int i = 0; i < rollBowValues.size(); i++) {
+                                    if (rollBowValues.get(i) == 0) {
+                                        indexOfZero = i;
+                                        break;
+                                    }
+                                }
+                                rollBowValues.set(indexOfZero, dieRoll);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -780,7 +925,7 @@ public class MonsterFight extends AppCompatActivity {
             public void onClick(View view) {
                 ArrayList<Integer> creatureRolls = new ArrayList<>();
                 //Only the fight initiator can roll the enemy dice
-                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0) == myPlayer.getGame().getCurrentHero()) {
+                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0).getHeroClass().equals(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass())) {
                     for (Die die : creatureDice) {
                         creatureRolls.add(die.rollDie());
                     }
@@ -1082,4 +1227,24 @@ public class MonsterFight extends AppCompatActivity {
         }
     }
 
+    private static class ActivateWizardAbilitySender extends AsyncTask<String, Void, ActivateWizardAbilityResponses> {
+        @Override
+        protected ActivateWizardAbilityResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/activateWizardAbility")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, ActivateWizardAbilityResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
 }

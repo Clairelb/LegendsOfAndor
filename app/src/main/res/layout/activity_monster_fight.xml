@@ -803,6 +803,8 @@
         android:layout_marginStart="296dp"
         android:layout_marginLeft="296dp"
         android:layout_marginBottom="340dp"
+        android:entries="@array/wizard_flip_index"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -813,6 +815,8 @@
         android:layout_marginStart="296dp"
         android:layout_marginLeft="296dp"
         android:layout_marginBottom="108dp"
+        android:entries="@array/wizard_flip_index"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -823,6 +827,8 @@
         android:layout_marginStart="296dp"
         android:layout_marginLeft="296dp"
         android:layout_marginBottom="192dp"
+        android:entries="@array/wizard_flip_index"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -833,6 +839,8 @@
         android:layout_marginStart="296dp"
         android:layout_marginLeft="296dp"
         android:layout_marginBottom="268dp"
+        android:entries="@array/wizard_flip_index"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -847,6 +855,7 @@
         android:gravity="center"
         android:text="@string/flip_btn"
         android:textSize="18sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
