@@ -573,7 +573,14 @@ public class Board extends AppCompatActivity {
         Game currentGame = myPlayer.getGame();
         if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
             Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
-            realMove.setVisibility(View.VISIBLE);
+            Hero herog = myPlayer.getGame().getCurrentHero();
+
+            if(herog.getCurrentHour()<10){
+                realMove.setVisibility(View.VISIBLE);
+
+            }else{
+                realMove.setVisibility(View.INVISIBLE);
+            }
 //            move.setVisibility(View.VISIBLE);
             fight.setVisibility(View.VISIBLE);
             pass.setVisibility(View.VISIBLE);
@@ -694,9 +701,11 @@ public class Board extends AppCompatActivity {
         }
 
         AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
+        System.out.println("update1");
         GetRegionsSender getRegionsSender = new GetRegionsSender();
         GetAvailableRegionsReponses getAvailableRegionsReponses;
         try {
+            System.out.println("updated");
             asyncTask1 = getRegionsSender.execute();
             GetAvailableRegionsRC availableRegions = asyncTask1.get();
             Log.d("REGION", availableRegions.getResponse().toString());
@@ -706,13 +715,13 @@ public class Board extends AppCompatActivity {
             ArrayList<Integer> available = availableRegions.getRegions();
             for (Integer i : available) {
                 adapter.add(i.toString());
+                System.out.print(i);
             }
             adapter.notifyDataSetChanged();
             sp.setAdapter(adapter);
         }catch(Exception e){
             e.printStackTrace();
         }
-
 
 
 
@@ -747,6 +756,7 @@ public class Board extends AppCompatActivity {
                                         interruptThreadAndStartActivity(intent);
                                     }
 
+
                                     if(game.getGoldenShields() <= 0){
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class);
@@ -763,6 +773,7 @@ public class Board extends AppCompatActivity {
                                                 interruptThreadAndStartActivity(intent);
                                             }
                                         }
+
 
                                         if (game.getNarrator().getSlot() == NarratorSpace.C) {
                                             if (!myPlayer.isLegendCardCDisplayed()) {
@@ -808,7 +819,6 @@ public class Board extends AppCompatActivity {
                                                 }
                                             }
                                         }
-
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
@@ -969,7 +979,20 @@ public class Board extends AppCompatActivity {
                                         }
                                         if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
-                                            realMove.setVisibility(View.VISIBLE);
+//                                            Hero herom = myPlayer.getPlayer().getHero();
+//                                            Hero herog = myPlayer.getGame().getCurrentHero();
+//                                                System.out.println(herom.getHeroClass().toString()+" "+herom.getCurrentHour());
+//                                                System.out.println(herog.getHeroClass().toString()+" "+herog.getCurrentHour())  ;
+                                            Hero herog = myPlayer.getGame().getCurrentHero();
+
+                                            if(herog.getCurrentHour()<10){
+                                                realMove.setVisibility(View.VISIBLE);
+
+                                            }else{
+                                                realMove.setVisibility(View.INVISIBLE);
+                                            }
+
+
 //                                            move.setVisibility(View.VISIBLE);
                                             fight.setVisibility(View.VISIBLE);
                                             pass.setVisibility(View.VISIBLE);
