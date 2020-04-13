@@ -220,6 +220,14 @@ public class RegionDatabase {
         regionDatabase.get(48).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
         regionDatabase.get(19).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.SKRAL))));
 
+        //***FIGHT TESTING***
+        //TESTING FOR ARCHER
+//        regionDatabase.get(25).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        //TESTING FOR WIZARD
+//        regionDatabase.get(34).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+        //TESTING FOR WARRIOR
+//        regionDatabase.get(14).setCurrentCreatures(new ArrayList<Creature>(Arrays.asList(new Creature(CreatureType.GOR))));
+
 
         regionDatabase.get(24).getFarmers().add(new Farmer(false));
         if (difficulty == Difficulty.EASY) {

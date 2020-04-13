@@ -54,6 +54,8 @@ public class UseArticle extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //IF MY PLAYER HAS NOT ENDED THEIR DAY
+
         for(Item item : myPlayer.getPlayer().getHero().getItems()){
             if(item.getItemType() == ItemType.FALCON){
                 if(item.getNumUses() == 1){
