@@ -42,7 +42,7 @@ enum RollDieOneByOneResponses {
 }
 
 enum ActivateWizardAbilityResponses {
-    ERROR_NOT_WIZARD, ERROR_DIE_NOT_FLIPPABLE, ERROR_HERO_ALREADY_CALCULATED_BV, ERROR_WIZARD_ABILITY_ALREADY_USED, SUCCESS
+    ERROR_NOT_WIZARD, ERROR_DIE_NOT_FLIPPABLE, ERROR_WIZARD_ABILITY_ALREADY_USED, SUCCESS
 }
 
 public class MonsterFight extends AppCompatActivity {
@@ -690,8 +690,6 @@ public class MonsterFight extends AppCompatActivity {
                             Toast.makeText(MonsterFight.this, "Error. You are not a wizard.", Toast.LENGTH_LONG).show();
                         } else if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_DIE_NOT_FLIPPABLE) {
                             Toast.makeText(MonsterFight.this, "Error. The selected die is not flippable", Toast.LENGTH_LONG).show();
-                        } else if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_HERO_ALREADY_CALCULATED_BV) {
-                            Toast.makeText(MonsterFight.this, "Error. The target hero already calculated their battle value.", Toast.LENGTH_LONG).show();
                         } else if (asyncTask.get() == ActivateWizardAbilityResponses.ERROR_WIZARD_ABILITY_ALREADY_USED) {
                             Toast.makeText(MonsterFight.this, "Error. You already used the wizard ability.", Toast.LENGTH_LONG).show();
                         } else {
