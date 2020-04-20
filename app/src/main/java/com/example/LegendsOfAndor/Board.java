@@ -822,16 +822,17 @@ public class Board extends AppCompatActivity {
                                         for(int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
-                                            Integer s = h.getCurrentSpace();
-                                            moveHero(h, s);
+                                            if (h != null) {
+                                                Integer s = h.getCurrentSpace();
+                                                moveHero(h, s);
 
-                                            //DRAW TIME MARKERS HERE
-                                            if(h.isHasEndedDay())
-                                            {
-                                                moveHeroTime(h, hourLocation.get(0)[0],hourLocation.get(0)[1]);
-                                            }else{
-                                                int time = h.getCurrentHour();
-                                                moveHeroTime(h, hourLocation.get(time)[0],hourLocation.get(time)[1]);
+                                                //DRAW TIME MARKERS HERE
+                                                if (h.isHasEndedDay()) {
+                                                    moveHeroTime(h, hourLocation.get(0)[0], hourLocation.get(0)[1]);
+                                                } else {
+                                                    int time = h.getCurrentHour();
+                                                    moveHeroTime(h, hourLocation.get(time)[0], hourLocation.get(time)[1]);
+                                                }
                                             }
                                         }
 

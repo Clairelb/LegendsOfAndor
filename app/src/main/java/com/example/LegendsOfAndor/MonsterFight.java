@@ -920,17 +920,21 @@ public class MonsterFight extends AppCompatActivity {
                 //Only the fight initiator can roll the enemy dice
                 if (myPlayer.getGame().getCurrentFight().getHeroes().get(0).getHeroClass().equals(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass())) {
                     if (!usedRollCreatureDice) {
-                        for (Die die : creatureDice) {
-                            creatureRolls.add(die.rollDie());
-                        }
+                        if (usedGetCreatureDice) {
+                            for (Die die : creatureDice) {
+                                creatureRolls.add(die.rollDie());
+                            }
 
-                        try {
-                            CalculateCreatureBattleValueSender calculateCreatureBattleValueSender = new CalculateCreatureBattleValueSender();
-                            calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                            try {
+                                CalculateCreatureBattleValueSender calculateCreatureBattleValueSender = new CalculateCreatureBattleValueSender();
+                                calculateCreatureBattleValueSender.execute(new Gson().toJson(creatureRolls));
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            usedRollCreatureDice = true;
+                        } else {
+                            Toast.makeText(MonsterFight.this, "Error. You must get the creature's die before rolling.", Toast.LENGTH_LONG).show();
                         }
-                        usedRollCreatureDice = true;
                     } else {
                         Toast.makeText(MonsterFight.this, "Error. You already rolled the creature dice.", Toast.LENGTH_LONG).show();
                     }
@@ -1063,7 +1067,6 @@ public class MonsterFight extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
 
             Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
