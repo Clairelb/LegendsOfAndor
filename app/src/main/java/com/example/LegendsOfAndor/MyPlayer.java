@@ -3,49 +3,59 @@ package com.example.LegendsOfAndor;
 import java.util.ArrayList;
 
 public class MyPlayer {
-   private static MyPlayer myPlayer = null;
-   private Player player;
-   private String serverIP;
-   private Game game;
-   private boolean runeStoneToastDisplayed;
-   private boolean legendCardCDisplayed;
-   private boolean legendCardRuneStonesDisplayed;
-   private boolean legendCardGDisplayed;
-   private boolean legendCardNDisplayed;
-   private boolean legendCardTheWitchDisplayed;
-   private ArrayList<Integer> possibleCreaturesToFight;
-   private boolean foundWitch;
+    private static MyPlayer myPlayer = null;
+    private Player player;
+    private String serverIP;
+    private Game game;
+    private boolean runeStoneToastDisplayed;
+    private boolean legendCardCDisplayed;
+    private boolean legendCardRuneStonesDisplayed;
+    private boolean legendCardGDisplayed;
+    private boolean legendCardNDisplayed;
+    private boolean legendCardTheWitchDisplayed;
+    private ArrayList<Integer> possibleCreaturesToFight;
+    private boolean foundWitch;
+    private boolean usedGetDice = false;
+    private boolean usedRollDice = false;
+    private boolean usedGetCreatureDice = false;
+    private boolean usedRollCreatureDice = false;
+    private ArrayList<Die> myDice = new ArrayList<>();
+    private ArrayList<Integer> rollBowValues = new ArrayList<>();
+    private ArrayList<Die> creatureDice = new ArrayList<>();
 
-   public void setPlayer(Player p){
-       player = p;
-   }
+    public void setPlayer(Player p) {
+        player = p;
+    }
 
-   public Player getPlayer(){
-       return this.player;
-   }
-   private MyPlayer(){}
+    public Player getPlayer() {
+        return this.player;
+    }
 
-   public String getServerIP() {
+    private MyPlayer() {
+    }
+
+    public String getServerIP() {
         return serverIP;
-   }
-   public void setServerIP(String serverIP) {
+    }
+
+    public void setServerIP(String serverIP) {
         this.serverIP = serverIP;
     }
 
-   public static MyPlayer getInstance(){
-       if(myPlayer == null){
-           myPlayer = new MyPlayer();
-       }
-       return myPlayer;
-   }
+    public static MyPlayer getInstance() {
+        if (myPlayer == null) {
+            myPlayer = new MyPlayer();
+        }
+        return myPlayer;
+    }
 
-   public Game getGame() {
-       return game;
-   }
+    public Game getGame() {
+        return game;
+    }
 
-   public void setGame(Game game) {
-       this.game = game;
-   }
+    public void setGame(Game game) {
+        this.game = game;
+    }
 
     public boolean isRuneStoneToastDisplayed() {
         return runeStoneToastDisplayed;
@@ -109,5 +119,61 @@ public class MyPlayer {
 
     public void setFoundWitch(boolean foundWitch) {
         this.foundWitch = foundWitch;
+    }
+
+    public boolean isUsedGetDice() {
+        return usedGetDice;
+    }
+
+    public void setUsedGetDice(boolean usedGetDice) {
+        this.usedGetDice = usedGetDice;
+    }
+
+    public boolean isUsedRollDice() {
+        return usedRollDice;
+    }
+
+    public void setUsedRollDice(boolean usedRollDice) {
+        this.usedRollDice = usedRollDice;
+    }
+
+    public boolean isUsedGetCreatureDice() {
+        return usedGetCreatureDice;
+    }
+
+    public void setUsedGetCreatureDice(boolean usedGetCreatureDice) {
+        this.usedGetCreatureDice = usedGetCreatureDice;
+    }
+
+    public boolean isUsedRollCreatureDice() {
+        return usedRollCreatureDice;
+    }
+
+    public void setUsedRollCreatureDice(boolean usedRollCreatureDice) {
+        this.usedRollCreatureDice = usedRollCreatureDice;
+    }
+
+    public ArrayList<Die> getMyDice() {
+        return myDice;
+    }
+
+    public void setMyDice(ArrayList<Die> myDice) {
+        this.myDice = myDice;
+    }
+
+    public ArrayList<Integer> getRollBowValues() {
+        return rollBowValues;
+    }
+
+    public void setRollBowValues(ArrayList<Integer> rollBowValues) {
+        this.rollBowValues = rollBowValues;
+    }
+
+    public ArrayList<Die> getCreatureDice() {
+        return creatureDice;
+    }
+
+    public void setCreatureDice(ArrayList<Die> creatureDice) {
+        this.creatureDice = creatureDice;
     }
 }
