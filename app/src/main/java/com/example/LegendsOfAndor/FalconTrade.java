@@ -978,6 +978,7 @@ public class FalconTrade extends AppCompatActivity {
         trade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println(clientTrade.toString());
                 ColorDrawable p1_color = (ColorDrawable) p1_hasConfirmed.getBackground();
                 ColorDrawable p2_color = (ColorDrawable) p2_hasConfirmed.getBackground();
                 if(p1_color.getColor() == Color.GREEN && p2_color.getColor() == Color.GREEN){
@@ -992,8 +993,12 @@ public class FalconTrade extends AppCompatActivity {
                     }
                     if (processFalconTradeResponses == ProcessFalconTradeResponses.CANNOT_ACCEPT_ITEMS) {
                         Toast.makeText(FalconTrade.this,"One or more of the heroes cannot accept the items requested" , Toast.LENGTH_LONG).show();
+                        clientTrade.clearValues();
+                        sendUpdatedTradeObject(clientTrade);
                     }else if (processFalconTradeResponses == ProcessFalconTradeResponses.TRADE_FAILED){
                         Toast.makeText(FalconTrade.this,"Falcon trade failed for unknown reasons, please try again" , Toast.LENGTH_LONG).show();
+                        clientTrade.clearValues();
+                        sendUpdatedTradeObject(clientTrade);
                     }else if(processFalconTradeResponses == ProcessFalconTradeResponses.TRADE_PROCESSED){
                     }
                 }else{

@@ -978,7 +978,7 @@ public class Board extends AppCompatActivity {
                                                 }
                                             }
                                         }
-                                        if (game.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+                                        if (game.getCurrentHero().getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
                                             Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
 //                                            Hero herom = myPlayer.getPlayer().getHero();
 //                                            Hero herog = myPlayer.getGame().getCurrentHero();
