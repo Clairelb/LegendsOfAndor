@@ -20,10 +20,6 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -148,15 +144,7 @@ public class MonsterFight extends AppCompatActivity {
 
     private boolean leaveExecuted = false;
 
-    private ArrayList<Die> myDice = new ArrayList<>();
-    private ArrayList<Integer> rollBowValues = new ArrayList<>();
-    private ArrayList<Die> creatureDice = new ArrayList<>();
     private boolean usingBow = false;
-
-    private boolean usedGetDice = false;
-    private boolean usedRollDice = false;
-    private boolean usedGetCreatureDice = false;
-    private boolean usedRollCreatureDice = false;
 
     MyPlayer myPlayer = MyPlayer.getInstance();
 
@@ -317,6 +305,212 @@ public class MonsterFight extends AppCompatActivity {
             flip.setVisibility(View.VISIBLE);
         }
 
+        // draw hero die and enemy die
+        Fight fight = myPlayer.getGame().getCurrentFight();
+        int i = 0;
+
+        ImageView currentD1;
+        ImageView currentD2;
+        ImageView currentD3;
+        ImageView currentD4;
+        ImageView currentD5;
+
+        int totalBV = 0;
+        for (Integer bv : fight.getHeroesBattleScores()) {
+            totalBV += bv;
+        }
+        playersBattleValue.setText(Integer.toString(totalBV));
+
+        for (Hero h : fight.getHeroes()) {
+            if (i == 0) {
+                player1BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+            } else if (i == 1) {
+                player2BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+            } else if (i == 2) {
+                player3BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+            } else { // i = 3
+                player4BV.setText("BV: " + fight.getHeroesBattleScores().get(i));
+            }
+
+            int playerNum = i + 1;
+            String diceNum1 = "player" + playerNum + "_d" + 1;
+            String diceNum2 = "player" + playerNum + "_d" + 2;
+            String diceNum3 = "player" + playerNum + "_d" + 3;
+            String diceNum4 = "player" + playerNum + "_d" + 4;
+            String diceNum5 = "player" + playerNum + "_d" + 5;
+            int d1IV = getResources().getIdentifier(diceNum1, "id", getPackageName());
+            int d2IV = getResources().getIdentifier(diceNum2, "id", getPackageName());
+            int d3IV = getResources().getIdentifier(diceNum3, "id", getPackageName());
+            int d4IV = getResources().getIdentifier(diceNum4, "id", getPackageName());
+            int d5IV = getResources().getIdentifier(diceNum5, "id", getPackageName());
+
+            currentD1 = findViewById(d1IV);
+            currentD2 = findViewById(d2IV);
+            currentD3 = findViewById(d3IV);
+            currentD4 = findViewById(d4IV);
+            currentD5 = findViewById(d5IV);
+
+            currentD1.setVisibility(View.INVISIBLE);
+            currentD2.setVisibility(View.INVISIBLE);
+            currentD3.setVisibility(View.INVISIBLE);
+            currentD4.setVisibility(View.INVISIBLE);
+            currentD5.setVisibility(View.INVISIBLE);
+
+            if (h.getHeroClass() == HeroClass.WARRIOR) {
+                String class_id;
+                for (int j = 0; j < fight.getWarriorDice().size(); j++) {
+                    Integer dieValue = fight.getWarriorDice().get(j);
+
+                    if (dieValue == 0) {
+                        class_id = "warrior_dice";
+                    } else {
+                        class_id = "warrior_dice_" + dieValue;
+                    }
+                    if (j == 0) {
+                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD1.setVisibility(View.VISIBLE);
+                    } else if (j == 1) {
+                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD2.setVisibility(View.VISIBLE);
+                    } else if (j == 2) {
+                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD3.setVisibility(View.VISIBLE);
+                    } else if (j == 3) {
+                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD4.setVisibility(View.VISIBLE);
+                    } else {
+                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD5.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else if (h.getHeroClass() == HeroClass.ARCHER) {
+                String class_id;
+                for (int j = 0; j < fight.getArcherDice().size(); j++) {
+                    Integer dieValue = fight.getArcherDice().get(j);
+                    if (dieValue == 0) {
+                        class_id = "archer_dice";
+                    } else {
+                        class_id = "archer_dice_" + dieValue;
+                    }
+                    if (j == 0) {
+                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD1.setVisibility(View.VISIBLE);
+                    } else if (j == 1) {
+                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD2.setVisibility(View.VISIBLE);
+                    } else if (j == 2) {
+                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD3.setVisibility(View.VISIBLE);
+                    } else if (j == 3) {
+                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD4.setVisibility(View.VISIBLE);
+                    } else {
+                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD5.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else if (h.getHeroClass() == HeroClass.DWARF) {
+                String class_id;
+                for (int j = 0; j < fight.getDwarfDice().size(); j++) {
+                    Integer dieValue = fight.getDwarfDice().get(j);
+
+                    if (dieValue == 0) {
+                        class_id = "dwarf_dice";
+                    } else {
+                        class_id = "dwarf_dice_" + dieValue;
+                    }
+                    if (j == 0) {
+                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD1.setVisibility(View.VISIBLE);
+                    } else if (j == 1) {
+                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD2.setVisibility(View.VISIBLE);
+                    } else if (j == 2) {
+                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD3.setVisibility(View.VISIBLE);
+                    } else if (j == 3) {
+                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD4.setVisibility(View.VISIBLE);
+                    } else {
+                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD5.setVisibility(View.VISIBLE);
+                    }
+                }
+            } else { // wizard
+                String class_id;
+                for (int j = 0; j < fight.getWizardDice().size(); j++) {
+                    Integer dieValue = fight.getWizardDice().get(j);
+
+                    if (dieValue == 0) {
+                        class_id = "wizard_dice";
+                    } else {
+                        class_id = "wizard_dice_" + dieValue;
+                    }
+                    if (j == 0) {
+                        currentD1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD1.setVisibility(View.VISIBLE);
+                    } else if (j == 1) {
+                        currentD2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD2.setVisibility(View.VISIBLE);
+                    } else if (j == 2) {
+                        currentD3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD3.setVisibility(View.VISIBLE);
+                    } else if (j == 3) {
+                        currentD4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD4.setVisibility(View.VISIBLE);
+                    } else {
+                        currentD5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                        currentD5.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+            i++;
+        }
+
+        String class_id;
+
+        enemyd1.setVisibility(View.INVISIBLE);
+        enemyd2.setVisibility(View.INVISIBLE);
+        enemyd3.setVisibility(View.INVISIBLE);
+        enemyd4.setVisibility(View.INVISIBLE);
+        enemyd5.setVisibility(View.INVISIBLE);
+
+
+        for (int k = 0; k < fight.getCreatureDice().size(); k++) {
+            Integer dieValue = fight.getCreatureDice().get(k);
+
+            if (dieValue == -1) { // empty black die
+                class_id = "black_dice";
+            } else if (dieValue >= 8) { // black die
+                class_id = "black_dice_" + dieValue;
+            } else if (dieValue == 0) {
+                class_id = "enemy_dice";
+            } else { // dieValue 1 to 6
+                class_id = "enemy_dice_" + dieValue;
+            }
+
+            if (k == 0) {
+                enemyd1.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                enemyd1.setVisibility(View.VISIBLE);
+            } else if (k == 1) {
+                enemyd2.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                enemyd2.setVisibility(View.VISIBLE);
+            } else if (k == 2) {
+                enemyd3.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                enemyd3.setVisibility(View.VISIBLE);
+            } else if (k == 3) {
+                enemyd4.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                enemyd4.setVisibility(View.VISIBLE);
+            } else {
+                enemyd5.setImageDrawable(getResources().getDrawable(getResourceID(class_id, "drawable", getApplicationContext())));
+                enemyd5.setVisibility(View.VISIBLE);
+            }
+        }
+        monsterBattleValue.setText(Integer.toString(fight.getCreatureBattleScore()));
+
+        enemyWP.setText("WP:" + fight.getCreature().getWillpower());
+        enemySP.setText("SP:" + fight.getCreature().getStrength());
+
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
@@ -394,31 +588,31 @@ public class MonsterFight extends AppCompatActivity {
                                             HeroClass myHeroClass = myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass();
                                             if (myHeroClass == HeroClass.ARCHER) {
                                                 if (fight.getArcherDice().size() == 0) {
-                                                    usedGetDice = false;
-                                                    usedRollDice = false;
-                                                    usedGetCreatureDice = false;
-                                                    usedRollCreatureDice = false;
+                                                    myPlayer.setUsedGetDice(false);
+                                                    myPlayer.setUsedRollDice(false);
+                                                    myPlayer.setUsedGetCreatureDice(false);
+                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             } else if (myHeroClass == HeroClass.DWARF) {
                                                 if (fight.getDwarfDice().size() == 0) {
-                                                    usedGetDice = false;
-                                                    usedRollDice = false;
-                                                    usedGetCreatureDice = false;
-                                                    usedRollCreatureDice = false;
+                                                    myPlayer.setUsedGetDice(false);
+                                                    myPlayer.setUsedRollDice(false);
+                                                    myPlayer.setUsedGetCreatureDice(false);
+                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             } else if (myHeroClass == HeroClass.WARRIOR) {
                                                 if (fight.getWarriorDice().size() == 0) {
-                                                    usedGetDice = false;
-                                                    usedRollDice = false;
-                                                    usedGetCreatureDice = false;
-                                                    usedRollCreatureDice = false;
+                                                    myPlayer.setUsedGetDice(false);
+                                                    myPlayer.setUsedRollDice(false);
+                                                    myPlayer.setUsedGetCreatureDice(false);
+                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             } else { // wizard
                                                 if (fight.getWizardDice().size() == 0) {
-                                                    usedGetDice = false;
-                                                    usedRollDice = false;
-                                                    usedGetCreatureDice = false;
-                                                    usedRollCreatureDice = false;
+                                                    myPlayer.setUsedGetDice(false);
+                                                    myPlayer.setUsedRollDice(false);
+                                                    myPlayer.setUsedGetCreatureDice(false);
+                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             }
                                             int i = 0;
@@ -784,23 +978,23 @@ public class MonsterFight extends AppCompatActivity {
         getDice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!usedGetDice) {
+                if (!myPlayer.isUsedGetDice()) {
                     AsyncTask<String, Void, ArrayList<Die>> asyncTask;
 
                     try {
                         GetDiceSender getDiceSender = new GetDiceSender();
                         asyncTask = getDiceSender.execute();
-                        myDice = asyncTask.get();
+                        myPlayer.setMyDice(asyncTask.get());
 
-                        rollBowValues.clear();
-                        for (int i = 0; i < myDice.size(); i++) {
-                            rollBowValues.add(0);
+                        myPlayer.getRollBowValues().clear();
+                        for (int i = 0; i < myPlayer.getMyDice().size(); i++) {
+                            myPlayer.getRollBowValues().add(0);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
-                    usedGetDice = true;
+                    myPlayer.setUsedGetDice(true);
                 } else {
                     Toast.makeText(MonsterFight.this, "Error. You already got your dice.", Toast.LENGTH_LONG).show();
                 }
@@ -810,12 +1004,12 @@ public class MonsterFight extends AppCompatActivity {
         rollDice.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (!usedGetDice) {
+                if (!myPlayer.isUsedGetDice()) {
                     Toast.makeText(MonsterFight.this, "Get dice first.", Toast.LENGTH_LONG).show();
-                } else if (!usedRollDice) {
+                } else if (!myPlayer.isUsedRollDice()) {
                     if (!usingBow) {
                         ArrayList<Integer> myDiceRolls = new ArrayList<>();
-                        for (Die die : myDice) {
+                        for (Die die : myPlayer.getMyDice()) {
                             myDiceRolls.add(die.rollDie());
                         }
 
@@ -826,17 +1020,17 @@ public class MonsterFight extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        usedRollDice = true;
+                        myPlayer.setUsedRollDice(true);
                     } else {
-                        if (rollBowValues.get(0) > 0) {
+                        if (myPlayer.getRollBowValues().get(0) > 0) {
                             try {
                                 CalculateBattleValueSender calculateBattleValueSender = new CalculateBattleValueSender();
-                                calculateBattleValueSender.execute(new Gson().toJson(rollBowValues));
+                                calculateBattleValueSender.execute(new Gson().toJson(myPlayer.getRollBowValues()));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
-                            usedRollDice = true;
+                            myPlayer.setUsedRollDice(true);
                         } else {
                             Toast.makeText(MonsterFight.this, "You must roll at least one die by roll bow due to the usage of the bow.", Toast.LENGTH_LONG).show();
                         }
@@ -855,9 +1049,9 @@ public class MonsterFight extends AppCompatActivity {
                 try {
                     RollDieOneByOneSender rollDieOneByOneSender = new RollDieOneByOneSender();
                     AsyncTask<String, Void, RollDieOneByOneResponses> asyncTask;
-                    if (myDice.size() > 0) {
+                    if (myPlayer.getMyDice().size() > 0) {
                         try {
-                            int dieRoll = myDice.get(0).rollDie();
+                            int dieRoll = myPlayer.getMyDice().get(0).rollDie();
 
                             asyncTask = rollDieOneByOneSender.execute(new Gson().toJson(dieRoll));
                             if (asyncTask.get() == RollDieOneByOneResponses.ERROR_NO_MORE_DIE_TO_ROLL) {
@@ -865,13 +1059,13 @@ public class MonsterFight extends AppCompatActivity {
                             } else {
                                 int indexOfZero = 0;
 
-                                for (int i = 0; i < rollBowValues.size(); i++) {
-                                    if (rollBowValues.get(i) == 0) {
+                                for (int i = 0; i < myPlayer.getRollBowValues().size(); i++) {
+                                    if (myPlayer.getRollBowValues().get(i) == 0) {
                                         indexOfZero = i;
                                         break;
                                     }
                                 }
-                                rollBowValues.set(indexOfZero, dieRoll);
+                                myPlayer.getRollBowValues().set(indexOfZero, dieRoll);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -893,15 +1087,15 @@ public class MonsterFight extends AppCompatActivity {
                 AsyncTask<String, Void, ArrayList<Die>> asyncTask;
                 //Only the fight initiator can get the enemy dice
                 if (myPlayer.getGame().getCurrentFight().getHeroes().get(0).getHeroClass().equals(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass())) {
-                    if (!usedGetCreatureDice) {
+                    if (!myPlayer.isUsedGetCreatureDice()) {
                         try {
                             GetCreatureDiceSender getCreatureDiceSender = new GetCreatureDiceSender();
                             asyncTask = getCreatureDiceSender.execute();
-                            creatureDice = asyncTask.get();
+                            myPlayer.setCreatureDice(asyncTask.get());
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        usedGetCreatureDice = true;
+                        myPlayer.setUsedGetCreatureDice(true);
                     } else {
                         Toast.makeText(MonsterFight.this, "Error. You already got the creature dice.", Toast.LENGTH_LONG).show();
                     }
@@ -919,9 +1113,9 @@ public class MonsterFight extends AppCompatActivity {
                 ArrayList<Integer> creatureRolls = new ArrayList<>();
                 //Only the fight initiator can roll the enemy dice
                 if (myPlayer.getGame().getCurrentFight().getHeroes().get(0).getHeroClass().equals(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass())) {
-                    if (!usedRollCreatureDice) {
-                        if (usedGetCreatureDice) {
-                            for (Die die : creatureDice) {
+                    if (!myPlayer.isUsedRollCreatureDice()) {
+                        if (myPlayer.isUsedGetCreatureDice()) {
+                            for (Die die : myPlayer.getCreatureDice()) {
                                 creatureRolls.add(die.rollDie());
                             }
 
@@ -931,7 +1125,7 @@ public class MonsterFight extends AppCompatActivity {
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
-                            usedRollCreatureDice = true;
+                            myPlayer.setUsedRollCreatureDice(true);
                         } else {
                             Toast.makeText(MonsterFight.this, "Error. You must get the creature's die before rolling.", Toast.LENGTH_LONG).show();
                         }
