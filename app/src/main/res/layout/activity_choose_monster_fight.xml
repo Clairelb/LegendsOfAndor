@@ -12,7 +12,7 @@
         android:layout_width="418dp"
         android:layout_height="28dp"
         android:layout_marginTop="4dp"
-        android:background="@android:color/primary_text_dark_nodisable"
+        android:background="@android:color/transparent"
         android:text="Please select one of the following regions with creatures to fight"
         android:textColor="@color/black"
         android:textSize="14sp"
@@ -34,11 +34,12 @@
 
     <Spinner
         android:id="@+id/choose_monster_fight_spinner"
-        android:layout_width="65dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="300dp"
+        android:layout_width="48dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="308dp"
+        android:background="@android:color/background_light"
         app:layout_constraintEnd_toStartOf="@+id/choose_mosnter_fight_BTN"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/choose_monster_fight_TV" />
 </androidx.constraintlayout.widget.ConstraintLayout>
