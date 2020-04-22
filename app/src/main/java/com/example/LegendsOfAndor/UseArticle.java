@@ -35,7 +35,7 @@ public class UseArticle extends AppCompatActivity {
         joinFalconTrade = findViewById(R.id.join_falcon_trade);
         backbutton = findViewById(R.id.back_to_free_actions);
         joinFalconTrade.setVisibility(View.INVISIBLE);
-        startFalconTrade.setVisibility(View.VISIBLE);
+        startFalconTrade.setVisibility(View.INVISIBLE);
 
         try{
             AsyncTask<String, Void, Game> asyncTaskGame;
@@ -55,11 +55,14 @@ public class UseArticle extends AppCompatActivity {
         }
 
         //IF MY PLAYER HAS NOT ENDED THEIR DAY
-
-        for(Item item : myPlayer.getPlayer().getHero().getItems()){
-            if(item.getItemType() == ItemType.FALCON){
-                if(item.getNumUses() == 1){
-                    startFalconTrade.setVisibility(View.VISIBLE);
+        if(!myPlayer.getPlayer().getHero().isHasEndedDay()){
+            System.out.println("PLAYER HAS NOT ENDED DAY");
+            for(Item item : myPlayer.getPlayer().getHero().getItems()){
+                if(item.getItemType() == ItemType.FALCON){
+                    System.out.println("FALCON HAS " + item.getNumUses() + " USES");
+                    if(item.getNumUses() == 0){
+                        startFalconTrade.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         }

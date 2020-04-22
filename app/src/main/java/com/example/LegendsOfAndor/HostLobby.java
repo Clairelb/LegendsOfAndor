@@ -91,7 +91,7 @@ public class HostLobby extends AppCompatActivity {
                 System.out.println("GAME NAME" + gameName);
                 if(gameName == null || gameName.length()== 0){
                     Toast.makeText(HostLobby.this, "Please specify game name.", Toast.LENGTH_LONG).show();
-                } if(stringContainsItemFromList(gameName,BAD_CHARACTERS)){
+                }else if(stringContainsItemFromList(gameName,BAD_CHARACTERS)){
                     Toast.makeText(HostLobby.this, "Invalid character in game name", Toast.LENGTH_LONG).show();
                 } else{
                     myPlayer.getPlayer().setHero(new Hero(new Gson().fromJson(s2.getSelectedItem().toString(), HeroClass.class)));
