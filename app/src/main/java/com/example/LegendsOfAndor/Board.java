@@ -80,6 +80,8 @@ public class Board extends AppCompatActivity {
     private int nextMove;
     private Button realMove;
 
+    private ImageView test;
+
     private Button getDirectionPrince;
 //    private Button confirmMovePrince;
     private Button endMovePrince;
@@ -614,13 +616,21 @@ public class Board extends AppCompatActivity {
         ArrayList<Region> mRegion = currentGame.getRegionDatabase().getAllRegionsWithCreatures();
         ArrayList<Integer> gorRegion = new ArrayList<>();
         ArrayList<Integer> skralRegion = new ArrayList<>();
+        ArrayList<Integer> wardrakRegion1 = new ArrayList<>();
 
         for(Region r: mRegion){
+            if(r.getCurrentCreatures()!= null){
+                System.out.println(r.getCurrentCreatures().get(0).getCreatureType() + " " +r.getNumber());
+            }
             if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
                 gorRegion.add(r.getNumber());
             }
             if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
                 skralRegion.add(r.getNumber());
+            }
+
+            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS){
+                wardrakRegion1.add(r.getNumber());
             }
         }
         System.out.println("total"+ mRegion.size());
@@ -632,6 +642,12 @@ public class Board extends AppCompatActivity {
         for(int i = 0; i < skralRegion.size();i++){
             skrall.get(i).setVisibility((View.VISIBLE));
             moveMonster(skrall.get(i), skralRegion.get(i));
+        }
+
+
+        for (int i = 0; i < wardrakRegion1.size(); i++) {
+            wardraks.get(i).setVisibility(View.VISIBLE);
+            moveMonster(wardraks.get(i), wardrakRegion1.get(i));
         }
 
         //Update Wells
@@ -758,6 +774,26 @@ public class Board extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        ArrayList<Region> allregion1 = currentGame.getRegionDatabase().getRegionDatabase();
+
+
+        for(Region r : allregion1){
+            if(r.getCurrentCreatures().size()>0){
+                System.out.println("here"+r.getCurrentCreatures().get(0).getCreatureType()+ " "+ r.getNumber());
+                if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS){
+                    moveMonster(skrall_boss,r.getNumber());
+                    skrall_boss.setVisibility(View.VISIBLE);
+                }
+                if(r.getCurrentCreatures().get(0).getCreatureType() .equals(CreatureType.SKRAL_BOSS)){
+                    moveMonster(skrall_boss,r.getNumber());
+                    skrall_boss.setVisibility(View.VISIBLE);
+                }
+//                moveMonster(skrall_boss,r.getNumber());
+
+            }
+        }
+
+
 
 
 
@@ -890,14 +926,34 @@ public class Board extends AppCompatActivity {
                                             farmers.get(i).setVisibility(View.VISIBLE);
                                             displayFarmer(farmers.get(i), toDrawFarmer.get(i));
                                         }
-
-
+                                        ArrayList<Region> allRegion = game.getRegionDatabase().getRegionDatabase();
                                         ArrayList<Region> mRegion = game.getRegionDatabase().getAllRegionsWithCreatures();
                                         ArrayList<Integer> gorRegion = new ArrayList<>();
                                         ArrayList<Integer> skralRegion = new ArrayList<>();
                                         ArrayList<Integer> wardrakRegion = new ArrayList<>();
 
+                                        for(Region r : allRegion){
+//                                            if(r.getCurrentCreatures().size()>0&&r.getCurrentCreatures().get(0).getCreatureType()== CreatureType.SKRAL_BOSS){
+//                                                moveMonster(skrall_boss,r.getNumber());
+//
+//                                            }
+                                            if(r.getCurrentCreatures().size()>0){
+                                                System.out.println("here " + r.getCurrentCreatures().get(0).getCreatureType()+ " "+ r.getNumber());
+                                                if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS){
+                                                    moveMonster(skrall_boss,r.getNumber());
+                                                    skrall_boss.setVisibility(View.VISIBLE);
+                                                }
+                                                if(r.getCurrentCreatures().get(0).getCreatureType() .equals(CreatureType.SKRAL_BOSS)){
+                                                    moveMonster(skrall_boss,r.getNumber());
+                                                    skrall_boss.setVisibility(View.VISIBLE);
+                                                }
+                                            }
+                                        }
+
                                         for (Region r : mRegion) {
+                                            if(r.getCurrentCreatures().get(0)!= null){
+                                                System.out.println(r.getCurrentCreatures().get(0).getCreatureType()+ " "+ r.getNumber());
+                                            }
                                             if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR) {
                                                 gorRegion.add(r.getNumber());
                                             }
