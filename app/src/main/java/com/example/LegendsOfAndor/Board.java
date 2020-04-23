@@ -406,7 +406,7 @@ public class Board extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Integer space = Integer.parseInt(adapter.getItem(position));
+                Integer space = Integer.parseInt(adapterPrince.getItem(position));
                 PrinceNextMove = space;
             }
 
