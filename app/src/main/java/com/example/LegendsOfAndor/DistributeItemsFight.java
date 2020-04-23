@@ -64,16 +64,17 @@ public class DistributeItemsFight extends AppCompatActivity {
         TextView description = findViewById(R.id.distribute_fight_items_description);
         description.setText(new StringBuilder().append("CONGRATULATIONS. You have won the fight. You get ").append(currentGame.getCurrentFight().getCreature().getGoldReward()).append(" gold and willpower to distribute amongst your team").toString());
 
-        for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++){
-            if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.ARCHER){
+        MyPlayer myPlayer = MyPlayer.getInstance();
+        for(Hero heroInFight : myPlayer.getFightDistributionHeroes()){
+            if(heroInFight.getHeroClass() == HeroClass.ARCHER){
                 archerGold.setVisibility(View.VISIBLE);
                 archerWillpower.setVisibility(View.VISIBLE);
                 archer_text.setVisibility(View.VISIBLE);
-            }else if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WARRIOR){
+            }else if(heroInFight.getHeroClass() == HeroClass.WARRIOR){
                 warriorGold.setVisibility(View.VISIBLE);
                 warriorWillpower.setVisibility(View.VISIBLE);
                 warrior_text.setVisibility(View.VISIBLE);
-            }else if(currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD){
+            }else if(heroInFight.getHeroClass() == HeroClass.WIZARD){
                 wizardGold.setVisibility(View.VISIBLE);
                 wizardWillpower.setVisibility(View.VISIBLE);
                 wizard_text.setVisibility(View.VISIBLE);
@@ -83,7 +84,6 @@ public class DistributeItemsFight extends AppCompatActivity {
                 dwarf_text.setVisibility(View.VISIBLE);
             }
         }
-
 
         Button confirmDistribution = findViewById(R.id.finalize_fight_distribution);
 

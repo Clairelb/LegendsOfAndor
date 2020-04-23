@@ -48,7 +48,6 @@ public class UseArticle extends AppCompatActivity {
             for(int i = 0; i < gameToSet.getCurrentNumPlayers(); i++){
                 if(gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())){
                     myPlayer.setPlayer(gameToSet.getPlayers()[i]);
-                    myPlayer.getPlayer().getHero().setItems(gameToSet.getPlayers()[i].getHero().getItems());
                 }
             }
         }catch (Exception e){
@@ -57,11 +56,9 @@ public class UseArticle extends AppCompatActivity {
 
         //IF MY PLAYER HAS NOT ENDED THEIR DAY
         if(!myPlayer.getPlayer().getHero().isHasEndedDay()){
-            System.out.println("PLAYER HAS NOT ENDED DAY");
             for(Item item : myPlayer.getPlayer().getHero().getItems()){
                 if(item.getItemType() == ItemType.FALCON){
-                    System.out.println("FALCON HAS " + item.getNumUses() + " USES");
-                    if(item.getNumUses() == 0){
+                    if(item.getNumUses() >= 1){
                         startFalconTrade.setVisibility(View.VISIBLE);
                     }
                 }
