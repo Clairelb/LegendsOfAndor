@@ -590,31 +590,29 @@ public class MonsterFight extends AppCompatActivity {
                                                 if (fight.getArcherDice().size() == 0) {
                                                     myPlayer.setUsedGetDice(false);
                                                     myPlayer.setUsedRollDice(false);
-                                                    myPlayer.setUsedGetCreatureDice(false);
-                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             } else if (myHeroClass == HeroClass.DWARF) {
                                                 if (fight.getDwarfDice().size() == 0) {
                                                     myPlayer.setUsedGetDice(false);
                                                     myPlayer.setUsedRollDice(false);
-                                                    myPlayer.setUsedGetCreatureDice(false);
-                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             } else if (myHeroClass == HeroClass.WARRIOR) {
                                                 if (fight.getWarriorDice().size() == 0) {
                                                     myPlayer.setUsedGetDice(false);
                                                     myPlayer.setUsedRollDice(false);
-                                                    myPlayer.setUsedGetCreatureDice(false);
-                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             } else { // wizard
                                                 if (fight.getWizardDice().size() == 0) {
                                                     myPlayer.setUsedGetDice(false);
                                                     myPlayer.setUsedRollDice(false);
-                                                    myPlayer.setUsedGetCreatureDice(false);
-                                                    myPlayer.setUsedRollCreatureDice(false);
                                                 }
                                             }
+
+                                            if (fight.getCreatureDice().size() == 0) {
+                                                myPlayer.setUsedGetCreatureDice(false);
+                                                myPlayer.setUsedRollCreatureDice(false);
+                                            }
+
                                             int i = 0;
 
                                             ImageView currentD1;
