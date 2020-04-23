@@ -723,6 +723,34 @@ public class Board extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        if (myPlayer.getGame().getPrinceThorald() != null) {
+            displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
+            prince.setVisibility(View.VISIBLE);
+
+        }
+
+        try {
+            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
+            GetPrinceSender getPrinceSender = new GetPrinceSender();
+            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+
+            asyncTask2 = getPrinceSender.execute();
+            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
+            System.out.println("executed");
+            Log.d("executed", princeAvailableRegion.getGetPrinceThoraldMovesResponses().toString());
+
+            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+            for (Integer i : availableMove) {
+                String temp1 = i + "";
+                adapterPrince.add(temp1);
+            }
+            adapterPrince.clear();
+            adapterPrince.notifyDataSetChanged();
+            princeRegions.setAdapter(adapterPrince);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
@@ -995,26 +1023,26 @@ public class Board extends AppCompatActivity {
                                                 endMove.setVisibility(View.VISIBLE);
                                                 if (game.getPrinceThorald() != null) {
                                                     if (princeflag == false) {
-
-                                                        try {
-                                                            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
-                                                            GetPrinceSender getPrinceSender = new GetPrinceSender();
-                                                            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
-
-                                                            asyncTask2 = getPrinceSender.execute();
-                                                            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
-
-                                                            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
-                                                            for (Integer i : availableMove) {
-                                                                String temp1 = i + "";
-                                                                adapterPrince.add(temp1);
-                                                            }
-                                                            adapterPrince.clear();
-                                                            adapterPrince.notifyDataSetChanged();
-                                                            princeRegions.setAdapter(adapterPrince);
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
-                                                        }
+                                                        princeflag =true;
+//                                                        try {
+//                                                            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
+//                                                            GetPrinceSender getPrinceSender = new GetPrinceSender();
+//                                                            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+//
+//                                                            asyncTask2 = getPrinceSender.execute();
+//                                                            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
+//
+//                                                            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+//                                                            for (Integer i : availableMove) {
+//                                                                String temp1 = i + "";
+//                                                                adapterPrince.add(temp1);
+//                                                            }
+//                                                            adapterPrince.clear();
+//                                                            adapterPrince.notifyDataSetChanged();
+//                                                            princeRegions.setAdapter(adapterPrince);
+//                                                        } catch (Exception e) {
+//                                                            e.printStackTrace();
+//                                                        }
                                                     }
 
                                                     getDirectionPrince.setVisibility(View.VISIBLE);
