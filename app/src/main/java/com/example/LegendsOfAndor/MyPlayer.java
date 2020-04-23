@@ -22,6 +22,7 @@ public class MyPlayer {
     private ArrayList<Die> myDice = new ArrayList<>();
     private ArrayList<Integer> rollBowValues = new ArrayList<>();
     private ArrayList<Die> creatureDice = new ArrayList<>();
+    private ArrayList<Hero> fightDistributionHeroes = new ArrayList<>();
 
     public void setPlayer(Player p) {
         player = p;
@@ -175,5 +176,13 @@ public class MyPlayer {
 
     public void setCreatureDice(ArrayList<Die> creatureDice) {
         this.creatureDice = creatureDice;
+    }
+
+    public ArrayList<Hero> getFightDistributionHeroes() {
+        return fightDistributionHeroes;
+    }
+
+    public void setFightDistributionHeroes(ArrayList<Hero> fightDistributionHeroes) {
+        this.fightDistributionHeroes = fightDistributionHeroes;
     }
 }

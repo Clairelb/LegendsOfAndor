@@ -1140,32 +1140,40 @@ public class MonsterFight extends AppCompatActivity {
         attack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rollDice.setEnabled(true);//Enables the roll dice button after current attack registered
-                try {
-                    AsyncTask<String, Void, EndBattleRoundResponses> asyncTask;
+                if (myPlayer.getGame().getCurrentFight().getHeroes().get(0).getHeroClass().equals(myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass())) {
+                    rollDice.setEnabled(true);//Enables the roll dice button after current attack registered
+                    try {
+                        AsyncTask<String, Void, EndBattleRoundResponses> asyncTask;
 
-                    EndBattleRoundSender endBattleRoundSender = new EndBattleRoundSender();
-                    asyncTask = endBattleRoundSender.execute("");
+                        EndBattleRoundSender endBattleRoundSender = new EndBattleRoundSender();
+                        asyncTask = endBattleRoundSender.execute("");
 
-                    if (asyncTask.get() == EndBattleRoundResponses.WON_ROUND) {
-                        Toast.makeText(MonsterFight.this, "Heroes won this round!", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndBattleRoundResponses.LOST_ROUND) {
-                        Toast.makeText(MonsterFight.this, "Heroes lost this round!", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndBattleRoundResponses.TIE_ROUND) {
-                        Toast.makeText(MonsterFight.this, "This round resulted in a tie!", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_DEFEATED) {
-                        Toast.makeText(MonsterFight.this, "Heroes win! Creature defeated!", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndBattleRoundResponses.BATTLE_LOST) {
-                        Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated! Going back to the board...", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndBattleRoundResponses.PLAYERS_NO_BATTLE_VALUE) {
-                        Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Player(s) do not have battle values!", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_NO_BATTLE_VALUE) {
-                        Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Creature does not have battle value!", Toast.LENGTH_LONG).show();
-                    } else { // WAITING_FOR_PLAYERS_TO_JOIN
-                        Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Still waiting for player(s) to join the fight", Toast.LENGTH_LONG).show();
+                        myPlayer.setFightDistributionHeroes(myPlayer.getGame().getCurrentFight().getHeroes());
+
+                        System.out.println("!!!!!!!!" + myPlayer.getFightDistributionHeroes().size());
+
+                        if (asyncTask.get() == EndBattleRoundResponses.WON_ROUND) {
+                            Toast.makeText(MonsterFight.this, "Heroes won this round!", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == EndBattleRoundResponses.LOST_ROUND) {
+                            Toast.makeText(MonsterFight.this, "Heroes lost this round!", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == EndBattleRoundResponses.TIE_ROUND) {
+                            Toast.makeText(MonsterFight.this, "This round resulted in a tie!", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_DEFEATED) {
+                            Toast.makeText(MonsterFight.this, "Heroes win! Creature defeated!", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == EndBattleRoundResponses.BATTLE_LOST) {
+                            Toast.makeText(MonsterFight.this, "Creature wins! Heroes defeated! Going back to the board...", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == EndBattleRoundResponses.PLAYERS_NO_BATTLE_VALUE) {
+                            Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Player(s) do not have battle values!", Toast.LENGTH_LONG).show();
+                        } else if (asyncTask.get() == EndBattleRoundResponses.CREATURE_NO_BATTLE_VALUE) {
+                            Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Creature does not have battle value!", Toast.LENGTH_LONG).show();
+                        } else { // WAITING_FOR_PLAYERS_TO_JOIN
+                            Toast.makeText(MonsterFight.this, "ERROR. Cannot attack! Still waiting for player(s) to join the fight", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    Toast.makeText(MonsterFight.this, "ERROR. Only the host can do this.", Toast.LENGTH_LONG).show();
                 }
             }
         });
