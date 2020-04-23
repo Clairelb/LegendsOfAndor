@@ -154,7 +154,7 @@ public class DistributeItems extends AppCompatActivity {
                             if (currentGame.getPlayers()[i].getHero().getHeroClass() == HeroClass.WIZARD) {
                                 itemDistribution.setWizardGold(wiz_gold);
                                 ArrayList<Item> startingItems = new ArrayList<>();
-                                for (int j = 0; j < arch_wineskin; j++) {
+                                for (int j = 0; j < wiz_wineskin; j++) {
                                     startingItems.add(new Item(ItemType.WINESKIN));
                                 }
                                 if (startingItems.size() > 0)
