@@ -34,7 +34,7 @@ import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 
 enum PassResponses {
-    PASS_SUCCESSFUL, MUST_END_DAY, ONLY_PLAYER_LEFT, NOT_CURRENT_TURN, DAY_ENDED, PASS_SUCCESSFUL_WP_DEDUCTED
+    PASS_SUCCESSFUL, MUST_END_DAY, ONLY_PLAYER_LEFT, NOT_CURRENT_TURN, DAY_ENDED, PASS_SUCCESSFUL_WP_DEDUCTED, CANNOT_PASS_AFTER_MOVE, CANNOT_PASS_AFTER_MOVE_PRINCE
 }
 
 enum EndDayResponses {
@@ -1276,6 +1276,10 @@ public class Board extends AppCompatActivity {
                         Toast.makeText(Board.this, "Pass error. It is not your turn yet.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == PassResponses.PASS_SUCCESSFUL_WP_DEDUCTED) {
                         Toast.makeText(Board.this, "Successfully passed turn. 2 Willpower deducted for overtime.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == PassResponses.CANNOT_PASS_AFTER_MOVE) {
+                        Toast.makeText(Board.this, "Pass error. You cannot pass your turn after moving.", Toast.LENGTH_LONG).show();
+                    } else if (asyncTask.get() == PassResponses.CANNOT_PASS_AFTER_MOVE_PRINCE) {
+                        Toast.makeText(Board.this, "Pass error. You cannot pass your turn after moving the prince.", Toast.LENGTH_LONG).show();
                     } else { // ONLY_PLAYER_LEFT
                         Toast.makeText(Board.this, "Pass error. You are the only player left.", Toast.LENGTH_LONG).show();
                     }
