@@ -763,7 +763,7 @@ public class Board extends AppCompatActivity {
                                         gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                                         interruptThreadAndStartActivity(gameOverIntent);
-                                    }else{
+                                    }else {
                                         if (game.isFoundWitch()) {
                                             if (!myPlayer.isLegendCardTheWitchDisplayed()) {
                                                 myPlayer.setLegendCardTheWitchDisplayed(true);
@@ -819,7 +819,7 @@ public class Board extends AppCompatActivity {
                                                 }
                                             }
                                         }
-                                        for(int i = 0; i < game.getCurrentNumPlayers(); i++) {
+                                        for (int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
                                             if (h != null) {
@@ -838,20 +838,20 @@ public class Board extends AppCompatActivity {
 
                                         ArrayList<Integer> toDrawFarmer = new ArrayList<>();
                                         ArrayList<Region> regionList = myPlayer.getGame().getRegionDatabase().getRegionDatabase();
-                                        for(int i = 0; i < regionList.size();i++){
+                                        for (int i = 0; i < regionList.size(); i++) {
                                             int num = regionList.get(i).getFarmers().size();
-                                            for(int j = 0; j < num; j++){
-                                                if(!regionList.get(i).getFarmers().get(j).isBeingCarried){
+                                            for (int j = 0; j < num; j++) {
+                                                if (!regionList.get(i).getFarmers().get(j).isBeingCarried) {
                                                     toDrawFarmer.add(regionList.get(i).getNumber());
                                                 }
                                             }
                                         }
-                                        for(int i = 0 ; i < farmers.size();i++){
+                                        for (int i = 0; i < farmers.size(); i++) {
                                             farmers.get(i).setVisibility(View.INVISIBLE);
                                         }
 
-                                        for(int i = 0; i < toDrawFarmer.size();i ++){
-                                            farmers.get(i).setVisibility(View.VISIBLE)  ;
+                                        for (int i = 0; i < toDrawFarmer.size(); i++) {
+                                            farmers.get(i).setVisibility(View.VISIBLE);
                                             displayFarmer(farmers.get(i), toDrawFarmer.get(i));
                                         }
 
@@ -861,107 +861,100 @@ public class Board extends AppCompatActivity {
                                         ArrayList<Integer> skralRegion = new ArrayList<>();
                                         ArrayList<Integer> wardrakRegion = new ArrayList<>();
 
-                                        for(Region r: mRegion){
-                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
+                                        for (Region r : mRegion) {
+                                            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR) {
                                                 gorRegion.add(r.getNumber());
                                             }
-                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
+                                            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL) {
                                                 skralRegion.add(r.getNumber());
                                             }
-                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS){
+                                            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS) {
                                                 skrall_boss.setVisibility(View.VISIBLE);
-                                                moveMonster(skrall_boss,r.getNumber());
+                                                moveMonster(skrall_boss, r.getNumber());
                                             }
-                                            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS){
+                                            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS) {
                                                 wardrakRegion.add(r.getNumber());
                                             }
                                         }
-                                        System.out.println("total"+ mRegion.size());
+                                        System.out.println("total" + mRegion.size());
                                         System.out.println("size" + gorRegion.size());
-                                        for(int i = 0; i <gorRegion.size();i++){
+                                        for (int i = 0; i < gorRegion.size(); i++) {
                                             gors.get(i).setVisibility(View.VISIBLE);
-                                            moveMonster(gors.get(i),gorRegion.get(i));
+                                            moveMonster(gors.get(i), gorRegion.get(i));
                                         }
-                                        for(int i = 0; i < skralRegion.size();i++){
+                                        for (int i = 0; i < skralRegion.size(); i++) {
                                             skrall.get(i).setVisibility((View.VISIBLE));
                                             moveMonster(skrall.get(i), skralRegion.get(i));
                                         }
-                                        for(int i = 0; i < wardrakRegion.size();i++){
+                                        for (int i = 0; i < wardrakRegion.size(); i++) {
                                             wardraks.get(i).setVisibility(View.VISIBLE);
-                                            moveMonster(wardraks.get(i),wardrakRegion.get(i));
+                                            moveMonster(wardraks.get(i), wardrakRegion.get(i));
                                         }
                                         //prince
-                                        if(myPlayer.getGame().getPrinceThorald() != null){
+                                        if (myPlayer.getGame().getPrinceThorald() != null) {
                                             displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
                                         }
                                         //witch
 
                                         Witch temp = myPlayer.getGame().getWitch();
-                                        if(temp!= null){
+                                        if (temp != null) {
                                             witch.setVisibility(View.VISIBLE);
                                             displayFarmer(witch, temp.getCurrentPosition());
-                                        }else{
+                                        } else {
                                             witch.setVisibility(View.INVISIBLE);
                                         }
 
                                         //narrators
                                         NarratorSpace narratorSpace = myPlayer.getGame().getNarrator().getSlot();
-                                        HashMap<NarratorSpace,Integer[]> narratorSpaceHashMap = myPlayer.getGame().getNarrator().getMap();
+                                        HashMap<NarratorSpace, Integer[]> narratorSpaceHashMap = myPlayer.getGame().getNarrator().getMap();
                                         Integer[] narratorCoor = narratorSpaceHashMap.get(narratorSpace);
                                         movePic(narrator, narratorCoor[0], narratorCoor[1]);
                                         //Update Wells
-                                        if(game.getRegionDatabase().getRegion(5).isFountainStatus())
-                                        {
+                                        if (game.getRegionDatabase().getRegion(5).isFountainStatus()) {
                                             wells.get(0).setVisibility(View.VISIBLE);
                                             emptyWells.get(0).setVisibility(View.INVISIBLE);
-                                        }else{
+                                        } else {
                                             wells.get(0).setVisibility(View.INVISIBLE);
                                             emptyWells.get(0).setVisibility(View.VISIBLE);
                                         }
-                                        if(game.getRegionDatabase().getRegion(35).isFountainStatus())
-                                        {
+                                        if (game.getRegionDatabase().getRegion(35).isFountainStatus()) {
                                             wells.get(1).setVisibility(View.VISIBLE);
                                             emptyWells.get(1).setVisibility(View.INVISIBLE);
-                                        }else{
+                                        } else {
                                             wells.get(1).setVisibility(View.INVISIBLE);
                                             emptyWells.get(1).setVisibility(View.VISIBLE);
                                         }
-                                        if(game.getRegionDatabase().getRegion(45).isFountainStatus())
-                                        {
+                                        if (game.getRegionDatabase().getRegion(45).isFountainStatus()) {
                                             wells.get(2).setVisibility(View.VISIBLE);
                                             emptyWells.get(2).setVisibility(View.INVISIBLE);
-                                        }else{
+                                        } else {
                                             wells.get(2).setVisibility(View.INVISIBLE);
                                             emptyWells.get(2).setVisibility(View.VISIBLE);
                                         }
-                                        if(game.getRegionDatabase().getRegion(55).isFountainStatus())
-                                        {
+                                        if (game.getRegionDatabase().getRegion(55).isFountainStatus()) {
                                             wells.get(3).setVisibility(View.VISIBLE);
                                             emptyWells.get(3).setVisibility(View.INVISIBLE);
-                                        }else{
+                                        } else {
                                             wells.get(3).setVisibility(View.INVISIBLE);
                                             emptyWells.get(3).setVisibility(View.VISIBLE);
                                         }
 
                                         //update fogs
                                         RegionDatabase r2 = game.getRegionDatabase();
-                                        for(int i=7; i<67; i++)
-                                        {
-                                            if(r2.getRegion(i).isFogRevealed()== true)
-                                            {
+                                        for (int i = 7; i < 67; i++) {
+                                            if (r2.getRegion(i).isFogRevealed() == true) {
                                                 fogs.get(i).setVisibility(View.INVISIBLE);
-                                            }
-                                            else {
-                                                if(fogs.get(i)!=null)
-                                                {
+                                            } else {
+                                                if (fogs.get(i) != null) {
                                                     fogs.get(i).setVisibility(View.VISIBLE);
                                                 }
-                                            };
+                                            }
+                                            ;
                                         }
 
-                                        if(game.getCurrentFight() != null){
-                                            for(Hero h : game.getCurrentFight().getPendingInvitedHeroes()){
-                                                if(h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
+                                        if (game.getCurrentFight() != null) {
+                                            for (Hero h : game.getCurrentFight().getPendingInvitedHeroes()) {
+                                                if (h.getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
                                                     realMove.setVisibility(View.INVISIBLE);
 //                                                    move.setVisibility(View.INVISIBLE);
                                                     fight.setVisibility(View.INVISIBLE);
@@ -978,73 +971,75 @@ public class Board extends AppCompatActivity {
                                                 }
                                             }
                                         }
-                                        if (game.getCurrentHero().getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
-                                            Toast.makeText(Board.this,"It is your turn", Toast.LENGTH_LONG).show();
+                                        if (game.getCurrentHero() != null && myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero() != null){
+                                            if (game.getCurrentHero().getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
+                                                Toast.makeText(Board.this, "It is your turn", Toast.LENGTH_LONG).show();
 //                                            Hero herom = myPlayer.getPlayer().getHero();
 //                                            Hero herog = myPlayer.getGame().getCurrentHero();
 //                                                System.out.println(herom.getHeroClass().toString()+" "+herom.getCurrentHour());
 //                                                System.out.println(herog.getHeroClass().toString()+" "+herog.getCurrentHour())  ;
-                                            Hero herog = myPlayer.getGame().getCurrentHero();
+                                                Hero herog = myPlayer.getGame().getCurrentHero();
 
-                                            if(herog.getCurrentHour()<10){
-                                                realMove.setVisibility(View.VISIBLE);
+                                                if (herog.getCurrentHour() < 10) {
+                                                    realMove.setVisibility(View.VISIBLE);
 
-                                            }else{
-                                                realMove.setVisibility(View.INVISIBLE);
-                                            }
+                                                } else {
+                                                    realMove.setVisibility(View.INVISIBLE);
+                                                }
 
 
 //                                            move.setVisibility(View.VISIBLE);
-                                            fight.setVisibility(View.VISIBLE);
-                                            pass.setVisibility(View.VISIBLE);
-                                            endDay.setVisibility(View.VISIBLE);
-                                            endMove.setVisibility(View.VISIBLE);
-                                            if(game.getPrinceThorald()!= null){
-                                                    if(princeflag == false){
+                                                fight.setVisibility(View.VISIBLE);
+                                                pass.setVisibility(View.VISIBLE);
+                                                endDay.setVisibility(View.VISIBLE);
+                                                endMove.setVisibility(View.VISIBLE);
+                                                if (game.getPrinceThorald() != null) {
+                                                    if (princeflag == false) {
 
-                                                        try{
+                                                        try {
                                                             AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
                                                             GetPrinceSender getPrinceSender = new GetPrinceSender();
                                                             GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
 
                                                             asyncTask2 = getPrinceSender.execute();
-                                                            GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask2.get();
+                                                            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
 
                                                             ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
-                                                            for(Integer i: availableMove){
-                                                                String temp1 = i+"";
+                                                            for (Integer i : availableMove) {
+                                                                String temp1 = i + "";
                                                                 adapterPrince.add(temp1);
                                                             }
                                                             adapterPrince.clear();
                                                             adapterPrince.notifyDataSetChanged();
                                                             princeRegions.setAdapter(adapterPrince);
-                                                        }catch(Exception e){
+                                                        } catch (Exception e) {
                                                             e.printStackTrace();
                                                         }
                                                     }
 
-                                                getDirectionPrince.setVisibility(View.VISIBLE);
-                                                endMovePrince.setVisibility(View.VISIBLE);
-                                                princeRegions.setVisibility(View.VISIBLE);
-                                            }else{
+                                                    getDirectionPrince.setVisibility(View.VISIBLE);
+                                                    endMovePrince.setVisibility(View.VISIBLE);
+                                                    princeRegions.setVisibility(View.VISIBLE);
+                                                } else {
+                                                    getDirectionPrince.setVisibility(View.INVISIBLE);
+                                                    endMovePrince.setVisibility(View.INVISIBLE);
+                                                    princeRegions.setVisibility(View.INVISIBLE);
+                                                }
+                                            } else {
+                                                realMove.setVisibility(View.INVISIBLE);
+//                                            move.setVisibility(View.INVISIBLE);
+                                                fight.setVisibility(View.INVISIBLE);
+                                                pass.setVisibility(View.INVISIBLE);
+                                                endDay.setVisibility(View.INVISIBLE);
+                                                endMove.setVisibility(View.INVISIBLE);
+//                                            confirmMovePrince.setVisibility(View.INVISIBLE);
                                                 getDirectionPrince.setVisibility(View.INVISIBLE);
                                                 endMovePrince.setVisibility(View.INVISIBLE);
                                                 princeRegions.setVisibility(View.INVISIBLE);
+
                                             }
-                                        }else{
-                                            realMove.setVisibility(View.INVISIBLE);
-//                                            move.setVisibility(View.INVISIBLE);
-                                            fight.setVisibility(View.INVISIBLE);
-                                            pass.setVisibility(View.INVISIBLE);
-                                            endDay.setVisibility(View.INVISIBLE);
-                                            endMove.setVisibility(View.INVISIBLE);
-//                                            confirmMovePrince.setVisibility(View.INVISIBLE);
-                                            getDirectionPrince.setVisibility(View.INVISIBLE);
-                                            endMovePrince.setVisibility(View.INVISIBLE);
-                                            princeRegions.setVisibility(View.INVISIBLE);
 
                                         }
-
                                     }
                                 }
                             });
