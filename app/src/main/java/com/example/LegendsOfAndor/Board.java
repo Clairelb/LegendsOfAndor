@@ -424,43 +424,43 @@ public class Board extends AppCompatActivity {
                     MovePrinceSender movePrinceSender = new MovePrinceSender();
                     asyncTaskp1 = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
 
-                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
-                    GetPrinceSender getPrinceSender = new GetPrinceSender();
-                    GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
-
-                    asyncTask = getPrinceSender.execute();
-                    GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask.get();
-
-                    ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
-                    for(Integer i: availableMove){
-                        String temp = i+"";
-                        adapterPrince.add(temp);
-                    }
-                    adapterPrince.clear();
-                    adapterPrince.notifyDataSetChanged();
-                    princeRegions.setAdapter(adapterPrince);
-
-
-
-                    getPrinceThoraldMovesResponses = princeAvailableRegion.getGetPrinceThoraldMovesResponses();
-
-                    if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_FIGHT){
-                        Toast.makeText(Board.this, "Error. You cannot move the prince after fighting.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_MOVE){
-                        Toast.makeText(Board.this, "Error. You cannot move the prince after moving.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.PRINCE_DNE){
-                        Toast.makeText(Board.this, "Error. The Prince DNE.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CURRENT_HOUR_MAXED){
-                        Toast.makeText(Board.this, "You have already reached the maximum hour and can't move futher.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.DEDUCT_WILLPOWER){
-                        Toast.makeText(Board.this, "You have already used up all normal hour, will power is deducted.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_CURRENT_TURN) {
-                        Toast.makeText(Board.this, "You are not in the current turn.", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_ENOUGH_WILLPOWER){
-                        Toast.makeText(Board.this, "You don't have enought Will power", Toast.LENGTH_LONG).show();
-                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.SUCCESS){
-                        Toast.makeText(Board.this, "Move successfully", Toast.LENGTH_LONG).show();
-                    }
+//                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
+//                    GetPrinceSender getPrinceSender = new GetPrinceSender();
+//                    GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+//
+//                    asyncTask = getPrinceSender.execute();
+//                    GetPrinceThoraldMovesRC princeAvailableRegion =asyncTask.get();
+//
+//                    ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+//                    for(Integer i: availableMove){
+//                        String temp = i+"";
+//                        adapterPrince.add(temp);
+//                    }
+//                    adapterPrince.clear();
+//                    adapterPrince.notifyDataSetChanged();
+//                    princeRegions.setAdapter(adapterPrince);
+//
+//
+//
+//                    getPrinceThoraldMovesResponses = princeAvailableRegion.getGetPrinceThoraldMovesResponses();
+//
+//                    if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_FIGHT){
+//                        Toast.makeText(Board.this, "Error. You cannot move the prince after fighting.", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CANNOT_MOVE_PRINCE_AFTER_MOVE){
+//                        Toast.makeText(Board.this, "Error. You cannot move the prince after moving.", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.PRINCE_DNE){
+//                        Toast.makeText(Board.this, "Error. The Prince DNE.", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.CURRENT_HOUR_MAXED){
+//                        Toast.makeText(Board.this, "You have already reached the maximum hour and can't move futher.", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.DEDUCT_WILLPOWER){
+//                        Toast.makeText(Board.this, "You have already used up all normal hour, will power is deducted.", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_CURRENT_TURN) {
+//                        Toast.makeText(Board.this, "You are not in the current turn.", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.NOT_ENOUGH_WILLPOWER){
+//                        Toast.makeText(Board.this, "You don't have enought Will power", Toast.LENGTH_LONG).show();
+//                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.SUCCESS){
+//                        Toast.makeText(Board.this, "Move successfully", Toast.LENGTH_LONG).show();
+//                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -726,7 +726,16 @@ public class Board extends AppCompatActivity {
         if (myPlayer.getGame().getPrinceThorald() != null) {
             displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
             prince.setVisibility(View.VISIBLE);
+            if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+                getDirectionPrince.setVisibility(View.VISIBLE);
+                endMovePrince.setVisibility(View.VISIBLE);
+                princeRegions.setVisibility(View.VISIBLE);
+            }
 
+        }else {
+            getDirectionPrince.setVisibility(View.INVISIBLE);
+            endMovePrince.setVisibility(View.INVISIBLE);
+            princeRegions.setVisibility(View.INVISIBLE);
         }
 
         try {
@@ -738,13 +747,12 @@ public class Board extends AppCompatActivity {
             GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
             System.out.println("executed");
             Log.d("executed", princeAvailableRegion.getGetPrinceThoraldMovesResponses().toString());
-
+            adapterPrince.clear();
             ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
             for (Integer i : availableMove) {
                 String temp1 = i + "";
                 adapterPrince.add(temp1);
             }
-            adapterPrince.clear();
             adapterPrince.notifyDataSetChanged();
             princeRegions.setAdapter(adapterPrince);
         } catch (Exception e) {
@@ -1022,28 +1030,28 @@ public class Board extends AppCompatActivity {
                                                 endDay.setVisibility(View.VISIBLE);
                                                 endMove.setVisibility(View.VISIBLE);
                                                 if (game.getPrinceThorald() != null) {
-                                                    if (princeflag == false) {
-                                                        princeflag =true;
-//                                                        try {
-//                                                            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
-//                                                            GetPrinceSender getPrinceSender = new GetPrinceSender();
-//                                                            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
-//
-//                                                            asyncTask2 = getPrinceSender.execute();
-//                                                            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
-//
-//                                                            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
-//                                                            for (Integer i : availableMove) {
-//                                                                String temp1 = i + "";
-//                                                                adapterPrince.add(temp1);
-//                                                            }
-//                                                            adapterPrince.clear();
-//                                                            adapterPrince.notifyDataSetChanged();
-//                                                            princeRegions.setAdapter(adapterPrince);
-//                                                        } catch (Exception e) {
-//                                                            e.printStackTrace();
-//                                                        }
-                                                    }
+
+                                                        try {
+                                                            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
+                                                            GetPrinceSender getPrinceSender = new GetPrinceSender();
+                                                            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+
+                                                            asyncTask2 = getPrinceSender.execute();
+                                                            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
+
+                                                            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+                                                            adapterPrince.clear();
+                                                            for (Integer i : availableMove) {
+                                                                String temp1 = i + "";
+                                                                adapterPrince.add(temp1);
+                                                            }
+
+                                                            adapterPrince.notifyDataSetChanged();
+                                                            princeRegions.setAdapter(adapterPrince);
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+
 
                                                     getDirectionPrince.setVisibility(View.VISIBLE);
                                                     endMovePrince.setVisibility(View.VISIBLE);
