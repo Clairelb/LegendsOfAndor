@@ -48,6 +48,7 @@ public class UseArticle extends AppCompatActivity {
             for(int i = 0; i < gameToSet.getCurrentNumPlayers(); i++){
                 if(gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())){
                     myPlayer.setPlayer(gameToSet.getPlayers()[i]);
+                    myPlayer.getPlayer().getHero().setItems(gameToSet.getPlayers()[i].getHero().getItems());
                 }
             }
         }catch (Exception e){
