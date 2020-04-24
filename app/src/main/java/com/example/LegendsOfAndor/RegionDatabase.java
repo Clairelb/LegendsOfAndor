@@ -348,7 +348,6 @@ public class RegionDatabase {
                 System.out.println("!!!!!!" + i);
             }
 
-
             if (i == 0) {
                 regionDatabase.get(8).setFog(fog);
             } else if (i == 1) {

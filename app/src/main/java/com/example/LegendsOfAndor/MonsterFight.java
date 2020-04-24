@@ -363,7 +363,11 @@ public class MonsterFight extends AppCompatActivity {
                 for (int j = 0; j < fight.getWarriorDice().size(); j++) {
                     Integer dieValue = fight.getWarriorDice().get(j);
 
-                    if (dieValue == 0) {
+                    if (dieValue == -1) { // empty black die
+                        class_id = "black_dice";
+                    } else if (dieValue >= 8) { // black die
+                        class_id = "black_dice_" + dieValue;
+                    } else if (dieValue == 0) {
                         class_id = "warrior_dice";
                     } else {
                         class_id = "warrior_dice_" + dieValue;
@@ -389,7 +393,11 @@ public class MonsterFight extends AppCompatActivity {
                 String class_id;
                 for (int j = 0; j < fight.getArcherDice().size(); j++) {
                     Integer dieValue = fight.getArcherDice().get(j);
-                    if (dieValue == 0) {
+                    if (dieValue == -1) { // empty black die
+                        class_id = "black_dice";
+                    } else if (dieValue >= 8) { // black die
+                        class_id = "black_dice_" + dieValue;
+                    } else if (dieValue == 0) {
                         class_id = "archer_dice";
                     } else {
                         class_id = "archer_dice_" + dieValue;
@@ -416,7 +424,11 @@ public class MonsterFight extends AppCompatActivity {
                 for (int j = 0; j < fight.getDwarfDice().size(); j++) {
                     Integer dieValue = fight.getDwarfDice().get(j);
 
-                    if (dieValue == 0) {
+                    if (dieValue == -1) { // empty black die
+                        class_id = "black_dice";
+                    } else if (dieValue >= 8) { // black die
+                        class_id = "black_dice_" + dieValue;
+                    } else if (dieValue == 0) {
                         class_id = "dwarf_dice";
                     } else {
                         class_id = "dwarf_dice_" + dieValue;
@@ -443,7 +455,11 @@ public class MonsterFight extends AppCompatActivity {
                 for (int j = 0; j < fight.getWizardDice().size(); j++) {
                     Integer dieValue = fight.getWizardDice().get(j);
 
-                    if (dieValue == 0) {
+                    if (dieValue == -1) { // empty black die
+                        class_id = "black_dice";
+                    } else if (dieValue >= 8) { // black die
+                        class_id = "black_dice_" + dieValue;
+                    } else if (dieValue == 0) {
                         class_id = "wizard_dice";
                     } else {
                         class_id = "wizard_dice_" + dieValue;
@@ -670,7 +686,12 @@ public class MonsterFight extends AppCompatActivity {
                                                     for (int j = 0; j < fight.getWarriorDice().size(); j++) {
                                                         Integer dieValue = fight.getWarriorDice().get(j);
 
-                                                        if (dieValue == 0) {
+
+                                                        if (dieValue == -1) { // empty black die
+                                                            class_id = "black_dice";
+                                                        } else if (dieValue >= 8) { // black die
+                                                            class_id = "black_dice_" + dieValue;
+                                                        } else if (dieValue == 0) {
                                                             class_id = "warrior_dice";
                                                         } else {
                                                             class_id = "warrior_dice_" + dieValue;
@@ -696,7 +717,11 @@ public class MonsterFight extends AppCompatActivity {
                                                     String class_id;
                                                     for (int j = 0; j < fight.getArcherDice().size(); j++) {
                                                         Integer dieValue = fight.getArcherDice().get(j);
-                                                        if (dieValue == 0) {
+                                                        if (dieValue == -1) { // empty black die
+                                                            class_id = "black_dice";
+                                                        } else if (dieValue >= 8) { // black die
+                                                            class_id = "black_dice_" + dieValue;
+                                                        } else if (dieValue == 0) {
                                                             class_id = "archer_dice";
                                                         } else {
                                                             class_id = "archer_dice_" + dieValue;
@@ -723,7 +748,11 @@ public class MonsterFight extends AppCompatActivity {
                                                     for (int j = 0; j < fight.getDwarfDice().size(); j++) {
                                                         Integer dieValue = fight.getDwarfDice().get(j);
 
-                                                        if (dieValue == 0) {
+                                                        if (dieValue == -1) { // empty black die
+                                                            class_id = "black_dice";
+                                                        } else if (dieValue >= 8) { // black die
+                                                            class_id = "black_dice_" + dieValue;
+                                                        } else if (dieValue == 0) {
                                                             class_id = "dwarf_dice";
                                                         } else {
                                                             class_id = "dwarf_dice_" + dieValue;
@@ -750,7 +779,11 @@ public class MonsterFight extends AppCompatActivity {
                                                     for (int j = 0; j < fight.getWizardDice().size(); j++) {
                                                         Integer dieValue = fight.getWizardDice().get(j);
 
-                                                        if (dieValue == 0) {
+                                                        if (dieValue == -1) { // empty black die
+                                                            class_id = "black_dice";
+                                                        } else if (dieValue >= 8) { // black die
+                                                            class_id = "black_dice_" + dieValue;
+                                                        } else if (dieValue == 0) {
                                                             class_id = "wizard_dice";
                                                         } else {
                                                             class_id = "wizard_dice_" + dieValue;
