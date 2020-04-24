@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class OptionsTab extends AppCompatActivity {
     private Button savegameb;
     private Button leavegameb;
     private MyPlayer myPlayer;
+    private TextView livesLeft;
 
     @Override
     public void onBackPressed(){}
@@ -54,6 +56,9 @@ public class OptionsTab extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+
+        livesLeft = findViewById(R.id.livesLeft);
+        livesLeft.setText("LIVES LEFT: " + myPlayer.getGame().getGoldenShields());
 
         actionsb = findViewById(R.id.actionsb);
 
