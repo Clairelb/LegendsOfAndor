@@ -233,7 +233,7 @@ public class MonsterFight extends AppCompatActivity {
         } else if (creatureType == CreatureType.TROLL) { // if creatureType == CreatureType.TROLL
             currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("troll", "drawable", getApplicationContext())));
         } else { //if creatureType == CreatureType.Skral_boss
-            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("skrall_boss", "drawable", getApplicationContext())));
+            currentCreatureIV.setImageDrawable(getResources().getDrawable(getResourceID("skral_boss", "drawable", getApplicationContext())));
         }
 
         //Adds information for participating players, making their profiles visible
