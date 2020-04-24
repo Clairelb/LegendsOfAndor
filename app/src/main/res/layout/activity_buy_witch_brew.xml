@@ -63,7 +63,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/to_board"
+        android:id="@+id/to_board_legend_card_witch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TO BOARD"

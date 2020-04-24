@@ -40,7 +40,7 @@ public class BuyWitchBrew extends AppCompatActivity {
         priceTV = findViewById(R.id.buy_witch_brew_price);
         quantitySpinner = findViewById(R.id.buy_witch_brew_spinner);
         purchaseBTN = findViewById(R.id.buy_witch_brew_purchase_button);
-        toBoardBTN = findViewById(R.id.to_board_the_witch);
+        toBoardBTN = findViewById(R.id.to_board_legend_card_witch);
 
         if (game.getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass() == HeroClass.ARCHER) {
             price = game.getWitch().getCostOfWitchBrewArcher();

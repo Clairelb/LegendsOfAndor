@@ -31,7 +31,7 @@ public class LegendCardTheWitch extends AppCompatActivity {
         setContentView(R.layout.activity_legend_card_the_witch);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        toBoard = findViewById(R.id.to_board_the_witch);
+        toBoard = findViewById(R.id.to_board_legend_card_witch);
         rollDie = findViewById(R.id.roll_die_the_witch);
         heroDieIV = findViewById(R.id.hero_die_the_witch);
         heroDie = new Die(DieType.REGULAR_DIE);
