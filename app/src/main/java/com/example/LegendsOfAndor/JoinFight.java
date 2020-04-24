@@ -46,6 +46,13 @@ public class JoinFight extends AppCompatActivity {
         declineFight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+                    DeclineFightInvitationSender declineFightInvitationSender = new DeclineFightInvitationSender();
+                    declineFightInvitationSender.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 startActivity(new Intent(JoinFight.this, Board.class));
                 finish();
             }
@@ -59,6 +66,21 @@ public class JoinFight extends AppCompatActivity {
 
             try {
                 Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/joinFight")
+                        .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class DeclineFightInvitationSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+
+            try {
+                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/declineFightInvitation")
                         .asString();
             } catch (UnirestException e) {
                 e.printStackTrace();
