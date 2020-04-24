@@ -53,16 +53,39 @@
         android:src="@drawable/e5"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="42dp"
-        tools:layout_editor_absoluteY="-58dp" />
+        tools:layout_editor_absoluteY="-45dp" />
 
     <Button
-        android:id="@+id/back"
+        android:id="@+id/backAndAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text=" Accept the event and go back to board"
+        android:layout_marginBottom="16dp"
+        android:text=" Accept the event"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <Button
+        android:id="@+id/useShield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Use your shield to reject the event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.903"
+        app:layout_constraintStart_toStartOf="parent"></Button>
+
+    <Button
+        android:id="@+id/backToBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="344dp"
+        android:text="Back to board"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.91"
         app:layout_constraintStart_toStartOf="parent"></Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

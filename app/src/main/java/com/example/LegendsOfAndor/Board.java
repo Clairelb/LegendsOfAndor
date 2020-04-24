@@ -31,6 +31,7 @@ import org.w3c.dom.Text;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 enum PassResponses {
@@ -149,6 +150,15 @@ public class Board extends AppCompatActivity {
             Intent intent = new Intent(Board.this, BuyWitchBrewOptions.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             interruptThreadAndStartActivity(intent);
+        }
+
+        if (myPlayer.getGame().getFoundEvent()>=0 && myPlayer.getGame().getFoundEvent()<=4) {
+
+            Intent intent = new Intent(Board.this, EventCard.class);
+            intent.putExtra("EventID", myPlayer.getGame().getFoundEvent());
+            myPlayer.getGame().setFoundEvent(-1);
+            interruptThreadAndStartActivity(intent);
+
         }
 
 
@@ -846,6 +856,15 @@ public class Board extends AppCompatActivity {
                                             }
                                         }
 
+                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=4) {
+
+                                                Intent intent = new Intent(Board.this, EventCard.class);
+                                                intent.putExtra("EventID",game.getFoundEvent());
+                                                game.setFoundEvent(-1);
+                                                interruptThreadAndStartActivity(intent);
+
+                                        }
+
 
                                         if (game.getNarrator().getSlot() == NarratorSpace.C) {
                                             if (!myPlayer.isLegendCardCDisplayed()) {
@@ -1379,9 +1398,13 @@ public class Board extends AppCompatActivity {
                                     Toast.makeText(Board.this, "Two willpower points added.", Toast.LENGTH_LONG).show();
                                 } else if (f == FogKind.EVENT) {
                                     //Event card
-                                    Intent intent = new Intent(Board.this, EventCard.class);
-                                    interruptThreadAndStartActivity(intent);
-                                    finish();
+                                    Toast.makeText(Board.this, "An event will be activated.", Toast.LENGTH_LONG).show();
+                                    try {
+                                        FoundEventSender foundEventSender = new FoundEventSender();
+                                        foundEventSender.execute("");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                         } catch (Exception e) {
@@ -1765,6 +1788,25 @@ public class Board extends AppCompatActivity {
 
             try {
                 Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/foundWitch")
+                        .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class FoundEventSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            Random random = new Random();
+            int r = random.nextInt(5 - 0);
+
+            try {
+                Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/foundEvent")
+                        .header("Content-Type", "application/json")
+                        .body(new Gson().toJson(r))
                         .asString();
             } catch (UnirestException e) {
                 e.printStackTrace();

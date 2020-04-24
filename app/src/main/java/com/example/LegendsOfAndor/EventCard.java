@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 //import com.example.androidchat.R;
@@ -49,19 +50,75 @@ public class EventCard extends AppCompatActivity {
 
         ImageView[] EventCards = {ec1, ec2, ec3, ec4, ec5};
 
-        Random random = new Random();
-        int r = random.nextInt(5 - 0);
+        Intent myIntent = getIntent();
+        final int r = myIntent.getIntExtra("EventID",-1);
 
         EventCards[r].setVisibility(View.VISIBLE);
 
-        ActivateEventSender activateEventSender = new ActivateEventSender();
-        activateEventSender.execute(new Gson().toJson(r));
 
+        Button backAndAccept = (Button) findViewById(R.id.backAndAccept);
+        Button backToBoard = (Button) findViewById(R.id.backToBoard);
+        Button useShield = (Button) findViewById(R.id.useShield);
 
-        Button back = (Button) findViewById(R.id.back);
-        back.setOnClickListener(new View.OnClickListener() {
+        backAndAccept.setVisibility(View.INVISIBLE);
+        backToBoard.setVisibility(View.INVISIBLE);
+        useShield.setVisibility(View.INVISIBLE);
+
+       if(r==0||r==3)
+       {
+           backAndAccept.setVisibility(View.VISIBLE);
+       }
+       else{
+           MyPlayer myPlayer = MyPlayer.getInstance();
+           ArrayList<Item> myItems = myPlayer.getPlayer().getHero().getItems();
+           boolean checkShield = false;
+           for(int i=0; i<myItems.size(); i++)
+           {
+               if(myItems.get(i).getItemType()==ItemType.SHIELD)
+               {
+                   backAndAccept.setVisibility(View.VISIBLE);
+                   useShield.setVisibility(View.VISIBLE);
+                   checkShield = true;
+               }
+               break;
+           }
+           if(!checkShield)
+           {
+               backToBoard.setVisibility(View.VISIBLE);
+           }
+
+       }
+
+        backAndAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    ActivateEventSender activateEventSender = new ActivateEventSender();
+                    activateEventSender.execute(new Gson().toJson(r));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Intent intent = new Intent(EventCard.this, Board.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        backToBoard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(EventCard.this, Board.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        useShield.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
                 Intent intent = new Intent(EventCard.this, Board.class);
                 startActivity(intent);
                 finish();
@@ -76,6 +133,7 @@ public class EventCard extends AppCompatActivity {
 
             try {
                  Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateEvent")
+                         .header("Content-Type", "application/json")
                          .body(strings[0])
                          .asString();
             } catch (UnirestException e) {
