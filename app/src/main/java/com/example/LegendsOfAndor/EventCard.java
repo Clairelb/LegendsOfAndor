@@ -64,12 +64,31 @@ public class EventCard extends AppCompatActivity {
         backToBoard.setVisibility(View.INVISIBLE);
         useShield.setVisibility(View.INVISIBLE);
 
-       if(r==0||r==3)
+        boolean checkGroupShield = false;
+        MyPlayer myPlayer = MyPlayer.getInstance();
+        Player[] players = myPlayer.getGame().getPlayers();
+        for(int i=0; i<players.length; i++)
+        {
+            if (players[i].getHero() != null) {
+                ArrayList<Item> heroItems = players[i].getHero().getItems();
+                for(int j=0; j<heroItems.size(); j++)
+                {
+                    if(heroItems.get(j).getItemType()==ItemType.SHIELD)
+                    {
+                        checkGroupShield = true;
+                        break;
+                    }
+                }
+
+            }
+            if(checkGroupShield){ break;}
+        }
+
+       if(r==0||r==3||!checkGroupShield)
        {
            backAndAccept.setVisibility(View.VISIBLE);
        }
        else{
-           MyPlayer myPlayer = MyPlayer.getInstance();
            ArrayList<Item> myItems = myPlayer.getPlayer().getHero().getItems();
            boolean checkShield = false;
            for(int i=0; i<myItems.size(); i++)
@@ -115,9 +134,18 @@ public class EventCard extends AppCompatActivity {
             }
         });
 
+        //need go to server change foundEvent to -1
+        //need to mark the shield as used
         useShield.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                try {
+                    RejectEventSender rejectEventSender = new RejectEventSender();
+                    rejectEventSender.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 Intent intent = new Intent(EventCard.this, Board.class);
                 startActivity(intent);
@@ -132,10 +160,25 @@ public class EventCard extends AppCompatActivity {
             MyPlayer myPlayer = MyPlayer.getInstance();
 
             try {
-                 Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateEvent")
-                         .header("Content-Type", "application/json")
-                         .body(strings[0])
-                         .asString();
+                Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateEvent")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class RejectEventSender extends AsyncTask<String, Void, Void> {
+        @Override
+        protected Void doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+
+            try {
+                Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/rejectEvent")
+                        .asString();
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
