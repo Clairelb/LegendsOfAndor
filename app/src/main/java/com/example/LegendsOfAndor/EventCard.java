@@ -142,7 +142,7 @@ public class EventCard extends AppCompatActivity {
 
                 try {
                     RejectEventSender rejectEventSender = new RejectEventSender();
-                    rejectEventSender.execute();
+                    rejectEventSender.execute("");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
