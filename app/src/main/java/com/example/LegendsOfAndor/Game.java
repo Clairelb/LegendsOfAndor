@@ -33,6 +33,7 @@ public class Game  {
     private boolean gameLoaded;
     private boolean foundWitch;
     private boolean leftGame;
+    private int foundEvent;
 
     public Game() {}
 
@@ -55,6 +56,7 @@ public class Game  {
         this.gameStatus = GameStatus.IN_PROGRESS;
         this.narrator = new Narrator();
         gameLoaded = false;
+        this.foundEvent = -1;
     }
 
     public int getMaxNumPlayers() {
@@ -296,6 +298,14 @@ public class Game  {
 
     public void setFoundWitch(boolean foundWitch) {
         this.foundWitch = foundWitch;
+    }
+
+    public int getFoundEvent() {
+        return foundEvent;
+    }
+
+    public void setFoundEvent(int foundEvent) {
+        this.foundEvent = foundEvent;
     }
 
     public boolean isLeftGame() {
