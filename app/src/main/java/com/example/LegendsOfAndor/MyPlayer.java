@@ -23,6 +23,7 @@ public class MyPlayer {
     private ArrayList<Integer> rollBowValues = new ArrayList<>();
     private ArrayList<Die> creatureDice = new ArrayList<>();
     private ArrayList<Hero> fightDistributionHeroes = new ArrayList<>();
+    private NarratorSpace currentNarratorSpace = NarratorSpace.A;
 
     public void setPlayer(Player p) {
         player = p;
@@ -184,5 +185,13 @@ public class MyPlayer {
 
     public void setFightDistributionHeroes(ArrayList<Hero> fightDistributionHeroes) {
         this.fightDistributionHeroes = fightDistributionHeroes;
+    }
+
+    public NarratorSpace getCurrentNarratorSpace() {
+        return currentNarratorSpace;
+    }
+
+    public void setCurrentNarratorSpace(NarratorSpace currentNarratorSpace) {
+        this.currentNarratorSpace = currentNarratorSpace;
     }
 }

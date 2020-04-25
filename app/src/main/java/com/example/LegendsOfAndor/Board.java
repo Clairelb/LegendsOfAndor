@@ -824,8 +824,6 @@ public class Board extends AppCompatActivity {
 
 
 
-
-
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
             public void run() {
@@ -929,6 +927,38 @@ public class Board extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
+                                        if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+                                            // host starts event card and send to server
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+                                            //!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+                                            myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
+                                        }
+
+
                                         for (int i = 0; i < game.getCurrentNumPlayers(); i++) {
                                             //DRAW PLAYERS HERE
                                             Hero h = game.getPlayers()[i].getHero();
