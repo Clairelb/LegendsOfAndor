@@ -436,6 +436,22 @@ public class Board extends AppCompatActivity {
                     MovePrinceSender movePrinceSender = new MovePrinceSender();
                     asyncTaskp1 = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
 
+                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
+                    GetRegionsSender getRegionsSender = new GetRegionsSender();
+
+                    asyncTask1 = getRegionsSender.execute();
+                    GetAvailableRegionsRC availableRegions = asyncTask1.get();
+                    Log.d("REGION", availableRegions.getResponse().toString());
+
+                    adapter.clear();
+
+                    ArrayList<Integer> available = availableRegions.getRegions();
+                    for(Integer i: available){
+                        adapter.add(i.toString());
+                    }
+                    adapter.notifyDataSetChanged();
+                    sp.setAdapter(adapter);
+
 //                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
 //                    GetPrinceSender getPrinceSender = new GetPrinceSender();
 //                    GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
@@ -473,6 +489,9 @@ public class Board extends AppCompatActivity {
 //                    }else if(getPrinceThoraldMovesResponses == GetPrinceThoraldMovesResponses.SUCCESS){
 //                        Toast.makeText(Board.this, "Move successfully", Toast.LENGTH_LONG).show();
 //                    }
+
+
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
