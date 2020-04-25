@@ -1023,11 +1023,16 @@ public class MonsterFight extends AppCompatActivity {
                     try {
                         GetDiceSender getDiceSender = new GetDiceSender();
                         asyncTask = getDiceSender.execute();
-                        myPlayer.setMyDice(asyncTask.get());
 
-                        myPlayer.getRollBowValues().clear();
-                        for (int i = 0; i < myPlayer.getMyDice().size(); i++) {
-                            myPlayer.getRollBowValues().add(0);
+                        if (asyncTask.get().size() == 0) {
+                            Toast.makeText(MonsterFight.this, "Error. If you start a battle round now, you will go overtime and you do not have enough willpower. Please press surrender.", Toast.LENGTH_LONG).show();
+                        } else {
+                            myPlayer.setMyDice(asyncTask.get());
+
+                            myPlayer.getRollBowValues().clear();
+                            for (int i = 0; i < myPlayer.getMyDice().size(); i++) {
+                                myPlayer.getRollBowValues().add(0);
+                            }
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
