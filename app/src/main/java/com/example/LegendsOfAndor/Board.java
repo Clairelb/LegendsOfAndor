@@ -152,14 +152,7 @@ public class Board extends AppCompatActivity {
             interruptThreadAndStartActivity(intent);
         }
 
-        if (myPlayer.getGame().getFoundEvent()>=0 && myPlayer.getGame().getFoundEvent()<=4) {
-
-            Intent intent = new Intent(Board.this, EventCard.class);
-            intent.putExtra("EventID", myPlayer.getGame().getFoundEvent());
-            myPlayer.getGame().setFoundEvent(-1);
-            interruptThreadAndStartActivity(intent);
-
-        }
+        //previous found event
 
 
         farmers.add((ImageView)findViewById(R.id.farmer0));
@@ -823,33 +816,24 @@ public class Board extends AppCompatActivity {
         }
 
         if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-            // host starts event card and send to server
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!
-
+            //foundEvent for a new day
+            try {
+                FoundEventSender foundEventSender = new FoundEventSender();
+                foundEventSender.execute("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
             myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
+        }
+
+        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=4) {
+
+            Intent intent = new Intent(Board.this, EventCard.class);
+            intent.putExtra("EventID", currentGame.getFoundEvent());
+            currentGame.setFoundEvent(-1);
+            interruptThreadAndStartActivity(intent);
+
         }
 
 
@@ -903,15 +887,6 @@ public class Board extends AppCompatActivity {
                                             }
                                         }
 
-                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=4) {
-
-                                                Intent intent = new Intent(Board.this, EventCard.class);
-                                                intent.putExtra("EventID",game.getFoundEvent());
-                                                game.setFoundEvent(-1);
-                                                interruptThreadAndStartActivity(intent);
-
-                                        }
-
 
                                         if (game.getNarrator().getSlot() == NarratorSpace.C) {
                                             if (!myPlayer.isLegendCardCDisplayed()) {
@@ -959,33 +934,23 @@ public class Board extends AppCompatActivity {
                                         }
 
                                         if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-                                            // host starts event card and send to server
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-                                            //!!!!!!!!!!!!!!!!!!!!!!!!
-
-
+                                            // foundEvent for a new day
+                                            try {
+                                                FoundEventSender foundEventSender = new FoundEventSender();
+                                                foundEventSender.execute("");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
                                             myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
+                                        }
+
+                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=4) {
+
+                                            Intent intent = new Intent(Board.this, EventCard.class);
+                                            intent.putExtra("EventID",game.getFoundEvent());
+                                            game.setFoundEvent(-1);
+                                            interruptThreadAndStartActivity(intent);
+
                                         }
 
 
