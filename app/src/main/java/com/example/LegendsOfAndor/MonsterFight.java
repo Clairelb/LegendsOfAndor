@@ -999,6 +999,12 @@ public class MonsterFight extends AppCompatActivity {
                     } else {
                         Toast.makeText(MonsterFight.this, "Going back to the board...", Toast.LENGTH_LONG).show();
                         threadInterrupted = true;
+
+                        myPlayer.setUsedGetDice(false);
+                        myPlayer.setUsedRollDice(false);
+                        myPlayer.setUsedGetCreatureDice(false);
+                        myPlayer.setUsedRollCreatureDice(false);
+
                         startActivity(new Intent(MonsterFight.this, Board.class));
                     }
                 } catch (Exception e) {
@@ -1277,6 +1283,11 @@ public class MonsterFight extends AppCompatActivity {
         if (!leaveExecuted) {
             threadInterrupted = true;
 
+            myPlayer.setUsedGetDice(false);
+            myPlayer.setUsedRollDice(false);
+            myPlayer.setUsedGetCreatureDice(false);
+            myPlayer.setUsedRollCreatureDice(false);
+
             try {
                 LeaveFightSender leaveFightSender = new LeaveFightSender();
                 leaveFightSender.execute("");
@@ -1302,6 +1313,11 @@ public class MonsterFight extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            myPlayer.setUsedGetDice(false);
+            myPlayer.setUsedRollDice(false);
+            myPlayer.setUsedGetCreatureDice(false);
+            myPlayer.setUsedRollCreatureDice(false);
 
             Intent myIntent = new Intent(MonsterFight.this, DistributeItemsFight.class);
             myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
