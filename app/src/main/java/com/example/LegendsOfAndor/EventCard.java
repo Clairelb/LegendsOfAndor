@@ -79,17 +79,16 @@ public class EventCard extends AppCompatActivity {
                         break;
                     }
                 }
-
             }
             if(checkGroupShield){ break;}
         }
 
-       if(r==0||r==3||!checkGroupShield)
+       if(r==0||r==3||checkGroupShield==false)
        {
            backAndAccept.setVisibility(View.VISIBLE);
        }
        else{
-           ArrayList<Item> myItems = myPlayer.getPlayer().getHero().getItems();
+           ArrayList<Item> myItems = myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getItems();
            boolean checkShield = false;
            for(int i=0; i<myItems.size(); i++)
            {
@@ -98,9 +97,10 @@ public class EventCard extends AppCompatActivity {
                    backAndAccept.setVisibility(View.VISIBLE);
                    useShield.setVisibility(View.VISIBLE);
                    checkShield = true;
+                   break;
                }
-               break;
            }
+
            if(!checkShield)
            {
                backToBoard.setVisibility(View.VISIBLE);
