@@ -153,6 +153,18 @@ public class MonsterFight extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_monster_fight);
 //        final HeroClass myPlayer.getGame().getCurrentFight().getHeroes().get(i).getHeroClass() = myPlayer.getPlayer().getHero().getHeroClass();
+
+        try{
+            AsyncTask<String, Void, Game> asyncTask;
+            Game gameToSet;
+            GetGame getGame = new GetGame();
+            asyncTask = getGame.execute();
+            gameToSet = asyncTask.get();
+            myPlayer.setGame(gameToSet);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         final Hero playerHero = myPlayer.getPlayer().getHero();
 
 //        final int currentIndex = myPlayer.getGame().getCurrentFight().getHeroes().indexOf(playerHero);
@@ -1342,6 +1354,26 @@ public class MonsterFight extends AppCompatActivity {
         }
         else {
             return ResourceID;
+        }
+    }
+
+    private static class GetGame extends AsyncTask<String, Void, Game > {
+        @Override
+        protected Game doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameByUsername")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                System.out.println("RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, Game.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 
