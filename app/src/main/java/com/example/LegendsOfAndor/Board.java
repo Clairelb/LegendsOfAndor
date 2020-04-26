@@ -598,6 +598,7 @@ public class Board extends AppCompatActivity {
         if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
             Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
             Hero herog = myPlayer.getGame().getCurrentHero();
+            pass.setVisibility(View.VISIBLE);
 
             if(herog.getCurrentHour()<10){
                 realMove.setVisibility(View.VISIBLE);
@@ -605,9 +606,16 @@ public class Board extends AppCompatActivity {
             }else{
                 realMove.setVisibility(View.INVISIBLE);
             }
+            if(herog.getCurrentHour()>=7 && herog.getWillPower() <2){
+                realMove.setVisibility(View.INVISIBLE);
+                pass.setVisibility(View.INVISIBLE);
+                getDirectionPrince.setVisibility(View.INVISIBLE);
+                endMovePrince.setVisibility(View.INVISIBLE);
+
+            }
 //            move.setVisibility(View.VISIBLE);
             fight.setVisibility(View.VISIBLE);
-            pass.setVisibility(View.VISIBLE);
+//            pass.setVisibility(View.VISIBLE);
             endDay.setVisibility(View.VISIBLE);
             endMove.setVisibility(View.VISIBLE);
 
@@ -628,9 +636,11 @@ public class Board extends AppCompatActivity {
             if(h.isHasEndedDay())
             {
                 moveHeroTime(h, hourLocation.get(0)[0],hourLocation.get(0)[1]);
-            }else{
+            }else if (h.getCurrentHour() <= 10){
                 int time = h.getCurrentHour();
                 moveHeroTime(h, hourLocation.get(time)[0],hourLocation.get(time)[1]);
+            }else {
+                System.out.println("already 10 hour");
             }
         }
 
@@ -765,9 +775,17 @@ public class Board extends AppCompatActivity {
             displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
             prince.setVisibility(View.VISIBLE);
             if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
-                getDirectionPrince.setVisibility(View.VISIBLE);
-                endMovePrince.setVisibility(View.VISIBLE);
-                princeRegions.setVisibility(View.VISIBLE);
+
+                if(myPlayer.getPlayer().getHero().getCurrentHour() <7){
+                    getDirectionPrince.setVisibility(View.VISIBLE);
+                    endMovePrince.setVisibility(View.VISIBLE);
+                    princeRegions.setVisibility(View.VISIBLE);
+                }
+                if(myPlayer.getPlayer().getHero().getCurrentHour()>=7 && myPlayer.getPlayer().getHero().getWillPower()<2){
+                    getDirectionPrince.setVisibility(View.INVISIBLE);
+                    endMovePrince.setVisibility(View.INVISIBLE);
+                    princeRegions.setVisibility(View.INVISIBLE);
+                }
             }
 
         }else {
@@ -964,9 +982,11 @@ public class Board extends AppCompatActivity {
                                                 //DRAW TIME MARKERS HERE
                                                 if (h.isHasEndedDay()) {
                                                     moveHeroTime(h, hourLocation.get(0)[0], hourLocation.get(0)[1]);
-                                                } else {
+                                                } else if(h.getCurrentHour()<=10) {
                                                     int time = h.getCurrentHour();
                                                     moveHeroTime(h, hourLocation.get(time)[0], hourLocation.get(time)[1]);
+                                                }else{
+                                                    System.out.println("already 10 hours");
                                                 }
                                             }
                                         }
@@ -1142,9 +1162,21 @@ public class Board extends AppCompatActivity {
                                                 }
 
 
+                                                pass.setVisibility(View.VISIBLE);
+                                                if (herog.getCurrentHour()>= 7 && herog.getWillPower()< 2) {
+                                                    System.out.println("the will power is "+ herog.getWillPower());
+
+                                                    realMove.setVisibility(View.INVISIBLE);
+                                                    pass.setVisibility(View.INVISIBLE);
+                                                    getDirectionPrince.setVisibility(View.INVISIBLE);
+                                                    endMovePrince.setVisibility(View.INVISIBLE);
+
+                                                }
+
+
 //                                            move.setVisibility(View.VISIBLE);
                                                 fight.setVisibility(View.VISIBLE);
-                                                pass.setVisibility(View.VISIBLE);
+//                                                pass.setVisibility(View.VISIBLE);
                                                 endDay.setVisibility(View.VISIBLE);
                                                 endMove.setVisibility(View.VISIBLE);
                                                 if (game.getPrinceThorald() != null) {
