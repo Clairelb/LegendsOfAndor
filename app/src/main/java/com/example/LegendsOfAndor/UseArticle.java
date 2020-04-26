@@ -15,9 +15,15 @@ import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+
 enum AcceptFalconTradeResponses{
     FALCON_TRADE_ACCEPTED, FALCON_TRADE_ACCEPT_FAILURE
 }
+
+enum ActivateWineskinResponses {
+    ERROR_DOES_NOT_OWN_WINESKIN, ERROR_NOT_CURRENT_HERO, WINESKIN_ACTIVATED
+}
+
 public class UseArticle extends AppCompatActivity {
     MyPlayer myPlayer;
     Button startFalconTrade;
@@ -128,6 +134,51 @@ public class UseArticle extends AppCompatActivity {
             }
         });
 
+        Button use_med_herb = (Button) findViewById(R.id.use_med_herb);
+        use_med_herb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), Use_Med_Herb_Options.class);
+                startActivity(myIntent);
+            }
+        });
+
+        Button use_telescope = (Button) findViewById(R.id.use_telescope);
+        use_telescope.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), Use_Telescope.class);
+                startActivity(myIntent);
+            }
+        });
+
+        Button use_wineskin = (Button) findViewById(R.id.use_wineskin);
+        use_wineskin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivateWineskinResponses activateWineskinResponses;
+                try{
+                    AsyncTask<String, Void, ActivateWineskinResponses> asyncTask;
+                    ActivateWineskinSender activateWineskinSender = new ActivateWineskinSender();
+                    asyncTask = activateWineskinSender.execute("");
+                    activateWineskinResponses = asyncTask.get();
+                    if(activateWineskinResponses == ActivateWineskinResponses.ERROR_DOES_NOT_OWN_WINESKIN){
+                        Toast.makeText(UseArticle.this, "Error. You do not own a wineskin", Toast.LENGTH_LONG).show();
+                    }
+                    else if (activateWineskinResponses == ActivateWineskinResponses.ERROR_NOT_CURRENT_HERO){
+                        Toast.makeText(UseArticle.this, "Error. It is not your turn", Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        Toast.makeText(UseArticle.this, "Wineskin activated", Toast.LENGTH_LONG).show();
+                        Intent myIntent = new Intent(v.getContext(), Board.class);
+                        startActivity(myIntent);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
     private static class GetGame extends AsyncTask<String, Void, Game > {
@@ -164,6 +215,25 @@ public class UseArticle extends AppCompatActivity {
 
                 String resultAsJsonString = response.getBody();
                 return new Gson().fromJson(resultAsJsonString, AcceptFalconTradeResponses.class );
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class ActivateWineskinSender extends AsyncTask<String, Void, ActivateWineskinResponses> {
+        @Override
+        protected ActivateWineskinResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/activateWineskin")
+                        .header("Content-Type", "application/json")
+                        .asString();
+                String resultAsJsonString = response.getBody();
+                return new Gson().fromJson(resultAsJsonString,ActivateWineskinResponses.class );
             } catch (UnirestException e) {
                 e.printStackTrace();
             }

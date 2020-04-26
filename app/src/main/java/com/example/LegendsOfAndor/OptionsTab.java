@@ -19,6 +19,10 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 
 import java.sql.Savepoint;
 
+enum SaveGameResponses {
+    SUCCESS, MUST_END_FIGHT
+}
+
 public class OptionsTab extends AppCompatActivity {
     private Button backb;
     private Button characterb;
@@ -100,10 +104,17 @@ public class OptionsTab extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try{
-                    AsyncTask<String, Void, Void> asyncTask;
+                    AsyncTask<String, Void, SaveGameResponses> asyncTask;
                     SaveGameSender saveGameSender = new SaveGameSender();
                     asyncTask = saveGameSender.execute("");
-                    Toast.makeText(OptionsTab.this, "Game Saved", Toast.LENGTH_LONG).show();
+                    SaveGameResponses saveGameResponses = asyncTask.get();
+                    if (saveGameResponses == null) {
+                        Toast.makeText(OptionsTab.this, "Save game error. No response from server.", Toast.LENGTH_LONG).show();
+                    } else if (saveGameResponses == SaveGameResponses.MUST_END_FIGHT) {
+                        Toast.makeText(OptionsTab.this, "Error. You cannot save while a fight is in progress.", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(OptionsTab.this, "Game Saved", Toast.LENGTH_LONG).show();
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -125,14 +136,18 @@ public class OptionsTab extends AppCompatActivity {
 
     }
 
-    private static class SaveGameSender extends AsyncTask<String, Void, Void> {
+    private static class SaveGameSender extends AsyncTask<String, Void, SaveGameResponses> {
         @Override
-        protected Void doInBackground(String... strings) {
+        protected SaveGameResponses doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
 
             try {
-                Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+myPlayer.getGame().getGameName() +"/"+ myPlayer.getPlayer().getUsername() + "/saveGame")
+                response = Unirest.post("http://"+myPlayer.getServerIP()+":8080/"+ myPlayer.getGame().getGameName() + "/saveGame")
                         .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, SaveGameResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }

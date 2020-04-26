@@ -1,5 +1,6 @@
 package com.example.LegendsOfAndor;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.LegendsOfAndor.PublicEnums.AddDropItemResponses;
 import com.google.gson.Gson;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
@@ -21,7 +21,7 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import java.util.ArrayList;
 
 enum BuyFromMerchantResponses {
-    SUCCESS, NOT_ENOUGH_GOLD, MERCHANT_DNE, MAX_ITEMS
+    SUCCESS, NOT_ENOUGH_GOLD, MERCHANT_DNE, MAX_ITEMS, MUST_END_MOVE
 }
 
 public class BuyFromMerchant extends AppCompatActivity {
@@ -29,6 +29,7 @@ public class BuyFromMerchant extends AppCompatActivity {
     @Override
     public void onBackPressed(){}
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -180,58 +181,32 @@ public class BuyFromMerchant extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         gold_av.setText(String.valueOf(MyPlayer.getInstance().getGame().getSinglePlayer(MyPlayer.getInstance().getPlayer().getUsername()).getHero().getGold()));
-                        merchantPurchase.setStrength(0);
-                        items.clear();
-                        merchantPurchase.setItems(items);
-                        amt_bow.setText(Integer.toString(0));
-                        amt_falcon.setText(Integer.toString(0));
-                        amt_helm.setText(Integer.toString(0));
-                        amt_shield.setText(Integer.toString(0));
-                        amt_sp.setText(Integer.toString(0));
-                        amt_telescope.setText(Integer.toString(0));
-                        amt_wineskin.setText(Integer.toString(0));
                     }
                     else if (buyFromMerchantResponses == BuyFromMerchantResponses.NOT_ENOUGH_GOLD){
                         Toast.makeText(BuyFromMerchant.this, "Purchase Failed. Not Enough Gold", Toast.LENGTH_LONG).show();
-                        merchantPurchase.setStrength(0);
-                        items.clear();
-                        merchantPurchase.setItems(items);
-                        amt_bow.setText(Integer.toString(0));
-                        amt_falcon.setText(Integer.toString(0));
-                        amt_helm.setText(Integer.toString(0));
-                        amt_shield.setText(Integer.toString(0));
-                        amt_sp.setText(Integer.toString(0));
-                        amt_telescope.setText(Integer.toString(0));
-                        amt_wineskin.setText(Integer.toString(0));
                     }
                     else if (buyFromMerchantResponses == BuyFromMerchantResponses.MAX_ITEMS){
                         Toast.makeText(BuyFromMerchant.this, "Purchase Failed. Not Enough Inventory Slots", Toast.LENGTH_LONG).show();
-                        merchantPurchase.setStrength(0);
-                        items.clear();
-                        merchantPurchase.setItems(items);
-                        amt_bow.setText(Integer.toString(0));
-                        amt_falcon.setText(Integer.toString(0));
-                        amt_helm.setText(Integer.toString(0));
-                        amt_shield.setText(Integer.toString(0));
-                        amt_sp.setText(Integer.toString(0));
-                        amt_telescope.setText(Integer.toString(0));
-                        amt_wineskin.setText(Integer.toString(0));
                     }
-                    else{
+                    else if (buyFromMerchantResponses == BuyFromMerchantResponses.MUST_END_MOVE) {
+                        Toast.makeText(BuyFromMerchant.this, "You must end your move to make a purchase", Toast.LENGTH_LONG).show();
+                    }
+                    else {
                         Toast.makeText(BuyFromMerchant.this, "No merchant located in your region", Toast.LENGTH_LONG).show();
-                        merchantPurchase.setStrength(0);
-                        items.clear();
-                        merchantPurchase.setItems(items);
-                        amt_bow.setText(Integer.toString(0));
-                        amt_falcon.setText(Integer.toString(0));
-                        amt_helm.setText(Integer.toString(0));
-                        amt_shield.setText(Integer.toString(0));
-                        amt_sp.setText(Integer.toString(0));
-                        amt_telescope.setText(Integer.toString(0));
-                        amt_wineskin.setText(Integer.toString(0));
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                } finally {
+                    merchantPurchase.setStrength(0);
+                    items.clear();
+                    merchantPurchase.setItems(items);
+                    amt_bow.setText(Integer.toString(0));
+                    amt_falcon.setText(Integer.toString(0));
+                    amt_helm.setText(Integer.toString(0));
+                    amt_shield.setText(Integer.toString(0));
+                    amt_sp.setText(Integer.toString(0));
+                    amt_telescope.setText(Integer.toString(0));
+                    amt_wineskin.setText(Integer.toString(0));
                 }
             }
         });

@@ -8,10 +8,14 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
@@ -19,6 +23,8 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 enum SelectHeroResponses {
     SELECT_HERO_SUCCESS, ERROR_HERO_ALREADY_SELECTED, ERROR_DUPLICATE_HERO
@@ -34,6 +40,10 @@ enum StartGameResponses {
 
 enum LeavePregameResponses {
     ERROR_GAME_LOADED, LEAVE_SUCCESS
+}
+
+enum LoadGameResponses {
+    ERROR_NOT_ALL_PLAYERS_SELECTED_HEROES, ERROR_PLAYER_NUM_MISMATCH, ERROR_HERO_MISMATCH, ERROR_DIFFICULTY_MISMATCH, NOT_HOST, NOT_ALL_PLAYERS_READY, NOT_ENOUGH_PLAYERS, LOAD_GAME_SUCCESS
 }
 
 public class WaitScreen extends AppCompatActivity {
@@ -56,6 +66,15 @@ public class WaitScreen extends AppCompatActivity {
     private Button isReadyBTN;
 
     private Spinner heroSP;
+
+    private Button getSavedGamesBTN;
+    private TextView gamenames;
+    private TextView game_name;
+    private ListView saved_games;
+    private Button loadGameBTN;
+    ArrayList<Game> savedGames = new ArrayList<>();
+    ArrayList<String> gameNames = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     private Thread t;
     private boolean threadTerminated = false;
@@ -95,6 +114,16 @@ public class WaitScreen extends AppCompatActivity {
         isReadyBTN = findViewById(R.id.ready_button);
 
         heroSP = findViewById(R.id.spinner3);
+
+        getSavedGamesBTN = findViewById(R.id.get_saved_games);
+        gamenames = findViewById(R.id.gamenames);
+        game_name = findViewById(R.id.game_name);
+        saved_games = findViewById(R.id.saved_games);
+        loadGameBTN = findViewById(R.id.load_game);
+        gamenames.setVisibility(View.INVISIBLE);
+        game_name.setVisibility(View.INVISIBLE);
+        saved_games.setVisibility(View.INVISIBLE);
+        loadGameBTN.setVisibility(View.INVISIBLE);
 
 
 
@@ -270,7 +299,11 @@ public class WaitScreen extends AppCompatActivity {
                                     } else {
                                         myPlayer.setGame(game);
                                         updatedGame = game;
-                                        interruptThreadAndStartActivity();
+                                        if(updatedGame.isGameLoaded()) {
+                                            interruptThreadAndStartActivityLoad();
+                                        } else {
+                                            interruptThreadAndStartActivity();
+                                        }
                                     }
                                 }
                             });
@@ -368,10 +401,92 @@ public class WaitScreen extends AppCompatActivity {
                         Toast.makeText(WaitScreen.this, "Start game error. Not every player in lobby is ready.", Toast.LENGTH_LONG).show();
                     } else {
                         myPlayer.setGame(updatedGame);
-                        interruptThreadAndStartActivity();
+                        if(updatedGame.isGameLoaded()) {
+                            interruptThreadAndStartActivityLoad();
+                        } else {
+                            interruptThreadAndStartActivity();
+                        }
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+            }
+        });
+
+        adapter = new ArrayAdapter<>(WaitScreen.this, android.R.layout.simple_list_item_1, gameNames);
+        saved_games.setAdapter(adapter);
+
+        getSavedGamesBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gamenames.setVisibility(View.VISIBLE);
+                game_name.setVisibility(View.VISIBLE);
+                saved_games.setVisibility(View.VISIBLE);
+                loadGameBTN.setVisibility(View.VISIBLE);
+                startGameBTN.setVisibility(View.INVISIBLE);
+
+                AsyncTask<String, Void, ArrayList<Game>> asyncTaskSaved;
+                try {
+                    GetSavedGames getSavedGames = new GetSavedGames();
+                    asyncTaskSaved = getSavedGames.execute();
+                    savedGames = asyncTaskSaved.get();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                for (Game g : savedGames) {
+                    if (g.getGameName() != null) {
+                        gameNames.add(g.getGameName());
+                    }
+                }
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        saved_games.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                game_name.setText(gameNames.get(position));
+            }
+        });
+
+        loadGameBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AsyncTask<String, Void, LoadGameResponses> asyncTaskLoad;
+                LoadGameResponses loadGameResponses;
+
+                if (game_name.getText() == null || game_name.getText().length() == 0) {
+                    Toast.makeText(WaitScreen.this, "No game selected", Toast.LENGTH_LONG).show();
+                } else {
+                    try {
+                        LoadGameSender loadGameSender = new LoadGameSender();
+                        String name = game_name.getText().toString();
+                        asyncTaskLoad = loadGameSender.execute(name);
+                        loadGameResponses = asyncTaskLoad.get();
+
+                        if (loadGameResponses == null) {
+                            Toast.makeText(WaitScreen.this, "Load game error. No response from server.", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.NOT_HOST) {
+                            Toast.makeText(WaitScreen.this, "Load game error. Only the host can load the game.", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.ERROR_NOT_ALL_PLAYERS_SELECTED_HEROES) {
+                            Toast.makeText(WaitScreen.this, "Load game error. All players must select a hero", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.ERROR_DIFFICULTY_MISMATCH) {
+                            Toast.makeText(WaitScreen.this, "Load game error. Difficulty does not match the saved game's difficulty", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.ERROR_HERO_MISMATCH) {
+                            Toast.makeText(WaitScreen.this, "Load game error. Heroes selected do not match the saved game's heroes", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.ERROR_PLAYER_NUM_MISMATCH) {
+                            Toast.makeText(WaitScreen.this, "Load game error. Number of players does match the saved game's", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.NOT_ALL_PLAYERS_READY) {
+                            Toast.makeText(WaitScreen.this, "Load game error. All the players must be ready", Toast.LENGTH_LONG).show();
+                        } else if (loadGameResponses == LoadGameResponses.NOT_ENOUGH_PLAYERS) {
+                            Toast.makeText(WaitScreen.this, "Load game error. Must have at least 2 players in the lobby.", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(WaitScreen.this, "Load game success", Toast.LENGTH_LONG).show();
+                            startGameBTN.setVisibility(View.VISIBLE);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -386,6 +501,39 @@ public class WaitScreen extends AppCompatActivity {
         startActivity(myIntent);
         finish();
     }
+
+    public void interruptThreadAndStartActivityLoad() {
+        threadTerminated = true;
+
+        Intent myIntent;
+        myIntent = new Intent(WaitScreen.this, Board.class);
+        myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myIntent);
+        finish();
+    }
+        /*Game g = myPlayer.getGame();
+        Fight f = g.getCurrentFight();
+
+        if (f != null) {
+            ArrayList<Hero> heroes = f.getHeroes();
+            for (int i = 0; i < g.getCurrentNumPlayers(); i++) {
+                if (myPlayer.getPlayer().getUsername().equals(g.getPlayers()[i].getUsername())) {
+                    for (Hero h : heroes) {
+                        if (h.getHeroClass() == g.getPlayers()[i].getHero().getHeroClass()) {
+                            Intent myIntent;
+                            myIntent = new Intent(WaitScreen.this, MonsterFight.class);
+                            myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(myIntent);
+                            finish();
+                        }
+                    }
+                    Intent myIntent;
+                    myIntent = new Intent(WaitScreen.this, Board.class);
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(myIntent);
+                    finish();
+                }
+            }*/
 
 //    public void interruptThreadAndStartActivity() {
 //        threadTerminated = true;
@@ -474,6 +622,47 @@ public class WaitScreen extends AppCompatActivity {
                 String resultAsJsonString = response.getBody();
 
                 return new Gson().fromJson(resultAsJsonString, StartGameResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class GetSavedGames extends AsyncTask<String, Void, ArrayList<Game>> {
+        @Override
+        protected ArrayList<Game> doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/getSavedGames")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                System.out.println("RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, new TypeToken<ArrayList<Game>>() {}.getType());
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class LoadGameSender extends AsyncTask<String, Void, LoadGameResponses> {
+        @Override
+        protected LoadGameResponses doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/loadGame")
+                        .header("Content-Type", "application/json")
+                        .body(strings[0])
+                        .asString();
+                String resultAsJsonString = response.getBody();
+
+                return new Gson().fromJson(resultAsJsonString, LoadGameResponses.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }

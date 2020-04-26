@@ -163,6 +163,12 @@
         <activity android:name=".UseArticle"
             android:screenOrientation="sensorLandscape"
             tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".Use_Telescope"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
+        <activity android:name=".Use_Med_Herb_Options"
+            android:screenOrientation="sensorLandscape"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

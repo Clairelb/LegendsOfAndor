@@ -7,6 +7,34 @@
     android:background="@drawable/wait_background"
     tools:context="com.example.LegendsOfAndor.WaitScreen">
 
+    <Button
+        android:id="@+id/load_game"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:text="@string/load_game"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/get_saved_games"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/get_saved_games"
+        android:layout_width="90dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="23dp"
+        android:background="@color/gray"
+        android:fontFamily="@font/gothic"
+        android:text="GET SAVED GAMES"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:id="@+id/hero3"
         android:layout_width="140dp"
@@ -284,5 +312,45 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm" />
+
+    <ListView
+        android:id="@+id/saved_games"
+        android:layout_width="190dp"
+        android:layout_height="101dp"
+        android:background="#7A009688"
+        android:divider="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.409" />
+
+    <TextView
+        android:id="@+id/gamenames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="123dp"
+        android:layout_marginRight="123dp"
+        android:layout_marginBottom="5dp"
+        android:background="#7A009688"
+        android:text="Saved Games:"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/saved_games"
+        app:layout_constraintEnd_toStartOf="@+id/ready2" />
+
+    <TextView
+        android:id="@+id/game_name"
+        android:layout_width="78dp"
+        android:layout_height="17dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="38dp"
+        android:background="#7A009688"
+        android:hint="GAME NAME"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/saved_games"
+        app:layout_constraintTop_toBottomOf="@+id/ready2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

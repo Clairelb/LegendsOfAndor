@@ -130,6 +130,7 @@
     <string name="rune_stoneB">Rune Stone B</string>
     <string name="rune_stoneY">Rune Stone Y</string>
     <string name="title_activity_event_card">Event Card</string>
+    <string name="load_game">LOAD GAME</string>
     <string name="use_bow">USE BOW</string>
     <string-array name="wizard_flip_index">
         <item>0</item>
@@ -140,4 +141,5 @@
         <item>5</item>
     </string-array>
     <string name="flip_btn">FLIP</string>
+    <string name="get_saved_games">GET SAVED GAMES</string>
 </resources>

@@ -1,10 +1,7 @@
 package com.example.LegendsOfAndor;
 
 import java.util.ArrayList;
-
-enum FogKind {
-    NONE, MONSTER, WINESKIN, TWO_WP, THREE_WP, SP, GOLD, WITCHBREW, EVENT
-}
+import com.example.LegendsOfAndor.PublicEnums.FogKind;
 
 public class Region {
     private int number;

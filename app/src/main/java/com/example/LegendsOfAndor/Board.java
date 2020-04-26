@@ -1425,7 +1425,7 @@ public class Board extends AppCompatActivity {
                                 } else if (f == FogKind.THREE_WP) {
                                     Toast.makeText(Board.this, "Three willpower points added.", Toast.LENGTH_LONG).show();
                                 } else if (f == FogKind.SP) {
-                                    Toast.makeText(Board.this, "Strength points added.", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(Board.this, "Strength point added.", Toast.LENGTH_LONG).show();
                                 } else if (f == FogKind.WITCHBREW) {
                                     Toast.makeText(Board.this, "A witchbrew was added to your inventory. Now proceeding to The Witch legend card...", Toast.LENGTH_LONG).show();
 
@@ -1465,9 +1465,9 @@ public class Board extends AppCompatActivity {
                         Intent myIntent = new Intent(v.getContext(), EndMove_Well.class);
                         startActivity(myIntent);
                     } else if (endMoveResponses == EndMoveResponses.MOVE_ALREADY_ENDED) {
-                        Toast.makeText(Board.this, "You have already ended your move", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Board.this, "You can't end your move", Toast.LENGTH_LONG).show();
                     } else if (endMoveResponses == EndMoveResponses.MUST_MOVE_TO_END_MOVE) {
-                        Toast.makeText(Board.this, "You must first move", Toast.LENGTH_LONG).show();
+                        Toast.makeText(Board.this, "You can't end your move", Toast.LENGTH_LONG).show();
                     } else if (endMoveResponses == EndMoveResponses.BUY_WITCH_BREW) {
                         threadTerminated = true;
                         Intent myIntent = new Intent(v.getContext(), BuyWitchBrewOptions.class);
