@@ -3,6 +3,7 @@ package com.example.LegendsOfAndor;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Path;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +30,7 @@ public class OptionsTab extends AppCompatActivity {
     private Button actionsb;
     private Button savegameb;
     private Button leavegameb;
+    private Button gameStatus;
     private MyPlayer myPlayer;
     private TextView livesLeft;
 
@@ -61,8 +63,13 @@ public class OptionsTab extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        livesLeft = findViewById(R.id.livesLeft);
-        livesLeft.setText("LIVES LEFT: " + myPlayer.getGame().getGoldenShields());
+        gameStatus = findViewById(R.id.tasksb);
+        gameStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(OptionsTab.this,"The game is currently in progress. You have " + myPlayer.getGame().getGoldenShields() + " lives left", Toast.LENGTH_LONG).show();
+            }
+        });
 
         actionsb = findViewById(R.id.actionsb);
 
