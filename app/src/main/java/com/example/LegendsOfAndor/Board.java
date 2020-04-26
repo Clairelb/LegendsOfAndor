@@ -837,6 +837,52 @@ public class Board extends AppCompatActivity {
         }
 
 
+        if (currentGame.getNarrator().getSlot() == NarratorSpace.C) {
+            if (!myPlayer.isLegendCardCDisplayed()) {
+                myPlayer.setLegendCardCDisplayed(true);
+                Intent intent;
+                if (currentGame.getDifficultMode()) {
+                    intent = new Intent(Board.this, LegendCardC1Hard.class);
+                } else {
+                    intent = new Intent(Board.this, LegendCardC1Easy.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                interruptThreadAndStartActivity(intent);
+            }
+        } else if (currentGame.getNarrator().getSlot() == currentGame.getRuneStoneLegendCard()) {
+            if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
+                myPlayer.setLegendCardRuneStonesDisplayed(true);
+                Intent intent;
+                if (currentGame.getDifficultMode()) {
+                    intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
+                } else {
+                    intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
+                }
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                interruptThreadAndStartActivity(intent);
+            }
+        } else if (currentGame.getNarrator().getSlot() == NarratorSpace.G) {
+            if (!myPlayer.isLegendCardGDisplayed()) {
+                myPlayer.setLegendCardGDisplayed(true);
+                Intent intent = new Intent(Board.this, LegendCardG.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                interruptThreadAndStartActivity(intent);
+            }
+        } else if (currentGame.getNarrator().getSlot() == NarratorSpace.N) {
+            if (!myPlayer.isLegendCardNDisplayed()) {
+                myPlayer.setLegendCardNDisplayed(true);
+                if (myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
+                    try {
+                        ActivateLegendCardN activateLegendCardN = new ActivateLegendCardN();
+                        activateLegendCardN.execute("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
+
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
