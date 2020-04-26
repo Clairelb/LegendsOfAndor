@@ -34,6 +34,18 @@ public class BuyWitchBrew extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_witch_brew);
         MyPlayer myPlayer = MyPlayer.getInstance();
+
+        try{
+            AsyncTask<String, Void, Game> asyncTask;
+            Game gameToSet;
+            GetGame getGame = new GetGame();
+            asyncTask = getGame.execute();
+            gameToSet = asyncTask.get();
+            myPlayer.setGame(gameToSet);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         Game game = myPlayer.getGame();
         int price;
 
@@ -106,6 +118,26 @@ public class BuyWitchBrew extends AppCompatActivity {
                         .asString();
                 String resultAsJsonString = response.getBody();
                 return new Gson().fromJson(resultAsJsonString, BuyWitchBrewResponses.class);
+            } catch (UnirestException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private static class GetGame extends AsyncTask<String, Void, Game > {
+        @Override
+        protected Game doInBackground(String... strings) {
+            MyPlayer myPlayer = MyPlayer.getInstance();
+            HttpResponse<String> response;
+
+            try {
+                response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameByUsername")
+                        .asString();
+
+                String resultAsJsonString = response.getBody();
+                System.out.println("RESPONSE BODY " + response.getBody());
+                return new Gson().fromJson(resultAsJsonString, Game.class);
             } catch (UnirestException e) {
                 e.printStackTrace();
             }
