@@ -125,7 +125,11 @@ public class WaitScreen extends AppCompatActivity {
         saved_games.setVisibility(View.INVISIBLE);
         loadGameBTN.setVisibility(View.INVISIBLE);
 
-
+        myPlayer.setLegendCardCDisplayed(false);
+        myPlayer.setLegendCardGDisplayed(false);
+        myPlayer.setLegendCardNDisplayed(false);
+        myPlayer.setLegendCardRuneStonesDisplayed(false);
+        myPlayer.setLegendCardTheWitchDisplayed(false);
 
         for (int i = 0; i < myPlayer.getGame().getMaxNumPlayers(); i++) {
             if (i == 0) {

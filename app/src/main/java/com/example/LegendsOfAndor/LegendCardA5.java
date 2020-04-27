@@ -46,7 +46,7 @@ public class LegendCardA5 extends AppCompatActivity {
         rollDie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (roll == 0) {
+                //if (roll == 0) {
                     roll = die.rollDie();
 
                     if (roll == 1) {
@@ -62,9 +62,9 @@ public class LegendCardA5 extends AppCompatActivity {
                     } else { // roll == 6
                         heroDie.setImageDrawable(getResources().getDrawable(getResourceID("archer_dice_6", "drawable", getApplicationContext())));
                     }
-                } else {
-                    Toast.makeText(LegendCardA5.this, "You may only roll the die once.", Toast.LENGTH_LONG).show();
-                }
+                //} else {
+                 //   Toast.makeText(LegendCardA5.this, "You may only roll the die once.", Toast.LENGTH_LONG).show();
+                //}
             }
         });
 
