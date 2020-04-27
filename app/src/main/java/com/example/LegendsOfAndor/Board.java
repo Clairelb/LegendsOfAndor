@@ -360,40 +360,45 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    AsyncTask<String, Void, MoveRC> asyncTask;
-                    MoveRC moveRC;
+                    if(!adapter.isEmpty()) {
+                        AsyncTask<String, Void, MoveRC> asyncTask;
+                        MoveRC moveRC;
 
-                    MoveSender moveSender = new MoveSender();
-                    asyncTask = moveSender.execute(new Gson().toJson(nextMove));
-                    Log.d("CHECK", "here");
-                    moveRC = asyncTask.get();
-                    if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER) {
-                        Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
-                    } else if (moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED) {
-                        Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG).show();
+                        MoveSender moveSender = new MoveSender();
+                        asyncTask = moveSender.execute(new Gson().toJson(nextMove));
+                        Log.d("CHECK", "here");
+                        moveRC = asyncTask.get();
+                        if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER) {
+                            Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
+                        } else if (moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED) {
+                            Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG).show();
+                        }
+
+                        AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
+                        GetRegionsSender getRegionsSender = new GetRegionsSender();
+                        GetAvailableRegionsReponses getAvailableRegionsReponses;
+
+                        asyncTask1 = getRegionsSender.execute();
+                        GetAvailableRegionsRC availableRegions = asyncTask1.get();
+                        Log.d("REGION", availableRegions.getResponse().toString());
+
+                        adapter.clear();
+
+                        ArrayList<Integer> available = availableRegions.getRegions();
+                        for (Integer i : available) {
+                            adapter.add(i.toString());
+                        }
+                        adapter.notifyDataSetChanged();
+                        sp.setAdapter(adapter);
+                    }else{
+                        Toast.makeText(Board.this, "You just do an operation that disables you to move", Toast.LENGTH_LONG).show();
                     }
 
-                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
-                    GetRegionsSender getRegionsSender = new GetRegionsSender();
-                    GetAvailableRegionsReponses getAvailableRegionsReponses;
 
-                    asyncTask1 = getRegionsSender.execute();
-                    GetAvailableRegionsRC availableRegions = asyncTask1.get();
-                    Log.d("REGION", availableRegions.getResponse().toString());
-
-                    adapter.clear();
-
-                    ArrayList<Integer> available = availableRegions.getRegions();
-                    for (Integer i : available) {
-                        adapter.add(i.toString());
-                    }
-                    adapter.notifyDataSetChanged();
-                    sp.setAdapter(adapter);
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                moveHero(myPlayer.getPlayer().getHero(), nextMove);
 
             }
         });
@@ -423,25 +428,29 @@ public class Board extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    AsyncTask<String, Void, Void> asyncTaskp1;
-                    MovePrinceSender movePrinceSender = new MovePrinceSender();
-                    asyncTaskp1 = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
+                    if(!adapterPrince.isEmpty()) {
+                        AsyncTask<String, Void, Void> asyncTaskp1;
+                        MovePrinceSender movePrinceSender = new MovePrinceSender();
+                        asyncTaskp1 = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
 
-                    AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
-                    GetRegionsSender getRegionsSender = new GetRegionsSender();
+                        AsyncTask<String, Void, GetAvailableRegionsRC> asyncTask1;
+                        GetRegionsSender getRegionsSender = new GetRegionsSender();
 
-                    asyncTask1 = getRegionsSender.execute();
-                    GetAvailableRegionsRC availableRegions = asyncTask1.get();
-                    Log.d("REGION", availableRegions.getResponse().toString());
+                        asyncTask1 = getRegionsSender.execute();
+                        GetAvailableRegionsRC availableRegions = asyncTask1.get();
+                        Log.d("REGION", availableRegions.getResponse().toString());
 
-                    adapter.clear();
+                        adapter.clear();
 
-                    ArrayList<Integer> available = availableRegions.getRegions();
-                    for (Integer i : available) {
-                        adapter.add(i.toString());
+                        ArrayList<Integer> available = availableRegions.getRegions();
+                        for (Integer i : available) {
+                            adapter.add(i.toString());
+                        }
+                        adapter.notifyDataSetChanged();
+                        sp.setAdapter(adapter);
+                    }else{
+                        Toast.makeText(Board.this, "You just do an operation that disables you to move the prince", Toast.LENGTH_LONG).show();
                     }
-                    adapter.notifyDataSetChanged();
-                    sp.setAdapter(adapter);
 
 //                    AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask;
 //                    GetPrinceSender getPrinceSender = new GetPrinceSender();
@@ -601,7 +610,7 @@ public class Board extends AppCompatActivity {
             } else {
                 realMove.setVisibility(View.INVISIBLE);
             }
-            if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2) {
+            if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2&& !herog.isWineskinActivated()) {
                 realMove.setVisibility(View.INVISIBLE);
                 pass.setVisibility(View.INVISIBLE);
                 getDirectionPrince.setVisibility(View.INVISIBLE);
@@ -771,7 +780,7 @@ public class Board extends AppCompatActivity {
                     endMovePrince.setVisibility(View.VISIBLE);
                     princeRegions.setVisibility(View.VISIBLE);
                 }
-                if (myPlayer.getPlayer().getHero().getCurrentHour() >= 7 && myPlayer.getPlayer().getHero().getWillPower() < 2) {
+                if (myPlayer.getPlayer().getHero().getCurrentHour() >= 7 && myPlayer.getPlayer().getHero().getWillPower() < 2&& !myPlayer.getPlayer().getHero().isWineskinActivated()) {
                     getDirectionPrince.setVisibility(View.INVISIBLE);
                     endMovePrince.setVisibility(View.INVISIBLE);
                     princeRegions.setVisibility(View.INVISIBLE);
@@ -1235,7 +1244,7 @@ public class Board extends AppCompatActivity {
 
 
                                                 pass.setVisibility(View.VISIBLE);
-                                                if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2) {
+                                                if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2 && !herog.isWineskinActivated()) {
                                                     System.out.println("the will power is " + herog.getWillPower());
 
                                                     realMove.setVisibility(View.INVISIBLE);
@@ -1274,10 +1283,16 @@ public class Board extends AppCompatActivity {
                                                         e.printStackTrace();
                                                     }
 
+                                                    if( herog.getCurrentHour()>=7 &&herog.getWillPower()<2&& !herog.isWineskinActivated()) {
+                                                        getDirectionPrince.setVisibility(View.INVISIBLE);
+                                                        endMovePrince.setVisibility(View.INVISIBLE);
+                                                        princeRegions.setVisibility(View.INVISIBLE);
+                                                    }else{
+                                                        getDirectionPrince.setVisibility(View.VISIBLE);
+                                                        endMovePrince.setVisibility(View.VISIBLE);
+                                                        princeRegions.setVisibility(View.VISIBLE);
+                                                    }
 
-                                                    getDirectionPrince.setVisibility(View.VISIBLE);
-                                                    endMovePrince.setVisibility(View.VISIBLE);
-                                                    princeRegions.setVisibility(View.VISIBLE);
                                                 } else {
                                                     getDirectionPrince.setVisibility(View.INVISIBLE);
                                                     endMovePrince.setVisibility(View.INVISIBLE);
