@@ -286,8 +286,6 @@ public class Board extends AppCompatActivity {
             if (reg.getRegion(i).isFogRevealed() == true) {
                 fogs.get(i).setVisibility(View.INVISIBLE);
             }
-            ;
-
         }
 
 
@@ -819,28 +817,6 @@ public class Board extends AppCompatActivity {
             }
         }
 
-        if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-            //foundEvent for a new day
-            try {
-                FoundEventSender foundEventSender = new FoundEventSender();
-                foundEventSender.execute("");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
-        }
-
-        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=7) {
-
-            Intent intent = new Intent(Board.this, EventCard.class);
-            intent.putExtra("EventID", currentGame.getFoundEvent());
-            currentGame.setFoundEvent(-1);
-            interruptThreadAndStartActivity(intent);
-
-        }
-
-
         if (currentGame.getNarrator().getSlot() == NarratorSpace.C) {
             if (!myPlayer.isLegendCardCDisplayed()) {
                 myPlayer.setLegendCardCDisplayed(true);
@@ -886,7 +862,6 @@ public class Board extends AppCompatActivity {
             }
         }
 
-
         if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
             //foundEvent for a new day
             try {
@@ -899,12 +874,17 @@ public class Board extends AppCompatActivity {
             myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
         }
 
-        if (currentGame.getFoundEvent() >= 0 && currentGame.getFoundEvent() <= 4) {
+        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=7) {
+
             Intent intent = new Intent(Board.this, EventCard.class);
             intent.putExtra("EventID", currentGame.getFoundEvent());
             currentGame.setFoundEvent(-1);
             interruptThreadAndStartActivity(intent);
+
         }
+
+
+
 
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
@@ -945,77 +925,80 @@ public class Board extends AppCompatActivity {
                                         gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                                         interruptThreadAndStartActivity(gameOverIntent);
-                                    } else {
-                                        if (game.isFoundWitch() && !myPlayer.isLegendCardTheWitchDisplayed()) {
-                                            myPlayer.setLegendCardTheWitchDisplayed(true);
+                                    }else {
+                                        if (game.isFoundWitch()) {
+                                            if (!myPlayer.isLegendCardTheWitchDisplayed()) {
+                                                myPlayer.setLegendCardTheWitchDisplayed(true);
 
-                                            Intent intent = new Intent(Board.this, LegendCardTheWitch.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                            interruptThreadAndStartActivity(intent);
-                                        } else {
-                                            if (game.getNarrator().getSlot() == NarratorSpace.C) {
-                                                if (!myPlayer.isLegendCardCDisplayed()) {
-                                                    myPlayer.setLegendCardCDisplayed(true);
-                                                    Intent intent;
-                                                    if (game.getDifficultMode()) {
-                                                        intent = new Intent(Board.this, LegendCardC1Hard.class);
-                                                    } else {
-                                                        intent = new Intent(Board.this, LegendCardC1Easy.class);
-                                                    }
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    interruptThreadAndStartActivity(intent);
+                                                Intent intent = new Intent(Board.this, LegendCardTheWitch.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        }
+
+
+                                        if (game.getNarrator().getSlot() == NarratorSpace.C) {
+                                            if (!myPlayer.isLegendCardCDisplayed()) {
+                                                myPlayer.setLegendCardCDisplayed(true);
+                                                Intent intent;
+                                                if (game.getDifficultMode()) {
+                                                    intent = new Intent(Board.this, LegendCardC1Hard.class);
+                                                } else {
+                                                    intent = new Intent(Board.this, LegendCardC1Easy.class);
                                                 }
-                                            } else if (game.getNarrator().getSlot() == game.getRuneStoneLegendCard()) {
-                                                if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
-                                                    myPlayer.setLegendCardRuneStonesDisplayed(true);
-                                                    Intent intent;
-                                                    if (game.getDifficultMode()) {
-                                                        intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
-                                                    } else {
-                                                        intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
-                                                    }
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    interruptThreadAndStartActivity(intent);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == game.getRuneStoneLegendCard()) {
+                                            if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
+                                                myPlayer.setLegendCardRuneStonesDisplayed(true);
+                                                Intent intent;
+                                                if (game.getDifficultMode()) {
+                                                    intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
+                                                } else {
+                                                    intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
                                                 }
-                                            } else if (game.getNarrator().getSlot() == NarratorSpace.G) {
-                                                if (!myPlayer.isLegendCardGDisplayed()) {
-                                                    myPlayer.setLegendCardGDisplayed(true);
-                                                    Intent intent = new Intent(Board.this, LegendCardG.class);
-                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    interruptThreadAndStartActivity(intent);
-                                                }
-                                            } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
-                                                if (!myPlayer.isLegendCardNDisplayed()) {
-                                                    myPlayer.setLegendCardNDisplayed(true);
-                                                    if (myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
-                                                        try {
-                                                            ActivateLegendCardN activateLegendCardN = new ActivateLegendCardN();
-                                                            activateLegendCardN.execute("");
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-                                                }
-                                            } else {
-                                                if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-                                                    // foundEvent for a new day
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == NarratorSpace.G) {
+                                            if (!myPlayer.isLegendCardGDisplayed()) {
+                                                myPlayer.setLegendCardGDisplayed(true);
+                                                Intent intent = new Intent(Board.this, LegendCardG.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
+                                            if (!myPlayer.isLegendCardNDisplayed()) {
+                                                myPlayer.setLegendCardNDisplayed(true);
+                                                if (myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
                                                     try {
-                                                        FoundEventSender foundEventSender = new FoundEventSender();
-                                                        foundEventSender.execute("");
+                                                        ActivateLegendCardN activateLegendCardN = new ActivateLegendCardN();
+                                                        activateLegendCardN.execute("");
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
                                                     }
-                                                    myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
                                                 }
-
-                                                if (game.getFoundEvent() >= 0 && game.getFoundEvent() <= 4) {
-                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=7) {
-
-                                                    Intent intent = new Intent(Board.this, EventCard.class);
-                                                    intent.putExtra("EventID", game.getFoundEvent());
-                                                    game.setFoundEvent(-1);
-                                                    interruptThreadAndStartActivity(intent);
+                                            }
+                                        } else {
+                                            if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+                                                // foundEvent for a new day
+                                                try {
+                                                    FoundEventSender foundEventSender = new FoundEventSender();
+                                                    foundEventSender.execute("");
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
                                                 }
+                                                myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
+                                            }
+
+                                            if (game.getFoundEvent() >= 0 && game.getFoundEvent() <= 7) {
+
+                                                Intent intent = new Intent(Board.this, EventCard.class);
+                                                intent.putExtra("EventID", game.getFoundEvent());
+                                                game.setFoundEvent(-1);
+                                                interruptThreadAndStartActivity(intent);
+
                                             }
                                         }
 
