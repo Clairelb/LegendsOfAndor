@@ -48,7 +48,16 @@ public class EventCard extends AppCompatActivity {
         ImageView ec5 = findViewById(R.id.e5);
         ec5.setVisibility(View.INVISIBLE);
 
-        ImageView[] EventCards = {ec1, ec2, ec3, ec4, ec5};
+        ImageView ec6 = findViewById(R.id.e6);
+        ec6.setVisibility(View.INVISIBLE);
+
+        ImageView ec7 = findViewById(R.id.e7);
+        ec7.setVisibility(View.INVISIBLE);
+
+        ImageView ec8 = findViewById(R.id.e8);
+        ec8.setVisibility(View.INVISIBLE);
+
+        ImageView[] EventCards = {ec1, ec2, ec3, ec4, ec5, ec6, ec7, ec8};
 
         Intent myIntent = getIntent();
         final int r = myIntent.getIntExtra("EventID",-1);
@@ -83,7 +92,7 @@ public class EventCard extends AppCompatActivity {
             if(checkGroupShield){ break;}
         }
 
-       if(r==0||r==3||checkGroupShield==false)
+       if(r==0||r==3||r==7||checkGroupShield==false)
        {
            backAndAccept.setVisibility(View.VISIBLE);
        }

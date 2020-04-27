@@ -55,6 +55,33 @@
         tools:layout_editor_absoluteX="42dp"
         tools:layout_editor_absoluteY="-58dp" />
 
+    <ImageView
+        android:id="@+id/e6"
+        android:layout_width="647dp"
+        android:layout_height="500dp"
+        android:src="@drawable/e6"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
+
+    <ImageView
+        android:id="@+id/e7"
+        android:layout_width="647dp"
+        android:layout_height="500dp"
+        android:src="@drawable/e7"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
+
+    <ImageView
+        android:id="@+id/e8"
+        android:layout_width="647dp"
+        android:layout_height="500dp"
+        android:src="@drawable/e8"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="42dp"
+        tools:layout_editor_absoluteY="-58dp" />
+
     <Button
         android:id="@+id/backAndAccept"
         android:layout_width="wrap_content"

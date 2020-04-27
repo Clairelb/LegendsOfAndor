@@ -845,7 +845,7 @@ public class Board extends AppCompatActivity {
             myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
         }
 
-        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=4) {
+        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=7) {
 
             Intent intent = new Intent(Board.this, EventCard.class);
             intent.putExtra("EventID", currentGame.getFoundEvent());
@@ -1008,7 +1008,7 @@ public class Board extends AppCompatActivity {
                                             myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
                                         }
 
-                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=4) {
+                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=7) {
 
                                             Intent intent = new Intent(Board.this, EventCard.class);
                                             intent.putExtra("EventID",game.getFoundEvent());
@@ -1923,7 +1923,7 @@ public class Board extends AppCompatActivity {
         protected Void doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             Random random = new Random();
-            int r = random.nextInt(5 - 0);
+            int r = random.nextInt(8 - 0);
 
             try {
                 Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/foundEvent")
