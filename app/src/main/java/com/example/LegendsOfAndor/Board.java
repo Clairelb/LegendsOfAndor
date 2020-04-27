@@ -595,7 +595,7 @@ public class Board extends AppCompatActivity {
             } else {
                 realMove.setVisibility(View.INVISIBLE);
             }
-            if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2) {
+            if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2&& !herog.isWineskinActivated()) {
                 realMove.setVisibility(View.INVISIBLE);
                 pass.setVisibility(View.INVISIBLE);
                 getDirectionPrince.setVisibility(View.INVISIBLE);
@@ -765,7 +765,7 @@ public class Board extends AppCompatActivity {
                     endMovePrince.setVisibility(View.VISIBLE);
                     princeRegions.setVisibility(View.VISIBLE);
                 }
-                if (myPlayer.getPlayer().getHero().getCurrentHour() >= 7 && myPlayer.getPlayer().getHero().getWillPower() < 2) {
+                if (myPlayer.getPlayer().getHero().getCurrentHour() >= 7 && myPlayer.getPlayer().getHero().getWillPower() < 2&& !myPlayer.getPlayer().getHero().isWineskinActivated()) {
                     getDirectionPrince.setVisibility(View.INVISIBLE);
                     endMovePrince.setVisibility(View.INVISIBLE);
                     princeRegions.setVisibility(View.INVISIBLE);
@@ -1194,7 +1194,7 @@ public class Board extends AppCompatActivity {
 
 
                                                 pass.setVisibility(View.VISIBLE);
-                                                if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2) {
+                                                if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2 && !herog.isWineskinActivated()) {
                                                     System.out.println("the will power is " + herog.getWillPower());
 
                                                     realMove.setVisibility(View.INVISIBLE);
@@ -1233,10 +1233,16 @@ public class Board extends AppCompatActivity {
                                                         e.printStackTrace();
                                                     }
 
+                                                    if( herog.getCurrentHour()<=7 ||herog.getWillPower()>1|| herog.isWineskinActivated()) {
+                                                        getDirectionPrince.setVisibility(View.VISIBLE);
+                                                        endMovePrince.setVisibility(View.VISIBLE);
+                                                        princeRegions.setVisibility(View.VISIBLE);
+                                                    }else{
+                                                        getDirectionPrince.setVisibility(View.INVISIBLE);
+                                                        endMovePrince.setVisibility(View.INVISIBLE);
+                                                        princeRegions.setVisibility(View.INVISIBLE);
+                                                    }
 
-                                                    getDirectionPrince.setVisibility(View.VISIBLE);
-                                                    endMovePrince.setVisibility(View.VISIBLE);
-                                                    princeRegions.setVisibility(View.VISIBLE);
                                                 } else {
                                                     getDirectionPrince.setVisibility(View.INVISIBLE);
                                                     endMovePrince.setVisibility(View.INVISIBLE);
