@@ -25,8 +25,8 @@
 
     <TextView
         android:id="@+id/buy_witch_brew_tv"
-        android:layout_width="711dp"
-        android:layout_height="55dp"
+        android:layout_width="678dp"
+        android:layout_height="33dp"
         android:autoText="false"
         android:background="#BFFFFFFF"
         android:text="Please select how many witch's brew you want."

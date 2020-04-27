@@ -141,7 +141,7 @@ public class Board extends AppCompatActivity {
         endMove = findViewById(R.id.endMove);
         endMove.setVisibility(View.INVISIBLE);
 
-        chatb= findViewById(R.id.chatb);
+        chatb = findViewById(R.id.chatb);
         optionsb = findViewById(R.id.optionsb);
 
         if (myPlayer.isFoundWitch()) {
@@ -155,10 +155,10 @@ public class Board extends AppCompatActivity {
         //previous found event
 
 
-        farmers.add((ImageView)findViewById(R.id.farmer0));
-        farmers.add((ImageView)findViewById(R.id.farmer1));
-        farmers.add((ImageView)findViewById(R.id.farmer2));
-        farmers.add((ImageView)findViewById(R.id.farmer3));
+        farmers.add((ImageView) findViewById(R.id.farmer0));
+        farmers.add((ImageView) findViewById(R.id.farmer1));
+        farmers.add((ImageView) findViewById(R.id.farmer2));
+        farmers.add((ImageView) findViewById(R.id.farmer3));
 
         gors.add((ImageView) findViewById(R.id.gor0));
         gors.add((ImageView) findViewById(R.id.gor1));
@@ -176,19 +176,16 @@ public class Board extends AppCompatActivity {
         gors.add((ImageView) findViewById(R.id.gor13));
         gors.add((ImageView) findViewById(R.id.gor14));
         gors.add((ImageView) findViewById(R.id.gor15));
-        for(int i = 0; i < gors.size();i++){
+        for (int i = 0; i < gors.size(); i++) {
             gors.get(i).setVisibility(View.INVISIBLE);
         }
-
-
-
 
 
         skrall.add((ImageView) findViewById(R.id.skrall0));
         skrall.add((ImageView) findViewById(R.id.skrall1));
         skrall.add((ImageView) findViewById(R.id.skrall2));
         skrall.add((ImageView) findViewById(R.id.skrall3));
-        for(int i = 0 ; i < skrall.size();i++){
+        for (int i = 0; i < skrall.size(); i++) {
             skrall.get(i).setVisibility(View.INVISIBLE);
         }
 
@@ -197,29 +194,29 @@ public class Board extends AppCompatActivity {
 
         wardraks.add((ImageView) findViewById(R.id.wardrak0));
         wardraks.add((ImageView) findViewById(R.id.wardrak1));
-        for(int i = 0 ; i < wardraks.size();i++){
+        for (int i = 0; i < wardraks.size(); i++) {
             wardraks.get(i).setVisibility(View.INVISIBLE);
         }
 
 
         //narrator
-        narrator = (ImageView)findViewById(R.id.narrator);
+        narrator = (ImageView) findViewById(R.id.narrator);
 
         //prince
-        prince = (ImageView)findViewById((R.id.prince));
+        prince = (ImageView) findViewById((R.id.prince));
         prince.setVisibility(View.INVISIBLE);
 
         //witch
-        witch = (ImageView)findViewById(R.id.witch);
+        witch = (ImageView) findViewById(R.id.witch);
 
-        wells.add((ImageView)findViewById(R.id.well5));
-        wells.add((ImageView)findViewById(R.id.well35));
-        wells.add((ImageView)findViewById(R.id.well45));
-        wells.add((ImageView)findViewById(R.id.well55));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell5));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell35));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell45));
-        emptyWells.add((ImageView)findViewById(R.id.emptywell55));
+        wells.add((ImageView) findViewById(R.id.well5));
+        wells.add((ImageView) findViewById(R.id.well35));
+        wells.add((ImageView) findViewById(R.id.well45));
+        wells.add((ImageView) findViewById(R.id.well55));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell5));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell35));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell45));
+        emptyWells.add((ImageView) findViewById(R.id.emptywell55));
 
         wells.get(0).setX(59);
         wells.get(0).setY(345);
@@ -238,29 +235,29 @@ public class Board extends AppCompatActivity {
         emptyWells.get(3).setX(1106);
         emptyWells.get(3).setY(103);
 
-        fogs.put(8,(ImageView)findViewById(R.id.fog8));
-        fogs.put(11,(ImageView)findViewById(R.id.fog11));
-        fogs.put(12,(ImageView)findViewById(R.id.fog12));
-        fogs.put(13,(ImageView)findViewById(R.id.fog13));
-        fogs.put(16,(ImageView)findViewById(R.id.fog16));
-        fogs.put(32,(ImageView)findViewById(R.id.fog32));
-        fogs.put(42,(ImageView)findViewById(R.id.fog42));
-        fogs.put(44,(ImageView)findViewById(R.id.fog44));
-        fogs.put(46,(ImageView)findViewById(R.id.fog46));
-        fogs.put(47,(ImageView)findViewById(R.id.fog47));
-        fogs.put(48,(ImageView)findViewById(R.id.fog48));
-        fogs.put(49,(ImageView)findViewById(R.id.fog49));
-        fogs.put(56,(ImageView)findViewById(R.id.fog56));
-        fogs.put(63,(ImageView)findViewById(R.id.fog63));
-        fogs.put(64,(ImageView)findViewById(R.id.fog64));
+        fogs.put(8, (ImageView) findViewById(R.id.fog8));
+        fogs.put(11, (ImageView) findViewById(R.id.fog11));
+        fogs.put(12, (ImageView) findViewById(R.id.fog12));
+        fogs.put(13, (ImageView) findViewById(R.id.fog13));
+        fogs.put(16, (ImageView) findViewById(R.id.fog16));
+        fogs.put(32, (ImageView) findViewById(R.id.fog32));
+        fogs.put(42, (ImageView) findViewById(R.id.fog42));
+        fogs.put(44, (ImageView) findViewById(R.id.fog44));
+        fogs.put(46, (ImageView) findViewById(R.id.fog46));
+        fogs.put(47, (ImageView) findViewById(R.id.fog47));
+        fogs.put(48, (ImageView) findViewById(R.id.fog48));
+        fogs.put(49, (ImageView) findViewById(R.id.fog49));
+        fogs.put(56, (ImageView) findViewById(R.id.fog56));
+        fogs.put(63, (ImageView) findViewById(R.id.fog63));
+        fogs.put(64, (ImageView) findViewById(R.id.fog64));
         RegionDatabase reg = myPlayer.getGame().getRegionDatabase();
-        fogs.get(8).setX(reg.getRegion(8).getCoordinates()[0]+10);
-        fogs.get(8).setY(reg.getRegion(8).getCoordinates()[1]-10);
-        fogs.get(11).setX(reg.getRegion(11).getCoordinates()[0]+5);
+        fogs.get(8).setX(reg.getRegion(8).getCoordinates()[0] + 10);
+        fogs.get(8).setY(reg.getRegion(8).getCoordinates()[1] - 10);
+        fogs.get(11).setX(reg.getRegion(11).getCoordinates()[0] + 5);
         fogs.get(11).setY(reg.getRegion(11).getCoordinates()[1]);
-        fogs.get(12).setX(reg.getRegion(12).getCoordinates()[0]+10);
-        fogs.get(12).setY(reg.getRegion(12).getCoordinates()[1]-5);
-        fogs.get(13).setX(reg.getRegion(13).getCoordinates()[0]+5);
+        fogs.get(12).setX(reg.getRegion(12).getCoordinates()[0] + 10);
+        fogs.get(12).setY(reg.getRegion(12).getCoordinates()[1] - 5);
+        fogs.get(13).setX(reg.getRegion(13).getCoordinates()[0] + 5);
         fogs.get(13).setY(reg.getRegion(13).getCoordinates()[1]);
         fogs.get(16).setX(reg.getRegion(16).getCoordinates()[0]);
         fogs.get(16).setY(reg.getRegion(16).getCoordinates()[1]);
@@ -269,7 +266,7 @@ public class Board extends AppCompatActivity {
         fogs.get(42).setX(reg.getRegion(42).getCoordinates()[0]);
         fogs.get(42).setY(reg.getRegion(42).getCoordinates()[1]);
         fogs.get(44).setX(reg.getRegion(44).getCoordinates()[0]);
-        fogs.get(44).setY(reg.getRegion(44).getCoordinates()[1]-1);
+        fogs.get(44).setY(reg.getRegion(44).getCoordinates()[1] - 1);
         fogs.get(46).setX(reg.getRegion(46).getCoordinates()[0]);
         fogs.get(46).setY(reg.getRegion(46).getCoordinates()[1]);
         fogs.get(47).setX(reg.getRegion(47).getCoordinates()[0]);
@@ -285,36 +282,35 @@ public class Board extends AppCompatActivity {
         fogs.get(64).setX(reg.getRegion(64).getCoordinates()[0]);
         fogs.get(64).setY(reg.getRegion(64).getCoordinates()[1]);
 
-        for(int i=7; i<67; i++)
-        {
-            if(reg.getRegion(i).isFogRevealed()== true)
-            {
+        for (int i = 7; i < 67; i++) {
+            if (reg.getRegion(i).isFogRevealed() == true) {
                 fogs.get(i).setVisibility(View.INVISIBLE);
-            };
+            }
+            ;
 
         }
 
 
-        theros.add((ImageView)findViewById(R.id.twarrior));
+        theros.add((ImageView) findViewById(R.id.twarrior));
         theros.get(0).setVisibility(View.INVISIBLE);
-        theros.add((ImageView)findViewById(R.id.tarcher_male));
+        theros.add((ImageView) findViewById(R.id.tarcher_male));
         theros.get(1).setVisibility(View.INVISIBLE);
-        theros.add((ImageView)findViewById(R.id.tdwarf_male));
+        theros.add((ImageView) findViewById(R.id.tdwarf_male));
         theros.get(2).setVisibility(View.INVISIBLE);
-        theros.add((ImageView)findViewById(R.id.tmage_male));
+        theros.add((ImageView) findViewById(R.id.tmage_male));
         theros.get(3).setVisibility(View.INVISIBLE);
 
-        for(int i = 0; i < myPlayer.getGame().getAllHeroes().size();i++){
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD){
+        for (int i = 0; i < myPlayer.getGame().getAllHeroes().size(); i++) {
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD) {
                 theros.get(3).setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF) {
                 theros.get(2).setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER) {
                 theros.get(1).setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR) {
                 theros.get(0).setVisibility(View.VISIBLE);
             }
         }
@@ -323,11 +319,11 @@ public class Board extends AppCompatActivity {
         final TextView spText = findViewById(R.id.spText);
         spText.setVisibility(View.INVISIBLE);
 
-        sp=(Spinner)findViewById(R.id.sp);
+        sp = (Spinner) findViewById(R.id.sp);
         sp.bringToFront();
-        String[]ls=getResources().getStringArray(R.array.action);
+        String[] ls = getResources().getStringArray(R.array.action);
 
-        for(int i=0;i<ls.length;i++){
+        for (int i = 0; i < ls.length; i++) {
             list.add(ls[i]);
         }
 
@@ -335,13 +331,11 @@ public class Board extends AppCompatActivity {
         endMovePrince.setVisibility(View.INVISIBLE);
 
 
-
         getDirectionPrince = findViewById(R.id.getRegionPrince);
         getDirectionPrince.setVisibility(View.INVISIBLE);
 
         princeRegions = findViewById(R.id.spPrinceRegion);
         princeRegions.setVisibility(View.INVISIBLE);
-
 
 
 //        confirmMovePrince.setOnClickListener(new View.OnClickListener(){
@@ -361,7 +355,7 @@ public class Board extends AppCompatActivity {
         realMove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try{
+                try {
                     AsyncTask<String, Void, MoveRC> asyncTask;
                     MoveRC moveRC;
 
@@ -369,9 +363,9 @@ public class Board extends AppCompatActivity {
                     asyncTask = moveSender.execute(new Gson().toJson(nextMove));
                     Log.d("CHECK", "here");
                     moveRC = asyncTask.get();
-                    if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER){
+                    if (moveRC.getMoveResponses() == MoveResponses.PICK_UP_FARMER) {
                         Toast.makeText(Board.this, "You can pick up a farmer at this region", Toast.LENGTH_LONG).show();
-                    } else if (moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED){
+                    } else if (moveRC.getMoveResponses() == MoveResponses.FARMERS_DIED) {
                         Toast.makeText(Board.this, "The farmer you were previous carrying died", Toast.LENGTH_LONG).show();
                     }
 
@@ -386,16 +380,16 @@ public class Board extends AppCompatActivity {
                     adapter.clear();
 
                     ArrayList<Integer> available = availableRegions.getRegions();
-                    for(Integer i: available){
+                    for (Integer i : available) {
                         adapter.add(i.toString());
                     }
                     adapter.notifyDataSetChanged();
                     sp.setAdapter(adapter);
 
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                moveHero(myPlayer.getPlayer().getHero(),nextMove);
+                moveHero(myPlayer.getPlayer().getHero(), nextMove);
 
             }
         });
@@ -407,7 +401,7 @@ public class Board extends AppCompatActivity {
         princeRegions.setAdapter((adapterPrince));
         princeRegions.getSelectedItem();
 
-        princeRegions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+        princeRegions.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -420,11 +414,11 @@ public class Board extends AppCompatActivity {
 
             }
         });
-        getDirectionPrince.setOnClickListener(new View.OnClickListener(){
+        getDirectionPrince.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                try{
+                try {
                     AsyncTask<String, Void, Void> asyncTaskp1;
                     MovePrinceSender movePrinceSender = new MovePrinceSender();
                     asyncTaskp1 = movePrinceSender.execute(new Gson().toJson(PrinceNextMove));
@@ -439,7 +433,7 @@ public class Board extends AppCompatActivity {
                     adapter.clear();
 
                     ArrayList<Integer> available = availableRegions.getRegions();
-                    for(Integer i: available){
+                    for (Integer i : available) {
                         adapter.add(i.toString());
                     }
                     adapter.notifyDataSetChanged();
@@ -484,15 +478,14 @@ public class Board extends AppCompatActivity {
 //                    }
 
 
-
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
 
-        adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         sp.setAdapter(adapter);
@@ -500,7 +493,6 @@ public class Board extends AppCompatActivity {
         sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
 
 
                 Integer space = Integer.parseInt(adapter.getItem(position));
@@ -539,44 +531,43 @@ public class Board extends AppCompatActivity {
         //final Toolbar toolbar2 = findViewById(R.id.toolbar2);
         //toolbar2.setVisibility(View.INVISIBLE);
 
-        hourLocation.put(0,new Integer[]{644,15});
-        hourLocation.put(1,new Integer[]{892,15});
-        hourLocation.put(2,new Integer[]{971,15});
-        hourLocation.put(3,new Integer[]{1042,15});
-        hourLocation.put(4,new Integer[]{1122,15});
-        hourLocation.put(5,new Integer[]{1198,15});
-        hourLocation.put(6,new Integer[]{1269,15});
-        hourLocation.put(7,new Integer[]{1345,15});
-        hourLocation.put(8,new Integer[]{1447,15});
-        hourLocation.put(9,new Integer[]{1527,15});
-        hourLocation.put(10,new Integer[]{1603,15});
+        hourLocation.put(0, new Integer[]{644, 15});
+        hourLocation.put(1, new Integer[]{892, 15});
+        hourLocation.put(2, new Integer[]{971, 15});
+        hourLocation.put(3, new Integer[]{1042, 15});
+        hourLocation.put(4, new Integer[]{1122, 15});
+        hourLocation.put(5, new Integer[]{1198, 15});
+        hourLocation.put(6, new Integer[]{1269, 15});
+        hourLocation.put(7, new Integer[]{1345, 15});
+        hourLocation.put(8, new Integer[]{1447, 15});
+        hourLocation.put(9, new Integer[]{1527, 15});
+        hourLocation.put(10, new Integer[]{1603, 15});
 
         this.archer = findViewById(R.id.archer_male);
         this.archer.setVisibility(View.INVISIBLE);
         this.wizard = findViewById(R.id.mage_male);
         this.wizard.setVisibility(View.INVISIBLE);
-        this.dwarf  = findViewById(R.id.dwarf_male);
+        this.dwarf = findViewById(R.id.dwarf_male);
         this.dwarf.setVisibility(View.INVISIBLE);
         this.warrior = findViewById(R.id.warrior);
         this.warrior.setVisibility(View.INVISIBLE);
-        for(int i = 0; i < myPlayer.getGame().getAllHeroes().size();i++){
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD){
+        for (int i = 0; i < myPlayer.getGame().getAllHeroes().size(); i++) {
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WIZARD) {
                 this.wizard.setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.DWARF) {
                 this.dwarf.setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.ARCHER) {
                 this.archer.setVisibility(View.VISIBLE);
             }
-            if(myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR){
+            if (myPlayer.getGame().getAllHeroes().get(i) == HeroClass.WARRIOR) {
                 this.warrior.setVisibility(View.VISIBLE);
             }
         }
 
 
-
-        try{
+        try {
             AsyncTask<String, Void, Game> asyncTask;
             Game gameToSet;
             GetGame getGame = new GetGame();
@@ -584,29 +575,29 @@ public class Board extends AppCompatActivity {
             gameToSet = asyncTask.get();
             System.out.println(gameToSet);
             myPlayer.setGame(gameToSet);
-            for(int i = 0; i < gameToSet.getCurrentNumPlayers(); i++){
-                if(gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())){
+            for (int i = 0; i < gameToSet.getCurrentNumPlayers(); i++) {
+                if (gameToSet.getPlayers()[i].getUsername().equals(myPlayer.getPlayer().getUsername())) {
                     myPlayer.setPlayer(gameToSet.getPlayers()[i]);
                     System.out.println("SET PLAYER");
                     break;
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         Game currentGame = myPlayer.getGame();
-        if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()){
-            Toast.makeText(Board.this,"It is your turn to go first", Toast.LENGTH_LONG).show();
+        if (currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+            Toast.makeText(Board.this, "It is your turn to go first", Toast.LENGTH_LONG).show();
             Hero herog = myPlayer.getGame().getCurrentHero();
             pass.setVisibility(View.VISIBLE);
 
-            if(herog.getCurrentHour()<10){
+            if (herog.getCurrentHour() < 10) {
                 realMove.setVisibility(View.VISIBLE);
 
-            }else{
+            } else {
                 realMove.setVisibility(View.INVISIBLE);
             }
-            if(herog.getCurrentHour()>=7 && herog.getWillPower() <2){
+            if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2) {
                 realMove.setVisibility(View.INVISIBLE);
                 pass.setVisibility(View.INVISIBLE);
                 getDirectionPrince.setVisibility(View.INVISIBLE);
@@ -626,20 +617,19 @@ public class Board extends AppCompatActivity {
             Toast.makeText(Board.this, "The rune stones legend card appears at " + currentGame.getRuneStoneLegendCard().toString() + " space.", Toast.LENGTH_LONG).show();
         }
 
-        for(int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
+        for (int i = 0; i < currentGame.getCurrentNumPlayers(); i++) {
             //DRAW PLAYERS HERE
             Hero h = currentGame.getPlayers()[i].getHero();
             Integer s = h.getCurrentSpace();
             moveHero(h, s);
 
             //DRAW TIME MARKERS HERE
-            if(h.isHasEndedDay())
-            {
-                moveHeroTime(h, hourLocation.get(0)[0],hourLocation.get(0)[1]);
-            }else if (h.getCurrentHour() <= 10){
+            if (h.isHasEndedDay()) {
+                moveHeroTime(h, hourLocation.get(0)[0], hourLocation.get(0)[1]);
+            } else if (h.getCurrentHour() <= 10) {
                 int time = h.getCurrentHour();
-                moveHeroTime(h, hourLocation.get(time)[0],hourLocation.get(time)[1]);
-            }else {
+                moveHeroTime(h, hourLocation.get(time)[0], hourLocation.get(time)[1]);
+            } else {
                 System.out.println("already 10 hour");
             }
         }
@@ -650,28 +640,28 @@ public class Board extends AppCompatActivity {
         ArrayList<Integer> skralRegion = new ArrayList<>();
         ArrayList<Integer> wardrakRegion1 = new ArrayList<>();
 
-        for(Region r: mRegion){
-            if(r.getCurrentCreatures()!= null){
-                System.out.println(r.getCurrentCreatures().get(0).getCreatureType() + " " +r.getNumber());
+        for (Region r : mRegion) {
+            if (r.getCurrentCreatures() != null) {
+                System.out.println(r.getCurrentCreatures().get(0).getCreatureType() + " " + r.getNumber());
             }
-            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR){
+            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR) {
                 gorRegion.add(r.getNumber());
             }
-            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL){
+            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL) {
                 skralRegion.add(r.getNumber());
             }
 
-            if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS){
+            if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.WARDRAKS) {
                 wardrakRegion1.add(r.getNumber());
             }
         }
-        System.out.println("total"+ mRegion.size());
+        System.out.println("total" + mRegion.size());
         System.out.println("sieze" + gorRegion.size());
-        for(int i = 0; i <gorRegion.size();i++){
+        for (int i = 0; i < gorRegion.size(); i++) {
             gors.get(i).setVisibility(View.VISIBLE);
-            moveMonster(gors.get(i),gorRegion.get(i));
+            moveMonster(gors.get(i), gorRegion.get(i));
         }
-        for(int i = 0; i < skralRegion.size();i++){
+        for (int i = 0; i < skralRegion.size(); i++) {
             skrall.get(i).setVisibility((View.VISIBLE));
             moveMonster(skrall.get(i), skralRegion.get(i));
         }
@@ -683,68 +673,64 @@ public class Board extends AppCompatActivity {
         }
 
         //Update Wells
-        if(currentGame.getRegionDatabase().getRegion(5).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(5).isFountainStatus()) {
             wells.get(0).setVisibility(View.VISIBLE);
             emptyWells.get(0).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(0).setVisibility(View.INVISIBLE);
             emptyWells.get(0).setVisibility(View.VISIBLE);
         }
-        if(currentGame.getRegionDatabase().getRegion(35).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(35).isFountainStatus()) {
             wells.get(1).setVisibility(View.VISIBLE);
             emptyWells.get(1).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(1).setVisibility(View.INVISIBLE);
             emptyWells.get(1).setVisibility(View.VISIBLE);
         }
-        if(currentGame.getRegionDatabase().getRegion(45).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(45).isFountainStatus()) {
             wells.get(2).setVisibility(View.VISIBLE);
             emptyWells.get(2).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(2).setVisibility(View.INVISIBLE);
             emptyWells.get(2).setVisibility(View.VISIBLE);
         }
-        if(currentGame.getRegionDatabase().getRegion(55).isFountainStatus())
-        {
+        if (currentGame.getRegionDatabase().getRegion(55).isFountainStatus()) {
             wells.get(3).setVisibility(View.VISIBLE);
             emptyWells.get(3).setVisibility(View.INVISIBLE);
-        }else{
+        } else {
             wells.get(3).setVisibility(View.INVISIBLE);
             emptyWells.get(3).setVisibility(View.VISIBLE);
         }
 
         //narrators
         NarratorSpace narratorSpace = myPlayer.getGame().getNarrator().getSlot();
-        HashMap<NarratorSpace,Integer[]> narratorSpaceHashMap = myPlayer.getGame().getNarrator().getMap();
+        HashMap<NarratorSpace, Integer[]> narratorSpaceHashMap = myPlayer.getGame().getNarrator().getMap();
         Integer[] narratorCoor = narratorSpaceHashMap.get(narratorSpace);
         movePic(narrator, narratorCoor[0], narratorCoor[1]);
 
         ArrayList<Integer> toDrawFarmer1 = new ArrayList<>();
         ArrayList<Region> regionList1 = myPlayer.getGame().getRegionDatabase().getRegionDatabase();
-        for(int i = 0; i < regionList1.size();i++){
+        for (int i = 0; i < regionList1.size(); i++) {
             int num = regionList1.get(i).getFarmers().size();
-            for(int j = 0; j < num; j++){
-                if(!regionList1.get(i).getFarmers().get(j).isBeingCarried){
+            for (int j = 0; j < num; j++) {
+                if (!regionList1.get(i).getFarmers().get(j).isBeingCarried) {
                     toDrawFarmer1.add(regionList1.get(i).getNumber());
                 }
             }
         }
-        for(int i = 0 ; i < farmers.size();i++){
+        for (int i = 0; i < farmers.size(); i++) {
             farmers.get(i).setVisibility(View.INVISIBLE);
         }
 
-        for(int i = 0; i < toDrawFarmer1.size();i ++){
-            farmers.get(i).setVisibility(View.VISIBLE)  ;
+        for (int i = 0; i < toDrawFarmer1.size(); i++) {
+            farmers.get(i).setVisibility(View.VISIBLE);
             displayFarmer(farmers.get(i), toDrawFarmer1.get(i));
         }
         Witch temp = myPlayer.getGame().getWitch();
-        if(temp!= null){
+        if (temp != null) {
             witch.setVisibility(View.VISIBLE);
             displayFarmer(witch, temp.getCurrentPosition());
-        }else{
+        } else {
             witch.setVisibility(View.INVISIBLE);
         }
 
@@ -767,28 +753,28 @@ public class Board extends AppCompatActivity {
             }
             adapter.notifyDataSetChanged();
             sp.setAdapter(adapter);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         if (myPlayer.getGame().getPrinceThorald() != null) {
             displayFarmer(prince, myPlayer.getGame().getPrinceThorald().currentPosition);
             prince.setVisibility(View.VISIBLE);
-            if(currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
+            if (currentGame.getCurrentHero().getHeroClass() == myPlayer.getPlayer().getHero().getHeroClass()) {
 
-                if(myPlayer.getPlayer().getHero().getCurrentHour() <7){
+                if (myPlayer.getPlayer().getHero().getCurrentHour() < 7) {
                     getDirectionPrince.setVisibility(View.VISIBLE);
                     endMovePrince.setVisibility(View.VISIBLE);
                     princeRegions.setVisibility(View.VISIBLE);
                 }
-                if(myPlayer.getPlayer().getHero().getCurrentHour()>=7 && myPlayer.getPlayer().getHero().getWillPower()<2){
+                if (myPlayer.getPlayer().getHero().getCurrentHour() >= 7 && myPlayer.getPlayer().getHero().getWillPower() < 2) {
                     getDirectionPrince.setVisibility(View.INVISIBLE);
                     endMovePrince.setVisibility(View.INVISIBLE);
                     princeRegions.setVisibility(View.INVISIBLE);
                 }
             }
 
-        }else {
+        } else {
             getDirectionPrince.setVisibility(View.INVISIBLE);
             endMovePrince.setVisibility(View.INVISIBLE);
             princeRegions.setVisibility(View.INVISIBLE);
@@ -817,41 +803,20 @@ public class Board extends AppCompatActivity {
         ArrayList<Region> allregion1 = currentGame.getRegionDatabase().getRegionDatabase();
 
 
-        for(Region r : allregion1){
-            if(r.getCurrentCreatures().size()>0){
-                System.out.println("here"+r.getCurrentCreatures().get(0).getCreatureType()+ " "+ r.getNumber());
-                if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS){
-                    moveMonster(skrall_boss,r.getNumber());
+        for (Region r : allregion1) {
+            if (r.getCurrentCreatures().size() > 0) {
+                System.out.println("here" + r.getCurrentCreatures().get(0).getCreatureType() + " " + r.getNumber());
+                if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS) {
+                    moveMonster(skrall_boss, r.getNumber());
                     skrall_boss.setVisibility(View.VISIBLE);
                 }
-                if(r.getCurrentCreatures().get(0).getCreatureType() .equals(CreatureType.SKRAL_BOSS)){
-                    moveMonster(skrall_boss,r.getNumber());
+                if (r.getCurrentCreatures().get(0).getCreatureType().equals(CreatureType.SKRAL_BOSS)) {
+                    moveMonster(skrall_boss, r.getNumber());
                     skrall_boss.setVisibility(View.VISIBLE);
                 }
 //                moveMonster(skrall_boss,r.getNumber());
 
             }
-        }
-
-        if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-            //foundEvent for a new day
-            try {
-                FoundEventSender foundEventSender = new FoundEventSender();
-                foundEventSender.execute("");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
-        }
-
-        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=4) {
-
-            Intent intent = new Intent(Board.this, EventCard.class);
-            intent.putExtra("EventID", currentGame.getFoundEvent());
-            currentGame.setFoundEvent(-1);
-            interruptThreadAndStartActivity(intent);
-
         }
 
 
@@ -901,6 +866,25 @@ public class Board extends AppCompatActivity {
         }
 
 
+        if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+            //foundEvent for a new day
+            try {
+                FoundEventSender foundEventSender = new FoundEventSender();
+                foundEventSender.execute("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
+        }
+
+        if (currentGame.getFoundEvent() >= 0 && currentGame.getFoundEvent() <= 4) {
+            Intent intent = new Intent(Board.this, EventCard.class);
+            intent.putExtra("EventID", currentGame.getFoundEvent());
+            currentGame.setFoundEvent(-1);
+            interruptThreadAndStartActivity(intent);
+        }
+
 
         t = new Thread(new Runnable() { // add logic that if game is active go to game board and end the thread
             @Override
@@ -911,7 +895,7 @@ public class Board extends AppCompatActivity {
                         final HttpResponse<String> response = Unirest.get("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getPlayer().getUsername() + "/getGameUpdate")
                                 .asString();
 
-                        if(response.getCode() == 200){
+                        if (response.getCode() == 200) {
                             final Game game = new Gson().fromJson(response.getBody(), Game.class);
                             if (game != null) {
                                 MyPlayer.getInstance().setGame(game);
@@ -920,7 +904,7 @@ public class Board extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     if (game.isLeftGame()) {
-                                        Toast.makeText(Board.this,"Someone left the game. Going back to the join/create game screen...", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(Board.this, "Someone left the game. Going back to the join/create game screen...", Toast.LENGTH_LONG).show();
 
                                         Intent intent = new Intent(Board.this, CreateGame.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -934,87 +918,83 @@ public class Board extends AppCompatActivity {
                                     }
 
 
-                                    if(game.getGoldenShields() <= 0){
+                                    if (game.getGoldenShields() <= 0) {
                                         myPlayer.getGame().setGameStatus(GameStatus.GAME_LOST);
                                         Intent gameOverIntent = new Intent(Board.this, GameOver.class);
                                         gameOverIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
                                         interruptThreadAndStartActivity(gameOverIntent);
-                                    }else {
-                                        if (game.isFoundWitch()) {
-                                            if (!myPlayer.isLegendCardTheWitchDisplayed()) {
-                                                myPlayer.setLegendCardTheWitchDisplayed(true);
+                                    } else {
+                                        if (game.isFoundWitch() && !myPlayer.isLegendCardTheWitchDisplayed()) {
+                                            myPlayer.setLegendCardTheWitchDisplayed(true);
 
-                                                Intent intent = new Intent(Board.this, LegendCardTheWitch.class);
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                interruptThreadAndStartActivity(intent);
-                                            }
-                                        }
-
-
-                                        if (game.getNarrator().getSlot() == NarratorSpace.C) {
-                                            if (!myPlayer.isLegendCardCDisplayed()) {
-                                                myPlayer.setLegendCardCDisplayed(true);
-                                                Intent intent;
-                                                if (game.getDifficultMode()) {
-                                                    intent = new Intent(Board.this, LegendCardC1Hard.class);
-                                                } else {
-                                                    intent = new Intent(Board.this, LegendCardC1Easy.class);
+                                            Intent intent = new Intent(Board.this, LegendCardTheWitch.class);
+                                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            interruptThreadAndStartActivity(intent);
+                                        } else {
+                                            if (game.getNarrator().getSlot() == NarratorSpace.C) {
+                                                if (!myPlayer.isLegendCardCDisplayed()) {
+                                                    myPlayer.setLegendCardCDisplayed(true);
+                                                    Intent intent;
+                                                    if (game.getDifficultMode()) {
+                                                        intent = new Intent(Board.this, LegendCardC1Hard.class);
+                                                    } else {
+                                                        intent = new Intent(Board.this, LegendCardC1Easy.class);
+                                                    }
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    interruptThreadAndStartActivity(intent);
                                                 }
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                interruptThreadAndStartActivity(intent);
-                                            }
-                                        } else if (game.getNarrator().getSlot() == game.getRuneStoneLegendCard()) {
-                                            if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
-                                                myPlayer.setLegendCardRuneStonesDisplayed(true);
-                                                Intent intent;
-                                                if (game.getDifficultMode()) {
-                                                    intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
-                                                } else {
-                                                    intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
+                                            } else if (game.getNarrator().getSlot() == game.getRuneStoneLegendCard()) {
+                                                if (!myPlayer.isLegendCardRuneStonesDisplayed()) {
+                                                    myPlayer.setLegendCardRuneStonesDisplayed(true);
+                                                    Intent intent;
+                                                    if (game.getDifficultMode()) {
+                                                        intent = new Intent(Board.this, LegendCardRuneStonesHard.class);
+                                                    } else {
+                                                        intent = new Intent(Board.this, LegendCardRuneStonesEasy.class);
+                                                    }
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    interruptThreadAndStartActivity(intent);
                                                 }
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                interruptThreadAndStartActivity(intent);
-                                            }
-                                        } else if (game.getNarrator().getSlot() == NarratorSpace.G) {
-                                            if (!myPlayer.isLegendCardGDisplayed()) {
-                                                myPlayer.setLegendCardGDisplayed(true);
-                                                Intent intent = new Intent(Board.this, LegendCardG.class);
-                                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                interruptThreadAndStartActivity(intent);
-                                            }
-                                        } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
-                                            if (!myPlayer.isLegendCardNDisplayed()) {
-                                                myPlayer.setLegendCardNDisplayed(true);
-                                                if (myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
+                                            } else if (game.getNarrator().getSlot() == NarratorSpace.G) {
+                                                if (!myPlayer.isLegendCardGDisplayed()) {
+                                                    myPlayer.setLegendCardGDisplayed(true);
+                                                    Intent intent = new Intent(Board.this, LegendCardG.class);
+                                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    interruptThreadAndStartActivity(intent);
+                                                }
+                                            } else if (game.getNarrator().getSlot() == NarratorSpace.N) {
+                                                if (!myPlayer.isLegendCardNDisplayed()) {
+                                                    myPlayer.setLegendCardNDisplayed(true);
+                                                    if (myPlayer.getPlayer().getUsername().equals(myPlayer.getGame().getPlayers()[0].getUsername())) {
+                                                        try {
+                                                            ActivateLegendCardN activateLegendCardN = new ActivateLegendCardN();
+                                                            activateLegendCardN.execute("");
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                }
+                                            } else {
+                                                if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+                                                    // foundEvent for a new day
                                                     try {
-                                                        ActivateLegendCardN activateLegendCardN = new ActivateLegendCardN();
-                                                        activateLegendCardN.execute("");
+                                                        FoundEventSender foundEventSender = new FoundEventSender();
+                                                        foundEventSender.execute("");
                                                     } catch (Exception e) {
                                                         e.printStackTrace();
                                                     }
+                                                    myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
+                                                }
+
+                                                if (game.getFoundEvent() >= 0 && game.getFoundEvent() <= 4) {
+
+                                                    Intent intent = new Intent(Board.this, EventCard.class);
+                                                    intent.putExtra("EventID", game.getFoundEvent());
+                                                    game.setFoundEvent(-1);
+                                                    interruptThreadAndStartActivity(intent);
                                                 }
                                             }
-                                        }
-
-                                        if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-                                            // foundEvent for a new day
-                                            try {
-                                                FoundEventSender foundEventSender = new FoundEventSender();
-                                                foundEventSender.execute("");
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
-                                            }
-                                            myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
-                                        }
-
-                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=4) {
-
-                                            Intent intent = new Intent(Board.this, EventCard.class);
-                                            intent.putExtra("EventID",game.getFoundEvent());
-                                            game.setFoundEvent(-1);
-                                            interruptThreadAndStartActivity(intent);
-
                                         }
 
 
@@ -1028,10 +1008,10 @@ public class Board extends AppCompatActivity {
                                                 //DRAW TIME MARKERS HERE
                                                 if (h.isHasEndedDay()) {
                                                     moveHeroTime(h, hourLocation.get(0)[0], hourLocation.get(0)[1]);
-                                                } else if(h.getCurrentHour()<=10) {
+                                                } else if (h.getCurrentHour() <= 10) {
                                                     int time = h.getCurrentHour();
                                                     moveHeroTime(h, hourLocation.get(time)[0], hourLocation.get(time)[1]);
-                                                }else{
+                                                } else {
                                                     System.out.println("already 10 hours");
                                                 }
                                             }
@@ -1061,27 +1041,27 @@ public class Board extends AppCompatActivity {
                                         ArrayList<Integer> skralRegion = new ArrayList<>();
                                         ArrayList<Integer> wardrakRegion = new ArrayList<>();
 
-                                        for(Region r : allRegion){
+                                        for (Region r : allRegion) {
 //                                            if(r.getCurrentCreatures().size()>0&&r.getCurrentCreatures().get(0).getCreatureType()== CreatureType.SKRAL_BOSS){
 //                                                moveMonster(skrall_boss,r.getNumber());
 //
 //                                            }
-                                            if(r.getCurrentCreatures().size()>0){
-                                                System.out.println("here " + r.getCurrentCreatures().get(0).getCreatureType()+ " "+ r.getNumber());
-                                                if(r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS){
-                                                    moveMonster(skrall_boss,r.getNumber());
+                                            if (r.getCurrentCreatures().size() > 0) {
+                                                System.out.println("here " + r.getCurrentCreatures().get(0).getCreatureType() + " " + r.getNumber());
+                                                if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.SKRAL_BOSS) {
+                                                    moveMonster(skrall_boss, r.getNumber());
                                                     skrall_boss.setVisibility(View.VISIBLE);
                                                 }
-                                                if(r.getCurrentCreatures().get(0).getCreatureType() .equals(CreatureType.SKRAL_BOSS)){
-                                                    moveMonster(skrall_boss,r.getNumber());
+                                                if (r.getCurrentCreatures().get(0).getCreatureType().equals(CreatureType.SKRAL_BOSS)) {
+                                                    moveMonster(skrall_boss, r.getNumber());
                                                     skrall_boss.setVisibility(View.VISIBLE);
                                                 }
                                             }
                                         }
 
                                         for (Region r : mRegion) {
-                                            if(r.getCurrentCreatures().get(0)!= null){
-                                                System.out.println(r.getCurrentCreatures().get(0).getCreatureType()+ " "+ r.getNumber());
+                                            if (r.getCurrentCreatures().get(0) != null) {
+                                                System.out.println(r.getCurrentCreatures().get(0).getCreatureType() + " " + r.getNumber());
                                             }
                                             if (r.getCurrentCreatures().get(0).getCreatureType() == CreatureType.GOR) {
                                                 gorRegion.add(r.getNumber());
@@ -1192,7 +1172,7 @@ public class Board extends AppCompatActivity {
                                                 }
                                             }
                                         }
-                                        if (game.getCurrentHero() != null && myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero() != null){
+                                        if (game.getCurrentHero() != null && myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero() != null) {
                                             if (game.getCurrentHero().getHeroClass() == myPlayer.getGame().getSinglePlayer(myPlayer.getPlayer().getUsername()).getHero().getHeroClass()) {
 //                                            Hero herom = myPlayer.getPlayer().getHero();
 //                                            Hero herog = myPlayer.getGame().getCurrentHero();
@@ -1209,8 +1189,8 @@ public class Board extends AppCompatActivity {
 
 
                                                 pass.setVisibility(View.VISIBLE);
-                                                if (herog.getCurrentHour()>= 7 && herog.getWillPower()< 2) {
-                                                    System.out.println("the will power is "+ herog.getWillPower());
+                                                if (herog.getCurrentHour() >= 7 && herog.getWillPower() < 2) {
+                                                    System.out.println("the will power is " + herog.getWillPower());
 
                                                     realMove.setVisibility(View.INVISIBLE);
                                                     pass.setVisibility(View.INVISIBLE);
@@ -1227,26 +1207,26 @@ public class Board extends AppCompatActivity {
                                                 endMove.setVisibility(View.VISIBLE);
                                                 if (game.getPrinceThorald() != null) {
 
-                                                        try {
-                                                            AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
-                                                            GetPrinceSender getPrinceSender = new GetPrinceSender();
-                                                            GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
+                                                    try {
+                                                        AsyncTask<String, Void, GetPrinceThoraldMovesRC> asyncTask2;
+                                                        GetPrinceSender getPrinceSender = new GetPrinceSender();
+                                                        GetPrinceThoraldMovesResponses getPrinceThoraldMovesResponses;
 
-                                                            asyncTask2 = getPrinceSender.execute();
-                                                            GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
+                                                        asyncTask2 = getPrinceSender.execute();
+                                                        GetPrinceThoraldMovesRC princeAvailableRegion = asyncTask2.get();
 
-                                                            ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
-                                                            adapterPrince.clear();
-                                                            for (Integer i : availableMove) {
-                                                                String temp1 = i + "";
-                                                                adapterPrince.add(temp1);
-                                                            }
-
-                                                            adapterPrince.notifyDataSetChanged();
-                                                            princeRegions.setAdapter(adapterPrince);
-                                                        } catch (Exception e) {
-                                                            e.printStackTrace();
+                                                        ArrayList<Integer> availableMove = princeAvailableRegion.getMoves();
+                                                        adapterPrince.clear();
+                                                        for (Integer i : availableMove) {
+                                                            String temp1 = i + "";
+                                                            adapterPrince.add(temp1);
                                                         }
+
+                                                        adapterPrince.notifyDataSetChanged();
+                                                        princeRegions.setAdapter(adapterPrince);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
 
 
                                                     getDirectionPrince.setVisibility(View.VISIBLE);
@@ -1283,7 +1263,6 @@ public class Board extends AppCompatActivity {
             }
         });
         t.start();
-
 
 
 //        move.setOnClickListener(new View.OnClickListener(){
@@ -1359,9 +1338,9 @@ public class Board extends AppCompatActivity {
             }
         });
 
-        fight.setOnClickListener(new View.OnClickListener(){
+        fight.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 try {
                     AsyncTask<String, Void, GetPossibleCreaturesToFightRC> asyncTask;
 
@@ -1382,7 +1361,7 @@ public class Board extends AppCompatActivity {
                         Toast.makeText(Board.this, "Fight error. No creature found.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.DAY_ENDED) {
                         Toast.makeText(Board.this, "Fight error. Cannot fight after day ended.", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.NOT_CURRENT_TURN){
+                    } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.NOT_CURRENT_TURN) {
                         Toast.makeText(Board.this, "Fight error. It is not your turn yet.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get().getGetPossibleCreaturesToFightResponses() == GetPossibleCreaturesToFightResponses.CANNOT_FIGHT_AFTER_MOVE) {
                         Toast.makeText(Board.this, "Fight error. Cannot fight after moving.", Toast.LENGTH_LONG).show();
@@ -1412,7 +1391,7 @@ public class Board extends AppCompatActivity {
                         Toast.makeText(Board.this, "Pass error. Your day already ended.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == PassResponses.MUST_END_DAY) {
                         Toast.makeText(Board.this, "Pass error. You must end your day now.", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == PassResponses.NOT_CURRENT_TURN){
+                    } else if (asyncTask.get() == PassResponses.NOT_CURRENT_TURN) {
                         Toast.makeText(Board.this, "Pass error. It is not your turn yet.", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == PassResponses.PASS_SUCCESSFUL_WP_DEDUCTED) {
                         Toast.makeText(Board.this, "Successfully passed turn. 2 Willpower deducted for overtime.", Toast.LENGTH_LONG).show();
@@ -1445,7 +1424,7 @@ public class Board extends AppCompatActivity {
                         Toast.makeText(Board.this, "New day!", Toast.LENGTH_LONG).show();
                     } else if (asyncTask.get() == EndDayResponses.GAME_OVER) {
                         Toast.makeText(Board.this, "Game over!", Toast.LENGTH_LONG).show();
-                    } else if (asyncTask.get() == EndDayResponses.NOT_CURRENT_TURN){
+                    } else if (asyncTask.get() == EndDayResponses.NOT_CURRENT_TURN) {
                         Toast.makeText(Board.this, "End day. It is not your turn yet.", Toast.LENGTH_LONG).show();
                     } else { // ONLY_PLAYER_LEFT
                         Toast.makeText(Board.this, "Success. You ended your day.", Toast.LENGTH_LONG).show();
@@ -1458,27 +1437,27 @@ public class Board extends AppCompatActivity {
         });
 
 
-        endMovePrince.setOnClickListener(new View.OnClickListener(){
+        endMovePrince.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 EndMovePrinceThoraldResponses endMovePrinceThoraldResponses;
-                try{
-                    AsyncTask<String,Void,EndMovePrinceThoraldResponses> asyncTask;
+                try {
+                    AsyncTask<String, Void, EndMovePrinceThoraldResponses> asyncTask;
                     EndMovePrinceSender endMovePrinceSender = new EndMovePrinceSender();
                     asyncTask = endMovePrinceSender.execute("");
                     endMovePrinceThoraldResponses = asyncTask.get();
 
-                    if(endMovePrinceThoraldResponses == EndMovePrinceThoraldResponses.SUCCESS){
+                    if (endMovePrinceThoraldResponses == EndMovePrinceThoraldResponses.SUCCESS) {
                         Toast.makeText(Board.this, "Move prince successfully", Toast.LENGTH_LONG).show();
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        endMove.setOnClickListener(new View.OnClickListener(){
+        endMove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EndMoveResponses endMoveResponses;
@@ -1551,9 +1530,9 @@ public class Board extends AppCompatActivity {
                         Intent myIntent = new Intent(v.getContext(), BuyWitchBrewOptions.class);
                         startActivity(myIntent);
                     } else {
-                        Toast.makeText(Board.this,"Successfully ended your move",Toast.LENGTH_LONG).show();
+                        Toast.makeText(Board.this, "Successfully ended your move", Toast.LENGTH_LONG).show();
                     }
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -1569,7 +1548,6 @@ public class Board extends AppCompatActivity {
         });
 
     }
-
 
     public void interruptThreadAndStartActivity(Intent myIntent){
         threadTerminated = true;
