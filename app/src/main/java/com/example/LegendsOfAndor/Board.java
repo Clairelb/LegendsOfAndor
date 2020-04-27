@@ -819,6 +819,27 @@ public class Board extends AppCompatActivity {
             }
         }
 
+        if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+            //foundEvent for a new day
+            try {
+                FoundEventSender foundEventSender = new FoundEventSender();
+                foundEventSender.execute("");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
+        }
+
+        if (currentGame.getFoundEvent()>=0 && currentGame.getFoundEvent()<=7) {
+
+            Intent intent = new Intent(Board.this, EventCard.class);
+            intent.putExtra("EventID", currentGame.getFoundEvent());
+            currentGame.setFoundEvent(-1);
+            interruptThreadAndStartActivity(intent);
+
+        }
+
 
         if (currentGame.getNarrator().getSlot() == NarratorSpace.C) {
             if (!myPlayer.isLegendCardCDisplayed()) {
@@ -988,6 +1009,7 @@ public class Board extends AppCompatActivity {
                                                 }
 
                                                 if (game.getFoundEvent() >= 0 && game.getFoundEvent() <= 4) {
+                                        if (game.getFoundEvent()>=0 && game.getFoundEvent()<=7) {
 
                                                     Intent intent = new Intent(Board.this, EventCard.class);
                                                     intent.putExtra("EventID", game.getFoundEvent());
@@ -1901,7 +1923,7 @@ public class Board extends AppCompatActivity {
         protected Void doInBackground(String... strings) {
             MyPlayer myPlayer = MyPlayer.getInstance();
             Random random = new Random();
-            int r = random.nextInt(5 - 0);
+            int r = random.nextInt(8 - 0);
 
             try {
                 Unirest.post("http://" + myPlayer.getServerIP() + ":8080/" + myPlayer.getGame().getGameName() + "/" + myPlayer.getPlayer().getUsername() + "/foundEvent")
