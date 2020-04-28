@@ -886,36 +886,38 @@ public class Board extends AppCompatActivity {
         }
 
         if (!skipEventCard) {
-            if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-                //foundEvent for a new day
+            if (currentGame.getNarrator().getSlot() != NarratorSpace.A) {
+                if (currentGame.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+                    //foundEvent for a new day
+                    try {
+                        FoundEventSender foundEventSender = new FoundEventSender();
+                        foundEventSender.execute("");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
+                }
+
                 try {
-                    FoundEventSender foundEventSender = new FoundEventSender();
-                    foundEventSender.execute("");
+                    AsyncTask<String, Void, Game> asyncTask;
+                    Game gameToSet;
+                    GetGame getGame = new GetGame();
+                    asyncTask = getGame.execute();
+                    gameToSet = asyncTask.get();
+                    myPlayer.setGame(gameToSet);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                currentGame = myPlayer.getGame();
 
-                myPlayer.setCurrentNarratorSpace(currentGame.getNarrator().getSlot());
-            }
+                if (currentGame.getFoundEvent() >= 0 && currentGame.getFoundEvent() <= 7) {
+                    Intent intent = new Intent(Board.this, EventCard.class);
+                    intent.putExtra("EventID", currentGame.getFoundEvent());
+                    currentGame.setFoundEvent(-1);
+                    interruptThreadAndStartActivity(intent);
 
-            try {
-                AsyncTask<String, Void, Game> asyncTask;
-                Game gameToSet;
-                GetGame getGame = new GetGame();
-                asyncTask = getGame.execute();
-                gameToSet = asyncTask.get();
-                myPlayer.setGame(gameToSet);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            currentGame = myPlayer.getGame();
-
-            if (currentGame.getFoundEvent() >= 0 && currentGame.getFoundEvent() <= 7) {
-                Intent intent = new Intent(Board.this, EventCard.class);
-                intent.putExtra("EventID", currentGame.getFoundEvent());
-                currentGame.setFoundEvent(-1);
-                interruptThreadAndStartActivity(intent);
-
+                }
             }
         }
 
