@@ -1028,24 +1028,26 @@ public class Board extends AppCompatActivity {
                                                             }
                                                         }
                                                     } else {
-                                                        if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
-                                                            // foundEvent for a new day
-                                                            try {
-                                                                FoundEventSender foundEventSender = new FoundEventSender();
-                                                                foundEventSender.execute("");
-                                                            } catch (Exception e) {
-                                                                e.printStackTrace();
+                                                        if (game.getNarrator().getSlot() != NarratorSpace.A) {
+                                                            if (game.getNarrator().getSlot() != myPlayer.getCurrentNarratorSpace()) { // if requires .touch() and this does not show until .touch() is pressed
+                                                                // foundEvent for a new day
+                                                                try {
+                                                                    FoundEventSender foundEventSender = new FoundEventSender();
+                                                                    foundEventSender.execute("");
+                                                                } catch (Exception e) {
+                                                                    e.printStackTrace();
+                                                                }
+                                                                myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
                                                             }
-                                                            myPlayer.setCurrentNarratorSpace(game.getNarrator().getSlot());
-                                                        }
 
-                                                        if (game.getFoundEvent() >= 0 && game.getFoundEvent() <= 7) {
-                                                            drawInThread = false;
+                                                            if (game.getFoundEvent() >= 0 && game.getFoundEvent() <= 7) {
+                                                                drawInThread = false;
 
-                                                            Intent intent = new Intent(Board.this, EventCard.class);
-                                                            intent.putExtra("EventID", game.getFoundEvent());
-                                                            game.setFoundEvent(-1);
-                                                            interruptThreadAndStartActivity(intent);
+                                                                Intent intent = new Intent(Board.this, EventCard.class);
+                                                                intent.putExtra("EventID", game.getFoundEvent());
+                                                                game.setFoundEvent(-1);
+                                                                interruptThreadAndStartActivity(intent);
+                                                            }
                                                         }
                                                     }
                                                 }
