@@ -427,7 +427,6 @@ public class WaitScreen extends AppCompatActivity {
                 game_name.setVisibility(View.VISIBLE);
                 saved_games.setVisibility(View.VISIBLE);
                 loadGameBTN.setVisibility(View.VISIBLE);
-                startGameBTN.setVisibility(View.INVISIBLE);
 
                 AsyncTask<String, Void, ArrayList<Game>> asyncTaskSaved;
                 try {

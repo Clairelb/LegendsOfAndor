@@ -315,24 +315,24 @@
 
     <ListView
         android:id="@+id/saved_games"
-        android:layout_width="190dp"
-        android:layout_height="101dp"
+        android:layout_width="175dp"
+        android:layout_height="88dp"
         android:background="#7A009688"
         android:divider="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintHorizontal_bias="0.339"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.409" />
+        app:layout_constraintVertical_bias="0.427" />
 
     <TextView
         android:id="@+id/gamenames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="123dp"
-        android:layout_marginRight="123dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginRight="91dp"
+        android:layout_marginBottom="4dp"
         android:background="#7A009688"
         android:text="Saved Games:"
         android:textColor="@color/black"
@@ -343,8 +343,8 @@
         android:id="@+id/game_name"
         android:layout_width="78dp"
         android:layout_height="17dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="38dp"
         android:background="#7A009688"
         android:hint="GAME NAME"
